@@ -54,7 +54,7 @@ const currentRank = document.getElementById("currentRank");
 
 currentRank.style.display = "none"; 
 rankButton.innerText = "Show rank"; 
-
+//dit stuk is niet om te janken
 rankButton.onclick = function() {
     if (evolveLVL >= 5) {
         rank = "Beginner"
@@ -63,7 +63,7 @@ rankButton.onclick = function() {
         rank = "Enge tatta"
     }
 }
-
+//vanaf hier gaat janken verder
 rankButton.addEventListener("click", function() {
     if (currentRank.style.display === "none") {
         currentRank.style.display = "block";
