@@ -30,7 +30,7 @@ html, body {
     height: 50px;
     background-color: beige;
     position: absolute;
-    top: 600px;
+    top: 650px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -43,7 +43,7 @@ html, body {
     height: 50px;
     background-color: beige;
     position: absolute;
-    top: 650px;
+    top: 700px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -51,4 +51,25 @@ html, body {
     border-radius: 15px;
 }
 
+#rankButton {
+    width: 150;
+    height: 50px;
+    background-color: beige;
+    position: absolute;
+    top: 750px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+#currentRank {
+    background-color: beige;
+    position: absolute;
+    top: 800px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
 

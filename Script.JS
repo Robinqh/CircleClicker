@@ -12,6 +12,8 @@ let price = 10 * (power / evolveLVL);
 
 let evoCost = evolveLVL * 1250;
 
+let rank = "Skere gozer"
+
 document.getElementById("pointValue").innerText = clicks;
 document.getElementById("pointCost").innerText = price;
 document.getElementById("evoCost").innerText = evoCost;
@@ -45,3 +47,31 @@ evolve.onclick = function() {
         document.getElementById("evoCost").innerText = evoCost;
     }
 }
+//Wtf gebeurt hieronder ): Chatgpt red levens: ik leer dit later wel.
+// Fix for showing/hiding rank and updating button text
+const rankButton = document.getElementById("rankButton");
+const currentRank = document.getElementById("currentRank");
+
+currentRank.style.display = "none"; 
+rankButton.innerText = "Show rank"; 
+
+rankButton.onclick = function() {
+    if (evolveLVL >= 5) {
+        rank = "Beginner"
+    }
+    if (evolveLVL >= 10) {
+        rank = "Enge tatta"
+    }
+}
+
+rankButton.addEventListener("click", function() {
+    if (currentRank.style.display === "none") {
+        currentRank.style.display = "block";
+        currentRank.innerText = "Your rank is: " + rank;
+        rankButton.innerText = "Hide rank";
+    } else {
+        currentRank.style.display = "none";
+        rankButton.innerText = "Show rank";
+    }
+});
+//Tot hier ben ik aan het janken (:
