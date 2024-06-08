@@ -1,4 +1,4 @@
-let clicks = 1250;
+let clicks = 0;
 const circle = document.getElementById("circle");
 
 let increasePower = 1;
@@ -24,7 +24,8 @@ const autoupgrade = document.getElementById("autoupgrade")
 
 let autoprice = 100;
 
-
+let powerupgrades = 0;
+let autoupgrades = 0;
 
 let CurrentClickPower = power
 let CurrentAutoPower = autopower
@@ -48,9 +49,10 @@ circle.onclick = function(){
 powerupgrade.onclick = function(){
     if (clicks >= powerprice) {
         clicks -= powerprice;
+        powerupgrades ++;
         power += 1 * evolveLVL;
         increasePower *= 1.2;
-        powerprice = Math.round(10 * (power / evolveLVL) + increasePower - 1);
+        powerprice = Math.round(20 * powerupgrades + increasePower);
         CurrentClickPower = power
         CurrentAutoPower = autopower
         document.getElementById("pointValue").innerText = clicks;
@@ -64,9 +66,10 @@ powerupgrade.onclick = function(){
 autoupgrade.onclick = function() {
     if (clicks >= autoprice) {
         clicks -= autoprice;
+        autoupgrades ++;
         autopower += 1 * evolveLVL;
         increaseAuto *= 1.25;
-        autoprice = Math.round(10 * (autopower / evolveLVL) + increaseAuto)
+        autoprice = Math.round(10 * autoupgrades + increaseAuto);
         CurrentClickPower = power
         CurrentAutoPower = autopower
         document.getElementById("pointValue").innerText = clicks;
