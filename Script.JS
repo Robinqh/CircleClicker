@@ -1,4 +1,4 @@
-let clicks = 0;
+let clicks = 1250;
 const circle = document.getElementById("circle");
 
 let increasePower = 1;
@@ -7,7 +7,10 @@ let increaseAuto = 100;
 let evolveLVL = 1;
 const evolve = document.getElementById("evolve");
 
-let power = 1 * evolveLVL;
+let permapower = 1;
+let permaprice = 10000 * permapower;
+
+let power = 1 * evolveLVL + (10 * permapower) - 10;
 const powerupgrade = document.getElementById("powerupgrade");
 
 let powerprice = 10;
@@ -16,14 +19,17 @@ let evoCost = evolveLVL * 1250;
 
 let rank = "Nobody";
 
-let autopower = 0 * evolveLVL;
+let autopower = 0 * evolveLVL + (10 * permapower) - 10;
 const autoupgrade = document.getElementById("autoupgrade")
 
 let autoprice = 100;
 
+
+
 let CurrentClickPower = power
 let CurrentAutoPower = autopower
 let CurrentEvolutionLevel = evolveLVL
+//let /// = ///
 
 document.getElementById("pointValue").innerText = clicks;
 document.getElementById("upgradeCost").innerText = powerprice;
@@ -32,6 +38,7 @@ document.getElementById("autoCost").innerText = autoprice;
 document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
 document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
 document.getElementById("CurrentEvolutionLevel").innerText = CurrentEvolutionLevel;
+document.getElementById("permanentCost").innerText = permaprice;
 
 circle.onclick = function(){
     clicks += power;
@@ -70,15 +77,31 @@ autoupgrade.onclick = function() {
     }
 }
 
+permanentupgrade.onclick = function() {
+    if (clicks >= permaprice) {
+        clicks -= permaprice;
+        permapower ++;
+        permaprice = 10000 * permapower;
+        power += 10;
+        autopower += 10;
+        CurrentClickPower = power
+        CurrentAutoPower = autopower
+        document.getElementById("pointValue").innerText = clicks;
+        document.getElementById("permanentCost").innerText = permaprice;
+        document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
+        document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
+    }
+}
+
 evolve.onclick = function() {
     if (clicks >= (evoCost = evolveLVL * 1250)) {
         clicks = 0;
         increasePower == 1;
         evolveLVL ++;
-        power = 1 * evolveLVL; 
+        power = 1 * evolveLVL + (10 * permapower) - 10;
         powerprice = 10;
         evoCost = evolveLVL * 1250;
-        autopower = 0 * evolveLVL;
+        autopower = 0 * evolveLVL + (10 * permapower) - 10;
         autoprice = 100;
         CurrentClickPower = power
         CurrentAutoPower = autopower

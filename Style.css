@@ -51,12 +51,25 @@ html, body {
     border-radius: 10px;
 }
 
+#permanentupgrade {
+    width: 200px;
+    height: 50px;
+    background-color: beige;
+    position: absolute;
+    top: 725px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
 #evolve {
     width: 333px;
     height: 50px;
     background-color: beige;
     position: absolute;
-    top: 725px;
+    top: 775px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -69,7 +82,7 @@ html, body {
     height: 50px;
     background-color: beige;
     position: absolute;
-    top: 775px;
+    top: 825px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -80,7 +93,7 @@ html, body {
 #currentRank {
     background-color: beige;
     position: absolute;
-    top: 825px;
+    top: 860px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
