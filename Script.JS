@@ -5,31 +5,36 @@ let evolveLVL = 1;
 const evolve = document.getElementById("evolve");
 
 let power = 1 * evolveLVL;
-const upgrade = document.getElementById("upgrade");
+const powerupgrade = document.getElementById("powerupgrade");
 
-
-let price = 10 * (power / evolveLVL);
+let powerprice = 10 * (power / evolveLVL);
 
 let evoCost = evolveLVL * 1250;
 
-let rank = "Skere gozer"
+let rank = "Skere gozer";
+
+let autopower = 0;
+const autoupgrade = document.getElementById("autoupgrade")
+
+let autoprice = autopower * 125 + 100;
 
 document.getElementById("pointValue").innerText = clicks;
-document.getElementById("pointCost").innerText = price;
+document.getElementById("upgradeCost").innerText = powerprice;
 document.getElementById("evoCost").innerText = evoCost;
+document.getElementById("autoCost").innerText = autoprice;
 
 circle.onclick = function(){
     clicks += power;
     document.getElementById("pointValue").innerText = clicks;
 }
 
-upgrade.onclick = function(){
-    if (clicks >= price) {
-        clicks -= price;
+powerupgrade.onclick = function(){
+    if (clicks >= powerprice) {
+        clicks -= powerprice;
         power += 1 * evolveLVL;
-         price = 10 * (power / evolveLVL);
+        powerprice = 10 * (power / evolveLVL);
         document.getElementById("pointValue").innerText = clicks;
-        document.getElementById("pointCost").innerText = price;
+        document.getElementById("upgradeCost").innerText = powerprice;
 
     }
 }
@@ -37,18 +42,20 @@ upgrade.onclick = function(){
 evolve.onclick = function() {
     if (clicks >= (evoCost = evolveLVL * 1250)) {
         clicks = 0;
-        power == 1;
         evolveLVL ++;
-        power = 1 * evolveLVL
-        price = 10 * (power / evolveLVL)
+        power = 1 * evolveLVL; 
+        powerprice = 10 * (power / evolveLVL);
         evoCost = evolveLVL * 1250;
+        autopower = 0;
+        autoprice = autopower * 125 + 100;
+        updateRank();
         document.getElementById("pointValue").innerText = clicks;
-        document.getElementById("pointCost").innerText = price;
         document.getElementById("evoCost").innerText = evoCost;
+        document.getElementById("upgradeCost").innerText = powerprice;
+        document.getElementById("autoCost").innerText = autoprice;
     }
 }
 //Wtf gebeurt hieronder ): Chatgpt red levens: ik leer dit later wel.
-// Fix for showing/hiding rank and updating button text
 const rankButton = document.getElementById("rankButton");
 const currentRank = document.getElementById("currentRank");
 
@@ -56,12 +63,13 @@ currentRank.style.display = "none";
 rankButton.innerText = "Show rank"; 
 //dit stuk is niet om te janken
 rankButton.onclick = function() {
-    if (evolveLVL >= 5) {
+    if (evolveLVL >= 1) {
         rank = "Beginner"
     }
-    if (evolveLVL >= 10) {
+    if (evolveLVL >= 2) {
         rank = "Enge tatta"
     }
+    updateRank();
 }
 //vanaf hier gaat janken verder
 rankButton.addEventListener("click", function() {
@@ -74,4 +82,26 @@ rankButton.addEventListener("click", function() {
         rankButton.innerText = "Show rank";
     }
 });
+
+function updateRank() {
+    currentRank.innerText = "Your rank is: " + rank;
+}
 //Tot hier ben ik aan het janken (:
+
+autoupgrade.onclick = function() {
+    if (clicks >= autoprice) {
+        clicks -= autoprice;
+        autopower += 1;
+        autoprice = (autopower * 125 + 100);
+        document.getElementById("pointValue").innerText = clicks;
+        document.getElementById("autoCost").innerText = autoprice;
+        updateAuto();
+    }
+}
+
+function updateAuto() {
+    clicks += autopower * evolveLVL;
+    document.getElementById("pointValue").innerText = clicks;
+}
+
+setInterval (updateAuto, 1000)

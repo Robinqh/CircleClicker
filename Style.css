@@ -25,12 +25,25 @@ html, body {
     background-color: rgb(75, 75, 75);
 }
 
-#upgrade {
-    width: 100px;
+#powerupgrade {
+    width: 200px;
     height: 50px;
     background-color: beige;
     position: absolute;
     top: 650px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+#autoupgrade {
+    width: 200px;
+    height: 50px;
+    background-color: beige;
+    position: absolute;
+    top: 700px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -43,7 +56,7 @@ html, body {
     height: 50px;
     background-color: beige;
     position: absolute;
-    top: 700px;
+    top: 750px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -52,11 +65,11 @@ html, body {
 }
 
 #rankButton {
-    width: 150;
+    width: 200;
     height: 50px;
     background-color: beige;
     position: absolute;
-    top: 750px;
+    top: 800px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -67,7 +80,7 @@ html, body {
 #currentRank {
     background-color: beige;
     position: absolute;
-    top: 800px;
+    top: 900px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
