@@ -13,15 +13,22 @@ let evoCost = evolveLVL * 1250;
 
 let rank = "Skere gozer";
 
-let autopower = 0;
+let autopower = 0 * evolveLVL;
 const autoupgrade = document.getElementById("autoupgrade")
 
 let autoprice = autopower * 125 + 100;
+
+let CurrentClickPower = power
+let CurrentAutoPower = autopower
+let CurrentEvolutionLevel = evolveLVL
 
 document.getElementById("pointValue").innerText = clicks;
 document.getElementById("upgradeCost").innerText = powerprice;
 document.getElementById("evoCost").innerText = evoCost;
 document.getElementById("autoCost").innerText = autoprice;
+document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
+document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
+document.getElementById("CurrentEvolutionLevel").innerText = CurrentEvolutionLevel;
 
 circle.onclick = function(){
     clicks += power;
@@ -33,8 +40,12 @@ powerupgrade.onclick = function(){
         clicks -= powerprice;
         power += 1 * evolveLVL;
         powerprice = 10 * (power / evolveLVL);
+        CurrentClickPower = power
+        CurrentAutoPower = autopower
         document.getElementById("pointValue").innerText = clicks;
         document.getElementById("upgradeCost").innerText = powerprice;
+        document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
+        document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
 
     }
 }
@@ -46,13 +57,19 @@ evolve.onclick = function() {
         power = 1 * evolveLVL; 
         powerprice = 10 * (power / evolveLVL);
         evoCost = evolveLVL * 1250;
-        autopower = 0;
+        autopower = 0 * evolveLVL;
         autoprice = autopower * 125 + 100;
+        CurrentClickPower = power
+        CurrentAutoPower = autopower
+        CurrentEvolutionLevel = evolveLVL
         updateRank();
         document.getElementById("pointValue").innerText = clicks;
         document.getElementById("evoCost").innerText = evoCost;
         document.getElementById("upgradeCost").innerText = powerprice;
         document.getElementById("autoCost").innerText = autoprice;
+        document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
+        document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
+        document.getElementById("CurrentEvolutionLevel").innerText = CurrentEvolutionLevel;
     }
 }
 //Wtf gebeurt hieronder ): Chatgpt red levens: ik leer dit later wel.
@@ -63,10 +80,10 @@ currentRank.style.display = "none";
 rankButton.innerText = "Show rank"; 
 //dit stuk is niet om te janken
 rankButton.onclick = function() {
-    if (evolveLVL >= 1) {
+    if (evolveLVL >= 3) {
         rank = "Beginner"
     }
-    if (evolveLVL >= 2) {
+    if (evolveLVL >= 5) {
         rank = "Enge tatta"
     }
     updateRank();
@@ -84,6 +101,12 @@ rankButton.addEventListener("click", function() {
 });
 
 function updateRank() {
+    if (evolveLVL >= 3) {
+        rank = "Beginner"
+    }
+    if (evolveLVL >= 5) {
+        rank = "Enge tatta"
+    }
     currentRank.innerText = "Your rank is: " + rank;
 }
 //Tot hier ben ik aan het janken (:
@@ -93,8 +116,12 @@ autoupgrade.onclick = function() {
         clicks -= autoprice;
         autopower += 1;
         autoprice = (autopower * 125 + 100);
+        CurrentClickPower = power
+    CurrentAutoPower = autopower
         document.getElementById("pointValue").innerText = clicks;
         document.getElementById("autoCost").innerText = autoprice;
+        document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
+        document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
         updateAuto();
     }
 }
