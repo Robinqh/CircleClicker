@@ -1,22 +1,25 @@
 let clicks = 0;
 const circle = document.getElementById("circle");
 
+let increasePower = 1;
+let increaseAuto = 100;
+
 let evolveLVL = 1;
 const evolve = document.getElementById("evolve");
 
 let power = 1 * evolveLVL;
 const powerupgrade = document.getElementById("powerupgrade");
 
-let powerprice = 10 * (power / evolveLVL);
+let powerprice = 10;
 
 let evoCost = evolveLVL * 1250;
 
-let rank = "Skere gozer";
+let rank = "Nobody";
 
 let autopower = 0 * evolveLVL;
 const autoupgrade = document.getElementById("autoupgrade")
 
-let autoprice = autopower * 125 + 100;
+let autoprice = 100;
 
 let CurrentClickPower = power
 let CurrentAutoPower = autopower
@@ -39,7 +42,8 @@ powerupgrade.onclick = function(){
     if (clicks >= powerprice) {
         clicks -= powerprice;
         power += 1 * evolveLVL;
-        powerprice = 10 * (power / evolveLVL);
+        increasePower *= 1.2;
+        powerprice = Math.round(10 * (power / evolveLVL) + increasePower - 1);
         CurrentClickPower = power
         CurrentAutoPower = autopower
         document.getElementById("pointValue").innerText = clicks;
@@ -50,15 +54,32 @@ powerupgrade.onclick = function(){
     }
 }
 
+autoupgrade.onclick = function() {
+    if (clicks >= autoprice) {
+        clicks -= autoprice;
+        autopower += 1 * evolveLVL;
+        increaseAuto *= 1.25;
+        autoprice = Math.round(10 * (autopower / evolveLVL) + increaseAuto)
+        CurrentClickPower = power
+        CurrentAutoPower = autopower
+        document.getElementById("pointValue").innerText = clicks;
+        document.getElementById("autoCost").innerText = autoprice;
+        document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
+        document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
+        updateAuto();
+    }
+}
+
 evolve.onclick = function() {
     if (clicks >= (evoCost = evolveLVL * 1250)) {
         clicks = 0;
+        increasePower == 1;
         evolveLVL ++;
         power = 1 * evolveLVL; 
-        powerprice = 10 * (power / evolveLVL);
+        powerprice = 10;
         evoCost = evolveLVL * 1250;
         autopower = 0 * evolveLVL;
-        autoprice = autopower * 125 + 100;
+        autoprice = 100;
         CurrentClickPower = power
         CurrentAutoPower = autopower
         CurrentEvolutionLevel = evolveLVL
@@ -88,7 +109,7 @@ rankButton.onclick = function() {
     }
     updateRank();
 }
-//vanaf hier gaat janken verder
+//vanaf hier gaat het janken verder (nog erger dan daar boven btw dat snap ik half!)
 rankButton.addEventListener("click", function() {
     if (currentRank.style.display === "none") {
         currentRank.style.display = "block";
@@ -105,29 +126,15 @@ function updateRank() {
         rank = "Beginner"
     }
     if (evolveLVL >= 5) {
-        rank = "Enge tatta"
+        rank = "Master"
     }
     currentRank.innerText = "Your rank is: " + rank;
 }
 //Tot hier ben ik aan het janken (:
 
-autoupgrade.onclick = function() {
-    if (clicks >= autoprice) {
-        clicks -= autoprice;
-        autopower += 1;
-        autoprice = (autopower * 125 + 100);
-        CurrentClickPower = power
-    CurrentAutoPower = autopower
-        document.getElementById("pointValue").innerText = clicks;
-        document.getElementById("autoCost").innerText = autoprice;
-        document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
-        document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
-        updateAuto();
-    }
-}
 
 function updateAuto() {
-    clicks += autopower * evolveLVL;
+    clicks += autopower;
     document.getElementById("pointValue").innerText = clicks;
 }
 
