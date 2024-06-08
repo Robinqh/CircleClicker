@@ -1,4 +1,4 @@
-let clicks = 1250;
+let clicks = 0;
 const circle = document.getElementById("circle");
 
 let increasePower = 1;
