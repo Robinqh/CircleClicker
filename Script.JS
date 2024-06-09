@@ -168,6 +168,7 @@ function updateRank() {
     if (evolveLVL >= 5) {
         rank = "Your rank: Master"
     }
+    document.getElementById("currentRank").innerText = rank;
 }
 
 function updateAuto() {
