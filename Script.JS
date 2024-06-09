@@ -8,6 +8,8 @@ let increaseEvolve =1000;
 let evolveLVL = 1;
 const evolve = document.getElementById("evolve");
 
+let evoRemove = 1;
+
 let permapower = 1;
 let permaprice = 10000 * permapower;
 
@@ -17,8 +19,10 @@ const powerupgrade = document.getElementById("powerupgrade");
 let powerprice = 10;
 
 let evoCost = evolveLVL * 1250;
+let evotrade1Cost = 5;
+let evotrade1text = " Evolutions";
 
-let rank = "Nobody";
+let rank = "Your rank: Starter";
 
 let autopower = 0 * evolveLVL + (10 * permapower) - 10;
 const autoupgrade = document.getElementById("autoupgrade")
@@ -42,9 +46,12 @@ document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
 document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
 document.getElementById("CurrentEvolutionLevel").innerText = CurrentEvolutionLevel;
 document.getElementById("permanentCost").innerText = permaprice;
+document.getElementById("evotradeCost").innerText = evotrade1Cost + evotrade1text;
+document.getElementById("currentRank").innerText = rank;
 
 circle.onclick = function(){
     clicks += power;
+    Math.round(clicks);
     document.getElementById("pointValue").innerText = clicks;
 }
 
@@ -80,7 +87,6 @@ autoupgrade.onclick = function() {
         updateAuto();
     }
 }
-
 permanentupgrade.onclick = function() {
     if (clicks >= permaprice) {
         clicks -= permaprice;
@@ -109,7 +115,7 @@ function PermaUpgradesCheck() {
 
 evolve.onclick = function() {
     if (clicks >= (evoCost = evolveLVL * increaseEvolve)) {
-        clicks = 0;
+        clicks -= Math.round(clicks * evoRemove);
         evolveLVL ++;
         increaseEvolve *= 1.3;
         increasePower = 1;
@@ -138,48 +144,35 @@ evolve.onclick = function() {
     }
 }
 
-//Wtf gebeurt hieronder ): Chatgpt red levens: ik leer dit later wel.
-const rankButton = document.getElementById("rankButton");
-const currentRank = document.getElementById("currentRank");
 
-currentRank.style.display = "none"; 
-rankButton.innerText = "Show rank"; 
-//dit stuk is niet om te janken
-rankButton.onclick = function() {
-    if (evolveLVL >= 3) {
-        rank = "Beginner"
+evotrade1.onclick = function() {
+    if (evolveLVL >= evotrade1Cost + 1) {
+        evolveLVL -= evotrade1Cost;
+        CurrentEvolutionLevel = evolveLVL;
+        evoRemove -=0.1
+        evotrade1Cost = 9999999
+        document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
+        document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
+        document.getElementById("CurrentEvolutionLevel").innerText = CurrentEvolutionLevel;
+        document.getElementById("evotradeCost").innerText = "Unavailable";
     }
-    if (evolveLVL >= 5) {
-        rank = "Enge tatta"
-    }
-    updateRank();
 }
-//vanaf hier gaat het janken verder (nog erger dan daar boven btw dat snap ik half!)
-rankButton.addEventListener("click", function() {
-    if (currentRank.style.display === "none") {
-        currentRank.style.display = "block";
-        currentRank.innerText = "Your rank is: " + rank;
-        rankButton.innerText = "Hide rank";
-    } else {
-        currentRank.style.display = "none";
-        rankButton.innerText = "Show rank";
-    }
-});
+
+
+
 
 function updateRank() {
     if (evolveLVL >= 3) {
-        rank = "Beginner"
+        rank = "Your rank: Beginner"
     }
     if (evolveLVL >= 5) {
-        rank = "Master"
+        rank = "Your rank: Master"
     }
-    currentRank.innerText = "Your rank is: " + rank;
 }
-//Tot hier ben ik aan het janken (:
-
 
 function updateAuto() {
     clicks += autopower;
+    Math.round(clicks);
     document.getElementById("pointValue").innerText = clicks;
 }
 

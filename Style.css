@@ -26,20 +26,35 @@ html, body {
 }
 
 #powerupgrade {
-    width: 200px;
+    width: 250px;
     height: 50px;
     background-color: beige;
     position: absolute;
     top: 625px;
-    left: 50%;
+    left: 200px;
     transform: translateX(-50%);
     text-align: center;
     cursor: pointer;
     border-radius: 10px;
+    left: calc(50% - 125px);
 }
 
 #autoupgrade {
-    width: 200px;
+    width: 250px;
+    height: 50px;
+    background-color: beige;
+    position: absolute;
+    top: 625px;
+    left: 450px;
+    transform: translateX(-50%);
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    left: calc(50% + 125px);
+}
+
+#permanentupgrade {
+    width: 450px;
     height: 50px;
     background-color: beige;
     position: absolute;
@@ -51,8 +66,8 @@ html, body {
     border-radius: 10px;
 }
 
-#permanentupgrade {
-    width: 200px;
+#evolve {
+    width: 400px;
     height: 50px;
     background-color: beige;
     position: absolute;
@@ -61,11 +76,11 @@ html, body {
     transform: translateX(-50%);
     text-align: center;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
-#evolve {
-    width: 333px;
+#evotrade1 {
+    width: 350px;
     height: 50px;
     background-color: beige;
     position: absolute;
@@ -76,25 +91,16 @@ html, body {
     cursor: pointer;
     border-radius: 15px;
 }
-
-#rankButton {
-    width: 200;
-    height: 50px;
-    background-color: beige;
-    position: absolute;
-    top: 825px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    cursor: pointer;
-    border-radius: 15px;
-}
+    
 
 #currentRank {
     background-color: beige;
     position: absolute;
-    top: 860px;
+    top: 825px;
+    height: 25px;
+    width: 250px;
     left: 50%;
+    border-radius: 15px;
     transform: translateX(-50%);
     text-align: center;
 }
