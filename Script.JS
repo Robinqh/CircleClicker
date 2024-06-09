@@ -11,14 +11,14 @@ const evolve = document.getElementById("evolve");
 let evoRemove = 1;
 
 let permapower = 1;
-let permaprice = 10000 * permapower;
+let permaprice = 2500;
 
 let power = 1 * evolveLVL + (10 * permapower) - 10;
 const powerupgrade = document.getElementById("powerupgrade");
 
 let powerprice = 10;
 
-let evoCost = evolveLVL * 1250;
+let evoCost = 1250;
 let evotrade1Cost = 5;
 let evotrade1text = " Evolutions";
 
@@ -31,6 +31,7 @@ let autoprice = 100;
 
 let powerupgrades = 0;
 let autoupgrades = 0;
+let evoupgrades =0;
 
 
 let CurrentClickPower = power
@@ -91,7 +92,7 @@ permanentupgrade.onclick = function() {
     if (clicks >= permaprice) {
         clicks -= permaprice;
         permapower ++;
-        permaprice = 10000 * permapower;
+        permaprice = 5000 * permapower;
         power += 10;
         autopower += 10;
         CurrentClickPower = power
@@ -117,12 +118,13 @@ evolve.onclick = function() {
     if (clicks >= (evoCost = evolveLVL * increaseEvolve)) {
         clicks -= Math.round(clicks * evoRemove);
         evolveLVL ++;
+        evoupgrades ++;
         increaseEvolve *= 1.3;
         increasePower = 1;
         increaseAuto = 100;
         powerprice = 10;
         autoprice = 100;
-        evoCost = evolveLVL * increaseEvolve;
+        evoCost = (evoupgrades + 1) * increaseEvolve;
         evoCost = Math.round(evoCost / 1000) * 1000;
         power = 1 * evolveLVL;
         autopower = 0 * evolveLVL;
@@ -151,6 +153,7 @@ evotrade1.onclick = function() {
         CurrentEvolutionLevel = evolveLVL;
         evoRemove -=0.1
         evotrade1Cost = 9999999
+        updateRank();
         document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
         document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
         document.getElementById("CurrentEvolutionLevel").innerText = CurrentEvolutionLevel;
@@ -162,8 +165,12 @@ evotrade1.onclick = function() {
 
 
 function updateRank() {
+    if (evolveLVL >= 1) {
+        rank = "Your rank: Starter"
+    }
+
     if (evolveLVL >= 3) {
-        rank = "Your rank: Beginner"
+        rank = "Your rank: Well-Known"
     }
     if (evolveLVL >= 5) {
         rank = "Your rank: Master"

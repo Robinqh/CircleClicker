@@ -1,7 +1,7 @@
 html, body {
     height: 100%;
     text-align: center;
-    background-color: darkcyan;
+    background-color: rgb(0, 140, 140); 
 }
 
 #circle {
@@ -18,12 +18,19 @@ html, body {
     overflow: hidden;
     border-color: wheat;
     border-style: solid;
-    transition: background-color 0.5s;
+    transition: background-color 3s ease, width 0.5s ease, height 0.5s ease;
 }
 
 #circle:hover {
     background-color: rgb(0,0,225);
+    transition: background-color 1s ease;
 }
+
+#circle:active {
+    width: 390px;
+    height: 390px;
+}
+
 
 
 button {
@@ -117,8 +124,43 @@ button:hover {
     text-align: center;
 }
 
-h3 {
+#warning {
+    top: 875px;
     background-color: grey; 
     display: inline-block;           
-    border-radius: 5px;     
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);   
+    width: 500px;     
+}
+
+#version {
+    top: 925px;
+    background-color: grey; 
+    display: inline-block;           
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);   
+    width: 500px;     
+}
+
+.side-box {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: calc((100% - 500px) / 2); 
+    background-color: rgb(0, 120, 120); 
+    border-width: 5px;
+}
+
+#left-side {
+    left: 0;
+}
+
+#right-side {
+    right: 0;
 }
