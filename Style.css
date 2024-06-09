@@ -1,5 +1,5 @@
 html, body {
-    height: 100%;
+    height: auto;
     text-align: center;
     background-color: rgb(0, 140, 140); 
 }
@@ -75,8 +75,8 @@ button:hover {
     left: calc(50% + 125px);
 }
 
-#permanentupgrade {
-    width: 450px;
+#evolve {
+    width: 250px;
     height: 50px;
     position: absolute;
     top: 675px;
@@ -85,10 +85,24 @@ button:hover {
     text-align: center;
     cursor: pointer;
     border-radius: 10px;
+    left: calc(50% - 125px);
 }
 
-#evolve {
-    width: 400px;
+#evotrade1 {
+    width: 250px;
+    height: 50px;
+    position: absolute;
+    top: 675px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    left: calc(50% + 125px);
+}
+
+#permanentupgrade {
+    width: 450px;
     height: 50px;
     position: absolute;
     top: 725px;
@@ -96,11 +110,11 @@ button:hover {
     transform: translateX(-50%);
     text-align: center;
     cursor: pointer;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
-#evotrade1 {
-    width: 350px;
+#mysterygift {
+    width: 400px;
     height: 50px;
     position: absolute;
     top: 775px;
@@ -108,16 +122,18 @@ button:hover {
     transform: translateX(-50%);
     text-align: center;
     cursor: pointer;
-    border-radius: 15px;
+    border-radius: 10px;
 }
+
+
     
 
 #currentRank {
     background-color: rgb(95, 95, 95);
     position: absolute;
-    top: 825px;
+    top: 812.5px;
     height: 25px;
-    width: 250px;
+    width: 300px;
     left: 50%;
     border-radius: 15px;
     transform: translateX(-50%);
@@ -125,7 +141,7 @@ button:hover {
 }
 
 #warning {
-    top: 875px;
+    top: 850px;
     background-color: grey; 
     display: inline-block;           
     border-radius: 5px;
@@ -137,7 +153,7 @@ button:hover {
 }
 
 #version {
-    top: 925px;
+    top: 900px;
     background-color: grey; 
     display: inline-block;           
     border-radius: 5px;
@@ -145,11 +161,13 @@ button:hover {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);   
-    width: 500px;     
+    width: 500px;   
+    height: 20px;  
 }
 
 .side-box {
     position: absolute;
+    height: 100%;
     top: 0;
     bottom: 0;
     width: calc((100% - 500px) / 2); 

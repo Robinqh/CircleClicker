@@ -29,6 +29,9 @@ const autoupgrade = document.getElementById("autoupgrade")
 
 let autoprice = 100;
 
+let mysteryprice = 1000;
+let mystery = Math.random();
+
 let powerupgrades = 0;
 let autoupgrades = 0;
 let evoupgrades =0;
@@ -49,6 +52,7 @@ document.getElementById("CurrentEvolutionLevel").innerText = CurrentEvolutionLev
 document.getElementById("permanentCost").innerText = permaprice;
 document.getElementById("evotradeCost").innerText = evotrade1Cost + evotrade1text;
 document.getElementById("currentRank").innerText = rank;
+document.getElementById("mysteryCost").innerText = mysteryprice;
 
 circle.onclick = function(){
     clicks += power;
@@ -113,6 +117,21 @@ function PermaUpgradesCheck() {
     document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
 }
 
+mysterygift.onclick = function() {
+    if (clicks >= mysteryprice) {
+        mystery = Math.random();
+        mysteryprice = Infinity;
+        if (mystery >= 0.5) {
+            clicks *= 2;
+        }
+        else {
+        clicks = Math.round(clicks /= 2);
+        }
+        document.getElementById("pointValue").innerText = clicks;
+        document.getElementById("mysteryCost").innerText = "Unavailable";
+    }
+}
+
 
 evolve.onclick = function() {
     if (clicks >= (evoCost = evolveLVL * increaseEvolve)) {
@@ -124,6 +143,7 @@ evolve.onclick = function() {
         increaseAuto = 100;
         powerprice = 10;
         autoprice = 100;
+        mysteryprice = 1000;
         evoCost = (evoupgrades + 1) * increaseEvolve;
         evoCost = Math.round(evoCost / 1000) * 1000;
         power = 1 * evolveLVL;
@@ -143,6 +163,7 @@ evolve.onclick = function() {
         document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
         document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
         document.getElementById("CurrentEvolutionLevel").innerText = CurrentEvolutionLevel;
+        document.getElementById("mysteryCost").innerText = mysteryprice;
     }
 }
 
