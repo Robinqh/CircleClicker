@@ -3,6 +3,7 @@ const circle = document.getElementById("circle");
 
 let increasePower = 1;
 let increaseAuto = 100;
+let increaseEvolve =1000;
 
 let evolveLVL = 1;
 const evolve = document.getElementById("evolve");
@@ -27,6 +28,7 @@ let autoprice = 100;
 let powerupgrades = 0;
 let autoupgrades = 0;
 
+
 let CurrentClickPower = power
 let CurrentAutoPower = autopower
 let CurrentEvolutionLevel = evolveLVL
@@ -49,29 +51,28 @@ circle.onclick = function(){
 powerupgrade.onclick = function(){
     if (clicks >= powerprice) {
         clicks -= powerprice;
-        powerupgrades ++;
+        powerupgrades += 1;
         power += 1 * evolveLVL;
         increasePower *= 1.2;
         powerprice = Math.round(20 * powerupgrades + increasePower);
-        CurrentClickPower = power
-        CurrentAutoPower = autopower
+        CurrentClickPower = power;
+        CurrentAutoPower = autopower;
         document.getElementById("pointValue").innerText = clicks;
         document.getElementById("upgradeCost").innerText = powerprice;
         document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
         document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
-
     }
 }
 
 autoupgrade.onclick = function() {
     if (clicks >= autoprice) {
         clicks -= autoprice;
-        autoupgrades ++;
+        autoupgrades += 1;
         autopower += 1 * evolveLVL;
         increaseAuto *= 1.25;
         autoprice = Math.round(10 * autoupgrades + increaseAuto);
-        CurrentClickPower = power
-        CurrentAutoPower = autopower
+        CurrentClickPower = power;
+        CurrentAutoPower = autopower;
         document.getElementById("pointValue").innerText = clicks;
         document.getElementById("autoCost").innerText = autoprice;
         document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
@@ -96,19 +97,36 @@ permanentupgrade.onclick = function() {
     }
 }
 
+function PermaUpgradesCheck() {
+    power += 10 * permapower - 10;
+    autopower += 10 * permapower - 10;
+    CurrentClickPower = power
+    CurrentAutoPower = autopower
+    document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
+    document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
+}
+
+
 evolve.onclick = function() {
-    if (clicks >= (evoCost = evolveLVL * 1250)) {
+    if (clicks >= (evoCost = evolveLVL * increaseEvolve)) {
         clicks = 0;
-        increasePower == 1;
         evolveLVL ++;
-        power = 1 * evolveLVL + (10 * permapower) - 10;
+        increaseEvolve *= 1.3;
+        increasePower = 1;
+        increaseAuto = 100;
         powerprice = 10;
-        evoCost = evolveLVL * 1250;
-        autopower = 0 * evolveLVL + (10 * permapower) - 10;
         autoprice = 100;
-        CurrentClickPower = power
-        CurrentAutoPower = autopower
-        CurrentEvolutionLevel = evolveLVL
+        evoCost = evolveLVL * increaseEvolve;
+        evoCost = Math.round(evoCost / 1000) * 1000;
+        power = 1 * evolveLVL;
+        autopower = 0 * evolveLVL;
+        powerupgrades = 0;
+        autoupgrades = 0;
+        CurrentClickPower = power;
+        CurrentAutoPower = autopower;
+        CurrentEvolutionLevel = evolveLVL;
+
+        PermaUpgradesCheck();
         updateRank();
         document.getElementById("pointValue").innerText = clicks;
         document.getElementById("evoCost").innerText = evoCost;
@@ -119,6 +137,7 @@ evolve.onclick = function() {
         document.getElementById("CurrentEvolutionLevel").innerText = CurrentEvolutionLevel;
     }
 }
+
 //Wtf gebeurt hieronder ): Chatgpt red levens: ik leer dit later wel.
 const rankButton = document.getElementById("rankButton");
 const currentRank = document.getElementById("currentRank");
@@ -164,6 +183,4 @@ function updateAuto() {
     document.getElementById("pointValue").innerText = clicks;
 }
 
-setInterval (updateAuto, 1000)
-
-//only here for pushing
+setInterval (updateAuto, 1000);
