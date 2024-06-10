@@ -44,25 +44,83 @@ let CurrentEvolutionLevel = evolveLVL
 //let /// = ///
 
 function UpdateUI() {
-document.getElementById("pointValue").innerText = clicks;
-document.getElementById("upgradeCost").innerText = powerprice;
-document.getElementById("evoCost").innerText = evoCost;
-document.getElementById("autoCost").innerText = autoprice;
-document.getElementById("CurrentClickPower").innerText = CurrentClickPower;
-document.getElementById("CurrentAutoPower").innerText = CurrentAutoPower;
-document.getElementById("CurrentEvolutionLevel").innerText = CurrentEvolutionLevel;
-document.getElementById("permanentCost").innerText = permaprice;
-document.getElementById("evotradeCost").innerText = evotrade1Cost + evotrade1text;
-document.getElementById("currentRank").innerText = rank;
-document.getElementById("mysteryCost").innerText = mysteryprice;
-document.getElementById("powerUpgradeIncrease").innerText = increasePower;
-document.getElementById("autoUpgradeIncrease").innerText = increaseAuto;
-document.getElementById("evolveUpgradeIncrease").innerText = increaseEvolve;
-document.getElementById("permaUpgradeIncrease").innerText = increasePerma;
-document.getElementById("evolutionLevel").innerText = evolveLVL;
-document.getElementById("evoRemoveValue").innerText = evoRemove;
-document.getElementById("permanentPower").innerText = permapower;
-document.getElementById("mysteryValue").innerText = mystery;
+    const pointValueElement = document.getElementById("pointValue");
+    if (pointValueElement) { 
+        pointValueElement.innerText = clicks;
+    }
+    const upgradeCostElement = document.getElementById("upgradeCost");
+    if (upgradeCostElement) {
+        upgradeCostElement.innerText = powerprice;
+    }
+    const evoCostElement = document.getElementById("evoCost");
+    if (evoCostElement) {
+        evoCostElement.innerText = evoCost;
+    }
+    const autoCostElement = document.getElementById("autoCost");
+    if (autoCostElement) {
+        autoCostElement.innerText = autoprice;
+    }
+    const currentClickPowerElement = document.getElementById("CurrentClickPower");
+    if (currentClickPowerElement) {
+        currentClickPowerElement.innerText = CurrentClickPower;
+    }
+    const currentAutoPowerElement = document.getElementById("CurrentAutoPower");
+    if (currentAutoPowerElement) {
+        currentAutoPowerElement.innerText = CurrentAutoPower;
+    }
+    const currentEvolutionLevelElement = document.getElementById("CurrentEvolutionLevel");
+    if (currentEvolutionLevelElement) {
+        currentEvolutionLevelElement.innerText = CurrentEvolutionLevel;
+    }
+    const permanentCostElement = document.getElementById("permanentCost");
+    if (permanentCostElement) {
+        permanentCostElement.innerText = permaprice;
+    }
+    const evotradeCostElement = document.getElementById("evotradeCost");
+    if (evotradeCostElement) {
+        evotradeCostElement.innerText = evotrade1Cost + evotrade1text;
+    }
+    const currentRankElement = document.getElementById("currentRank");
+    if (currentRankElement) {
+        currentRankElement.innerText = rank;
+    }
+    const mysteryCostElement = document.getElementById("mysteryCost");
+    if (mysteryCostElement) {
+        if (mysteryprice === 99999999999999) {
+            mysteryCostElement.innerText = "Unavailable";
+        } else {
+            mysteryCostElement.innerText = mysteryprice;
+        }
+    }
+    const powerUpgradeIncreaseElement = document.getElementById("powerUpgradeIncrease");
+    if (powerUpgradeIncreaseElement) {
+        powerUpgradeIncreaseElement.innerText = increasePower;
+    }
+    const utoUpgradeIncreaseElement = document.getElementById("autoUpgradeIncrease");
+    const evolveUpgradeIncreaseElement = document.getElementById("evolveUpgradeIncrease");
+    if (evolveUpgradeIncreaseElement) {
+        evolveUpgradeIncreaseElement.innerText = increaseEvolve;
+    }
+    const permaUpgradeIncreaseElement = document.getElementById("permaUpgradeIncrease");
+    if (permaUpgradeIncreaseElement) {
+        permaUpgradeIncreaseElement.innerText = increasePerma;
+    }
+    const evolutionLevelElement = document.getElementById("evolutionLevel");
+    if (evolutionLevelElement) {
+        evolutionLevelElement.innerText = evolveLVL;
+    }
+    const evoRemoveValueElement = document.getElementById("evoRemoveValue");
+    if (evoRemoveValueElement) {
+        evoRemoveValueElement.innerText = evoRemove;
+    }
+    const permanentPowerElement = document.getElementById("permanentPower");
+    if (permanentPowerElement) {
+        permanentPowerElement.innerText = permapower;
+    }
+    const mysteryValueElement = document.getElementById("mysteryValue");
+    if (mysteryValueElement) {
+        mysteryValueElement.innerText = mystery;
+    }
 }
 
 
@@ -124,7 +182,7 @@ function PermaUpgradesCheck() {
 mysterygift.onclick = function() {
     if (clicks >= mysteryprice) {
         mystery = Math.random();
-        mysteryprice = Infinity;
+        mysteryprice = 99999999999999;
         if (mystery >= 0.5) {
             clicks *= 2;
         }
@@ -132,7 +190,7 @@ mysterygift.onclick = function() {
         clicks = Math.round(clicks /= 2);
         }
         UpdateUI();
-        document.getElementById("mysteryCost").innerText = "Unavailable";
+        saveGame();
     }
 }
 
@@ -182,10 +240,10 @@ function updateRank() {
     if (evolveLVL >= 1) {
         rank = "Your rank: Starter"
     }
-    else if (evolveLVL >= 3) {
+    if (evolveLVL >= 3) {
         rank = "Your rank: Well-Known"
     }
-    else (evolveLVL >= 5) 
+    if (evolveLVL >= 5) 
         rank = "Your rank: Master"
     
         UpdateUI();
@@ -244,6 +302,7 @@ function loadGame() {
         evolveLVL = gameState.evolveLVL;
         evoRemove = gameState.evoRemove;
         permapower = gameState.permapower;
+        permaprice = gameState.permaprice;
         power = gameState.power;
         powerprice = gameState.powerprice;
         evoCost = gameState.evoCost;

@@ -175,7 +175,7 @@ button:hover {
     cursor: pointer;
     border-radius: 10px;
     left: calc(50% - 166px);
-    background-color: green;
+    background-color: darkgreen;
 }
 
 #loadGameButton {
@@ -189,7 +189,7 @@ button:hover {
     cursor: pointer;
     border-radius: 10px;
     left: calc(50%);
-    background-color: orange;
+    background-color: orangered;
 }
 
 #resetGameButton {
@@ -203,7 +203,19 @@ button:hover {
     cursor: pointer;
     border-radius: 10px;
     left: calc(50% + 166px);
-    background-color: red;
+    background-color: darkred;
+}
+
+#saveGameButton:hover {
+    background-color: rgb(0, 150, 0);
+}
+
+#loadGameButton:hover {
+    background-color: rgb(255, 125, 0);
+}
+
+#resetGameButton:hover {
+    background-color: rgb(200, 0, 0);
 }
 
 
