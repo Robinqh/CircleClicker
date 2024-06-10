@@ -121,6 +121,10 @@ function UpdateUI() {
     if (mysteryValueElement) {
         mysteryValueElement.innerText = mystery;
     }
+    const autoSaveStatusElement = document.getElementById("autoSaveStatus");
+    if (autoSaveStatusElement) {
+        autoSaveStatusElement.innerText = autoSaveToggle ? "ON" : "OFF";
+    }
 }
 
 
@@ -362,10 +366,35 @@ function resetGame() {
     }
 }
 
+let autoSaveToggle = true;
+let autoSaveInterval;
+
+toggleAutoSave.onclick = function() {
+    if (autoSaveToggle === true) {
+        autoSaveToggle = false;
+    }
+    else {
+        autoSaveToggle = true;
+    }
+    
+    autosave();
+    UpdateUI();
+}
+
+function autosave() {
+    if (autoSaveInterval) {
+        clearInterval(autoSaveInterval); 
+    }
+    if (autoSaveToggle === true) {
+        autoSaveInterval = setInterval(saveGame, 5000);
+    }
+}
+
 saveGameButton.onclick = saveGame;
 loadGameButton.onclick = loadGame;
 resetGameButton.onclick = resetGame;
 
 
 setInterval (updateAuto, 1000);
+autosave();
 UpdateUI();
