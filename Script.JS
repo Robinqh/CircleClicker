@@ -3,7 +3,8 @@ const circle = document.getElementById("circle");
 
 let increasePower = 1;
 let increaseAuto = 100;
-let increaseEvolve =1000;
+let increaseEvolve = 1000;
+let increasePerma = 2500;
 
 let evolveLVL = 1;
 const evolve = document.getElementById("evolve");
@@ -96,7 +97,9 @@ permanentupgrade.onclick = function() {
     if (clicks >= permaprice) {
         clicks -= permaprice;
         permapower ++;
-        permaprice = 5000 * permapower;
+        increasePerma *= 1.3;
+        permaprice = permapower * increasePerma;
+        permaprice = Math.round(permaprice /500 ) * 500;
         power += 10;
         autopower += 10;
         CurrentClickPower = power
