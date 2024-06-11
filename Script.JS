@@ -254,8 +254,6 @@ evolve.onclick = function() {
             powerprice = 10;
             autoprice = 100;
             mysteryprice = 1000;
-            evoCost = (evoupgrades + 1) * increaseEvolve;
-            evoCost = Math.round(evoCost / 1000) * 1000;
             power = 1 * evopower;
             autopower = 0;
             powerupgrades = 0;
@@ -269,6 +267,8 @@ evolve.onclick = function() {
             UpdateUI();
             }
         }
+        evoCost = (evoupgrades + 1) * increaseEvolve;
+        evoCost = Math.round(evoCost / 1000) * 1000;
     }
 
 
