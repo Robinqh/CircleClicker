@@ -375,17 +375,14 @@ function resetGame() {
     }
 }
 
+
 let autoSaveToggle = true;
 let autoSaveInterval;
+let autosaveMessageFlag = 0;
+let autosaveMessageInterval;
 
 toggleAutoSave.onclick = function() {
-    if (autoSaveToggle === true) {
-        autoSaveToggle = false;
-    }
-    else {
-        autoSaveToggle = true;
-    }
-    
+    autoSaveToggle = !autoSaveToggle;
     autosave();
     UpdateUI();
 }
@@ -394,8 +391,27 @@ function autosave() {
     if (autoSaveInterval) {
         clearInterval(autoSaveInterval); 
     }
-    if (autoSaveToggle === true) {
-        autoSaveInterval = setInterval(saveGame, 180000);
+    if (autoSaveToggle) {
+        autoSaveInterval = setInterval(function() {
+            saveGame();
+            autosaveMessageFlag = 1;
+            autosaveMessage();
+        }, 180000);
+    }
+}
+
+
+function autosaveMessage() {
+    var popupAutoSave = document.getElementById("popupAutoSave");
+    if (autosaveMessageFlag === 1) {
+        popupAutoSave.innerText = "Auto saved";
+        autosaveMessageInterval = setInterval(function() {
+            autosaveMessageFlag = 0;
+            clearInterval(autosaveMessageInterval);
+            popupAutoSave.innerText = "";
+        }, 3000);
+    } else {
+        popupAutoSave.innerText = "";
     }
 }
 
@@ -404,6 +420,6 @@ loadGameButton.onclick = loadGame;
 resetGameButton.onclick = resetGame;
 
 
-setInterval (updateAuto, 1000);
+setInterval (updateAuto, 750);
 autosave();
 UpdateUI();
