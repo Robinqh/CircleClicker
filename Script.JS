@@ -331,6 +331,7 @@ function loadGame() {
         CurrentAutoPower = gameState.CurrentAutoPower;
         CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
 
+        evopower = evolveLVL + 1;
         UpdateUI();
     }
     else {
@@ -347,16 +348,17 @@ function resetGame() {
         increaseAuto = 100;
         increaseEvolve = 1000;
         increasePerma = 2500;
-        evolveLVL = 1;
+        evolveLVL = 0;
         evoRemove = 1;
+        evopower = evolveLVL + 1;
         permapower = 1;
-        power = 1 * evolveLVL + (10 * permapower) - 10;
+        power = 1 * evopower + (10 * permapower) - 10;
         powerprice = 10;
         evoCost = 1250;
         evotrade1Cost = 5;
         evotrade1text = " Evolutions";
         rank = "Your rank: Starter";
-        autopower = 0 * evolveLVL + (10 * permapower) - 10;
+        autopower = 0 * evopower + (10 * permapower) - 10;
         autoprice = 100;
         mysteryprice = 1000;
         mystery = Math.random();
