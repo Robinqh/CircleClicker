@@ -21,8 +21,9 @@ const powerupgrade = document.getElementById("powerupgrade");
 let powerprice = 10;
 
 let evoCost = 1250;
-let evotrade1Cost = 5;
+let evotrade1Cost = 3;
 let evotrade1text = " Evolutions";
+let evotrade1Done = false;
 
 let rank = "Your rank: Starter";
 
@@ -159,7 +160,7 @@ autoupgrade.onclick = function() {
         clicks -= autoprice;
         autoupgrades += 1;
         autopower += 1 * evopower;
-        increaseAuto *= 1.25;
+        increaseAuto *= 1.2;
         autoprice = Math.round(10 * autoupgrades + increaseAuto);
         CurrentClickPower = power;
         CurrentAutoPower = autopower;
@@ -171,7 +172,7 @@ permanentupgrade.onclick = function() {
     if (clicks >= permaprice) {
         clicks -= permaprice;
         permapower ++;
-        increasePerma *= 1.3;
+        increasePerma *= 1.35;
         permaprice = permapower * increasePerma;
         permaprice = Math.round(permaprice / 500 ) * 500;
         power += 10;
@@ -208,31 +209,67 @@ mysterygift.onclick = function() {
 
 evolve.onclick = function() {
     if (clicks >= (evoCost = evolveLVL * increaseEvolve)) {
-        clicks -= Math.round(clicks * evoRemove);
-        evolveLVL ++;
-        evopower = evolveLVL + 1;
-        evoupgrades ++;
-        increaseEvolve *= 1.3;
-        increasePower = 1;
-        increaseAuto = 100;
-        powerprice = 10;
-        autoprice = 100;
-        mysteryprice = 1000;
-        evoCost = (evoupgrades + 1) * increaseEvolve;
-        evoCost = Math.round(evoCost / 1000) * 1000;
-        power = 1 * evopower;
-        autopower = 0 * evopower;
-        powerupgrades = 0;
-        autoupgrades = 0;
-        CurrentClickPower = power;
-        CurrentAutoPower = autopower;
-        CurrentEvolutionLevel = evolveLVL;
+        if (evotrade1Done) {
 
-        PermaUpgradesCheck();
-        updateRank();
-        UpdateUI();
+            let tempPower = powerupgrades * evopower
+            let tempAutopower = autoupgrades * evopower
+
+            tempPower = Math.round(tempPower * 0.2);  
+            tempAutopower = Math.round(tempAutopower * 0.2);  
+
+            power = tempPower + 1 * evopower;
+            autopower = tempAutopower;
+
+            clicks -= Math.round(clicks * 0.8);
+            evolveLVL ++;
+            evopower = evolveLVL + 1;
+            evoupgrades ++;
+            increaseEvolve *= 1.3;
+            increasePower = 1;
+            increaseAuto = 100;
+            powerprice = 10;
+            autoprice = 100;
+            mysteryprice = 1000;
+            evoCost = (evoupgrades + 1) * increaseEvolve;
+            evoCost = Math.round(evoCost / 1000) * 1000;
+            powerupgrades = 0;
+            autoupgrades = 0;
+            CurrentClickPower = power;
+            CurrentAutoPower = autopower;
+            CurrentEvolutionLevel = evolveLVL;
+
+            PermaUpgradesCheck();
+            updateRank();
+            UpdateUI();
+            }
+
+        else {
+            clicks = 0
+            evolveLVL ++;
+            evopower = evolveLVL + 1;
+            evoupgrades ++;
+            increaseEvolve *= 1.3;
+            increasePower = 1;
+            increaseAuto = 100;
+            powerprice = 10;
+            autoprice = 100;
+            mysteryprice = 1000;
+            evoCost = (evoupgrades + 1) * increaseEvolve;
+            evoCost = Math.round(evoCost / 1000) * 1000;
+            power = 1 * evopower;
+            autopower = 0;
+            powerupgrades = 0;
+            autoupgrades = 0;
+            CurrentClickPower = power;
+            CurrentAutoPower = autopower;
+            CurrentEvolutionLevel = evolveLVL;
+
+            PermaUpgradesCheck();
+            updateRank();
+            UpdateUI();
+            }
+        }
     }
-}
 
 
 evotrade1.onclick = function() {
@@ -242,6 +279,7 @@ evotrade1.onclick = function() {
         CurrentEvolutionLevel = evolveLVL;
         evoRemove -=0.1
         evotrade1Cost = 99999999999999
+        evotrade1Done = true;
         updateRank();
         UpdateUI();
     }
@@ -296,7 +334,8 @@ function saveGame() {
         CurrentClickPower,
         CurrentAutoPower,
         CurrentEvolutionLevel,
-        evotrade1
+        evotrade1,
+        evotrade1Done
     };
     localStorage.setItem("GameState", JSON.stringify(gameState));
 }
@@ -330,6 +369,7 @@ function loadGame() {
         CurrentClickPower = gameState.CurrentClickPower;
         CurrentAutoPower = gameState.CurrentAutoPower;
         CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
+        evotrade1Done = gameState.evotrade1Done;
 
         evopower = evolveLVL + 1;
         UpdateUI();
@@ -368,6 +408,7 @@ function resetGame() {
         CurrentClickPower = power;
         CurrentAutoPower = autopower;
         CurrentEvolutionLevel = evolveLVL;
+        evotrade1Done = false;
         localStorage.removeItem("GameState");
         UpdateUI();
     } else {
@@ -404,6 +445,6 @@ loadGameButton.onclick = loadGame;
 resetGameButton.onclick = resetGame;
 
 
-setInterval (updateAuto, 1000);
+setInterval (updateAuto, 750);
 autosave();
 UpdateUI();
