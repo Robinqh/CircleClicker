@@ -395,7 +395,7 @@ function resetGame() {
         power = 1 * evopower + (10 * permapower) - 10;
         powerprice = 10;
         evoCost = 1250;
-        evotrade1Cost = 5;
+        evotrade1Cost = 3;
         evotrade1text = " Evolutions";
         rank = "Your rank: Starter";
         autopower = 0 * evopower + (10 * permapower) - 10;
