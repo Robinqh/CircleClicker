@@ -21,8 +21,9 @@ const powerupgrade = document.getElementById("powerupgrade");
 let powerprice = 10;
 
 let evoCost = 1250;
-let evotrade1Cost = 5;
+let evotrade1Cost = 3;
 let evotrade1text = " Evolutions";
+let evotrade1Done = false;
 
 let rank = "Your rank: Starter";
 
@@ -43,39 +44,43 @@ let CurrentClickPower = power
 let CurrentAutoPower = autopower
 let CurrentEvolutionLevel = evolveLVL
 
+function formatNumber(num) {
+    return num.toLocaleString('de-DE'); 
+}
+
 
 function UpdateUI() {
     const pointValueElement = document.getElementById("pointValue");
     if (pointValueElement) { 
-        pointValueElement.innerText = clicks;
+        pointValueElement.innerText = formatNumber(clicks);
     }
     const upgradeCostElement = document.getElementById("upgradeCost");
     if (upgradeCostElement) {
-        upgradeCostElement.innerText = powerprice;
+        upgradeCostElement.innerText = formatNumber(powerprice);
     }
     const evoCostElement = document.getElementById("evoCost");
     if (evoCostElement) {
-        evoCostElement.innerText = evoCost;
+        evoCostElement.innerText = formatNumber(evoCost);
     }
     const autoCostElement = document.getElementById("autoCost");
     if (autoCostElement) {
-        autoCostElement.innerText = autoprice;
+        autoCostElement.innerText = formatNumber(autoprice);
     }
     const currentClickPowerElement = document.getElementById("CurrentClickPower");
     if (currentClickPowerElement) {
-        currentClickPowerElement.innerText = CurrentClickPower;
+        currentClickPowerElement.innerText = formatNumber(CurrentClickPower);
     }
     const currentAutoPowerElement = document.getElementById("CurrentAutoPower");
     if (currentAutoPowerElement) {
-        currentAutoPowerElement.innerText = CurrentAutoPower;
+        currentAutoPowerElement.innerText = formatNumber(CurrentAutoPower);
     }
     const currentEvolutionLevelElement = document.getElementById("CurrentEvolutionLevel");
     if (currentEvolutionLevelElement) {
-        currentEvolutionLevelElement.innerText = CurrentEvolutionLevel;
+        currentEvolutionLevelElement.innerText = formatNumber(CurrentEvolutionLevel);
     }
     const permanentCostElement = document.getElementById("permanentCost");
     if (permanentCostElement) {
-        permanentCostElement.innerText = permaprice;
+        permanentCostElement.innerText = formatNumber(permaprice);
     }
     const evotradeCostElement = document.getElementById("evotradeCost");
     if (evotradeCostElement) {
@@ -83,7 +88,7 @@ function UpdateUI() {
             evotradeCostElement.innerText = "Unavailable";
         }
         else {
-        evotradeCostElement.innerText = evotrade1Cost + evotrade1text;
+            evotradeCostElement.innerText = formatNumber(evotrade1Cost) + evotrade1text;
         }
     }
     const currentRankElement = document.getElementById("currentRank");
@@ -96,43 +101,47 @@ function UpdateUI() {
             mysteryCostElement.innerText = "Unavailable";
         } 
         else {
-            mysteryCostElement.innerText = mysteryprice;
+            mysteryCostElement.innerText = formatNumber(mysteryprice);
         }
     }
     const powerUpgradeIncreaseElement = document.getElementById("powerUpgradeIncrease");
     if (powerUpgradeIncreaseElement) {
-        powerUpgradeIncreaseElement.innerText = increasePower;
+        powerUpgradeIncreaseElement.innerText = formatNumber(increasePower);
     }
     const utoUpgradeIncreaseElement = document.getElementById("autoUpgradeIncrease");
+    if (utoUpgradeIncreaseElement) {
+        utoUpgradeIncreaseElement.innerText = formatNumber(increaseAuto);
+    }
     const evolveUpgradeIncreaseElement = document.getElementById("evolveUpgradeIncrease");
     if (evolveUpgradeIncreaseElement) {
-        evolveUpgradeIncreaseElement.innerText = increaseEvolve;
+        evolveUpgradeIncreaseElement.innerText = formatNumber(increaseEvolve);
     }
     const permaUpgradeIncreaseElement = document.getElementById("permaUpgradeIncrease");
     if (permaUpgradeIncreaseElement) {
-        permaUpgradeIncreaseElement.innerText = increasePerma;
+        permaUpgradeIncreaseElement.innerText = formatNumber(increasePerma);
     }
     const evolutionLevelElement = document.getElementById("evolutionLevel");
     if (evolutionLevelElement) {
-        evolutionLevelElement.innerText = evolveLVL;
+        evolutionLevelElement.innerText = formatNumber(evolveLVL);
     }
     const evoRemoveValueElement = document.getElementById("evoRemoveValue");
     if (evoRemoveValueElement) {
-        evoRemoveValueElement.innerText = evoRemove;
+        evoRemoveValueElement.innerText = formatNumber(evoRemove);
     }
     const permanentPowerElement = document.getElementById("permanentPower");
     if (permanentPowerElement) {
-        permanentPowerElement.innerText = permapower;
+        permanentPowerElement.innerText = formatNumber(permapower);
     }
     const mysteryValueElement = document.getElementById("mysteryValue");
     if (mysteryValueElement) {
-        mysteryValueElement.innerText = mystery;
+        mysteryValueElement.innerText = mystery; 
     }
     const autoSaveStatusElement = document.getElementById("autoSaveStatus");
     if (autoSaveStatusElement) {
         autoSaveStatusElement.innerText = autoSaveToggle ? "ON" : "OFF";
     }
 }
+
 
 
 circle.onclick = function(){
@@ -159,7 +168,7 @@ autoupgrade.onclick = function() {
         clicks -= autoprice;
         autoupgrades += 1;
         autopower += 1 * evopower;
-        increaseAuto *= 1.25;
+        increaseAuto *= 1.2;
         autoprice = Math.round(10 * autoupgrades + increaseAuto);
         CurrentClickPower = power;
         CurrentAutoPower = autopower;
@@ -171,7 +180,7 @@ permanentupgrade.onclick = function() {
     if (clicks >= permaprice) {
         clicks -= permaprice;
         permapower ++;
-        increasePerma *= 1.3;
+        increasePerma *= 1.35;
         permaprice = permapower * increasePerma;
         permaprice = Math.round(permaprice / 500 ) * 500;
         power += 10;
@@ -208,31 +217,70 @@ mysterygift.onclick = function() {
 
 evolve.onclick = function() {
     if (clicks >= (evoCost = evolveLVL * increaseEvolve)) {
-        clicks -= Math.round(clicks * evoRemove);
-        evolveLVL ++;
-        evopower = evolveLVL + 1;
-        evoupgrades ++;
-        increaseEvolve *= 1.3;
-        increasePower = 1;
-        increaseAuto = 100;
-        powerprice = 10;
-        autoprice = 100;
-        mysteryprice = 1000;
+        if (evotrade1Done) {
+
+            let tempPower = powerupgrades * evopower
+            let tempAutopower = autoupgrades * evopower
+
+            tempPower = Math.round(tempPower * 0.2);  
+            tempAutopower = Math.round(tempAutopower * 0.2);  
+
+            power = tempPower + 1 * evopower;
+            autopower = tempAutopower;
+
+            clicks -= Math.round(clicks * 0.8);
+            evolveLVL ++;
+            evopower = evolveLVL + 1;
+            evoupgrades ++;
+            increaseEvolve *= 1.3;
+            increasePower = 1;
+            increaseAuto = 100;
+            powerprice = 10;
+            autoprice = 100;
+            mysteryprice = 1000;
+            evoCost = (evoupgrades + 1) * increaseEvolve;
+            evoCost = Math.round(evoCost / 1000) * 1000;
+            powerupgrades = 0;
+            autoupgrades = 0;
+            CurrentClickPower = power;
+            CurrentAutoPower = autopower;
+            CurrentEvolutionLevel = evolveLVL;
+
+            PermaUpgradesCheck();
+            updateRank();
+            UpdateUI();
+            }
+
+        else {
+            clicks = 0
+            evolveLVL ++;
+            evopower = evolveLVL + 1;
+            evoupgrades ++;
+            increaseEvolve *= 1.3;
+            increasePower = 1;
+            increaseAuto = 100;
+            powerprice = 10;
+            autoprice = 100;
+            mysteryprice = 1000;
+            power = 1 * evopower;
+            autopower = 0;
+            powerupgrades = 0;
+            autoupgrades = 0;
+            CurrentClickPower = power;
+            CurrentAutoPower = autopower;
+            CurrentEvolutionLevel = evolveLVL;
+
+            PermaUpgradesCheck();
+            updateRank();
+            UpdateUI();
+            }
+        }
         evoCost = (evoupgrades + 1) * increaseEvolve;
         evoCost = Math.round(evoCost / 1000) * 1000;
-        power = 1 * evopower;
-        autopower = 0 * evopower;
-        powerupgrades = 0;
-        autoupgrades = 0;
-        CurrentClickPower = power;
-        CurrentAutoPower = autopower;
-        CurrentEvolutionLevel = evolveLVL;
-
-        PermaUpgradesCheck();
-        updateRank();
-        UpdateUI();
+        if (autoSaveToggle === true) {
+            saveGame();
+        }
     }
-}
 
 
 evotrade1.onclick = function() {
@@ -242,6 +290,7 @@ evotrade1.onclick = function() {
         CurrentEvolutionLevel = evolveLVL;
         evoRemove -=0.1
         evotrade1Cost = 99999999999999
+        evotrade1Done = true;
         updateRank();
         UpdateUI();
     }
@@ -296,9 +345,12 @@ function saveGame() {
         CurrentClickPower,
         CurrentAutoPower,
         CurrentEvolutionLevel,
-        evotrade1
+        evotrade1,
+        evotrade1Done
     };
     localStorage.setItem("GameState", JSON.stringify(gameState));
+    autosaveMessageFlag = 1;
+    autosaveMessage();
 }
 
 function loadGame() {
@@ -330,6 +382,7 @@ function loadGame() {
         CurrentClickPower = gameState.CurrentClickPower;
         CurrentAutoPower = gameState.CurrentAutoPower;
         CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
+        evotrade1Done = gameState.evotrade1Done;
 
         evopower = evolveLVL + 1;
         UpdateUI();
@@ -368,13 +421,13 @@ function resetGame() {
         CurrentClickPower = power;
         CurrentAutoPower = autopower;
         CurrentEvolutionLevel = evolveLVL;
+        evotrade1Done = false;
         localStorage.removeItem("GameState");
         UpdateUI();
     } else {
         return;
     }
 }
-
 
 let autoSaveToggle = true;
 let autoSaveInterval;
@@ -404,7 +457,7 @@ function autosave() {
 function autosaveMessage() {
     var popupAutoSave = document.getElementById("popupAutoSave");
     if (autosaveMessageFlag === 1) {
-        popupAutoSave.innerText = "Auto saved";
+        popupAutoSave.innerText = "Saved";
         autosaveMessageInterval = setInterval(function() {
             autosaveMessageFlag = 0;
             clearInterval(autosaveMessageInterval);
