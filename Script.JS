@@ -34,6 +34,7 @@ let autoprice = 100;
 
 let mysteryprice = 1000;
 let mystery = Math.random();
+let rewardMessage = "";
 
 let powerupgrades = 0;
 let autoupgrades = 0;
@@ -45,38 +46,43 @@ let CurrentAutoPower = autopower
 let CurrentEvolutionLevel = evolveLVL
 
 
+function formatNumber(num) {
+    return num.toLocaleString('de-DE'); 
+}
+
+
 function UpdateUI() {
     const pointValueElement = document.getElementById("pointValue");
     if (pointValueElement) { 
-        pointValueElement.innerText = clicks;
+        pointValueElement.innerText = formatNumber(clicks);
     }
     const upgradeCostElement = document.getElementById("upgradeCost");
     if (upgradeCostElement) {
-        upgradeCostElement.innerText = powerprice;
+        upgradeCostElement.innerText = formatNumber(powerprice);
     }
     const evoCostElement = document.getElementById("evoCost");
     if (evoCostElement) {
-        evoCostElement.innerText = evoCost;
+        evoCostElement.innerText = formatNumber(evoCost);
     }
     const autoCostElement = document.getElementById("autoCost");
     if (autoCostElement) {
-        autoCostElement.innerText = autoprice;
+        autoCostElement.innerText = formatNumber(autoprice);
     }
     const currentClickPowerElement = document.getElementById("CurrentClickPower");
     if (currentClickPowerElement) {
-        currentClickPowerElement.innerText = CurrentClickPower;
+        currentClickPowerElement.innerText = formatNumber(CurrentClickPower);
     }
     const currentAutoPowerElement = document.getElementById("CurrentAutoPower");
     if (currentAutoPowerElement) {
-        currentAutoPowerElement.innerText = CurrentAutoPower;
+        currentAutoPowerElement.innerText = formatNumber(CurrentAutoPower);
     }
     const currentEvolutionLevelElement = document.getElementById("CurrentEvolutionLevel");
     if (currentEvolutionLevelElement) {
-        currentEvolutionLevelElement.innerText = CurrentEvolutionLevel;
+        currentEvolutionLevelElement.innerText = formatNumber(CurrentEvolutionLevel);
     }
     const permanentCostElement = document.getElementById("permanentCost");
     if (permanentCostElement) {
-        permanentCostElement.innerText = permaprice;
+        permanentCostElement.innerText = formatNumber(permaprice);
     }
     const evotradeCostElement = document.getElementById("evotradeCost");
     if (evotradeCostElement) {
@@ -84,7 +90,7 @@ function UpdateUI() {
             evotradeCostElement.innerText = "Unavailable";
         }
         else {
-        evotradeCostElement.innerText = evotrade1Cost + evotrade1text;
+            evotradeCostElement.innerText = formatNumber(evotrade1Cost) + evotrade1text;
         }
     }
     const currentRankElement = document.getElementById("currentRank");
@@ -97,43 +103,51 @@ function UpdateUI() {
             mysteryCostElement.innerText = "Unavailable";
         } 
         else {
-            mysteryCostElement.innerText = mysteryprice;
+            mysteryCostElement.innerText = formatNumber(mysteryprice);
         }
     }
     const powerUpgradeIncreaseElement = document.getElementById("powerUpgradeIncrease");
     if (powerUpgradeIncreaseElement) {
-        powerUpgradeIncreaseElement.innerText = increasePower;
+        powerUpgradeIncreaseElement.innerText = formatNumber(increasePower);
     }
     const utoUpgradeIncreaseElement = document.getElementById("autoUpgradeIncrease");
+    if (utoUpgradeIncreaseElement) {
+        utoUpgradeIncreaseElement.innerText = formatNumber(increaseAuto);
+    }
     const evolveUpgradeIncreaseElement = document.getElementById("evolveUpgradeIncrease");
     if (evolveUpgradeIncreaseElement) {
-        evolveUpgradeIncreaseElement.innerText = increaseEvolve;
+        evolveUpgradeIncreaseElement.innerText = formatNumber(increaseEvolve);
     }
     const permaUpgradeIncreaseElement = document.getElementById("permaUpgradeIncrease");
     if (permaUpgradeIncreaseElement) {
-        permaUpgradeIncreaseElement.innerText = increasePerma;
+        permaUpgradeIncreaseElement.innerText = formatNumber(increasePerma);
     }
     const evolutionLevelElement = document.getElementById("evolutionLevel");
     if (evolutionLevelElement) {
-        evolutionLevelElement.innerText = evolveLVL;
+        evolutionLevelElement.innerText = formatNumber(evolveLVL);
     }
     const evoRemoveValueElement = document.getElementById("evoRemoveValue");
     if (evoRemoveValueElement) {
-        evoRemoveValueElement.innerText = evoRemove;
+        evoRemoveValueElement.innerText = formatNumber(evoRemove);
     }
     const permanentPowerElement = document.getElementById("permanentPower");
     if (permanentPowerElement) {
-        permanentPowerElement.innerText = permapower;
+        permanentPowerElement.innerText = formatNumber(permapower);
     }
     const mysteryValueElement = document.getElementById("mysteryValue");
     if (mysteryValueElement) {
-        mysteryValueElement.innerText = mystery;
+        mysteryValueElement.innerText = mystery; 
     }
     const autoSaveStatusElement = document.getElementById("autoSaveStatus");
     if (autoSaveStatusElement) {
         autoSaveStatusElement.innerText = autoSaveToggle ? "ON" : "OFF";
     }
+    const popupmysterygift = document.getElementById(rewardMessage);
+    if (popupmysterygift) { 
+        popupmysterygift.innerText = formatNumber(clicks);
+    }
 }
+
 
 
 circle.onclick = function(){
@@ -197,14 +211,21 @@ mysterygift.onclick = function() {
         mysteryprice = 99999999999999;
         if (mystery >= 0.5) {
             clicks *= 2;
+            rewardMessage = "Clicks Doubled!";
+        } else {
+            clicks = Math.round(clicks /= 2);
+            rewardMessage = "Clicks Halved!";
         }
-        else {
-        clicks = Math.round(clicks /= 2);
-        }
+        popupmysterygift.innerText = rewardMessage;
+        popupmysterygift.style.display = "block";
+        setTimeout(() => {
+            popupmysterygift.style.display = "none";
+        }, 2000);
         UpdateUI();
         saveGame();
     }
 }
+
 
 
 evolve.onclick = function() {
@@ -269,6 +290,12 @@ evolve.onclick = function() {
         }
         evoCost = (evoupgrades + 1) * increaseEvolve;
         evoCost = Math.round(evoCost / 1000) * 1000;
+New-unadded-feautures
+        if (autoSaveToggle === true) {
+            saveGame();
+        }
+
+
     }
 
 
@@ -300,8 +327,7 @@ function updateRank() {
 }
 
 function updateAuto() {
-    clicks += autopower;
-    Math.round(clicks);
+        clicks += autopower;
     UpdateUI();
 }
 
@@ -338,6 +364,8 @@ function saveGame() {
         evotrade1Done
     };
     localStorage.setItem("GameState", JSON.stringify(gameState));
+    autosaveMessageFlag = 1;
+    autosaveMessage();
 }
 
 function loadGame() {
@@ -376,6 +404,45 @@ function loadGame() {
     }
     else {
         alert("No safe file found!");
+    }
+}
+
+function FirstLoadGame() {
+    const savedGameState = localStorage.getItem("GameState");
+    if (savedGameState) {
+        const gameState = JSON.parse(savedGameState);
+        clicks = gameState.clicks;
+        increasePower = gameState.increasePower;
+        increaseAuto = gameState.increaseAuto;
+        increaseEvolve = gameState.increaseEvolve;
+        increasePerma = gameState.increasePerma;
+        evolveLVL = gameState.evolveLVL;
+        evoRemove = gameState.evoRemove;
+        permapower = gameState.permapower;
+        permaprice = gameState.permaprice;
+        power = gameState.power;
+        powerprice = gameState.powerprice;
+        evoCost = gameState.evoCost;
+        evotrade1Cost = gameState.evotrade1Cost;
+        evotrade1text = gameState.evotrade1text;
+        rank = gameState.rank;
+        autopower = gameState.autopower;
+        autoprice = gameState.autoprice;
+        mysteryprice = gameState.mysteryprice;
+        mystery = gameState.mystery;
+        powerupgrades = gameState.powerupgrades;
+        autoupgrades = gameState.autoupgrades;
+        evoupgrades = gameState.evoupgrades;
+        CurrentClickPower = gameState.CurrentClickPower;
+        CurrentAutoPower = gameState.CurrentAutoPower;
+        CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
+        evotrade1Done = gameState.evotrade1Done;
+
+        evopower = evolveLVL + 1;
+        UpdateUI();
+    }
+    else {
+        return;
     }
 }
 
@@ -418,15 +485,11 @@ function resetGame() {
 
 let autoSaveToggle = true;
 let autoSaveInterval;
+let autosaveMessageFlag = 0;
+let autosaveMessageInterval;
 
 toggleAutoSave.onclick = function() {
-    if (autoSaveToggle === true) {
-        autoSaveToggle = false;
-    }
-    else {
-        autoSaveToggle = true;
-    }
-    
+    autoSaveToggle = !autoSaveToggle;
     autosave();
     UpdateUI();
 }
@@ -435,8 +498,27 @@ function autosave() {
     if (autoSaveInterval) {
         clearInterval(autoSaveInterval); 
     }
-    if (autoSaveToggle === true) {
-        autoSaveInterval = setInterval(saveGame, 180000);
+    if (autoSaveToggle) {
+        autoSaveInterval = setInterval(function() {
+            saveGame();
+            autosaveMessageFlag = 1;
+            autosaveMessage();
+        }, 180000);
+    }
+}
+
+
+function autosaveMessage() {
+    var popupAutoSave = document.getElementById("popupAutoSave");
+    if (autosaveMessageFlag === 1) {
+        popupAutoSave.innerText = "Saved";
+        autosaveMessageInterval = setInterval(function() {
+            autosaveMessageFlag = 0;
+            clearInterval(autosaveMessageInterval);
+            popupAutoSave.innerText = "";
+        }, 3000);
+    } else {
+        popupAutoSave.innerText = "";
     }
 }
 
@@ -448,3 +530,7 @@ resetGameButton.onclick = resetGame;
 setInterval (updateAuto, 750);
 autosave();
 UpdateUI();
+FirstLoadGame();
+
+Informationscreen.onclick = saveGame;
+Gamescreen.onclick = loadGame;
