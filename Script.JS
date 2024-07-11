@@ -44,6 +44,7 @@ let CurrentClickPower = power
 let CurrentAutoPower = autopower
 let CurrentEvolutionLevel = evolveLVL
 
+
 function formatNumber(num) {
     return num.toLocaleString('de-DE'); 
 }
@@ -311,8 +312,7 @@ function updateRank() {
 }
 
 function updateAuto() {
-    clicks += autopower;
-    Math.round(clicks);
+        clicks += autopower;
     UpdateUI();
 }
 
@@ -476,3 +476,4 @@ resetGameButton.onclick = resetGame;
 setInterval (updateAuto, 750);
 autosave();
 UpdateUI();
+loadGame();
