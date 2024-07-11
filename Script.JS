@@ -220,7 +220,7 @@ mysterygift.onclick = function() {
         popupmysterygift.style.display = "block";
         setTimeout(() => {
             popupmysterygift.style.display = "none";
-        }, 3000);
+        }, 2000);
         UpdateUI();
         saveGame();
     }
@@ -528,3 +528,6 @@ setInterval (updateAuto, 750);
 autosave();
 UpdateUI();
 FirstLoadGame();
+
+Informationscreen.onclick = saveGame;
+Gamescreen.onclick = loadGame;
