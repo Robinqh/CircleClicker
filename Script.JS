@@ -34,6 +34,7 @@ let autoprice = 100;
 
 let mysteryprice = 1000;
 let mystery = Math.random();
+let rewardMessage = "";
 
 let powerupgrades = 0;
 let autoupgrades = 0;
@@ -141,6 +142,10 @@ function UpdateUI() {
     if (autoSaveStatusElement) {
         autoSaveStatusElement.innerText = autoSaveToggle ? "ON" : "OFF";
     }
+    const popupmysterygift = document.getElementById(rewardMessage);
+    if (popupmysterygift) { 
+        popupmysterygift.innerText = formatNumber(clicks);
+    }
 }
 
 
@@ -206,14 +211,21 @@ mysterygift.onclick = function() {
         mysteryprice = 99999999999999;
         if (mystery >= 0.5) {
             clicks *= 2;
+            rewardMessage = "Clicks Doubled!";
+        } else {
+            clicks = Math.round(clicks /= 2);
+            rewardMessage = "Clicks Halved!";
         }
-        else {
-        clicks = Math.round(clicks /= 2);
-        }
+        popupmysterygift.innerText = rewardMessage;
+        popupmysterygift.style.display = "block";
+        setTimeout(() => {
+            popupmysterygift.style.display = "none";
+        }, 3000);
         UpdateUI();
         saveGame();
     }
 }
+
 
 
 evolve.onclick = function() {
@@ -392,6 +404,45 @@ function loadGame() {
     }
 }
 
+function FirstLoadGame() {
+    const savedGameState = localStorage.getItem("GameState");
+    if (savedGameState) {
+        const gameState = JSON.parse(savedGameState);
+        clicks = gameState.clicks;
+        increasePower = gameState.increasePower;
+        increaseAuto = gameState.increaseAuto;
+        increaseEvolve = gameState.increaseEvolve;
+        increasePerma = gameState.increasePerma;
+        evolveLVL = gameState.evolveLVL;
+        evoRemove = gameState.evoRemove;
+        permapower = gameState.permapower;
+        permaprice = gameState.permaprice;
+        power = gameState.power;
+        powerprice = gameState.powerprice;
+        evoCost = gameState.evoCost;
+        evotrade1Cost = gameState.evotrade1Cost;
+        evotrade1text = gameState.evotrade1text;
+        rank = gameState.rank;
+        autopower = gameState.autopower;
+        autoprice = gameState.autoprice;
+        mysteryprice = gameState.mysteryprice;
+        mystery = gameState.mystery;
+        powerupgrades = gameState.powerupgrades;
+        autoupgrades = gameState.autoupgrades;
+        evoupgrades = gameState.evoupgrades;
+        CurrentClickPower = gameState.CurrentClickPower;
+        CurrentAutoPower = gameState.CurrentAutoPower;
+        CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
+        evotrade1Done = gameState.evotrade1Done;
+
+        evopower = evolveLVL + 1;
+        UpdateUI();
+    }
+    else {
+        return;
+    }
+}
+
 function resetGame() {
     const confirmed = confirm("Are you sure you want to reset the game?");
     
@@ -476,4 +527,4 @@ resetGameButton.onclick = resetGame;
 setInterval (updateAuto, 750);
 autosave();
 UpdateUI();
-loadGame();
+FirstLoadGame();

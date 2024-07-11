@@ -251,7 +251,7 @@ button:hover {
 }
 
 #popupAutoSave {
-    top: 875px;; 
+    top: 875px;
     display: inline-block;           
     border-radius: 5px;
     padding: 5px 10px;
@@ -259,6 +259,18 @@ button:hover {
     left: 50%;
     transform: translateX(-50%);   
     width: 500px;     
+}
+
+#popupmysterygift {
+    top: 300px;
+    display: inline-block;           
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);   
+    width: 500px;     
+    color: wheat;
 }
 
 #version {
