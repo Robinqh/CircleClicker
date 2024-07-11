@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circle Clicker</title>
+    <title>Circle Clicker: Game</title>
     <link rel="stylesheet" href="Style.css">
 </head>
 <body>
-    <h1>Welcome </h1>to Circle Clicker!
-    <br><br><br><br>
+    <h1>Welcome to Circle Clicker!</h1>
+    <br>
+    <a href="InfoScreen.html">
+        <button id="Informationscreen">Information Screen: Pauses Game!</button>
+    </a>
+    <br><br><br>
 
     <h4 id="ClickPower">Current ClickPower level: <span id="CurrentClickPower"></span></h4>
     <h4 id="AutoPower">Current Autopower level: <span id="CurrentAutoPower"></span></h4>
@@ -18,7 +22,7 @@
 
     <button id="powerupgrade">Upgrade power: <span id="upgradeCost"></span></button>
 
-    <button id="autoupgrade">Upgrade auotclicker: <span id="autoCost"></span></button>
+    <button id="autoupgrade">Upgrade autoupgrade: <span id="autoCost"></span></button>
 
     <button id="permanentupgrade">Permanent upgrade: <span id="permanentCost"></span><br>NOTE: adds 10 (auto)power!</button>
 
@@ -35,13 +39,13 @@
 
     <h2 id="currentRank"></h2>
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <!--Here can come a warning-->
-    <h3 id="version">V0.3 out now! V1.0 coming soon!</h3>
+    <h2><span id="popupAutoSave"></span></h2>
+    <h1><span id="popupmysterygift"></span></h1>
+    <h3 id="version">V2.0 out now! V2.1 coming soon!</h3>
 
     <div class="side-box" id="left-side"></div>
     <div class="side-box" id="right-side"></div>
     
-<script src="Script.JS"></script>
+    <script src="Script.JS"></script>
 </body>
 </html>
