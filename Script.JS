@@ -503,7 +503,7 @@ function autosave() {
             saveGame();
             autosaveMessageFlag = 1;
             autosaveMessage();
-        }, 180000);
+        }, 120000);
     }
 }
 
