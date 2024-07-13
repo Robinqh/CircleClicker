@@ -1,3 +1,5 @@
+let canUpgrade = true;
+
 let clicks = 0;
 const circle = document.getElementById("circle");
 
@@ -163,46 +165,63 @@ circle.onclick = function(){
 }
 
 powerupgrade.onclick = function(){
-    if (clicks >= powerprice) {
-        clicks -= powerprice;
-        powerupgrades += 1;
-        power += 1 * evopower * clicksMultiplier;
-        increasePower *= 1.2;
-        powerprice = Math.round(20 * powerupgrades + increasePower);
-        powerprice = Math.round(powerprice * priceMultiplier);
-        CurrentClickPower = power;
-        CurrentAutoPower = autopower;
-        UpdateUI();
+    if (canUpgrade == true) {
+        if (clicks >= powerprice) {
+            clicks -= powerprice;
+            powerupgrades += 1;
+            power += 1 * evopower * clicksMultiplier;
+            increasePower *= 1.2;
+            powerprice = Math.round(20 * powerupgrades + increasePower);
+            powerprice = Math.round(powerprice * priceMultiplier);
+            CurrentClickPower = power;
+            CurrentAutoPower = autopower;
+            UpdateUI();
+        }
+        else {
+            return
+        }
     }
+
 }
 
 autoupgrade.onclick = function() {
-    if (clicks >= autoprice) {
-        clicks -= autoprice;
-        autoupgrades += 1;
-        autopower += 1 * evopower * clicksMultiplier;
-        increaseAuto *= 1.2;
-        autoprice = Math.round(10 * autoupgrades + increaseAuto);
-        autoprice = Math.round(autoprice * priceMultiplier);
-        CurrentClickPower = power;
-        CurrentAutoPower = autopower;
-        UpdateUI();
-        updateAuto();
+    if (canUpgrade == true) {
+        if (clicks >= autoprice) {
+            clicks -= autoprice;
+            autoupgrades += 1;
+            autopower += 1 * evopower * clicksMultiplier;
+            increaseAuto *= 1.2;
+            autoprice = Math.round(10 * autoupgrades + increaseAuto);
+            autoprice = Math.round(autoprice * priceMultiplier);
+            CurrentClickPower = power;
+            CurrentAutoPower = autopower;
+            UpdateUI();
+            updateAuto();
+        }
+    }
+    else {
+        return
     }
 }
+
 permanentupgrade.onclick = function() {
-    if (clicks >= permaprice) {
-        clicks -= permaprice;
-        permapower ++;
-        increasePerma *= 1.35;
-        permaprice = permapower * increasePerma;
-        permaprice = Math.round(permaprice / 500 ) * 500;
-        permaprice = Math.round(permaprice * priceMultiplier);
-        power += 10 * clicksMultiplier;
-        autopower += 10 * clicksMultiplier;
-        CurrentClickPower = mathpower;
-        CurrentAutoPower = autopower;
-        UpdateUI();
+    if (canUpgrade == true) {
+        if (clicks >= permaprice) {
+            clicks -= permaprice;
+            permapower ++;
+            increasePerma *= 1.35;
+            permaprice = permapower * increasePerma;
+            permaprice = Math.round(permaprice / 500 ) * 500;
+            permaprice = Math.round(permaprice * priceMultiplier);
+            power += 10 * clicksMultiplier;
+            autopower += 10 * clicksMultiplier;
+            CurrentClickPower = power;
+            CurrentAutoPower = autopower;
+            UpdateUI();
+        }
+    }
+    else {
+        return
     }
 }
 
@@ -220,12 +239,17 @@ mysterygift.onclick = function() {
     if (clicks >= mysteryprice) {
         mystery = Math.random();
         mysteryprice = 99999999999999;
-        if (mystery >= 0.5) {
+        if (mystery <= 0.4) {
             clicks *= 2;
             rewardMessage = "Clicks Doubled!";
-        } else {
+        } 
+        if (mystery >= 0.4 && mystery <= 0.7){
             clicks = Math.round(clicks /= 2);
             rewardMessage = "Clicks Halved!";
+        }
+        if (mystery >= 0.7) {
+            mysterybonus1();
+            rewardMessage = "1.5 points multiplier!"
         }
         popupmysterygift.innerText = rewardMessage;
         popupmysterygift.style.display = "block";
@@ -240,76 +264,78 @@ mysterygift.onclick = function() {
 
 
 evolve.onclick = function() {
-    if (clicks >= (evoCost = evolveLVL * increaseEvolve * priceMultiplier)) {
-        if (evotrade1Done) {
-            evolveLVL ++;
-            evopower = evolveLVL + 1;
-            updateRank();
+    if (canUpgrade == true) {
+        if (clicks >= (evoCost = evolveLVL * increaseEvolve * priceMultiplier)) {
+            if (evotrade1Done) {
+                evolveLVL ++;
+                evopower = evolveLVL + 1;
+                updateRank();
 
-            let tempPower = powerupgrades * evopower * clicksMultiplier;
-            let tempAutopower = autoupgrades * evopower * clicksMultiplier;
+                let tempPower = powerupgrades * evopower * clicksMultiplier;
+                let tempAutopower = autoupgrades * evopower * clicksMultiplier;
 
-            tempPower = Math.round(tempPower * 0.2);  
-            tempAutopower = Math.round(tempAutopower * 0.2);  
+                tempPower = Math.round(tempPower * 0.2);  
+                tempAutopower = Math.round(tempAutopower * 0.2);  
 
-            power = tempPower + 1 * evopower;
-            autopower = tempAutopower;
+                power = tempPower + 1 * evopower;
+                autopower = tempAutopower;
 
-            clicks -= Math.round(clicks * 0.8);
-            evoupgrades ++;
-            increaseEvolve *= 1.3;
-            increasePower = 1;
-            increaseAuto = 100;
-            powerprice = Math.round(10 * priceMultiplier);
-            autoprice = Math.round(100 * priceMultiplier);;
-            mysteryprice = Math.round(1000 * priceMultiplier);;
+                clicks -= Math.round(clicks * 0.8);
+                evoupgrades ++;
+                increaseEvolve *= 1.3;
+                increasePower = 1;
+                increaseAuto = 100;
+                powerprice = Math.round(10 * priceMultiplier);
+                autoprice = Math.round(100 * priceMultiplier);;
+                mysteryprice = Math.round(1000 * priceMultiplier);;
+                evoCost = (evoupgrades + 1) * increaseEvolve;
+                evoCost = Math.round(evoCost / 1000) * 1000;
+                evoCost = Math.round(evoCost * priceMultiplier);
+                powerupgrades = 0;
+                autoupgrades = 0;
+                CurrentClickPower = power;
+                CurrentAutoPower = autopower;
+                CurrentEvolutionLevel = evolveLVL;
+
+                PermaUpgradesCheck();
+                UpdateUI();
+                }
+
+            else {
+                evolveLVL ++;
+                evopower = evolveLVL + 1;
+                updateRank();
+                clicks = 0
+                evoupgrades ++;
+                increaseEvolve *= 1.3;
+                increasePower = 1;
+                increaseAuto = 100;
+                powerprice = Math.round(10 * priceMultiplier);
+                autoprice = Math.round(100 * priceMultiplier);
+                mysteryprice = Math.round(1000 * priceMultiplier);
+                power = 1 * evopower * clicksMultiplier;
+                autopower = 0 * clicksMultiplier;
+                powerupgrades = 0;
+                autoupgrades = 0;
+                CurrentClickPower = power;
+                CurrentAutoPower = autopower;
+                CurrentEvolutionLevel = evolveLVL;
+
+                PermaUpgradesCheck();
+                UpdateUI();
+                }
+            }
             evoCost = (evoupgrades + 1) * increaseEvolve;
             evoCost = Math.round(evoCost / 1000) * 1000;
             evoCost = Math.round(evoCost * priceMultiplier);
-            powerupgrades = 0;
-            autoupgrades = 0;
-            CurrentClickPower = power;
-            CurrentAutoPower = autopower;
-            CurrentEvolutionLevel = evolveLVL;
-
-            PermaUpgradesCheck();
-            UpdateUI();
-            }
-
-        else {
-            evolveLVL ++;
-            evopower = evolveLVL + 1;
-            updateRank();
-            clicks = 0
-            evoupgrades ++;
-            increaseEvolve *= 1.3;
-            increasePower = 1;
-            increaseAuto = 100;
-            powerprice = Math.round(10 * priceMultiplier);
-            autoprice = Math.round(100 * priceMultiplier);
-            mysteryprice = Math.round(1000 * priceMultiplier);
-            power = 1 * evopower * clicksMultiplier;
-            autopower = 0 * clicksMultiplier;
-            powerupgrades = 0;
-            autoupgrades = 0;
-            CurrentClickPower = power;
-            CurrentAutoPower = autopower;
-            CurrentEvolutionLevel = evolveLVL;
-
-            PermaUpgradesCheck();
-            UpdateUI();
+            if (autoSaveToggle === true) {
+                saveGame();
             }
         }
-        evoCost = (evoupgrades + 1) * increaseEvolve;
-        evoCost = Math.round(evoCost / 1000) * 1000;
-        evoCost = Math.round(evoCost * priceMultiplier);
-        if (autoSaveToggle === true) {
-            saveGame();
-        }
-
-
+    else {
+        return
     }
-
+}
 
 evotrade1.onclick = function() {
     if (evolveLVL >= evotrade1Cost) {
@@ -323,7 +349,6 @@ evotrade1.onclick = function() {
         UpdateUI();
     }
 }
-
 
 function updateRank() {
     if (evolveLVL >= 0) {
@@ -350,6 +375,72 @@ function updateAuto() {
         Math.round(clicks);
     UpdateUI();
 }
+
+let tempPower2 = null;
+let tempAutopower2 = null;
+
+function  mysterybonus1() {
+    clicksMultiplier *= 1.5;
+    tempPower2 = power
+    tempAutopower2 = autopower
+    power = power * clicksMultiplier;
+    autopower = autopower * clicksMultiplier;
+    CurrentClickPower = power;
+    CurrentAutoPower = autopower;
+    canUpgrade = false;
+    UpdateUI();
+    upgradeToggle();
+    setTimeout(function() {
+        clicksMultiplier = 1;
+        canUpgrade = true;
+        power = tempPower2;
+        autopower = tempAutopower2;
+        CurrentClickPower = power;
+        CurrentAutoPower = autopower;
+        UpdateUI();
+        upgradeToggle();
+        updateRank();
+    }, 30000);
+}
+
+const powerUpgradeButton = document.getElementById('powerupgrade');
+const autoUpgradeButton = document.getElementById('autoupgrade');
+const permanentUpgradeButton = document.getElementById('permanentupgrade');
+const evolveButton = document.getElementById('evolve');
+
+function upgradeToggle() {
+    if (canUpgrade == true) {
+        powerUpgradeButton.addEventListener('click', function() {
+            toggleBuyOffClass(powerUpgradeButton);
+        });
+
+        autoUpgradeButton.addEventListener('click', function() {
+            toggleBuyOffClass(autoUpgradeButton);
+        });
+
+        permanentUpgradeButton.addEventListener('click', function() {
+            toggleBuyOffClass(permanentUpgradeButton);
+        });
+
+        evolveButton.addEventListener('click', function() {
+            toggleBuyOffClass(evolveButton);
+        });
+    }
+    else {
+        powerUpgradeButton.classList.add('buyoff');
+        autoUpgradeButton.classList.add('buyoff');
+        permanentUpgradeButton.classList.add('buyoff');
+        evolveButton.classList.add('buyoff');
+    }
+    setTimeout(function() {
+        powerUpgradeButton.classList.remove('buyoff');
+        autoUpgradeButton.classList.remove('buyoff');
+        permanentUpgradeButton.classList.remove('buyoff');
+        evolveButton.classList.remove('buyoff');
+    }, 30000);
+    UpdateUI();
+}
+
 
 
 function saveGame() {
@@ -384,6 +475,7 @@ function saveGame() {
         evotrade1Done,
         priceMultiplier,
         clicksMultiplier,
+        
     };
     localStorage.setItem("GameState", JSON.stringify(gameState));
     autosaveMessageFlag = 1;
@@ -422,9 +514,13 @@ function loadGame() {
         evotrade1Done = gameState.evotrade1Done;
         priceMultiplier = gameState.priceMultiplier;
         clicksMultiplier = gameState.clicksMultiplier;
-
+        canUpgrade = true;
         evopower = evolveLVL + 1;
         UpdateUI();
+        powerUpgradeButton.classList.remove('buyoff');
+        autoUpgradeButton.classList.remove('buyoff');
+        permanentUpgradeButton.classList.remove('buyoff');
+        evolveButton.classList.remove('buyoff');
     }
     else {
         alert("No safe file found!");
@@ -463,9 +559,15 @@ function FirstLoadGame() {
         evotrade1Done = gameState.evotrade1Done;
         priceMultiplier = gameState.priceMultiplier;
         clicksMultiplier = gameState.clicksMultiplier;
+        canUpgrade = true;
+
 
         evopower = evolveLVL + 1;
         UpdateUI();
+        powerUpgradeButton.classList.remove('buyoff');
+        autoUpgradeButton.classList.remove('buyoff');
+        permanentUpgradeButton.classList.remove('buyoff');
+        evolveButton.classList.remove('buyoff');
     }
     else {
         return;
@@ -476,6 +578,7 @@ function resetGame() {
     const confirmed = confirm("Are you sure you want to reset the game?");
     
     if (confirmed) {
+        canUpgrade = true
         priceMultiplier = 1;
         clicksMultiplier = 1;
         clicks = 0;
@@ -507,6 +610,10 @@ function resetGame() {
         evotrade1Done = false;
         localStorage.removeItem("GameState");
         UpdateUI();
+        powerUpgradeButton.classList.remove('buyoff');
+        autoUpgradeButton.classList.remove('buyoff');
+        permanentUpgradeButton.classList.remove('buyoff');
+        evolveButton.classList.remove('buyoff');
     } else {
         return;
     }
@@ -560,6 +667,7 @@ setInterval (updateAuto, 750);
 autosave();
 UpdateUI();
 FirstLoadGame();
+upgradeToggle();
 
 Informationscreen.onclick = saveGame;
 Gamescreen.onclick = loadGame;
