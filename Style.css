@@ -86,10 +86,6 @@ button:hover {
     background-color: rgb(125, 125, 125);
 }
 
-button.buyoff {
-    background-color: rgb(50, 50, 50);
-    cursor: not-allowed;
-}
 
 #Informationscreen {
     width: 500px;
@@ -310,4 +306,19 @@ button.buyoff {
 
 #right-side {
     right: 0;
+}
+
+button.buyoff {
+    background-color: rgb(25, 25, 25);
+    cursor: not-allowed;
+}
+
+#loadGameButton.buyoff {
+    background-color: rgb(25, 25, 25);
+    cursor: not-allowed;
+}
+
+#Informationscreen.buyoff {
+    background-color: rgb(25, 25, 25);
+    cursor: not-allowed;
 }

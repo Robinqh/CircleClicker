@@ -5,6 +5,7 @@ const circle = document.getElementById("circle");
 
 let priceMultiplier = 1; 
 let clicksMultiplier = 1;
+let tempclicksMultipler = null
 
 let increasePower = 1;
 let increaseAuto = 100;
@@ -54,7 +55,6 @@ let CurrentEvolutionLevel = evolveLVL
 function formatNumber(num) {
     return num.toLocaleString('de-DE'); 
 }
-
 
 function UpdateUI() {
     const pointValueElement = document.getElementById("pointValue");
@@ -156,8 +156,6 @@ function UpdateUI() {
     }
 }
 
-
-
 circle.onclick = function(){
     clicks += power;
     Math.round(clicks);
@@ -249,7 +247,7 @@ mysterygift.onclick = function() {
         }
         if (mystery >= 0.7) {
             mysterybonus1();
-            rewardMessage = "1.5 points multiplier!"
+            rewardMessage = "1.5 points multiplier! (30 Seconds)"
         }
         popupmysterygift.innerText = rewardMessage;
         popupmysterygift.style.display = "block";
@@ -260,8 +258,6 @@ mysterygift.onclick = function() {
         saveGame();
     }
 }
-
-
 
 evolve.onclick = function() {
     if (canUpgrade == true) {
@@ -380,6 +376,7 @@ let tempPower2 = null;
 let tempAutopower2 = null;
 
 function  mysterybonus1() {
+    tempclicksMultipler = clicksMultiplier;
     clicksMultiplier *= 1.5;
     tempPower2 = power
     tempAutopower2 = autopower
@@ -391,7 +388,7 @@ function  mysterybonus1() {
     UpdateUI();
     upgradeToggle();
     setTimeout(function() {
-        clicksMultiplier = 1;
+        tempclicksMultipler;
         canUpgrade = true;
         power = tempPower2;
         autopower = tempAutopower2;
@@ -399,7 +396,6 @@ function  mysterybonus1() {
         CurrentAutoPower = autopower;
         UpdateUI();
         upgradeToggle();
-        updateRank();
     }, 30000);
 }
 
@@ -407,6 +403,8 @@ const powerUpgradeButton = document.getElementById('powerupgrade');
 const autoUpgradeButton = document.getElementById('autoupgrade');
 const permanentUpgradeButton = document.getElementById('permanentupgrade');
 const evolveButton = document.getElementById('evolve');
+const loadGameButton = document.getElementById("loadGameButton");
+const Infoscreen = document.getElementById("Informationscreen");
 
 function upgradeToggle() {
     if (canUpgrade == true) {
@@ -425,23 +423,32 @@ function upgradeToggle() {
         evolveButton.addEventListener('click', function() {
             toggleBuyOffClass(evolveButton);
         });
+        loadGameButton.addEventListener("click", function() {
+            toggleBuyOffClass(loadGameButton);
+        })
+        Infoscreen.addEventListener("click", function() {
+            toggleBuyOffClass(Infoscreen);
+        })
     }
     else {
         powerUpgradeButton.classList.add('buyoff');
         autoUpgradeButton.classList.add('buyoff');
         permanentUpgradeButton.classList.add('buyoff');
         evolveButton.classList.add('buyoff');
+        loadGameButton.classList.add("buyoff");
+        Infoscreen.classList.add("buyoff");
+
     }
     setTimeout(function() {
         powerUpgradeButton.classList.remove('buyoff');
         autoUpgradeButton.classList.remove('buyoff');
         permanentUpgradeButton.classList.remove('buyoff');
         evolveButton.classList.remove('buyoff');
+        loadGameButton.classList.remove("buyoff")
+        Infoscreen.classList.remove("buyoff")
     }, 30000);
     UpdateUI();
 }
-
-
 
 function saveGame() {
     const gameState = {
@@ -484,46 +491,53 @@ function saveGame() {
 
 function loadGame() {
     const savedGameState = localStorage.getItem("GameState");
-    if (savedGameState) {
-        const gameState = JSON.parse(savedGameState);
-        clicks = gameState.clicks;
-        increasePower = gameState.increasePower;
-        increaseAuto = gameState.increaseAuto;
-        increaseEvolve = gameState.increaseEvolve;
-        increasePerma = gameState.increasePerma;
-        evolveLVL = gameState.evolveLVL;
-        evoRemove = gameState.evoRemove;
-        permapower = gameState.permapower;
-        permaprice = gameState.permaprice;
-        power = gameState.power;
-        powerprice = gameState.powerprice;
-        evoCost = gameState.evoCost;
-        evotrade1Cost = gameState.evotrade1Cost;
-        evotrade1text = gameState.evotrade1text;
-        rank = gameState.rank;
-        autopower = gameState.autopower;
-        autoprice = gameState.autoprice;
-        mysteryprice = gameState.mysteryprice;
-        mystery = gameState.mystery;
-        powerupgrades = gameState.powerupgrades;
-        autoupgrades = gameState.autoupgrades;
-        evoupgrades = gameState.evoupgrades;
-        CurrentClickPower = gameState.CurrentClickPower;
-        CurrentAutoPower = gameState.CurrentAutoPower;
-        CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
-        evotrade1Done = gameState.evotrade1Done;
-        priceMultiplier = gameState.priceMultiplier;
-        clicksMultiplier = gameState.clicksMultiplier;
-        canUpgrade = true;
-        evopower = evolveLVL + 1;
-        UpdateUI();
-        powerUpgradeButton.classList.remove('buyoff');
-        autoUpgradeButton.classList.remove('buyoff');
-        permanentUpgradeButton.classList.remove('buyoff');
-        evolveButton.classList.remove('buyoff');
+    if (canUpgrade == true) {
+        if (savedGameState) {
+            const gameState = JSON.parse(savedGameState);
+            clicks = gameState.clicks;
+            increasePower = gameState.increasePower;
+            increaseAuto = gameState.increaseAuto;
+            increaseEvolve = gameState.increaseEvolve;
+            increasePerma = gameState.increasePerma;
+            evolveLVL = gameState.evolveLVL;
+            evoRemove = gameState.evoRemove;
+            permapower = gameState.permapower;
+            permaprice = gameState.permaprice;
+            power = gameState.power;
+            powerprice = gameState.powerprice;
+            evoCost = gameState.evoCost;
+            evotrade1Cost = gameState.evotrade1Cost;
+            evotrade1text = gameState.evotrade1text;
+            rank = gameState.rank;
+            autopower = gameState.autopower;
+            autoprice = gameState.autoprice;
+            mysteryprice = gameState.mysteryprice;
+            mystery = gameState.mystery;
+            powerupgrades = gameState.powerupgrades;
+            autoupgrades = gameState.autoupgrades;
+            evoupgrades = gameState.evoupgrades;
+            CurrentClickPower = gameState.CurrentClickPower;
+            CurrentAutoPower = gameState.CurrentAutoPower;
+            CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
+            evotrade1Done = gameState.evotrade1Done;
+            priceMultiplier = gameState.priceMultiplier;
+            clicksMultiplier = gameState.clicksMultiplier;
+            canUpgrade = true;
+            evopower = evolveLVL + 1;
+            UpdateUI();
+            powerUpgradeButton.classList.remove('buyoff');
+            autoUpgradeButton.classList.remove('buyoff');
+            permanentUpgradeButton.classList.remove('buyoff');
+            evolveButton.classList.remove('buyoff');
+            loadGameButton.classList.remove("buyoff")
+        
+    }
+        else {
+            alert("No safe file found!");
+        }
     }
     else {
-        alert("No safe file found!");
+        return
     }
 }
 
@@ -568,6 +582,7 @@ function FirstLoadGame() {
         autoUpgradeButton.classList.remove('buyoff');
         permanentUpgradeButton.classList.remove('buyoff');
         evolveButton.classList.remove('buyoff');
+        loadGameButton.classList.remove("buyoff")
     }
     else {
         return;
@@ -614,6 +629,7 @@ function resetGame() {
         autoUpgradeButton.classList.remove('buyoff');
         permanentUpgradeButton.classList.remove('buyoff');
         evolveButton.classList.remove('buyoff');
+        loadGameButton.classList.remove("buyoff")
     } else {
         return;
     }
@@ -643,7 +659,6 @@ function autosave() {
     }
 }
 
-
 function autosaveMessage() {
     var popupAutoSave = document.getElementById("popupAutoSave");
     if (autosaveMessageFlag === 1) {
@@ -669,5 +684,17 @@ UpdateUI();
 FirstLoadGame();
 upgradeToggle();
 
-Informationscreen.onclick = saveGame;
+const Informationscreen = document.getElementById('Informationscreen');
+Informationscreen.onclick = Infoscreen2;
+
+function Infoscreen2() {
+    if (canUpgrade == true) {
+         saveGame();
+        location.href = "InfoScreen.html";
+    }
+    else {
+        return
+    }
+}
+
 Gamescreen.onclick = loadGame;
