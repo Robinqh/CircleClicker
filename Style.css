@@ -2,6 +2,8 @@ html, body {
     height: auto;
     text-align: center;
     background-color: rgb(0, 140, 140); 
+    user-select: none;
+    color:  black;
 }
 
 #ClickPower {

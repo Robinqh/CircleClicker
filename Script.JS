@@ -240,17 +240,25 @@ mysterygift.onclick = function() {
     if (clicks >= mysteryprice) {
         mystery = Math.random();
         mysteryprice = 99999999999999;
-        if (mystery <= 0.4) {
+        if (mystery <= 0.3) {
             clicks *= 2;
-            rewardMessage = "Clicks Doubled!";
+            rewardMessage = "Points Doubled!";
         } 
-        if (mystery >= 0.4 && mystery <= 0.7){
+        if (mystery >= 0.3 && mystery <= 0.5){
             clicks = Math.round(clicks /= 2);
-            rewardMessage = "Clicks Halved!";
+            rewardMessage = "Points Halved!";
         }
-        if (mystery >= 0.7) {
+        if (mystery >= 0.5 && mystery <= 0.7) {
             mysterybonus1();
             rewardMessage = "1.5 points multiplier! (30 Seconds)"
+        }
+        if (mystery >= 0.7 && mystery <0.9) {
+            rewardMessage = "Nothing";
+        }
+        if (mystery >= 0.9) {
+            evolveLVL += 1;
+            rewardMessage = "An extra evolution level!";
+            updateRank();
         }
         popupmysterygift.innerText = rewardMessage;
         popupmysterygift.style.display = "block";
@@ -352,18 +360,18 @@ evotrade1.onclick = function() {
 
 function updateRank() {
     if (evolveLVL >= 0) {
-        rank = "Your rank: Nobody";
+        rank = "Your rank: Unknown";
     }
     if (evolveLVL >= 3) {
-        rank = "Your rank: Well-Known";
+        rank = "Your rank: Local Celebrity";
         priceMultiplier = 0.8;
     }
     if (evolveLVL >= 5) {
-        rank = "Your rank: Famous";
+        rank = "Your rank: National Hero";
         priceMultiplier = 0.66;
     }
     if (evolveLVL >= 10) {
-        rank = "Your rank: WorldStar";
+        rank = "Your rank: World Famous";
         priceMultiplier = 0.5;
         clicksMultiplier = 1.5;
     }
@@ -644,7 +652,6 @@ function resetGame() {
         evoCost = 1250 * priceMultiplier;
         evotrade1Cost = 3;
         evotrade1text = " Evolutions";
-        rank = "Your rank: Starter";
         autopower = 0 * evopower + (10 * permapower) - 10;
         autoprice = 100 * priceMultiplier;
         mysteryprice = 1000 * priceMultiplier;
@@ -664,6 +671,7 @@ function resetGame() {
         permanentUpgradeButton.classList.remove('buyoff');
         evolveButton.classList.remove('buyoff');
         loadGameButton.classList.remove("buyoff")
+        updateRank();
     } else {
         return;
     }
