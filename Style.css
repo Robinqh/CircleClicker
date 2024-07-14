@@ -149,7 +149,7 @@ button:hover {
     left: calc(50% - 125px);
 }
 
-#evotrade1 {
+#evotrade {
     width: 250px;
     height: 50px;
     position: absolute;
@@ -160,6 +160,7 @@ button:hover {
     border-radius: 10px;
     left: calc(50% + 125px);
 }
+
 
 #permanentupgrade {
     width: 250px;
@@ -330,6 +331,11 @@ button.buyoff {
 }
 
 #Informationscreen.buyoff {
+    background-color: rgb(25, 25, 25);
+    cursor: not-allowed;
+}
+
+#evotrade.buyoff {
     background-color: rgb(25, 25, 25);
     cursor: not-allowed;
 }

@@ -28,8 +28,11 @@ let powerprice = 10;
 
 let evoCost = 1250;
 let evotrade1Cost = 3;
-let evotrade1text = " Evolutions";
+let evotradetext = " Evolutions";
 let evotrade1Done = false;
+let evotrade2Cost = 10;
+let evotrade2Done = false;
+
 
 let rank = "Your rank: Starter";
 
@@ -97,11 +100,14 @@ function UpdateUI() {
     }
     const evotradeCostElement = document.getElementById("evotradeCost");
     if (evotradeCostElement) {
-        if (evotrade1Cost === 99999999999999 ) {
-            evotradeCostElement.innerText = "Unavailable";
+        if (evotrade1Done == true ) {
+            evotradeCostElement.innerText = evotrade2Cost + evotradetext;
         }
-        else {
-            evotradeCostElement.innerText = formatNumber(evotrade1Cost) + evotrade1text;
+        if (evotrade1Done == false) {
+            evotradeCostElement.innerText = evotrade1Cost + evotradetext;
+        }
+        if (evotrade1Done && evotrade2Done) {
+            evotradeCostElement.innerText = evotradetext;
         }
     }
     const currentRankElement = document.getElementById("currentRank");
@@ -345,16 +351,36 @@ evolve.onclick = function() {
     }
 }
 
-evotrade1.onclick = function() {
-    if (evolveLVL >= evotrade1Cost) {
-        evolveLVL -= evotrade1Cost;
-        evopower = evolveLVL + 1;
-        CurrentEvolutionLevel = evolveLVL;
-        evoRemove -=0.1
-        evotrade1Cost = 99999999999999;
-        evotrade1Done = true;
-        updateRank();
-        UpdateUI();
+const EvolutiontradeDarken = document.getElementById("evotrade");
+
+evotrade.onclick = function() {
+    if (evotrade1Done == false) {
+        if (evolveLVL >= evotrade1Cost) {
+            evolveLVL -= evotrade1Cost;
+            evopower = evolveLVL + 1;
+            CurrentEvolutionLevel = evolveLVL;
+            evoRemove -=0.1
+            evotrade1Cost = null;
+            evotrade1Done = true;
+            updateRank();
+            UpdateUI();
+        }
+    }
+    if (evotrade1Done == true) {
+        if (evolveLVL >= evotrade2Cost) {
+            evolveLVL -= evotrade2Cost;
+            evotrade2Done = true;
+            evotrade2Cost = null;
+            updateRank();
+            UpdateUI();
+        }
+    }
+    if (evotrade1Done == true && evotrade2Done == true) {
+        EvolutiontradeDarken.addEventListener('click', function() {
+            toggleBuyOffClass(EvolutiontradeDarken);
+        });
+        EvolutiontradeDarken.classList.add("buyoff");
+        evotradetext = "Evolution Trades Completed!";
     }
 }
 
@@ -500,7 +526,7 @@ function saveGame() {
         powerprice,
         evoCost,
         evotrade1Cost,
-        evotrade1text,
+        evotrade2Cost,
         rank,
         autopower,
         autoupgrade,
@@ -513,10 +539,12 @@ function saveGame() {
         CurrentClickPower,
         CurrentAutoPower,
         CurrentEvolutionLevel,
-        evotrade1,
+        evotrade,
         evotrade1Done,
+        evotrade2Done,
         priceMultiplier,
         tempclicksMultipler,
+        evotradetext,
         
     };
     localStorage.setItem("GameState", JSON.stringify(gameState));
@@ -542,7 +570,7 @@ function loadGame() {
             powerprice = gameState.powerprice;
             evoCost = gameState.evoCost;
             evotrade1Cost = gameState.evotrade1Cost;
-            evotrade1text = gameState.evotrade1text;
+            evotrade2Cost = gameState.evotrade2Cost;
             rank = gameState.rank;
             autopower = gameState.autopower;
             autoprice = gameState.autoprice;
@@ -555,12 +583,14 @@ function loadGame() {
             CurrentAutoPower = gameState.CurrentAutoPower;
             CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
             evotrade1Done = gameState.evotrade1Done;
+            evotrade2Done = gameState.evotrade2Done;
             priceMultiplier = gameState.priceMultiplier;
             tempclicksMultipler = gameState.tempclicksMultipler;
             canUpgrade = true;
             evopower = evolveLVL + 1;
             tempclicksMultipler = clicksMultiplier
             Time = ""
+            evotradetext = gameState.evotradetext;
             UpdateUI();
             updateRank();
             powerUpgradeButton.classList.remove('buyoff');
@@ -569,6 +599,13 @@ function loadGame() {
             evolveButton.classList.remove('buyoff');
             loadGameButton.classList.remove("buyoff")
             Infoscreen.classList.remove("buyoff")
+
+            if (evotrade1Done == true && evotrade2Done == true) {
+                EvolutiontradeDarken.addEventListener('click', function() {
+                    toggleBuyOffClass(EvolutiontradeDarken);
+                });
+                EvolutiontradeDarken.classList.add("buyoff");
+            }
     }
         else {
             alert("No safe file found!");
@@ -596,7 +633,7 @@ function FirstLoadGame() {
         powerprice = gameState.powerprice;
         evoCost = gameState.evoCost;
         evotrade1Cost = gameState.evotrade1Cost;
-        evotrade1text = gameState.evotrade1text;
+        evotrade2Cost = gameState.evotrade2Cost;
         rank = gameState.rank;
         autopower = gameState.autopower;
         autoprice = gameState.autoprice;
@@ -609,10 +646,12 @@ function FirstLoadGame() {
         CurrentAutoPower = gameState.CurrentAutoPower;
         CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
         evotrade1Done = gameState.evotrade1Done;
+        evotrade2Done = gameState.evotrade2Done;
         priceMultiplier = gameState.priceMultiplier;
         tempclicksMultipler = gameState.tempclicksMultipler;
         canUpgrade = true;
         Time = ""
+        evotradetext = gameState.evotradetext;
 
         evopower = evolveLVL + 1;
         tempclicksMultipler = clicksMultiplier
@@ -624,6 +663,14 @@ function FirstLoadGame() {
         evolveButton.classList.remove('buyoff');
         loadGameButton.classList.remove("buyoff")
         Infoscreen.classList.remove("buyoff")
+
+        if (evotrade1Done == true && evotrade2Done == true) {
+            EvolutiontradeDarken.addEventListener('click', function() {
+                toggleBuyOffClass(EvolutiontradeDarken);
+            });
+            EvolutiontradeDarken.classList.add("buyoff");
+        }
+        
     }
     else {
         return;
@@ -651,7 +698,8 @@ function resetGame() {
         powerprice = 10 * priceMultiplier;
         evoCost = 1250 * priceMultiplier;
         evotrade1Cost = 3;
-        evotrade1text = " Evolutions";
+        evotrade2Cost = null;
+        evotradetext = " Evolutions";
         autopower = 0 * evopower + (10 * permapower) - 10;
         autoprice = 100 * priceMultiplier;
         mysteryprice = 1000 * priceMultiplier;
@@ -663,6 +711,7 @@ function resetGame() {
         CurrentAutoPower = autopower;
         CurrentEvolutionLevel = evolveLVL;
         evotrade1Done = false;
+        evotrade2Done = false;
         Time = ""
         localStorage.removeItem("GameState");
         UpdateUI();
@@ -671,6 +720,7 @@ function resetGame() {
         permanentUpgradeButton.classList.remove('buyoff');
         evolveButton.classList.remove('buyoff');
         loadGameButton.classList.remove("buyoff")
+        evotrade.classList.remove("buyoff")
         updateRank();
     } else {
         return;
@@ -718,7 +768,6 @@ function autosaveMessage() {
 saveGameButton.onclick = saveGame;
 loadGameButton.onclick = loadGame;
 resetGameButton.onclick = resetGame;
-
 
 setInterval (updateAuto, 750);
 autosave();
