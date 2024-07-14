@@ -51,6 +51,9 @@ let CurrentClickPower = power * clicksMultiplier
 let CurrentAutoPower = autopower * clicksMultiplier
 let CurrentEvolutionLevel = evolveLVL
 
+let Time = "";
+let TimeLeft;
+
 
 function formatNumber(num) {
     return num.toLocaleString('de-DE'); 
@@ -256,6 +259,7 @@ mysterygift.onclick = function() {
         }, 2000);
         UpdateUI();
         saveGame();
+        
     }
 }
 
@@ -376,6 +380,8 @@ let tempPower2 = null;
 let tempAutopower2 = null;
 
 function  mysterybonus1() {
+    Time = 30;
+    TimerMGift();
     tempclicksMultipler = clicksMultiplier;
     clicksMultiplier *= 1.5;
     tempPower2 = power
@@ -388,16 +394,18 @@ function  mysterybonus1() {
     UpdateUI();
     upgradeToggle();
     setTimeout(function() {
-        tempclicksMultipler;
+        clicksMultiplier = tempclicksMultipler;
         canUpgrade = true;
         power = tempPower2;
         autopower = tempAutopower2;
         CurrentClickPower = power;
         CurrentAutoPower = autopower;
+
         UpdateUI();
         upgradeToggle();
     }, 30000);
 }
+
 
 const powerUpgradeButton = document.getElementById('powerupgrade');
 const autoUpgradeButton = document.getElementById('autoupgrade');
@@ -439,18 +447,37 @@ function upgradeToggle() {
         Infoscreen.classList.add("buyoff");
 
     }
-    setTimeout(function() {
-        powerUpgradeButton.classList.remove('buyoff');
-        autoUpgradeButton.classList.remove('buyoff');
-        permanentUpgradeButton.classList.remove('buyoff');
-        evolveButton.classList.remove('buyoff');
-        loadGameButton.classList.remove("buyoff")
-        Infoscreen.classList.remove("buyoff")
-    }, 30000);
+}
+function buyon() {
+    powerUpgradeButton.classList.remove('buyoff');
+    autoUpgradeButton.classList.remove('buyoff');
+    permanentUpgradeButton.classList.remove('buyoff');
+    evolveButton.classList.remove('buyoff');
+    loadGameButton.classList.remove("buyoff")
+    Infoscreen.classList.remove("buyoff")
     UpdateUI();
 }
 
+
+
+document.getElementById("TimerMGift").innerHTML = Time;
+
+function TimerMGift() {
+   TimeLeft = setInterval(() =>{
+    Time --;
+    document.getElementById("TimerMGift").innerHTML = Time;
+    if (Time == 0) {
+        clearInterval(TimeLeft);
+        buyon();
+        document.getElementById("TimerMGift").innerHTML = "";
+    }
+    }, 1000);
+}
+
 function saveGame() {
+    if (canUpgrade == true) {
+        tempclicksMultipler = clicksMultiplier;
+    }
     const gameState = {
         clicks,
         increasePower,
@@ -481,7 +508,7 @@ function saveGame() {
         evotrade1,
         evotrade1Done,
         priceMultiplier,
-        clicksMultiplier,
+        tempclicksMultipler,
         
     };
     localStorage.setItem("GameState", JSON.stringify(gameState));
@@ -521,16 +548,19 @@ function loadGame() {
             CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
             evotrade1Done = gameState.evotrade1Done;
             priceMultiplier = gameState.priceMultiplier;
-            clicksMultiplier = gameState.clicksMultiplier;
+            tempclicksMultipler = gameState.tempclicksMultipler;
             canUpgrade = true;
             evopower = evolveLVL + 1;
+            tempclicksMultipler = clicksMultiplier
+            Time = ""
             UpdateUI();
+            updateRank();
             powerUpgradeButton.classList.remove('buyoff');
             autoUpgradeButton.classList.remove('buyoff');
             permanentUpgradeButton.classList.remove('buyoff');
             evolveButton.classList.remove('buyoff');
             loadGameButton.classList.remove("buyoff")
-        
+            Infoscreen.classList.remove("buyoff")
     }
         else {
             alert("No safe file found!");
@@ -572,17 +602,20 @@ function FirstLoadGame() {
         CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
         evotrade1Done = gameState.evotrade1Done;
         priceMultiplier = gameState.priceMultiplier;
-        clicksMultiplier = gameState.clicksMultiplier;
+        tempclicksMultipler = gameState.tempclicksMultipler;
         canUpgrade = true;
-
+        Time = ""
 
         evopower = evolveLVL + 1;
+        tempclicksMultipler = clicksMultiplier
         UpdateUI();
+        updateRank();
         powerUpgradeButton.classList.remove('buyoff');
         autoUpgradeButton.classList.remove('buyoff');
         permanentUpgradeButton.classList.remove('buyoff');
         evolveButton.classList.remove('buyoff');
         loadGameButton.classList.remove("buyoff")
+        Infoscreen.classList.remove("buyoff")
     }
     else {
         return;
@@ -623,6 +656,7 @@ function resetGame() {
         CurrentAutoPower = autopower;
         CurrentEvolutionLevel = evolveLVL;
         evotrade1Done = false;
+        Time = ""
         localStorage.removeItem("GameState");
         UpdateUI();
         powerUpgradeButton.classList.remove('buyoff');

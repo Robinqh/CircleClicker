@@ -69,7 +69,16 @@ html, body {
     height: 390px;
 }
 
-
+#TimerMGift {
+    top: 500px;
+    display: inline-block;           
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);   
+    color: white;
+}
 
 button {
     background-color: rgb(95, 95, 95);
