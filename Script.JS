@@ -32,9 +32,10 @@ let evotradetext = " Evolutions";
 let evotrade1Done = false;
 let evotrade2Cost = 10;
 let evotrade2Done = false;
+let evotradesDone = 0; //Counts clicks on evo trade button not the ammount of trades!  (can be safely remove (i think))
 
 
-let rank = "Your rank: Starter";
+let rank = "Your rank: Loading";
 
 let autopower = 0 * evopower + (10 * permapower) - 10 * clicksMultiplier;
 const autoupgrade = document.getElementById("autoupgrade")
@@ -47,7 +48,7 @@ let rewardMessage = "";
 
 let powerupgrades = 0;
 let autoupgrades = 0;
-let evoupgrades = 0;
+let evoupgrades = 0; //resets with 2d evo trade
 
 
 let CurrentClickPower = power * clicksMultiplier
@@ -264,7 +265,9 @@ mysterygift.onclick = function() {
         if (mystery >= 0.9) {
             evolveLVL += 1;
             rewardMessage = "An extra evolution level!";
+            evopower = evolveLVL + 1;
             updateRank();
+            UpdateUI();
         }
         popupmysterygift.innerText = rewardMessage;
         popupmysterygift.style.display = "block";
@@ -302,9 +305,6 @@ evolve.onclick = function() {
                 powerprice = Math.round(10 * priceMultiplier);
                 autoprice = Math.round(100 * priceMultiplier);;
                 mysteryprice = Math.round(1000 * priceMultiplier);;
-                evoCost = (evoupgrades + 1) * increaseEvolve;
-                evoCost = Math.round(evoCost / 1000) * 1000;
-                evoCost = Math.round(evoCost * priceMultiplier);
                 powerupgrades = 0;
                 autoupgrades = 0;
                 CurrentClickPower = power;
@@ -354,28 +354,38 @@ evolve.onclick = function() {
 const EvolutiontradeDarken = document.getElementById("evotrade");
 
 evotrade.onclick = function() {
+    evotradesDone ++;
     if (evotrade1Done == false) {
         if (evolveLVL >= evotrade1Cost) {
             evolveLVL -= evotrade1Cost;
             evopower = evolveLVL + 1;
             CurrentEvolutionLevel = evolveLVL;
+            updateRank();
             evoRemove -=0.1
             evotrade1Cost = null;
             evotrade1Done = true;
-            updateRank();
+
             UpdateUI();
+            return
         }
     }
-    if (evotrade1Done == true) {
+    if (evotrade1Done == true && evotrade2Done == false) {
         if (evolveLVL >= evotrade2Cost) {
             evolveLVL -= evotrade2Cost;
+            CurrentEvolutionLevel = evolveLVL;
+            evopower = evolveLVL + 1;
+            updateRank();
+            increaseEvolve = 1000;
+            evoupgrades = 0;
+            evoCost = 1250;
             evotrade2Done = true;
             evotrade2Cost = null;
-            updateRank();
+            evotradesDone ++;
+
             UpdateUI();
         }
     }
-    if (evotrade1Done == true && evotrade2Done == true) {
+    if (evotrade1Done && evotrade2Done) {
         EvolutiontradeDarken.addEventListener('click', function() {
             toggleBuyOffClass(EvolutiontradeDarken);
         });
@@ -387,14 +397,18 @@ evotrade.onclick = function() {
 function updateRank() {
     if (evolveLVL >= 0) {
         rank = "Your rank: Unknown";
+        priceMultiplier = 1;
+        clicksMultiplier = 1;
     }
     if (evolveLVL >= 3) {
         rank = "Your rank: Local Celebrity";
         priceMultiplier = 0.8;
+        clicksMultiplier =1;
     }
     if (evolveLVL >= 5) {
         rank = "Your rank: National Hero";
-        priceMultiplier = 0.66;
+        priceMultiplier = 0.67;
+        clicksMultiplier = 1;
     }
     if (evolveLVL >= 10) {
         rank = "Your rank: World Famous";
@@ -545,6 +559,7 @@ function saveGame() {
         priceMultiplier,
         tempclicksMultipler,
         evotradetext,
+        evotradesDone,
         
     };
     localStorage.setItem("GameState", JSON.stringify(gameState));
@@ -591,8 +606,9 @@ function loadGame() {
             tempclicksMultipler = clicksMultiplier
             Time = ""
             evotradetext = gameState.evotradetext;
-            UpdateUI();
+            evotradesDone = gameState.evotradesDone;
             updateRank();
+            UpdateUI();
             powerUpgradeButton.classList.remove('buyoff');
             autoUpgradeButton.classList.remove('buyoff');
             permanentUpgradeButton.classList.remove('buyoff');
@@ -619,58 +635,7 @@ function loadGame() {
 function FirstLoadGame() {
     const savedGameState = localStorage.getItem("GameState");
     if (savedGameState) {
-        const gameState = JSON.parse(savedGameState);
-        clicks = gameState.clicks;
-        increasePower = gameState.increasePower;
-        increaseAuto = gameState.increaseAuto;
-        increaseEvolve = gameState.increaseEvolve;
-        increasePerma = gameState.increasePerma;
-        evolveLVL = gameState.evolveLVL;
-        evoRemove = gameState.evoRemove;
-        permapower = gameState.permapower;
-        permaprice = gameState.permaprice;
-        power = gameState.power;
-        powerprice = gameState.powerprice;
-        evoCost = gameState.evoCost;
-        evotrade1Cost = gameState.evotrade1Cost;
-        evotrade2Cost = gameState.evotrade2Cost;
-        rank = gameState.rank;
-        autopower = gameState.autopower;
-        autoprice = gameState.autoprice;
-        mysteryprice = gameState.mysteryprice;
-        mystery = gameState.mystery;
-        powerupgrades = gameState.powerupgrades;
-        autoupgrades = gameState.autoupgrades;
-        evoupgrades = gameState.evoupgrades;
-        CurrentClickPower = gameState.CurrentClickPower;
-        CurrentAutoPower = gameState.CurrentAutoPower;
-        CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
-        evotrade1Done = gameState.evotrade1Done;
-        evotrade2Done = gameState.evotrade2Done;
-        priceMultiplier = gameState.priceMultiplier;
-        tempclicksMultipler = gameState.tempclicksMultipler;
-        canUpgrade = true;
-        Time = ""
-        evotradetext = gameState.evotradetext;
-
-        evopower = evolveLVL + 1;
-        tempclicksMultipler = clicksMultiplier
-        UpdateUI();
-        updateRank();
-        powerUpgradeButton.classList.remove('buyoff');
-        autoUpgradeButton.classList.remove('buyoff');
-        permanentUpgradeButton.classList.remove('buyoff');
-        evolveButton.classList.remove('buyoff');
-        loadGameButton.classList.remove("buyoff")
-        Infoscreen.classList.remove("buyoff")
-
-        if (evotrade1Done == true && evotrade2Done == true) {
-            EvolutiontradeDarken.addEventListener('click', function() {
-                toggleBuyOffClass(EvolutiontradeDarken);
-            });
-            EvolutiontradeDarken.classList.add("buyoff");
-        }
-        
+        loadGame();
     }
     else {
         return;
@@ -712,9 +677,9 @@ function resetGame() {
         CurrentEvolutionLevel = evolveLVL;
         evotrade1Done = false;
         evotrade2Done = false;
-        Time = ""
+        Time = "";
+        evotradesDone = 1;
         localStorage.removeItem("GameState");
-        UpdateUI();
         powerUpgradeButton.classList.remove('buyoff');
         autoUpgradeButton.classList.remove('buyoff');
         permanentUpgradeButton.classList.remove('buyoff');
@@ -722,6 +687,7 @@ function resetGame() {
         loadGameButton.classList.remove("buyoff")
         evotrade.classList.remove("buyoff")
         updateRank();
+        UpdateUI();
     } else {
         return;
     }
@@ -774,6 +740,7 @@ autosave();
 UpdateUI();
 FirstLoadGame();
 upgradeToggle();
+updateRank();
 
 const Informationscreen = document.getElementById('Informationscreen');
 Informationscreen.onclick = Infoscreen2;
@@ -787,5 +754,6 @@ function Infoscreen2() {
         return
     }
 }
+
 
 Gamescreen.onclick = loadGame;

@@ -104,18 +104,46 @@ html, body {
 #Mysteries {
     top: 500px;
     height: 50px;
-    width: 500px; 
-    left: 50%;
-    transform: translateX(-50%);
+    left: calc(50% - 245px);
 }
 
 #MysteryGift {
     top: 550px;
     height: 50px;
-    width: 500px; 
-    left: 50%;
-    transform: translateX(-50%);
+    left: calc(50% - 245px);
 }
+
+#Ranks {
+    left: calc(50% + 10px);
+    top: 500px;
+    height: 50px;
+}
+
+#Rank1 {
+    left: calc(50% + 10px);
+    top: 550px;
+    height: 50px;
+}
+
+#Rank2 {
+    left: calc(50% + 10px);
+    top: 600px;
+    height: 50px;
+}
+
+#Rank3 {
+    left: calc(50% + 10px);
+    top: 650px;
+    height: 50px;
+}
+
+#Rank4 {
+    left: calc(50% + 10px);
+    top: 700px;
+    height: 75px;
+}
+    
+
 
 #version {
     top: 900px;
