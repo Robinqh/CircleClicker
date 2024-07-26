@@ -58,6 +58,11 @@ let CurrentEvolutionLevel = evolveLVL
 let Time = "";
 let TimeLeft;
 
+let autoSaveToggle = true;
+let autoSaveInterval;
+let autosaveMessageFlag = 0;
+let autosaveMessageInterval;
+
 
 function formatNumber(num) {
     return num.toLocaleString('de-DE'); 
@@ -560,6 +565,7 @@ function saveGame() {
         tempclicksMultipler,
         evotradetext,
         evotradesDone,
+        autoSaveToggle,
         
     };
     localStorage.setItem("GameState", JSON.stringify(gameState));
@@ -601,6 +607,7 @@ function loadGame() {
             evotrade2Done = gameState.evotrade2Done;
             priceMultiplier = gameState.priceMultiplier;
             tempclicksMultipler = gameState.tempclicksMultipler;
+            autoSaveToggle = gameState.autoSaveToggle;
             canUpgrade = true;
             evopower = evolveLVL + 1;
             tempclicksMultipler = clicksMultiplier
@@ -693,10 +700,7 @@ function resetGame() {
     }
 }
 
-let autoSaveToggle = true;
-let autoSaveInterval;
-let autosaveMessageFlag = 0;
-let autosaveMessageInterval;
+
 
 toggleAutoSave.onclick = function() {
     autoSaveToggle = !autoSaveToggle;
