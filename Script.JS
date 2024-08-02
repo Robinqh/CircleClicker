@@ -63,6 +63,10 @@ let autoSaveInterval;
 let autosaveMessageFlag = 0;
 let autosaveMessageInterval;
 
+let coins = 0;
+let newCoin = 1000
+const coincount = document.getElementById("coincount");
+let timesClicked = 0;
 
 function formatNumber(num) {
     return num.toLocaleString('de-DE'); 
@@ -169,11 +173,20 @@ function UpdateUI() {
     if (popupmysterygift) { 
         popupmysterygift.innerText = formatNumber(clicks);
     }
+    const coinElement = document.getElementById("coins");
+    if (coinElement) {
+        coinElement.innerText = formatNumber(coins); }
 }
 
 circle.onclick = function(){
     clicks += power;
+    timesClicked ++;
     Math.round(clicks);
+    if (timesClicked == newCoin) {
+        coins ++;
+        timesClicked = 0;
+        newCoin = Math.floor(Math.random() * 1000) + 1;   
+    }
     UpdateUI();
 }
 
@@ -748,6 +761,7 @@ updateRank();
 
 const Informationscreen = document.getElementById('Informationscreen');
 Informationscreen.onclick = Infoscreen2;
+ShopScreen.onclick = ShopScreen2;
 
 function Infoscreen2() {
     if (canUpgrade == true) {
@@ -759,5 +773,15 @@ function Infoscreen2() {
     }
 }
 
+
+function ShopScreen2() {
+    if (canUpgrade == true) {
+         saveGame();
+        location.href = "Shop.html";
+    }
+    else {
+        return
+    }
+}
 
 Gamescreen.onclick = loadGame;

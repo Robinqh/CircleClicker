@@ -9,7 +9,7 @@ html, body {
 
 
 #Gamescreen {
-    width: 475px;
+    width: 500px;
     height: 25px;
     position: absolute;
     top: 850px;
@@ -157,4 +157,14 @@ html, body {
     width: 500px;   
     height: 20px;  
     font-size: 1.525em;
+}
+
+#popupAutoSave {
+    top: 890px;
+    display: inline-block;           
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);   
 }

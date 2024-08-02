@@ -36,13 +36,26 @@ html, body {
     background-color: grey; 
     display: grid;           
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 5px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);   
-    width: 500px;     
+    left: calc(50% + 125px);
+    width: 250px;     
 }
 
+#coincount {
+    top: 60px;
+    background-color: grey; 
+    display: grid;           
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);   
+    left: calc(50% - 125px);
+    width: 250px;     
+}
 
 #circle {
     top: 50px;
@@ -108,6 +121,7 @@ button:hover {
     border-radius: 10px;
     background-color: rgb(95, 160, 160);
 }
+
 
 #Informationscreen:hover {
     background-color: rgb(95, 175, 175);
@@ -268,7 +282,7 @@ button:hover {
 }
 
 #popupAutoSave {
-    top: 875px;
+    top: 890px;
     display: inline-block;           
     border-radius: 5px;
     padding: 5px 10px;
@@ -338,4 +352,15 @@ button.buyoff {
 #evotrade.buyoff {
     background-color: rgb(25, 25, 25);
     cursor: not-allowed;
+}
+
+#ShopScreen {
+    width: 500px;
+    height: 25px;
+    position: absolute;
+    top: 875px;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgb(95, 160, 160);
 }
