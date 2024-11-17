@@ -122,6 +122,16 @@ button:hover {
     background-color: rgb(95, 160, 160);
 }
 
+#ShopScreen {
+    width: 500px;
+    height: 25px;
+    position: absolute;
+    top: 875px;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgb(95, 160, 160);
+}
 
 #Informationscreen:hover {
     background-color: rgb(95, 175, 175);
@@ -334,33 +344,7 @@ button:hover {
     right: 0;
 }
 
-button.buyoff {
-    background-color: rgb(25, 25, 25);
+.buyoff {
+    background-color: rgb(25, 25, 25) !important;
     cursor: not-allowed;
-}
-
-#loadGameButton.buyoff {
-    background-color: rgb(25, 25, 25);
-    cursor: not-allowed;
-}
-
-#Informationscreen.buyoff {
-    background-color: rgb(25, 25, 25);
-    cursor: not-allowed;
-}
-
-#evotrade.buyoff {
-    background-color: rgb(25, 25, 25);
-    cursor: not-allowed;
-}
-
-#ShopScreen {
-    width: 500px;
-    height: 25px;
-    position: absolute;
-    top: 875px;
-    transform: translateX(-50%);
-    text-align: center;
-    border-radius: 10px;
-    background-color: rgb(95, 160, 160);
 }
