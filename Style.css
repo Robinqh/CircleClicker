@@ -344,28 +344,6 @@ button:hover {
     right: 0;
 }
 
-button.buyoff {
-    background-color: rgb(25, 25, 25);
+.buyoff {
+    background-color: rgb(25, 25, 25) !important;
     cursor: not-allowed;
-}
-
-#loadGameButton.buyoff {
-    background-color: rgb(25, 25, 25);
-    cursor: not-allowed;
-}
-
-#Informationscreen.buyoff {
-    background-color: rgb(25, 25, 25);
-    cursor: not-allowed;
-}
-
-#evotrade.buyoff {
-    background-color: rgb(25, 25, 25);
-    cursor: not-allowed;
-}
-
-
-#shopScreen.buyoff {
-    background-color: rgb(25, 25, 25);
-    cursor: not-allowed;
-}

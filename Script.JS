@@ -1,5 +1,8 @@
 let canUpgrade = true;
 
+let priceupg1 = 3;
+
+
 let clicks = 0;
 const circle = document.getElementById("circle");
 
@@ -16,7 +19,6 @@ let evolveLVL = 0;
 let evopower = evolveLVL + 1;
 const evolve = document.getElementById("evolve");
 
-let evoRemove = 1; //savely removable??
 
 let permapower = 1;
 let permaprice = 2500 * priceMultiplier;
@@ -65,16 +67,15 @@ let autosaveMessageInterval;
 
 let coins = 0;
 let newCoin = 1000
-const coincount = document.getElementById("coincount");
 let timesClicked = 0;
 
-let coinshop1bought = 0;
 
 toggleBuyOffClass = null;
 
 function formatNumber(num) {
     return num.toLocaleString('de-DE'); 
 }
+
 
 function UpdateUI() {
     const pointValueElement = document.getElementById("pointValue");
@@ -148,10 +149,6 @@ function UpdateUI() {
     if (evolutionLevelElement) {
         evolutionLevelElement.innerText = formatNumber(evolveLVL);
     }
-    const evoRemoveValueElement = document.getElementById("evoRemoveValue");
-    if (evoRemoveValueElement) {
-        evoRemoveValueElement.innerText = formatNumber(evoRemove);
-    }
     const permanentPowerElement = document.getElementById("permanentPower");
     if (permanentPowerElement) {
         permanentPowerElement.innerText = formatNumber(permapower);
@@ -183,6 +180,7 @@ circle.onclick = function(){
         coins += 1;
         timesClicked = 0;
         newCoin = Math.floor(Math.random() * 1000) + 1;   
+
     }
     UpdateUI();
 }
@@ -289,6 +287,12 @@ mysterygift.onclick = function() {
         setTimeout(() => {
             popupmysterygift.style.display = "none";
         }, 2000);
+
+        Mysterygift.addEventListener("click", function() {
+            toggleBuyOffClass(mysterygift)
+        })
+        Mysterygift.classList.add("buyoff");
+
         UpdateUI();
         saveGame();
         
@@ -297,20 +301,27 @@ mysterygift.onclick = function() {
 
 evolve.onclick = function() {
     if (canUpgrade == true) {
-        if (clicks >= (evoCost = evolveLVL * increaseEvolve * priceMultiplier)) {
+
+        if (clicks >= Math.round(evolveLVL * increaseEvolve * priceMultiplier / 100) * 100) {
+
                 evolveLVL ++;
                 evopower = evolveLVL + 1;
 
                 let tempPower = powerupgrades * evopower * clicksMultiplier;
                 let tempAutopower = autoupgrades * evopower * clicksMultiplier;
 
-                tempPower = Math.round(tempPower * 1 - evoloss);  
-                tempAutopower = Math.round(tempAutopower * 1 - evoloss);  
+                tempPower = tempPower * (1 - evoloss);  
+                tempAutopower = tempAutopower * (1 - evoloss);  
+
+                tempPower = Math.round(tempPower)
+                tempAutopower = Math.round(tempAutopower);
+
 
                 power = tempPower + 1 * evopower;
                 autopower = tempAutopower;
 
-                clicks -= Math.round(clicks * evoloss );
+                clicks -= Math.round(clicks * evoloss);
+
                 evoupgrades ++;
                 increaseEvolve *= 1.3;
                 increasePower = 1;
@@ -324,6 +335,11 @@ evolve.onclick = function() {
                 CurrentAutoPower = autopower;
                 CurrentEvolutionLevel = evolveLVL;
                 
+
+
+                evoCost = Math.round(evolveLVL * increaseEvolve * priceMultiplier / 100) * 100
+
+                Mysterygift.classList.remove("buyoff");
 
                 PermaUpgradesCheck();
                 UpdateUI();
@@ -345,8 +361,9 @@ evotrade.onclick = function() {
             evopower = evolveLVL + 1;
             CurrentEvolutionLevel = evolveLVL;
             updateRank();
+
             evoRemove -=0.1;
-            evoloss -= 0.2;
+
             evotrade1Cost = null;
             evotrade1Done = true;
 
@@ -446,7 +463,9 @@ const permanentUpgradeButton = document.getElementById('permanentupgrade');
 const evolveButton = document.getElementById('evolve');
 const loadGameButton = document.getElementById("loadGameButton");
 const Infoscreen = document.getElementById("Informationscreen");
-const Shopscreen = document.getElementById("ShopScreen")
+const Shopscreendarken = document.getElementById("ShopScreen")
+const Mysterygift = document.getElementById("mysterygift")
+
 
 function upgradeToggle() {
     if (canUpgrade == true) {
@@ -471,8 +490,9 @@ function upgradeToggle() {
         Infoscreen.addEventListener("click", function() {
             toggleBuyOffClass(Infoscreen);
         })
-        Shopscreen.addEventListener("click", function() {
-            toggleBuyOffClass(Shopscreen)
+        Shopscreendarken.addEventListener("click", function() {
+            toggleBuyOffClass(Shopscreendarken)
+
         })
     }
     else {
@@ -482,7 +502,9 @@ function upgradeToggle() {
         evolveButton.classList.add('buyoff');
         loadGameButton.classList.add("buyoff");
         Infoscreen.classList.add("buyoff");
-        Shopscreen.classList.add("buyoff");
+
+        Shopscreendarken.classList.add("buyoff");
+
 
     }
 }
@@ -493,7 +515,8 @@ function buyon() {
     evolveButton.classList.remove('buyoff');
     loadGameButton.classList.remove("buyoff");
     Infoscreen.classList.remove("buyoff");
-    Shopscreen.classList.remove("buyoff");
+    Shopscreendarken.classList.remove("buyoff");
+
     UpdateUI();
 }
 
@@ -524,7 +547,6 @@ function saveGame() {
         increaseEvolve,
         increasePerma,
         evolveLVL,
-        evoRemove,
         permapower,
         permaprice,
         power,
@@ -553,8 +575,9 @@ function saveGame() {
         evotradesDone,
         autoSaveToggle,
         coins,
-        coinshop1bought,
         evoloss,
+        priceupg1
+
         
     };
     localStorage.setItem("GameState", JSON.stringify(gameState));
@@ -567,13 +590,13 @@ function loadGame() {
     if (canUpgrade == true) {
         if (savedGameState) {
             const gameState = JSON.parse(savedGameState);
+            evoloss = gameState.evoloss;
             clicks = gameState.clicks;
             increasePower = gameState.increasePower;
             increaseAuto = gameState.increaseAuto;
             increaseEvolve = gameState.increaseEvolve;
             increasePerma = gameState.increasePerma;
             evolveLVL = gameState.evolveLVL;
-            evoRemove = gameState.evoRemove;
             permapower = gameState.permapower;
             permaprice = gameState.permaprice;
             power = gameState.power;
@@ -603,8 +626,10 @@ function loadGame() {
             Time = ""
             evotradetext = gameState.evotradetext;
             evotradesDone = gameState.evotradesDone;
+
+            priceupg1 = gameState.priceupg1;
             coins = gameState.coins
-            coinshop1bought = coinshop1bought.gameState
+
             evoloss = evoloss.gameState
             updateRank();
             UpdateUI();
@@ -612,14 +637,18 @@ function loadGame() {
             autoUpgradeButton.classList.remove('buyoff');
             permanentUpgradeButton.classList.remove('buyoff');
             evolveButton.classList.remove('buyoff');
-            loadGameButton.classList.remove("buyoff")
-            Infoscreen.classList.remove("buyoff")
+            loadGameButton.classList.remove("buyoff");
+            Infoscreen.classList.remove("buyoff");
+            Shopscreendarken.classList.remove("buyoff");
 
             if (evotrade1Done == true && evotrade2Done == true) {
                 EvolutiontradeDarken.addEventListener('click', function() {
                     toggleBuyOffClass(EvolutiontradeDarken);
                 });
                 EvolutiontradeDarken.classList.add("buyoff");
+
+                updateRank();
+                UpdateUI();
             }
     }
         else {
@@ -654,7 +683,6 @@ function resetGame() {
         increaseEvolve = 1000;
         increasePerma = 2500;
         evolveLVL = 0;
-        evoRemove = 1;
         evopower = evolveLVL + 1;
         permapower = 1;
         permaprice = 2500 * priceMultiplier;
@@ -679,15 +707,19 @@ function resetGame() {
         Time = "";
         evotradesDone = 1;
         coins = 0;
-        coinshop1bought = 0;
-        evoRemove = 1;
+
+        priceupg1 = 3;
+
         localStorage.removeItem("GameState");
         powerUpgradeButton.classList.remove('buyoff');
         autoUpgradeButton.classList.remove('buyoff');
         permanentUpgradeButton.classList.remove('buyoff');
         evolveButton.classList.remove('buyoff');
         loadGameButton.classList.remove("buyoff")
+        Infoscreen.classList.remove("buyoff");
         evotrade.classList.remove("buyoff")
+        Mysterygift.classList.remove("buyoff");
+        Shopscreendarken.classList.remove("buyoff");
         updateRank();
         UpdateUI();
     } else {
@@ -744,20 +776,7 @@ updateRank();
 
 
 
-
-// Shop code>
-const coinshop1 = document.getElementById('ShopScreen');
-
-coinshop1.onclick = function() {
-    if (coins >= 1) {
-        evoloss - 0.1
-        UpdateUI()
-        coinshop1bought ++;
-    }
-}
-// Shop code<
-
-
+const shopscreen = document.getElementById('ShopScreen')
 const informationScreenButton = document.getElementById('Informationscreen');
 const shopScreenButton = document.getElementById('ShopScreen');
 
@@ -771,11 +790,13 @@ Informationscreen.onclick = function showInfoScreen() {
 ShopScreen.onclick = function showShopScreen() {
     if (canUpgrade) {
         saveGame();
-        //location.href = "Shop.html";
-        alert("Not finished yet!")
+        location.href = "Shop.html";
     }
 }
 
 
 const Gamescreen = document.getElementById("Gamescreen")
-Gamescreen.onclick = loadGame;
+Gamescreen.onclick = function() {
+    loadGame();
+    UpdateUI();
+}
