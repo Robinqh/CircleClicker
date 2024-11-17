@@ -70,7 +70,6 @@ let newCoin = 1000
 let timesClicked = 0;
 
 
-
 toggleBuyOffClass = null;
 
 function formatNumber(num) {
@@ -302,7 +301,9 @@ mysterygift.onclick = function() {
 
 evolve.onclick = function() {
     if (canUpgrade == true) {
+
         if (clicks >= Math.round(evolveLVL * increaseEvolve * priceMultiplier / 100) * 100) {
+
                 evolveLVL ++;
                 evopower = evolveLVL + 1;
 
@@ -315,13 +316,12 @@ evolve.onclick = function() {
                 tempPower = Math.round(tempPower)
                 tempAutopower = Math.round(tempAutopower);
 
+
                 power = tempPower + 1 * evopower;
                 autopower = tempAutopower;
 
-                console.log("tempower:", tempPower)
-                console.log("tempautopower:", tempAutopower)
-
                 clicks -= Math.round(clicks * evoloss);
+
                 evoupgrades ++;
                 increaseEvolve *= 1.3;
                 increasePower = 1;
@@ -335,6 +335,7 @@ evolve.onclick = function() {
                 CurrentAutoPower = autopower;
                 CurrentEvolutionLevel = evolveLVL;
                 
+
 
                 evoCost = Math.round(evolveLVL * increaseEvolve * priceMultiplier / 100) * 100
 
@@ -360,7 +361,9 @@ evotrade.onclick = function() {
             evopower = evolveLVL + 1;
             CurrentEvolutionLevel = evolveLVL;
             updateRank();
-            evoloss -= 0.2;
+
+            evoRemove -=0.1;
+
             evotrade1Cost = null;
             evotrade1Done = true;
 
@@ -463,6 +466,7 @@ const Infoscreen = document.getElementById("Informationscreen");
 const Shopscreendarken = document.getElementById("ShopScreen")
 const Mysterygift = document.getElementById("mysterygift")
 
+
 function upgradeToggle() {
     if (canUpgrade == true) {
         powerUpgradeButton.addEventListener('click', function() {
@@ -488,6 +492,7 @@ function upgradeToggle() {
         })
         Shopscreendarken.addEventListener("click", function() {
             toggleBuyOffClass(Shopscreendarken)
+
         })
     }
     else {
@@ -497,7 +502,9 @@ function upgradeToggle() {
         evolveButton.classList.add('buyoff');
         loadGameButton.classList.add("buyoff");
         Infoscreen.classList.add("buyoff");
+
         Shopscreendarken.classList.add("buyoff");
+
 
     }
 }
@@ -509,6 +516,7 @@ function buyon() {
     loadGameButton.classList.remove("buyoff");
     Infoscreen.classList.remove("buyoff");
     Shopscreendarken.classList.remove("buyoff");
+
     UpdateUI();
 }
 
@@ -569,6 +577,7 @@ function saveGame() {
         coins,
         evoloss,
         priceupg1
+
         
     };
     localStorage.setItem("GameState", JSON.stringify(gameState));
@@ -617,8 +626,13 @@ function loadGame() {
             Time = ""
             evotradetext = gameState.evotradetext;
             evotradesDone = gameState.evotradesDone;
+
             priceupg1 = gameState.priceupg1;
             coins = gameState.coins
+
+            evoloss = evoloss.gameState
+            updateRank();
+            UpdateUI();
             powerUpgradeButton.classList.remove('buyoff');
             autoUpgradeButton.classList.remove('buyoff');
             permanentUpgradeButton.classList.remove('buyoff');
@@ -693,7 +707,9 @@ function resetGame() {
         Time = "";
         evotradesDone = 1;
         coins = 0;
+
         priceupg1 = 3;
+
         localStorage.removeItem("GameState");
         powerUpgradeButton.classList.remove('buyoff');
         autoUpgradeButton.classList.remove('buyoff');
@@ -759,6 +775,7 @@ updateRank();
 
 
 
+
 const shopscreen = document.getElementById('ShopScreen')
 const informationScreenButton = document.getElementById('Informationscreen');
 const shopScreenButton = document.getElementById('ShopScreen');
@@ -776,7 +793,6 @@ ShopScreen.onclick = function showShopScreen() {
         location.href = "Shop.html";
     }
 }
-
 
 
 const Gamescreen = document.getElementById("Gamescreen")
