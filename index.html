@@ -146,6 +146,7 @@ Rank Point Per Seconds no change </h5></li>
 <h3>Known Bugs</h3>
 <li>Two of the new mystery rewards are currentely broken - getting them will result in getting your money/mg allowance back</li>
 <li>MOBILE ONLY: when buying something, the color doesn't revert if you can buy the next one</li>
+<li>A number is not a number - formatnumber() will return nothing - if you find it, say it to me!</li>
 
 <h3>Coming Soon</h3>
 <li>[REDACTED] System</li> 
@@ -158,7 +159,7 @@ Rank Point Per Seconds no change </h5></li>
 
 
 
-  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_vPDB3', 'seen');" style="
+  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V0.1', 'seen');" style="
     margin-top: 12px;
     background: #4fc3f7;
     color: #000;
@@ -175,7 +176,7 @@ Rank Point Per Seconds no change </h5></li>
 </div>
 
 <script>
-  const changelogVersion = "vPDB3"; // Change on new updates
+  const changelogVersion = "V0.1"; // Change on new updates
 
   window.addEventListener("load", () => {
     const seen = localStorage.getItem("cc_changelog_" + changelogVersion);

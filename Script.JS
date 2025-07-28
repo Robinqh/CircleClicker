@@ -1,3 +1,10 @@
+function formatNumber(num) {
+    if (typeof num !== 'number' || isNaN(num)) {
+        return ""; 
+    }
+    return num.toLocaleString('de-DE');
+}
+
 
 //offline > online
 let lastPlayedTime = null;
@@ -127,9 +134,7 @@ const mysterypriceButton = document.getElementById('mysteryprice');
 const upgtoggle = document.getElementById("Toggle-Upgrades")
 const toggleStats = document.getElementById("toggleStats")
 
-function formatNumber(num) {
-    return num.toLocaleString('de-DE'); 
-}
+
 
 
 function UpdateUI() {
@@ -609,7 +614,7 @@ function updateProgressBar() {
   if (endGoalReached === false) {
     const percentage = Math.min((clicks / endgamePoints) * 100, 100);
   document.getElementById("progress-bar").style.width = percentage + "%";
-  document.getElementById("progress-text").innerHTML =  "Goal: 2500000 --- " +  `${Math.floor(percentage)}%`;
+  document.getElementById("progress-text").innerHTML =  "Goal: 2.500.000 --- " +  `${Math.floor(percentage)}%`;
   }
   if (endGoalReached === true) {
   document.getElementById("progress-bar").style.width = "100%";
