@@ -248,10 +248,13 @@ if (currentAutoPowerElement) {
         priceMultiplierElement.innerText = (priceMultiplier * 100).toFixed(1) + "%*";
     }
 
-    const offlinemultiplierstat = document.getElementById("multiplier2")
-        if (offlinemultiplierstat) {
-            offlinemultiplierstat.innerText = formatNumber((multiplier2 * 100).toFixed(1)) + "%"
-        }
+const offlinemultiplierstat = document.getElementById("multiplier2");
+if (offlinemultiplierstat) {
+    const calculatedValue = multiplier2 * 100;
+    const fixedValue = calculatedValue.toFixed(1); 
+ 
+    offlinemultiplierstat.innerText = formatNumber(parseFloat(fixedValue)) + "%";
+}
 
     const coinElement = document.getElementById("coins");
     if (coinElement) {
