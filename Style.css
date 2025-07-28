@@ -1,265 +1,422 @@
+
 html, body {
-    height: auto;
+    height: 100vh;
+    width: 100vw;
     text-align: center;
-    background-color: rgb(0, 140, 140); 
+    background-color: rgb(0, 140, 140);
     user-select: none;
-    color:  black;
+    color: black;
+    margin: 0;
+    padding: 0;
+    /* Main settings, for desktop this means fixed screen. */
+    overflow: hidden;
 }
 
-#ClickPower {
-    top: 100px;
-    background-color: grey; 
-    display: grid; 
-    padding: 5px;
+#WelcomeV {
+    top: 0vh;
+    transform: translateX(260%);
+    display: grid;
+    width: auto;
+    height: 3vh;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);   
-    width: 250px;    
-    left: calc(50% - 125px); 
 }
 
-#AutoPower {
-    top: 100px;
-    background-color: grey; 
-    display: grid;           
-    border-radius: 5px;
-    padding: 5px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);   
-    width: 250px;     
-    left: calc(50% + 125px);
+#showChangeLogs {
+  display: inline-block;
+  top: 1.5vh;
+  height: auto;
+  transform: translateX(50%);
+  border-radius: 10px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
-#EvolutionLevel {
-    top: 60px;
-    background-color: grey; 
-    display: grid;           
-    border-radius: 5px;
-    padding: 5px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);   
-    left: calc(50% + 125px);
-    width: 250px;     
+#myStyledButton:hover {
+  background-color: #0056b3;
 }
 
-#coincount {
-    top: 60px;
-    background-color: grey; 
-    display: grid;           
-    border-radius: 5px;
-    padding: 5px;
+#myStyledButton:active {
+  background-color: #003f80;
+  transform: translateY(1px);
+}
+
+#progress-container {
+  width: 25vw;
+  height: 2vh;
+  top: 25vh;
+
+  background-color: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+}
+
+#progress-bar {
+  height: 100%;
+  width: 100%;
+  background-color: #4caf50;
+  transition: width 0.3s;
+    position: absolute;
+}
+
+#progress-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+
+#ClickPower, #totalPoints {
+    top: 10vh;
+    background-color: grey;
+    display: grid;
+    padding: 0.5vh;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);   
-    left: calc(50% - 125px);
-    width: 250px;     
+    transform: translateX(-50%);
+    width: 13.16vw;
+    margin-left: -6.58vw;
+    height: 6vh;
+    border: 0.2vh solid gold; 
+    box-sizing: border-box; 
 }
+
+#AutoPower, #totalClicks {
+    top: 10vh;
+    background-color: grey;
+    display: grid;
+    border-radius: 0.5vh;
+    padding: 0.5vh;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 13.16vw;
+    margin-left: 6.58vw;
+    height: 6vh;
+    border: 0.2vh solid gold; 
+    box-sizing: border-box; 
+}
+
+#EvolutionLevel, #offlinemultiplier {
+    top: 4vh;
+    background-color: grey;
+    display: grid;
+    border-radius: 0.5vh;
+    padding: 0.5vh;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 13.16vw;
+    margin-left: 6.58vw;
+    height: 6vh;
+    border: 0.2vh solid gold; 
+    box-sizing: border-box; 
+}
+
+#coincount, #pricemultiplier {
+    top: 4vh;
+    background-color: grey;
+    display: grid;
+    border-radius: 0.5vh;
+    padding: 0.5vh;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 13.16vw;
+    margin-left: -6.58vw;
+    height: 6vh;
+    border: 0.2vh solid gold; 
+    box-sizing: border-box; 
+
+}
+
 
 #circle {
-    top: 50px;
-    width: 400px;
-    height: 400px;
-    border-radius: 250px;
-    background-color: rgb(0,0,100);
+    top: 30vh;
+    width: 15vw;
+    height: 30vh;
+    border-radius: 50%;
+    background-color: rgb(0, 0, 100);
+    left: 50%;
+    transform: translateX(-50%);
     color: white;
-    font-size: 40px;
+    font-size: 4vh;
     cursor: pointer;
-    position: relative;
-    border-width: 5px;
+    position: absolute; /* Keep relative here, will adjust for mobile */
+    border-width: 0.5vh;
     overflow: hidden;
-    border-color: wheat;
+    border-color: gold;
     border-style: solid;
     transition: background-color 3s ease, width 0.5s ease, height 0.5s ease;
+    z-index: 10;
 }
 
 #circle:hover {
-    background-color: rgb(0,0,225);
+    background-color: rgb(0, 0, 175);
     transition: background-color 1s ease;
 }
 
 #circle:active {
-    width: 390px;
-    height: 390px;
+    background-color: rgb(0, 0, 250);
+    transition: background-color 1s ease;
 }
 
-#TimerMGift {
-    top: 500px;
-    display: inline-block;           
-    border-radius: 5px;
-    padding: 5px 10px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);   
-    color: white;
-}
+
 
 button {
-    background-color: rgb(95, 95, 95);
-    position: absolute;
+    background-color: rgb(190, 250, 180);
+    position: absolute; /* Default for desktop */
     text-align: center;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 2vh;
+    border-color: brown;
     transition: background-color 0.5s;
+}
+
+button:hover {
+    background-color: rgb(140, 180, 130);
+}
+
+
+#Toggle-Upgrades {
+    width: 26.32vw;
+    height: 5vh;
+    position: absolute;
+    top: 87.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 1vh;
+    background-color: rgb(95, 160, 160);
     color: white;
 }
 
-
-button:hover {
-    background-color: rgb(125, 125, 125);
-}
-
-
-#Informationscreen {
-    width: 500px;
-    height: 25px;
-    position: absolute;
-    top: 850px;
-    transform: translateX(-50%);
-    text-align: center;
-    border-radius: 10px;
-    background-color: rgb(95, 160, 160);
-}
-
-#ShopScreen {
-    width: 500px;
-    height: 25px;
-    position: absolute;
-    top: 875px;
-    transform: translateX(-50%);
-    text-align: center;
-    border-radius: 10px;
-    background-color: rgb(95, 160, 160);
-}
-
-#Informationscreen:hover {
+#Toggle-Upgrades:hover {
     background-color: rgb(95, 175, 175);
 }
 
 #powerupgrade {
-    width: 250px;
-    height: 50px;
+    width: 13.16vw;
+    height: 5vh;
     position: absolute;
-    top: 625px;
-    left: 200px;
+    top: 62.5vh;
+    left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    border-radius: 10px;
-    left: calc(50% - 125px);
+    border-radius: 1vh;
+    margin-left: -6.58vw;
 }
 
 #autoupgrade {
-    width: 250px;
-    height: 50px;
+    width: 13.16vw;
+    height: 5vh;
     position: absolute;
-    top: 625px;
-    left: 450px;
+    top: 62.5vh;
+    left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    border-radius: 10px;
-    left: calc(50% + 125px);
+    border-radius: 1vh;
+    margin-left: 6.58vw;
 }
 
 #evolve {
-    width: 250px;
-    height: 50px;
+    width: 26.32vw;
+    height: 5vh;
     position: absolute;
-    top: 725px;
+    top: 72.5vh;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-25%);
     text-align: center;
-    border-radius: 10px;
-    left: calc(50% - 125px);
+    border-radius: 1vh;
+    margin-left: -6.58vw;
 }
 
-#evotrade {
-    width: 250px;
-    height: 50px;
+#RPexchange {
+    width: 26.32vw;
+    height: 5vh;
     position: absolute;
-    top: 725px;
+    top: 72.5vh;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-75%);
     text-align: center;
-    border-radius: 10px;
-    left: calc(50% + 125px);
+    border-radius: 1vh;
+    margin-left: 6.58vw;
 }
-
 
 #permanentupgrade {
-    width: 250px;
-    height: 50px;
+    width: 13.16vw;
+    height: 5vh;
     position: absolute;
-    top: 675px;
+    top: 67.5vh;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    border-radius: 10px;
-    left: calc(50% - 125px);
+    border-radius: 1vh;
+    margin-left: -6.58vw;
 }
 
 #mysterygift {
-    width: 250px;
-    height: 50px;
+    width: 13.16vw;
+    height: 5vh;
     position: absolute;
-    top: 675px;
+    top: 67.5vh;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    border-radius: 10px;
-    left: calc(50% + 125px);
+    border-radius: 1vh;
+    margin-left: 6.58vw;
+}
+
+
+#ELM {
+    width: 26.32vw;
+    height: 5vh;
+    position: absolute;
+    top: 62.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 1vh;
+}
+
+#autotime {
+    width: 26.32vw;
+    height: 5vh;
+    position: absolute;
+    top: 67.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 1vh;
+}
+
+#mysteryprice {
+    width: 26.32vw;
+    height: 5vh;
+    position: absolute;
+    top: 72.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 1vh;
+}
+
+#CoinAC {
+    width: 13.16vw;
+    height: 5vh;
+    position: absolute;
+    top: 62.5vh;
+    left: 50%;
+    transform: translateX(-100%);
+    text-align: center;
+    border-radius: 1vh;
+}
+
+#Offline {
+    width: 13.16vw;
+    height: 5vh;
+    position: absolute;
+    top: 62.5vh;
+    left: 50%;
+    text-align: center;
+    border-radius: 1vh;
+
+}
+
+#CN {
+    width: 26.32vw;
+    height: 5vh;
+    position: absolute;
+    top: 67.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 1vh;
+
 }
 
 #saveGameButton {
-    width: 166px;
-    height: 50px;
+    width: 8.74vw;
+    height: 5vh;
     position: absolute;
-    top: 775px;
+    top: 77.5vh;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    border-radius: 10px;
-    left: calc(50% - 166px);
+    border-radius: 1vh;
+    margin-left: -8.74vw;
     background-color: darkgreen;
+    color: white;
 }
 
 #loadGameButton {
-    width: 166px;
-    height: 50px;
+    width: 8.74vw;
+    height: 5vh;
     position: absolute;
-    top: 775px;
+    top: 77.5vh;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    border-radius: 10px;
-    left: calc(50%);
+    border-radius: 1vh;
     background-color: orangered;
+    color: white;
 }
 
 #resetGameButton {
-    width: 166px;
-    height: 50px;
+    width: 8.74vw;
+    height: 5vh;
     position: absolute;
-    top: 775px;
+    top: 77.5vh;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    border-radius: 10px;
-    left: calc(50% + 166px);
+    border-radius: 1vh;
+    margin-left: 8.74vw;
     background-color: darkred;
+    color: white;
 }
 
 #toggleAutoSave {
-    width: 500px;
-    height: 25px;
+    width: 26.32vw;
+    height: 5vh;
     position: absolute;
-    top: 825px;
+    top: 82.5vh;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    border-radius: 10px;
+    border-radius: 1vh;
     background-color: darkblue;
+    color: white;
 }
+
+#toggleStats {
+    width: 26.32vw;
+    height: 5vh;
+    position: absolute;
+    top: 92.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 1vh;
+    background-color: rgb(80, 155, 125);
+    color: white;
+}
+
+#toggleStats:hover {
+    background-color: rgb(80, 175, 145);
+}
+
 
 #saveGameButton:hover {
     background-color: rgb(0, 150, 0);
@@ -277,53 +434,149 @@ button:hover {
     background-color: rgb(0, 0, 200);
 }
 
-
-
 #currentRank {
-    background-color: rgb(95, 95, 95);
     position: absolute;
-    top: 150px;
-    height: 25px;
-    width: 300px;
+    top: 18vh;
+    height: 4vh;
+    width: 15.79vw;
     left: 50%;
-    border-radius: 15px;
+    border-radius: 1.5vp;
     transform: translateX(-50%);
     text-align: center;
+    box-sizing: border-box; 
+}
+
+.wood {
+    background-color: #8B4513;
+    border: 1px solid #5C2D0C;
+}
+
+.bronze {
+    background-color: #CD7F32;
+    border: 1px solid #8B4000;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.iron {
+    background-color: #4A4B4B;
+    border: 1px solid #333434;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(255, 255, 255, 0.1);
+    background-image: linear-gradient(to bottom, #5B5B5B, #4A4B4B);
+}
+
+.gold {
+    background-color: #FFD700;
+    border: 1px solid #DAA520;
+    box-shadow:
+        inset 0 0 10px rgba(255, 255, 0, 0.3),
+        0 0 15px rgba(255, 215, 0, 0.5);
+    background-image: linear-gradient(to bottom, #FFEC8B, #FFD700, #DAA520);
+    color: #8B6508;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.platinum {
+    background-color: #E5E4E2;
+    border: 2px solid #C0C0C0;
+    box-shadow:
+        inset 0 0 12px rgba(255, 255, 255, 0.5),
+        0 0 20px rgba(229, 228, 226, 0.7),
+        0 0 30px rgba(255, 255, 255, 0.3);
+    background-image: linear-gradient(to bottom, #F5F5F5, #E5E4E2, #D3D3D3);
+    color: #4B4B4B;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}
+
+.champion {
+    background-color: #1A2B42;
+    box-shadow:
+        0 0 60px 20px firebrick,
+        inset 0 0 20px rgba(255, 69, 0, 0.5);
+    border: none !important;
+    color: #FFD700;
+    text-shadow:
+        0 0 10px firebrick,
+        0 0 20px firebrick,
+        0 0 40px firebrick;
 }
 
 #popupAutoSave {
-    top: 890px;
-    display: inline-block;           
-    border-radius: 5px;
-    padding: 5px 10px;
+    top: 27.5vh;
+    display: inline-block;
+    border-radius: 0.5vh;
+    padding: 0.5vh 1vw;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);   
+    transform: translateX(-50%);
+    color: gold;
+    z-index: 50;
+    pointer-events: none;
+}
+
+#exchangeMessage {
+    top: 30.vh;
+    display: inline-block;
+    border-radius: 0.5vh;
+    padding: 0.5vh 1vw;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: gold;
+    z-index: 50;
+    pointer-events: none;
 }
 
 #popupmysterygift {
-    top: 300px;
-    display: inline-block;           
-    border-radius: 5px;
-    padding: 5px 10px;
+    top: 25vh;
+    display: none;
+    border-radius: 0.5vh;
+    padding: 0.5vh 1vw;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);   
-    width: 500px;     
+    transform: translateX(-50%);
+    width: 26.32vw;
     color: wheat;
+    z-index: 50;
+    pointer-events: none;
+}
+
+#popupNC {
+    top: 30vh;
+    display: inline-block;
+    border-radius: 0.5vh;
+    padding: 0.5vh 1vw;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: gold;
+    z-index: 50;
+    pointer-events: none;
+}
+
+#backmessage {
+    top: 30vh;
+    display: inline-block;
+    border-radius: 0.5vh;
+    padding: 0.5vh 1vw;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgb(0, 255, 21);
+    z-index: 50;
+    pointer-events: none;
 }
 
 #version {
-    top: 900px;
-    background-color: grey; 
-    display: inline-block;           
-    border-radius: 5px;
-    padding: 5px 10px;
+    top: 90vh;
+    background-color: grey;
+    display: inline-block;
+    border-radius: 0.5vh;
+    padding: 0.5vh 1vw;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);   
-    width: 500px;   
-    height: 20px;  
+    transform: translateX(-50%);
+    width: 24.7vw;
+    height: 2vh;
 }
 
 .side-box {
@@ -331,9 +584,9 @@ button:hover {
     height: 100%;
     top: 0;
     bottom: 0;
-    width: calc((100% - 500px) / 2); 
-    background-color: rgb(0, 120, 120); 
-    border-width: 5px;
+    width: calc((100vw - 26.32vw) / 2);
+    background-color: rgb(0, 120, 120);
+    border-width: 0.5vh;
 }
 
 #left-side {
@@ -347,3 +600,291 @@ button:hover {
 .buyoff {
     background-color: rgb(25, 25, 25) !important;
     cursor: not-allowed;
+    pointer-events: none;
+    color: white;
+}
+
+.completed {
+    background-color: rgb(40, 140, 25) !important; 
+    cursor: not-allowed;
+    pointer-events: none;
+    color: white;
+}
+
+.out-of-stock {
+    background-color: rgb(255, 125, 0);
+    cursor: not-allowed;
+    pointer-events: none;
+    color: white;
+}
+
+.hidden-upgrades {
+    display: none !important;
+}
+
+.hidden-stats {
+    display: none !important;
+}
+
+/* Mobile styles start here */
+@media (max-width: 768px) {
+    /* Hide the sidebars completely */
+    .side-box {
+        display: none !important;
+        width: 0 !important;
+        min-width: 0 !important;
+        max-width: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+    }
+
+    /* No scrolling allowed on the main body/html */
+    body, html {
+        overflow: hidden !important; /* Ensure no scrolling */
+        height: 100vh; /* Keep height fixed to prevent scrollbar from appearing */
+        width: 100vw; /* Keep width fixed */
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    #game-container {
+        height: auto; /* Allow content to dictate height */
+        position: relative; /* Ensure children can be positioned relative to it if needed */
+        margin: 0 auto; /* Center the game container */
+        width: 98%; /* Give it a width to center */
+    }
+
+    /* WelcomeV (Game Name) - centered on the left */
+    #WelcomeV {
+        position: static; /* Allows element to flow naturally */
+        transform: none; /* Removes any translateX/Y transforms */
+        display: inline-block; /* Make it inline to sit next to showChangeLogs */
+        width: 49%; /* Allocate width for the game name */
+        left: auto; /* Reset left property */
+
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        text-align: left; /* Align text to the left */
+        vertical-align: middle; /* Align with the button */
+        font-size: 0.9em; /* Keep existing font size */
+    }
+
+    /* showChangeLogs button - next to the game name */
+    #showChangeLogs {
+        position: static; /* Allows element to flow naturally */
+        transform: none; /* Removes any translateX/Y transforms */
+        display: inline-block; /* Make it inline to sit next to WelcomeV */
+        width: 49%; /* Allocate width for the button */
+        left: auto; /* Reset left property */
+
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        text-align: center; /* Center text within the button */
+        vertical-align: middle; /* Align with the game name */
+        font-size: 0.8em; /* Keep existing font size */
+        height: 6vh; /* Consistent button height */
+    }
+
+    /* Set common styles for elements that need to stack */
+    /* Removed individual 'top' properties, relying on natural flow and margins */
+    #ClickPower,
+    #AutoPower,
+    #EvolutionLevel,
+    #coincount,
+    #pricemultiplier,
+    #offlinemultiplier,
+    #totalClicks,
+    #totalPoints,
+    #currentRank,
+    #Toggle-Upgrades,
+    #toggleStats,
+    #ELM,
+    #autotime,
+    #mysteryprice,
+    #popupAutoSave,
+    #popupNC,
+    #popupmysterygift,
+    #exchangeMessage,
+    #backmessage,
+    #powerupgrade,
+    #autoupgrade,
+    #evolve,
+    #RPexchange,
+    #permanentupgrade,
+    #mysterygift,
+    #saveGameButton, /* Moved save/load/reset here to ensure they stack first if no flex parent */
+    #loadGameButton,
+    #resetGameButton,
+    #toggleAutoSave, /* Moved autosave here */
+    #version,
+    #CoinAC,
+    #Offline,
+    /* #showChangeLogs removed from here as it's now handled separately above */
+    #CN {
+        position: static; /* Allows elements to flow naturally (stack) */
+        transform: none; /* Removes any translateX/Y transforms */
+        width: 90%; /* Make most elements take 90% width of the screen for better spacing */
+        display: block; /* Ensure they stack as block elements */
+        left: auto; /* Reset left property */
+        margin-left: auto; /* Center block elements */
+        margin-right: auto;
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+
+
+    #popupAutoSave,
+    #popupmysterygift,
+    #popupNC,
+    #exchangeMessage,
+    #backmessage {
+        position: absolute; /* Reverted to absolute positioning */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Adjust for half its own width to truly center */
+        width: 90%; /* Adjust width as desired for mobile */
+        text-align: center; /* Center text within the popup */
+        z-index: 20; /* Ensure they are above the circle */
+        box-sizing: border-box; /* Include padding and border in the total width */
+        padding: 0.5vh 1vw; /* Original padding restored */
+        word-wrap: break-word; /* Ensure long messages wrap */
+        word-break: break-word;
+    }
+
+    /* Specific adjustments for elements that should appear side-by-side or have unique sizing */
+
+    /* Coin Count & Evolution Level & ClickPower/AutoPower - display side by side */
+    /* Changed these to inline-block to allow them to sit next to each other if space permits */
+    #coincount, #EvolutionLevel, #ClickPower, #AutoPower, #pricemultiplier, #offlinemultiplier, #totalClicks, #totalPoints {
+        width: 48%; /* Slightly less than half for spacing */
+        display: inline-block; /* Allow them to be next to each other */
+        vertical-align: top; /* Align tops if heights differ slightly */
+        margin-top: 0vh; /* Reduced margin */
+        margin-bottom: 0vh;
+        font-size: 0.7em; /* Smaller font for better fit */
+        border-radius: 0;
+    }
+
+    /* This will make the stats-row behave like a flex container to wrap its children */
+    /* Assuming you've wrapped the top stat elements in a div with class "stats-row" in index.html */
+    #stats-rowA {
+        display: flex;
+        flex-wrap: wrap; /* Allow items to wrap to the next line */
+        justify-content: space-around; /* Distribute items with space around them */
+        width: 100%; /* Ensure it takes full width */
+        height: auto;
+    }
+
+    #stats-rowB {
+        display: flex;
+        flex-wrap: wrap; /* Allow items to wrap to the next line */
+        justify-content: space-around; /* Distribute items with space around them */
+        width: 100%; /* Ensure it takes full width */
+        height: auto;
+    }
+
+    #circle {
+        position: relative; /* Keep relative in the flow */
+        top: auto; /* Removed fixed top position, rely on flow */
+        width: 50vw; /* Make it a good size for tapping */
+        height: 50vw; /* Keep it circular (height = width) */
+        left: 50%;
+        transform: translateX(-50%); /* Re-center horizontally */
+        font-size: 4vh; /* Readable font size */
+        border-width: 0.3vh;
+        display: block; /* Ensure it's a block element */
+        outline: none;
+        margin-top: 6vh;
+        margin-bottom: 1vh;
+    }
+
+    #currentRank {
+        width: 98%;
+        font-size: 1em;
+    }
+
+    /* Buttons: Ensure they are distinct and tappable */
+    button {
+        height: 5vh; /* Make buttons taller for easier tapping, but not too tall */
+        font-size: 0.6em; /* Readable font size */
+        position: static; /* Ensure they are not absolute */
+        margin-top: 0.1vh;
+        margin-bottom: 0.1vh;
+        display: block; /* Default to block for stacking */
+    }
+
+    /* Upgrade Buttons - Arrange side-by-side if they fit, otherwise stack */
+    /* Changed these to inline-block to allow them to sit next to each other if space permits */
+    #powerupgrade,
+    #autoupgrade,
+    #evolve,
+    #permanentupgrade,
+    #mysterygift {
+        width: 48%; /* Make buttons half width to fit side-by-side */
+        display: inline-block; /* Allow them to be next to each other */
+        vertical-align: top;
+        position: static; /* Ensure they are not absolute after being inlined */
+        transform: none; /* No transforms */
+        left: auto;
+    }
+
+    #evolve {
+        width: 98%;
+    }
+
+    #ELM,
+    #autotime,
+    #mysteryprice,
+    #CoinAC,
+    #Offline,
+    #CN,
+    #RPexchange {
+        width: 48%;
+        display: inline-block; /* Allow them to be next to each other */
+        height: 5vh;
+        margin-top: 0.1vh;
+        margin-bottom: 0.1vh;
+        vertical-align: top;
+        position: static; /* Ensure they are not absolute after being inlined */
+        transform: none; /* No transforms */
+        left: auto;
+    }
+
+    #ELM,
+    #autotime,
+    #mysteryprice,
+    #CN,
+    #RPexchange {
+        width: 98%;
+        height: 5vh;
+    }
+
+    /* Save/Load/Reset buttons - arrange side-by-side */
+    /* Changed these to inline-block to allow them to sit next to each other if space permits */
+    #saveGameButton,
+    #loadGameButton,
+    #resetGameButton {
+        width: 32%; /* Make them roughly a third width for side-by-side */
+        display: inline-block;
+        vertical-align: top;
+        position: static;
+        transform: none;
+        left: auto;
+        height: 4vh;
+        margin-left: auto; /* Adjust to help with centering within their group */
+        margin-right: auto;
+        margin-top: 1vh; /* Add some spacing */
+        margin-bottom: 1vh;
+    }
+
+    /* Autosave button specific fix */
+    #toggleAutoSave, #toggleStats, #Toggle-Upgrades {
+        font-size: 0.6em;
+        height: 4vh;
+        width: 98%;
+    }
+
+    #progress-container, #progress-bar, #progress-text {
+        margin-top: 1vh;
+        width: 98%;
+        height: 5vh;
+    }
+}
+
+

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Circle Clicker: Game</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+    <div class="side-box" id="left-side"></div>
+    <div class="side-box" id="right-side"></div>
+
+    <div id="game-container">
+        <h2 id="WelcomeV">Welcome to Circle Clicker!</h2>
+        <button id="showChangeLogs">Show Changelog</button>
+
+
+
+        <div id="stats-rowA">
+            <h4 id="coincount"> Coins: <span id="coins"> </span></h4>
+            <h4 id="EvolutionLevel">Current Evolution level: <span id="CurrentEvolutionLevel"></span></h4>
+            <h4 id="ClickPower">Current ClickPower level: <span id="CurrentClickPower"></span></h4>
+            <h4 id="AutoPower">Current Autopower level: <span id="CurrentAutoPower"></span></h4>
+        </div>
+
+        <div id="stats-rowB">
+            <h4 id="pricemultiplier">Pricemultiplier: <span id="multiplier"></span></h4>
+            <h4 id="offlinemultiplier">Offlinemultiplier: <span id="multiplier2"></span> </h4>
+            <h4 id="totalClicks">All-time clicks: <span id="ATC"></span></h4>
+            <h4 id="totalPoints">All-time points: <span id="ATP"></span> </h4>
+        </div>
+
+        <h2 id="currentRank"></h2>
+        
+      <div id="progress-container">
+          <div id="progress-bar"></div>
+          <div id="progress-text"></div>
+      </div>
+
+        <b><button id="circle"><br> <span id="pointValue">0</span></button></b>
+        
+        
+        <div id="normal-upgrades" class="null">
+            <div class="upgrade-buttons-group">
+                <button id="powerupgrade">Increase ClickingPower:<br> <span id="upgradeCost"></span></button>
+                <button id="autoupgrade">Increase AutoPower:<br> <span id="autoCost"></span></button>
+                <button id="permanentupgrade"> PermaPower:<br> <span id="permanentCost"></span><br></button>
+                <button id="mysterygift">Mystery gift <span id="mg-left"></span><br> <span id="mysteryCost"></span> - Autosaves!</button>
+                <button id="evolve">Evolve: <br><span id="evoCost"> </span></button>
+            </div>
+        </div>
+
+        <div id="special-upgrades" class="hidden-upgrades">
+            <div class="special-buttons-group">
+                <button id="ELM">Evolve loss multiplier -0.1:</button>
+                <button id="autotime">Reduce autotimer -50ms (max 333):</button>
+                <button id="mysteryprice"></button>
+            </div>
+        </div>
+
+        <div id="rank-upgrades" class="hidden-upgrades">
+            <div class="rank-upgrades-group"></div>
+                <button id="Offline">Offline autoclick: 250RP</button>
+                <button id="CoinAC">Coin autoclicker: 3000RP</button> 
+                <button id="CN">Decrease next coin range: <span id="priceCN"></span></button>
+                <button id="RPexchange">Trade RankPoints for clicks! <br> 4 RankPoints > += 1% clicks</button>
+        </div>
+        
+        <div class="save-load-group">
+            <button id="saveGameButton">Save Game</button>
+            <button id="loadGameButton">Load Game</button>
+            <button id="resetGameButton">Reset Game</button>
+        </div>
+        
+        <button id="toggleAutoSave">Autosave: <span id="autoSaveStatus"></span></button>
+        <button id="Toggle-Upgrades">Toggle upgrades</button>
+        <button id="toggleStats">Toggle stats</button>
+
+        <div class="pop-ups">
+          <h2><span id="popupAutoSave"></span></h2>
+          <h1><span id="popupmysterygift"></span></h1>
+          <h1><span id="popupNC"></span></h1>
+          <h1><span id="backmessage"></span></h1>
+          <h1><span id="exchangeMessage"></span></h1>
+        </div>
+
+    </div>
+
+
+
+
+<div id="changelogPopup" style="
+  position: fixed;
+  text-align: left;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1c1c1c;
+  color: white;
+  padding: 3px 16px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 520px;
+  z-index: 9999;
+  box-shadow: 0 0 15px #000;
+  display: none;
+  font-family: sans-serif;
+  font-size: 0.95em;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 90vh;
+">
+
+  <h2 style="color:#4fc3f7; margin-bottom: 4px;"> Update — July 28, 2025 (19:00)</h2>
+  <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last update: July 27th, 2025 (20:00)</p>
+
+ <h3>New Features</h3>
+<li>Rank skins: each rank now has their own skin on where they are mentioned - It starts small, but it quickly builds up!</ul>
+<li>New rank: unlock the "champion" rank upon reaching 25 evolutions - even greater rewards to find! <h5> Buffs:
+price multiplier -0.4 > -0.5 &
+offline multiplier 1.5 > 1.75 &
+click multiplier 1.8 > 2.25 &
+Rank Point Per Seconds no change </h5></li>
+<li>Progress Bar: Instead of in the circle, you can now see your progress to the endgoal in a special bar!</li>
+
+<h3>Reworks</h3>
+<li>NO REWORKS</li>
+
+<h3>Balances</h3>
+<li>Power base price formula (20 > 15)</li>
+
+<h3>Tweaks / QoL Updates</h3>
+<li>You'll now see how much points you bought during conversion</li>
+
+
+<h3>Bug Fixes</h3>
+<h5>These following bugs *should* be fixed</h5>
+
+<li>The coin-autoclicker should start again upon return</li>
+<li>UI fix: all the UI should be fixed - especially on mobile!</li>
+
+
+<h3>Code Optimalization</h3>
+<li>Cleaned-up the evolution code - evo's should be faster</li>
+
+<h3>Known Bugs</h3>
+<li>Two of the new mystery rewards are currentely broken - getting them will result in getting your money/mg allowance back</li>
+<li>MOBILE ONLY: when buying something, the color doesn't revert if you can buy the next one</li>
+
+<h3>Coming Soon</h3>
+<li>[REDACTED] System</li> 
+<li>[REDACTED] System</li>
+<li>[REDACTED] Rework</li>
+<li>Toggable sounds (ON/OFF)</li>
+<li>Bug fixes</li>
+<li>Nerf: max offline time</li>
+<li>Final mysterygift reward</li>
+
+
+
+  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_vPDB3', 'seen');" style="
+    margin-top: 12px;
+    background: #4fc3f7;
+    color: #000;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    left: 2%;
+    margin-bottom: 12px;
+  ">
+    Close
+  </button>
+</div>
+
+<script>
+  const changelogVersion = "vPDB3"; // Change on new updates
+
+  window.addEventListener("load", () => {
+    const seen = localStorage.getItem("cc_changelog_" + changelogVersion);
+    if (!seen) {
+      document.getElementById("changelogPopup").style.display = "block";
+    }
+  });
+</script>
+
+
+
+    
+<script src="Script.JS"></script>
+</body>
+</html>
