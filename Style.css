@@ -696,14 +696,14 @@ button:hover {
 
     /* No scrolling allowed on the main body/html */
     body, html {
-        overflow: hidden !important; /* Ensure no scrolling */
-        height: auto; /* Keep height fixed to prevent scrollbar from appearing */
+        overflow: visible !important; /* Ensure no scrolling */
+        height: 100vh; /* Keep height fixed to prevent scrollbar from appearing */
         width: 100vw; /* Keep width fixed */
         -webkit-tap-highlight-color: transparent;
     }
 
     #game-container {
-        height: auto; /* Allow content to dictate height */
+        height: 100vh; /* Allow content to dictate height */
         position: relative; /* Ensure children can be positioned relative to it if needed */
         margin: 0 auto; /* Center the game container */
         width: 98%; /* Give it a width to center */
@@ -864,7 +864,7 @@ button:hover {
 
     /* Buttons: Ensure they are distinct and tappable */
     button {
-        height: 4vh; /* Make buttons taller for easier tapping, but not too tall */
+        height: 3.5vh; /* Make buttons taller for easier tapping, but not too tall */
         font-size: 0.55em; /* Readable font size */
         position: static; /* Ensure they are not absolute */
         margin-top: 0.2vh;
@@ -900,7 +900,7 @@ button:hover {
     #RPexchange {
         width: 48%;
         display: inline-block; /* Allow them to be next to each other */
-        height: 5vh;
+        height: 3.5vh;
         margin-top: 0.1vh;
         margin-bottom: 0.1vh;
         vertical-align: top;
@@ -915,7 +915,7 @@ button:hover {
     #CN,
     #RPexchange {
         width: 98%;
-        height: 5vh;
+        height: 3.5vh;
     }
 
     /* Save/Load/Reset buttons - arrange side-by-side */
@@ -932,7 +932,7 @@ button:hover {
         position: static;
         transform: none;
         left: auto;
-        height: 4vh;
+        height: 3.5vh;
         margin-left: 0.2vw;
         margin-top: 0.2vh; 
         margin-bottom: 0.2vh;
@@ -940,7 +940,7 @@ button:hover {
 
     #toggleAutoSave, #toggleStats {
         font-size: 0.6em;
-        height: 4vh;
+        height: 3.5vh;
         width: 98%;
         margin-top: 0.2vh; 
         margin-bottom: 0.2vh;
