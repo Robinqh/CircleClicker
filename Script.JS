@@ -115,7 +115,7 @@ let CNneededcost = 500;
 
 // *stat variables*
 let stat = 1;
-let multiplier2 = 1; //offlinemultiplier (nog niet verwerkt in de berekening)
+let multiplier2 = 0.25; //offlinemultiplier 
 let allTimeClicks = 0;
 let allTimePoints = 0;
 
@@ -126,12 +126,12 @@ let plusOneMultiplier = false;
 
 const normalUpgradesContainer = document.getElementById('normal-upgrades');
 const specialUpgradesContainer = document.getElementById('special-upgrades');
+const rankUpgradesContainer = document.getElementById("rank-upgrades")
 
 const ELMButton = document.getElementById('ELM');
 const autotimeButton = document.getElementById('autotime');
 const mysterypriceButton = document.getElementById('mysteryprice');
 
-const upgtoggle = document.getElementById("Toggle-Upgrades")
 const toggleStats = document.getElementById("toggleStats")
 
 
@@ -140,9 +140,9 @@ const toggleStats = document.getElementById("toggleStats")
 function UpdateUI() {
     const pointValueElement = document.getElementById("pointValue");
     if (pointValueElement) {
-        if (toggle === 1 || toggle === 2) {
+        if (toggle === 1 || toggle === 2 || toggle === 3 && evolveLVL < 10) {
             pointValueElement.innerText = "Points: " + formatNumber(Math.round(clicks));
-        } else if (toggle === 3) { 
+        } else if (toggle === 3 ) { 
         pointValueElement.innerHTML = "Rankpoints (" + (RPpS) + "): <br>" +  formatNumber(rankPoints);
         }
     }
@@ -155,10 +155,8 @@ function UpdateUI() {
   if (evoCostElement) {
     evoCostElement.innerText = formatNumber(tempevoCost !== null ? tempevoCost : evoCost);
   }
-    const autoCostElement = document.getElementById("autoCost");
-    if (autoCostElement) {
-        autoCostElement.innerText = formatNumber(autoprice);
-    }
+
+
 const currentClickPowerElement = document.getElementById("CurrentClickPower");
 if (currentClickPowerElement) {
     const percentageValue = (clicksMultiplier * 100).toFixed(1);
@@ -177,16 +175,6 @@ if (currentAutoPowerElement) {
     }
 
 
-
-    const permanentCostElement = document.getElementById("permanentCost");
-    if (permanentCostElement) {
-        if (permaprice !== null)
-        permanentCostElement.innerText = formatNumber(permaprice);
-    }   
-    if (permaprice === null) {
-        permanentCostElement.innerText = "Completed";
-
-    }
 
 
     const currentRankElement = document.getElementById("currentRank");
@@ -223,17 +211,9 @@ if (currentAutoPowerElement) {
     if (evolveUpgradeIncreaseElement) {
         evolveUpgradeIncreaseElement.innerText = formatNumber(increaseEvolve);
     }
-    const permaUpgradeIncreaseElement = document.getElementById("permaUpgradeIncrease");
-    if (permaUpgradeIncreaseElement) {
-        permaUpgradeIncreaseElement.innerText = formatNumber(increasePerma);
-    }
     const evolutionLevelElement = document.getElementById("evolutionLevel");
     if (evolutionLevelElement) {
         evolutionLevelElement.innerText = formatNumber(evolveLVL);
-    }
-    const permanentPowerElement = document.getElementById("permanentPower");
-    if (permanentPowerElement) {
-        permanentPowerElement.innerText = formatNumber(permapower);
     }
     const mysteryValueElement = document.getElementById("mysteryValue");
     if (mysteryValueElement) {
@@ -248,13 +228,10 @@ if (currentAutoPowerElement) {
         priceMultiplierElement.innerText = (priceMultiplier * 100).toFixed(1) + "%*";
     }
 
-const offlinemultiplierstat = document.getElementById("multiplier2");
-if (offlinemultiplierstat) {
-    const calculatedValue = multiplier2 * 100;
-    const fixedValue = calculatedValue.toFixed(1); 
- 
-    offlinemultiplierstat.innerText = formatNumber(parseFloat(fixedValue)) + "%";
-}
+    const offlinemultiplierstat = document.getElementById("multiplier2")
+        if (offlinemultiplierstat) {
+            offlinemultiplierstat.innerText = (multiplier2 * 100).toFixed(1)+ "%" //ooit formatnumber terug zien te krijgen
+        }
 
     const coinElement = document.getElementById("coins");
     if (coinElement) {
@@ -293,27 +270,37 @@ if (offlinemultiplierstat) {
 
     const autoupgradeButton = document.getElementById("autoupgrade");
     if (autoupgradeButton) {
-        if (clicks >= autoprice) {
-            autoupgradeButton.classList.remove("buyoff");
-        } else {
+        if (clicks < autoprice || evolveLVL <= 1) {
             autoupgradeButton.classList.add("buyoff");
+            autoupgrade.innerText = "Autopower unlocks after evolution 1"
+        } 
+        if (clicks >= autoprice && evolveLVL >= 1) {
+            autoupgradeButton.classList.remove("buyoff");   
+            autoupgrade.innerText = "Autopower: " + (autoprice)
         }
     }
 
 
     const permanentupgradeButton = document.getElementById("permanentupgrade");
     if (permanentupgradeButton) {
-        if (clicks < permaprice && permaprice !== null) {
+        if (evolveLVL <3) {
+            permanentupgradeButton.classList.add("buyoff")
+            permanentupgrade.innerText = "Permapower unlocks after evolution 3"
+        }
+        if (clicks < permaprice && permaprice !== null && evolveLVL >= 3) {
             permanentupgradeButton.classList.add("buyoff");
-            permanentupgradeButton.classList.remove("completed")
+            permanentupgradeButton.classList.remove("completed")  
+            permanentupgrade.innerText = "Permapower: " + (permaprice)
         } 
-        if (clicks >= permaprice && permaprice !== null) {
+        if (clicks >= permaprice && permaprice !== null && evolveLVL >= 3) {
             permanentupgradeButton.classList.remove("buyoff");
             permanentupgradeButton.classList.remove("completed")
+            permanentupgrade.innerText = "Permapower: " + (permaprice)
         }
         if (permaprice === null) {
             permanentupgradeButton.classList.remove("buyoff")
             permanentupgradeButton.classList.add("completed")
+            permanentupgrade.innerText = "Permapower: MAXED ";
         }
     }
 
@@ -333,20 +320,31 @@ if (offlinemultiplierstat) {
     //mysterygift
     const mysterygiftButton = document.getElementById("mysterygift");
     if (mysterygiftButton) {
-        if (mgBought >= maxMGperEvo) {
-            mysterygiftButton.classList.add("out-of-stock");
-            mysterygiftButton.classList.remove("buyoff");
-
-        } else { 
-            mysterygiftButton.classList.remove("out-of-stock"); 
-
-            if (clicks < mysteryprice) {
-                mysterygiftButton.classList.add("buyoff");
-            } else {
-                mysterygiftButton.classList.remove("buyoff");
-            }
+        if (evolveLVL <3) {
+             mysterygiftButton.classList.add("buyoff");
+            mysterygift.innerText = "Mystery gifts unlocks after evolution 3"
         }
-    }
+        if (evolveLVL >= 3) {           
+            if (mgBought >= maxMGperEvo) {
+                mysterygiftButton.classList.add("out-of-stock");
+                mysterygiftButton.classList.remove("buyoff");
+                 mysterygift.innerText = "Mystery gift: Out of stock" 
+
+            } else { 
+                mysterygiftButton.classList.remove("out-of-stock");
+
+
+                if (clicks < mysteryprice) {
+                    mysterygiftButton.classList.add("buyoff");
+                    mysterygift.innerText = "Mystery gift: " + formatNumber(mysteryprice)
+                } else {
+                    mysterygiftButton.classList.remove("buyoff");
+                    mysterygift.innerText = "Mystery gift: " + formatNumber(mysteryprice)
+                }
+            }
+        }            
+        }
+
 
     const mgleftnotifier = document.getElementById("mg-left");
     if (mgleftnotifier) {
@@ -526,6 +524,26 @@ if (offlinemultiplierstat) {
         totalPoints.classList.remove("hidden-stats")
     }
 
+    const btnNormal = document.getElementById('btnNormal');
+
+    const btnSpecial = document.getElementById('btnSpecial');
+    if (evolveLVL < 5) {
+        btnSpecial.classList.add("buyoff")
+        btnSpecial.innerText = "Unlocks after evo-  5"
+    } if (evolveLVL >= 5) {
+        btnSpecial.classList.remove("buyoff")
+        btnSpecial.innerText = "Coin Shop"
+    }
+
+    const btnRank = document.getElementById('btnRank');
+    if (evolveLVL < 10) {
+        btnRank.classList.add("buyoff")
+         btnRank.innerText = "Unlocks after evo- 10"
+    } if (evolveLVL >= 10) {
+        btnRank.classList.remove("buyoff")
+        btnRank.innerText = "Rank shop"
+    }
+
     updateProgressBar() 
 }
 
@@ -612,18 +630,55 @@ circle.onclick = function(){
     UpdateUI();
 }
 
-function updateProgressBar() {
+function updateProgressBar() { 
   
   if (endGoalReached === false) {
     const percentage = Math.min((clicks / endgamePoints) * 100, 100);
   document.getElementById("progress-bar").style.width = percentage + "%";
-  document.getElementById("progress-text").innerHTML =  "Goal: 2.500.000 --- " +  `${Math.floor(percentage)}%`;
+  document.getElementById("progress-text").innerHTML =  "Goal: 2.500.000 --- " +  `${percentage.toFixed(2)}%`;
   }
   if (endGoalReached === true) {
   document.getElementById("progress-bar").style.width = "100%";
   document.getElementById("progress-text").innerHTML =  "Goal reached (-0.5 pricemultiplier activated)";  
   }
+  
+  //
+  const progressBarRanks = document.getElementById("progress-bar-RANKS")
+  const progressTextRanks = document.getElementById("progress-text-RANKS")
+
+
+  if (evolveLVL === 0) {
+     progressBarRanks.style.width = "0%"
+     progressTextRanks.innerText = "Next rank: Bronze (0%)"
+  }
+
+  else if (evolveLVL <3 && evolveLVL !== 0) {
+    progressBarRanks.style.width = (evolveLVL / 3 * 100) + "%"
+    progressTextRanks.innerText = "Next rank: Bronze " + formatNumber(Math.round(evolveLVL / 3 * 100)) + "%"
+  }
+  else if (evolveLVL <5) {
+    progressBarRanks.style.width = ((evolveLVL - 3) / 2 * 100) + "%"
+    progressTextRanks.innerText = "Next rank: Iron " + formatNumber(Math.round((evolveLVL - 3) / 2 * 100)) + "%"
+  }
+  else if (evolveLVL <10) {
+    progressBarRanks.style.width = ((evolveLVL - 5) / 5 * 100) + "%"
+    progressTextRanks.innerText = "Next rank: Gold " + formatNumber(Math.round((evolveLVL - 5) / 5 * 100)) + "%"
+  }
+  else if (evolveLVL <15) {
+    progressBarRanks.style.width = ((evolveLVL - 10) / 5 * 100) + "%"
+    progressTextRanks.innerText = "Next rank: Platinum " + formatNumber(Math.round((evolveLVL - 10) / 5 * 100)) + "%"
+  }
+  else if (evolveLVL <25) {
+    progressBarRanks.style.width = ((evolveLVL - 15) / 10 * 100) + "%"
+    progressTextRanks.innerText = "Next rank: Champion " + formatNumber(Math.round((evolveLVL - 15) / 10 * 100)) + "%"
+  } 
+  else if (evolveLVL >= 25) {
+    progressBarRanks.style.width = 100 + "%"
+    progressTextRanks.innerText = "RANK MAXED"    
+  }
 } 
+
+
 
     
 
@@ -810,9 +865,14 @@ evolve.onclick = function() {
             CurrentClickPower = power;
             CurrentAutoPower = autopower;
 
-            multiplier2 += 0.025
-            priceMultiplier -= 0.025
-            clicksMultiplier += 0.025
+            if (evolveLVL > 25) {
+                multiplier2 += 0.05
+                priceMultiplier -= 0.05
+                clicksMultiplier +=0.05
+                if (priceMultiplier < 0.1) {
+                    priceMultiplier = 0.1
+                }
+            }
 
             priceChanges();
             UpdateUI();
@@ -860,33 +920,33 @@ function updateRank() {
     }
     if (evolveLVL === 3 && rank1Reached === false) {
         rank = "Your rank: Bronze";
-        priceMultiplier -= 0.05;
+        priceMultiplier -= 0.075;
             if (priceMultiplier <= 0.1) {
                 priceMultiplier = 0.1;
             }
-            clicksMultiplier += 0.1;
+            clicksMultiplier += 0.15;
             RPpS += 0.25
-            multiplier2 += 0.05
+            multiplier2 += 0.1
             rank1Reached = true;
     }
     if (evolveLVL === 5 && rank2Reached === false) {
         rank = "Your rank: Iron";
-        priceMultiplier -= 0.1;
+        priceMultiplier -= 0.075;
                     if (priceMultiplier <= 0.1) {
                 priceMultiplier = 0.1;
             }
-            clicksMultiplier += 0.15;
+            clicksMultiplier += 0.25;
             RPpS += 0.75
             multiplier2 += 0.15
             rank2Reached = true;
     }
     if (evolveLVL === 10 && rank3Reached === false) {
         rank = "Your rank: Gold";
-        priceMultiplier -= 0.15;
+        priceMultiplier -= 0.1;
                 if (priceMultiplier <= 0.1) {
                 priceMultiplier = 0.1;
             }
-            clicksMultiplier += 0.35;
+            clicksMultiplier += 0.3;
             RPpS += 1.5
             multiplier2 += 0.2
             rank3Reached = true;
@@ -897,18 +957,18 @@ function updateRank() {
                 if (priceMultiplier <= 0.1) {
                 priceMultiplier = 0.1;
             }
-            clicksMultiplier += 0.2;
+            clicksMultiplier += 0.3;
             RPpS += 7.5
-            multiplier2 += 0.1;
+            multiplier2 += 0.15;
             rank4Reached = true;        
     }
     if (evolveLVL === 25 && rank5Reached === false) {
-        priceMultiplier -= 0.1;
+        priceMultiplier -= 0.15;
                 if (priceMultiplier <= 0.1) {
             priceMultiplier = 0.1;   
     }
-            clicksMultiplier += 0.45   ;
-            multiplier2 += 0.25;
+            clicksMultiplier += 0.5   ;
+            multiplier2 += 0.15;
             rank5Reached = true;           
         UpdateUI();
     }
@@ -1048,37 +1108,68 @@ CN.onclick = function () {
 
 
 
-//upgtoggle
+//upgtoggle (old function name but it works)
 
-upgtoggle.onclick = function() {
+
+function upgtoggle() {
+
+
+    // Toggle status updaten
     if (toggle === 1) {
-        toggle = 2; 
-        isSpecialShop = true;
-        isRankShop = false; 
-    } else if (toggle === 2) {
-        toggle = 3; 
-        isSpecialShop = false; 
-        isRankShop = true;
-    } else if (toggle === 3) {
-        toggle = 1; 
-        isSpecialShop = false; 
+        isSpecialShop = false;
         isRankShop = false;
+    } else if (toggle === 2) {
+        isSpecialShop = true;
+        isRankShop = false;
+    } else if (toggle === 3) {
+        isSpecialShop = false;
+        isRankShop = true;
     }
+
+    // Containers tonen/verbergen
     if (isSpecialShop) {
         normalUpgradesContainer.classList.add('hidden-upgrades');
         specialUpgradesContainer.classList.remove('hidden-upgrades');
-        document.getElementById('rank-upgrades').classList.add('hidden-upgrades'); 
+        rankUpgradesContainer.classList.add('hidden-upgrades');
     } else if (isRankShop) {
         normalUpgradesContainer.classList.add('hidden-upgrades');
         specialUpgradesContainer.classList.add('hidden-upgrades');
-        document.getElementById('rank-upgrades').classList.remove('hidden-upgrades'); 
-    } else { 
+        rankUpgradesContainer.classList.remove('hidden-upgrades');
+    } else {
         normalUpgradesContainer.classList.remove('hidden-upgrades');
         specialUpgradesContainer.classList.add('hidden-upgrades');
-        document.getElementById('rank-upgrades').classList.add('hidden-upgrades'); 
+        rankUpgradesContainer.classList.add('hidden-upgrades');
+        
     }
-    UpdateUI();
-};
+}
+
+// Event listeners voor knoppen
+// Knoppen ophalen
+
+
+
+// Subfuncties per knop
+btnNormal.onclick = function() {
+    toggle = 1;
+    upgtoggle();
+}
+
+btnSpecial.onclick = function() {
+    if (evolveLVL >= 5) {
+        toggle = 2;
+        upgtoggle();
+    }
+}
+
+btnRank.onclick = function() {
+    if (evolveLVL >= 10) {
+        toggle = 3;
+        upgtoggle();
+    }
+}
+
+
+
 
 //stat-toggle
 
@@ -1322,7 +1413,7 @@ function resetGame() {
         stat = 1;
         allTimeClicks = 0;
         allTimePoints = 0;
-        multiplier2 = 1;
+        multiplier2 = 0.25;
         ExchangeCost = 4;
         quartered = false;
         localStorage.removeItem("GameState");
@@ -1438,7 +1529,7 @@ if (showChangeLogsButton) {
 
 
 
-
+upgtoggle();
 setInterval (endgame, 1000);
 startautoclick();
 startrankpoints();

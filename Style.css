@@ -60,7 +60,21 @@ html, body {
     position: absolute;
 }
 
-#progress-bar {
+#progress-container-RANKS {
+  width: 25vw;
+  height: 2vh;
+  top: 27.5vh;
+
+  background-color: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+}
+
+
+#progress-bar, #progress-bar-RANKS {
   height: 100%;
   width: 100%;
   background-color: #4caf50;
@@ -68,7 +82,7 @@ html, body {
     position: absolute;
 }
 
-#progress-text {
+#progress-text, #progress-text-RANKS {
   position: absolute;
   width: 100%;
   text-align: center;
@@ -346,11 +360,13 @@ button:hover {
 
 }
 
+
+
 #saveGameButton {
     width: 8.74vw;
     height: 5vh;
     position: absolute;
-    top: 77.5vh;
+    top: 82.5vh;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -364,7 +380,7 @@ button:hover {
     width: 8.74vw;
     height: 5vh;
     position: absolute;
-    top: 77.5vh;
+    top: 82.5vh;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -377,7 +393,7 @@ button:hover {
     width: 8.74vw;
     height: 5vh;
     position: absolute;
-    top: 77.5vh;
+    top: 82.5vh;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -391,7 +407,7 @@ button:hover {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
-    top: 82.5vh;
+    top: 87.5vh;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -437,7 +453,7 @@ button:hover {
 #currentRank {
     position: absolute;
     top: 18vh;
-    height: 4vh;
+    height: 3vh;
     width: 15.79vw;
     left: 50%;
     border-radius: 1.5vp;
@@ -501,7 +517,7 @@ button:hover {
 }
 
 #popupAutoSave {
-    top: 27.5vh;
+    top: 35vh;
     display: inline-block;
     border-radius: 0.5vh;
     padding: 0.5vh 1vw;
@@ -514,7 +530,7 @@ button:hover {
 }
 
 #exchangeMessage {
-    top: 30.vh;
+    top: 35vh;
     display: inline-block;
     border-radius: 0.5vh;
     padding: 0.5vh 1vw;
@@ -626,6 +642,45 @@ button:hover {
     display: none !important;
 }
 
+
+
+#btnNormal {
+    width: 8.74vw;
+    height: 5vh;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 1vh;
+    margin-left: -8.74vw;
+    top: 77.5vh;
+}
+
+#btnSpecial {
+    width: 8.74vw;
+    height: 5vh;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 1vh;
+    top: 77.5vh;
+}
+
+#btnRank {
+    width: 8.74vw;
+    height: 5vh;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 1vh;
+    margin-left: 8.74vw;
+    top: 77.5vh;
+}
+
+
+
 /* Mobile styles start here */
 @media (max-width: 768px) {
     /* Hide the sidebars completely */
@@ -641,7 +696,7 @@ button:hover {
 
     /* No scrolling allowed on the main body/html */
     body, html {
-        overflow: auto !important; /* Ensure no scrolling */
+        overflow: hidden !important; /* Ensure no scrolling */
         height: auto; /* Keep height fixed to prevent scrollbar from appearing */
         width: 100vw; /* Keep width fixed */
         -webkit-tap-highlight-color: transparent;
@@ -679,7 +734,7 @@ button:hover {
         box-sizing: border-box; /* Include padding and border in the element's total width and height */
         text-align: center; /* Center text within the button */
         vertical-align: middle; /* Align with the game name */
-        font-size: 0.8em; /* Keep existing font size */
+        font-size: 0.6em; /* Keep existing font size */
         height: 6vh; /* Consistent button height */
     }
 
@@ -717,8 +772,16 @@ button:hover {
     #version,
     #CoinAC,
     #Offline,
-    /* #showChangeLogs removed from here as it's now handled separately above */
-    #CN {
+    #btnNormal,
+    #btnSpecial,
+    #btnRank,
+    #CN,
+    #progress-container,
+    #progress-bar,
+    #progress-text,
+    #progress-container-RANKS,
+    #progress-bar-RANKS,
+    #progress-text-RANKS {
         position: static; /* Allows elements to flow naturally (stack) */
         transform: none; /* Removes any translateX/Y transforms */
         width: 90%; /* Make most elements take 90% width of the screen for better spacing */
@@ -782,16 +845,16 @@ button:hover {
     #circle {
         position: relative; /* Keep relative in the flow */
         top: auto; /* Removed fixed top position, rely on flow */
-        width: 50vw; /* Make it a good size for tapping */
-        height: 50vw; /* Keep it circular (height = width) */
+        width: 40vw; /* Make it a good size for tapping */
+        height: 40vw; /* Keep it circular (height = width) */
         left: 50%;
         transform: translateX(-50%); /* Re-center horizontally */
         font-size: 4vh; /* Readable font size */
         border-width: 0.3vh;
         display: block; /* Ensure it's a block element */
         outline: none;
-        margin-top: 6vh;
-        margin-bottom: 1vh;
+        margin-top: 12vh;
+        margin-bottom: 2vh;
     }
 
     #currentRank {
@@ -801,11 +864,11 @@ button:hover {
 
     /* Buttons: Ensure they are distinct and tappable */
     button {
-        height: 5vh; /* Make buttons taller for easier tapping, but not too tall */
-        font-size: 0.6em; /* Readable font size */
+        height: 4vh; /* Make buttons taller for easier tapping, but not too tall */
+        font-size: 0.55em; /* Readable font size */
         position: static; /* Ensure they are not absolute */
-        margin-top: 0.1vh;
-        margin-bottom: 0.1vh;
+        margin-top: 0.2vh;
+        margin-bottom: 0.2vh;
         display: block; /* Default to block for stacking */
     }
 
@@ -859,7 +922,10 @@ button:hover {
     /* Changed these to inline-block to allow them to sit next to each other if space permits */
     #saveGameButton,
     #loadGameButton,
-    #resetGameButton {
+    #resetGameButton,
+    #btnNormal,
+    #btnSpecial,
+    #btnRank {
         width: 32%; /* Make them roughly a third width for side-by-side */
         display: inline-block;
         vertical-align: top;
@@ -867,24 +933,76 @@ button:hover {
         transform: none;
         left: auto;
         height: 4vh;
-        margin-left: auto; /* Adjust to help with centering within their group */
-        margin-right: auto;
-        margin-top: 1vh; /* Add some spacing */
-        margin-bottom: 1vh;
+        margin-left: 0.2vw;
+        margin-top: 0.2vh; 
+        margin-bottom: 0.2vh;
     }
 
-    /* Autosave button specific fix */
-    #toggleAutoSave, #toggleStats, #Toggle-Upgrades {
+    #toggleAutoSave, #toggleStats {
         font-size: 0.6em;
         height: 4vh;
         width: 98%;
+        margin-top: 0.2vh; 
+        margin-bottom: 0.2vh;
     }
 
-    #progress-container, #progress-bar, #progress-text {
-        margin-top: 1vh;
-        width: 98%;
-        height: 5vh;
+   #progress-container {
+        position: absolute; /* Revert to absolute positioning */
+        top: 27vh; /* Keep its original desktop top value, or adjust as needed for mobile overall layout */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 98%; /* Use full width for mobile */
+        height: 3vh; /* Maintain height for text visibility */
+        margin: 0; /* Clear any conflicting margins */
+        box-sizing: border-box; /* Important for width calculation */
+        border-radius: 10px; /* From desktop style */
+        background-color: #ddd; /* From desktop style */
+        overflow: hidden; /* From desktop style */
     }
+
+    #progress-container-RANKS {
+        position: absolute; /* Revert to absolute positioning */
+        top: 31.5vh; /* Adjust this top value to be directly below the first progress bar (25vh + 3vh height + 1.5vh gap) */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 98%; /* Use full width for mobile */
+        height: 3vh; /* Maintain height for text visibility */
+        margin: 0; /* Clear any conflicting margins */
+        box-sizing: border-box; /* Important for width calculation */
+        border-radius: 10px; /* From desktop style */
+        background-color: #ddd; /* From desktop style */
+        overflow: hidden; /* From desktop style */
+    }
+
+    /* Ensure progress bars fill their containers */
+    #progress-bar,
+    #progress-bar-RANKS {
+        position: absolute; /* Maintain absolute positioning within their relative/absolute parent */
+        height: 100%;
+        width: 100%; /* Will be dynamically changed by JS */
+        top: 0;
+        left: 0;
+        z-index: 1; /* Below text */
+        background-color: #4caf50; /* From desktop style */
+        transition: width 0.3s; /* From desktop style */
+    }
+
+    /* Ensure progress text is centered on top of the bars */
+    #progress-text,
+    #progress-text-RANKS {
+        position: absolute; /* Stay absolute within the container */
+        width: 100%;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%); /* Adjust for half its own height */
+        font-size: 0.8em; /* Mobile font size */
+        z-index: 2; /* On top */
+    }
+
 }
+
+
 
 
