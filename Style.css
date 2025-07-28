@@ -641,7 +641,7 @@ button:hover {
 
     /* No scrolling allowed on the main body/html */
     body, html {
-        overflow: hidden !important; /* Ensure no scrolling */
+        overflow: auto !important; /* Ensure no scrolling */
         height: 100vh; /* Keep height fixed to prevent scrollbar from appearing */
         width: 100vw; /* Keep width fixed */
         -webkit-tap-highlight-color: transparent;
