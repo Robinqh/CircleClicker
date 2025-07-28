@@ -642,7 +642,7 @@ button:hover {
     /* No scrolling allowed on the main body/html */
     body, html {
         overflow: auto !important; /* Ensure no scrolling */
-        height: 100vh; /* Keep height fixed to prevent scrollbar from appearing */
+        height: auto; /* Keep height fixed to prevent scrollbar from appearing */
         width: 100vw; /* Keep width fixed */
         -webkit-tap-highlight-color: transparent;
     }
@@ -659,13 +659,13 @@ button:hover {
         position: static; /* Allows element to flow naturally */
         transform: none; /* Removes any translateX/Y transforms */
         display: inline-block; /* Make it inline to sit next to showChangeLogs */
-        width: 49%; /* Allocate width for the game name */
+        width: 50%; /* Allocate width for the game name */
         left: auto; /* Reset left property */
 
         box-sizing: border-box; /* Include padding and border in the element's total width and height */
         text-align: left; /* Align text to the left */
         vertical-align: middle; /* Align with the button */
-        font-size: 0.9em; /* Keep existing font size */
+        font-size: 0.8em; /* Keep existing font size */
     }
 
     /* showChangeLogs button - next to the game name */
@@ -673,7 +673,7 @@ button:hover {
         position: static; /* Allows element to flow naturally */
         transform: none; /* Removes any translateX/Y transforms */
         display: inline-block; /* Make it inline to sit next to WelcomeV */
-        width: 49%; /* Allocate width for the button */
+        width: 48%; /* Allocate width for the button */
         left: auto; /* Reset left property */
 
         box-sizing: border-box; /* Include padding and border in the element's total width and height */
