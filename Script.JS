@@ -270,10 +270,14 @@ if (currentAutoPowerElement) {
 
     const autoupgradeButton = document.getElementById("autoupgrade");
     if (autoupgradeButton) {
-        if (clicks < autoprice || evolveLVL <= 1) {
+        if (evolveLVL <= 1) {
             autoupgradeButton.classList.add("buyoff");
             autoupgrade.innerText = "Autopower unlocks after evolution 1"
         } 
+        if (clicks < autoprice && evolveLVL >= 1) {
+        autoupgradeButton.classList.add("buyoff");   
+            autoupgrade.innerText = "Autopower: " + (autoprice)           
+        }
         if (clicks >= autoprice && evolveLVL >= 1) {
             autoupgradeButton.classList.remove("buyoff");   
             autoupgrade.innerText = "Autopower: " + (autoprice)
