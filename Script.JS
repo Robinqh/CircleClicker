@@ -948,7 +948,7 @@ function updateRank() {
             clicksMultiplier += 0.15;
             RPpS += 0.25
             multiplier2 += 0.1
-            maxPermaPower += 3
+            maxPermaPower = 3
             rank1Reached = true;
     }
     if (evolveLVL === 5 && rank2Reached === false) {
@@ -961,7 +961,7 @@ function updateRank() {
             RPpS += 0.75
             rankPoints = Math.round(rankPoints)
             multiplier2 += 0.15
-            maxPermaPower += 2
+            maxPermaPower = 5
             rank2Reached = true;
     }
     if (evolveLVL === 10 && rank3Reached === false) {
@@ -974,7 +974,7 @@ function updateRank() {
             RPpS += 1.5
             rankPoints = Math.round(rankPoints)
             multiplier2 += 0.2
-            maxPermaPower += 3
+            maxPermaPower = 8
             rank3Reached = true;
     }
     if (evolveLVL === 15 && rank4Reached === false) {
@@ -987,7 +987,7 @@ function updateRank() {
             RPpS += 7.5
             rankPoints = Math.round(rankPoints /10) * 10  
             multiplier2 += 0.15;
-            maxPermaPower += 4
+            maxPermaPower = 12
             rank4Reached = true;        
     }
     if (evolveLVL === 25 && rank5Reached === false) {
@@ -995,9 +995,9 @@ function updateRank() {
                 if (priceMultiplier <= 0.1) {
             priceMultiplier = 0.1;   
     }
-            clicksMultiplier += 0.5   ;
+            clicksMultiplier += 0.5;
             multiplier2 += 0.15;
-            maxPermaPower += 8
+            maxPermaPower = 20
             rank5Reached = true;                
         UpdateUI();
     }
