@@ -580,6 +580,7 @@ button:hover {
     color: rgb(0, 255, 21);
     z-index: 50;
     pointer-events: none;
+    font-weight: 0.9em;
 }
 
 #version {
@@ -849,12 +850,13 @@ button:hover {
         height: 40vw; /* Keep it circular (height = width) */
         left: 50%;
         transform: translateX(-50%); /* Re-center horizontally */
-        font-size: 4vh; /* Readable font size */
+        font-size: 2vh; /* Readable font size */
         border-width: 0.3vh;
         display: block; /* Ensure it's a block element */
         outline: none;
         margin-top: 12vh;
         margin-bottom: 2vh;
+
     }
 
     #currentRank {
@@ -864,7 +866,7 @@ button:hover {
 
     /* Buttons: Ensure they are distinct and tappable */
     button {
-        height: 3.5vh; /* Make buttons taller for easier tapping, but not too tall */
+        height: 4vh; /* Make buttons taller for easier tapping, but not too tall */
         font-size: 0.55em; /* Readable font size */
         position: static; /* Ensure they are not absolute */
         margin-top: 0.2vh;
@@ -900,9 +902,8 @@ button:hover {
     #RPexchange {
         width: 48%;
         display: inline-block; /* Allow them to be next to each other */
-        height: 3.5vh;
-        margin-top: 0.1vh;
-        margin-bottom: 0.1vh;
+        margin-top: 0.2vh;
+        margin-bottom: 0.2vh;
         vertical-align: top;
         position: static; /* Ensure they are not absolute after being inlined */
         transform: none; /* No transforms */
@@ -915,7 +916,6 @@ button:hover {
     #CN,
     #RPexchange {
         width: 98%;
-        height: 3.5vh;
     }
 
     /* Save/Load/Reset buttons - arrange side-by-side */

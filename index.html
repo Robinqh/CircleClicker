@@ -49,11 +49,11 @@
         
         <div id="normal-upgrades" class="null">
             <div class="upgrade-buttons-group">
-                <button id="powerupgrade">Increase ClickingPower:<br> <span id="upgradeCost"></span></button>
+                <button id="powerupgrade">ClickingPower: <span id="upgradeCost"></span></button>
                 <button id="autoupgrade"></button>
                 <button id="permanentupgrade"></button>
                 <button id="mysterygift"></button>
-                <button id="evolve">Evolve: <br><span id="evoCost"> </span></button>
+                <button id="evolve">Evolve: <span id="evoCost"> </span></button>
             </div>
         </div>
 
@@ -112,7 +112,7 @@
   padding: 3px 16px;
   border-radius: 16px;
   width: 90%;
-  max-width: 520px;
+  max-width: 480px;
   z-index: 9999;
   box-shadow: 0 0 15px #000;
   display: none;
@@ -120,72 +120,107 @@
   font-size: 0.95em;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 90vh;
+  max-height: 80%;
   pointer-events: all;
 ">
 
-  <h2 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 5.0 — July 28, 2025 (22:30)</h2>
-  <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last update:July 28, 2025 (19:00)</p>
+  <h2 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 5.1 — July 29, 2025 (14:30)</h2>
+  <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last update:July 28, 2025 (22:30)</p>
 
 <h1></h1>
 <h3>New Features</h3>
-<li>Rank bar: You'll now find a new progress bar - this one will say how far away the next rank is!</li>
-
-<h3>Reworks</h3>
-<li>EVOLUTION REWORK! Evo(lution)s will now unlock some of the upgrades and shops! The mini buffs are also removed from evo 1-24. 
-  The milestones are greatly improved however (but how much is secret)! 
-</li>
+<li>Max offline time - from now on you can only get a limited time you can gain clicks online! (max 4 hours)</li>
 
 
 <h3>Balances</h3>
-<li>Offline multiplier will now start at 25% effectiveness. Evolve to increase it!</li>
+<li>Your rank now puts a limit on the max permapower you can buy! (0, 3, 5, 8, 12, 20) - you can now also see how much more you can buy</li>
+<li>Prices of permapower have changed to make it more realistic for your evo level. Permapower prices are now preset per evo, and include your multiplier. Skipping upgrades won't lower the price later — so buy early if you can!</li>
+<li>Exchange was too OP, price changed (4RP > 50RP)</li>
+
 
 
 <h3>Tweaks / QoL Updates</h3>
-<li>Endgoal bar now shows 2 decimals</li>
-<li>Save/exchange popup are now at a more readable location</li>
-<li>Rank title is now nicely in the middle</li>
+<li>Button to reset your game after an update</li>
+<li>The last rank's name is now hidden until unlock</li>
+<li>RankPoints now round better</li>
+<li>Mysterygift, evolution, and permapower prices will now change their rounding based on price - other upgrades will follow</li>
+<li>Mobile: text in circle is smaller to improve readability</li>
+<li>You'll now see how long you were offline for, if cap was reached, it will say that</li>
+
 
 
 <h3>Bug Fixes</h3>
 <h5>These following bugs *should* be fixed</h5>
-<li>Mobile UI is fixed</li>
+<li>The "coin range" upgrade should work now</li>
+<li>Mysteryprice should now round to the closest integer</li>
+<li>Perma/autopower prices should now be formmated</li>
+<li>Mobile: Toggling shouldn't move things around anymore</li>
+<li>Formatnumber is back for offline multiplier</li>
 
 
-<h3>Code Optimalization</h3>
-<li>NO OPTIMALIZATIONS</li>
+<h3>Code Optimization </h3>
+<li>Removed some unused variables</li>
 
 <h3>Known Bugs</h3>
-<li>Mysterygifts are to be fixed</li>
-<li>Offlinemultiplier formatnumber() has some issue</li>
+<li>No known bugs</li>
+
+<h3>Other things</h3>
+<li>Mysterygift update has been reverted (for now) since there were too many bugs.</li>
 
 
 <h3>Coming Soon</h3>
 <li>[REDACTED] System *2</li>
+<li>Part two of evolution rework</li>
 <li>Toggable sounds</li>
 <li>Buy multiplier - so you do not need to click so much on your upgrades</li>
 <li>Final mysterygift reward (and fixes for some others)</li>
+<li>Add improved rounding to other upgrades</li>
+<li>Upgrades to max online time</li>
+<li>Code Optimization  for faster everything</li>
 
 
+<div style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
 
-  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V5.01', 'seen');" style="
-    margin-top: 12px;
+  <!-- Reset button -->
+  <button id="resetAupdate" style="
+    background: darkred;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    right: 300px;
+    width: 50vw;
+        max-width: 200px;
+    height: 5vh;
+  ">
+Reset game (recommended)
+  </button>
+
+  <!-- Close button -->
+  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V5.1', 'seen');" style="
     background: #4fc3f7;
     color: #000;
     border: none;
-    padding: 8px 12px;
     border-radius: 8px;
+    padding: 8px 12px;
     cursor: pointer;
     font-weight: bold;
-    left: 2%;
-    margin-bottom: 12px;
+    left: 300px;
+    width: 50vw;
+    max-width: 200px;
+    height: 5vh;
   ">
-    Close
+    Close - resetting is rocommended
   </button>
+
+</div>
+
 </div>
 
 <script>
-  const changelogVersion = "V5.01"; // Change on new updates
+  const changelogVersion = "V5.1"; // Change on new updates
 
   window.addEventListener("load", () => {
     const seen = localStorage.getItem("cc_changelog_" + changelogVersion);

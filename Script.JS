@@ -14,9 +14,11 @@ let firstload = true;
 let clicks = 0;
 const circle = document.getElementById("circle");
 
+let evoloss = 1;
+let ELMcost = 1;
 
 
-let ExchangeCost = 4;
+let ExchangeCost = 50;
 
 let priceMultiplier = 1; 
 let clicksMultiplier = 1;
@@ -30,9 +32,33 @@ let evolveLVL = 0;
 let evopower = evolveLVL + 1;
 const evolve = document.getElementById("evolve");
 
-
+//permapower
 let permapower = 0;
-let permaprice = 2500 * priceMultiplier;
+let maxPermaPower = 0
+
+const permaprice = {
+  1: 1250,
+  2: 1500,
+  3: 1750,
+  4: 7000,
+  5: 7500,
+  6: 85000,
+  7: 95000,
+  8: 100000,
+  9: 500000,
+  10: 575000,
+  11: 650000,
+  12: 750000,
+  13: 1275000,
+  14: 1925000,
+  15: 2900000,
+  16: 4300000,
+  17: 6500000,
+  18: 9700000,
+  19: 14500000,
+  20: 22000000
+}
+
 
 let power = 1 * evopower 
 const powerupgrade = document.getElementById("powerupgrade");
@@ -44,8 +70,7 @@ let evoCost = 750;
 let tempevoCost = null
 
 
-let evoloss = 1;
-let ELMcost = 1;
+
 
 let autoclick = 750;
 let autotimerCost = 3;
@@ -86,7 +111,6 @@ let autoupgrades = 0;
 // *power variables*
 let CurrentClickPower = power
 let CurrentAutoPower = autopower 
-let CurrentEvolutionLevel = evolveLVL
 
 //autosave variables
 let autoSaveToggle = true;
@@ -116,6 +140,7 @@ let CNneededcost = 500;
 // *stat variables*
 let stat = 1;
 let multiplier2 = 0.25; //offlinemultiplier 
+let maxOffTime = 14400
 let allTimeClicks = 0;
 let allTimePoints = 0;
 
@@ -171,7 +196,7 @@ if (currentAutoPowerElement) {
 
     const currentEvolutionLevelElement = document.getElementById("CurrentEvolutionLevel");
     if (currentEvolutionLevelElement) {
-        currentEvolutionLevelElement.innerText = formatNumber(CurrentEvolutionLevel) + " - evoloss: " + Math.round(evoloss *100) + "%";
+        currentEvolutionLevelElement.innerText = formatNumber(evolveLVL) + " - evoloss: " + Math.round(evoloss *100) + "%";
     }
 
 
@@ -181,14 +206,9 @@ if (currentAutoPowerElement) {
     if (currentRankElement) {
         currentRankElement.innerText = rank;
     }
-        const mysteryCostElement = document.getElementById("mysteryCost");
-    if (mysteryCostElement) {
-        if (mysteryprice === null) {
-            mysteryCostElement.innerText = "Unavailable";
-        } else {
-            mysteryCostElement.innerText = formatNumber(Math.round(mysteryprice));
-        }
-    }
+
+
+    
    const popupmysterygiftElement = document.getElementById("popupmysterygift");
     if (popupmysterygiftElement) {
         if (rewardMessage && rewardMessage !== "") { // Check if rewardMessage has content
@@ -230,7 +250,7 @@ if (currentAutoPowerElement) {
 
     const offlinemultiplierstat = document.getElementById("multiplier2")
         if (offlinemultiplierstat) {
-            offlinemultiplierstat.innerText = (multiplier2 * 100).toFixed(1)+ "%" //ooit formatnumber terug zien te krijgen
+            offlinemultiplierstat.innerText = formatNumber(Number((multiplier2 * 100).toFixed(1))) + "%" + " - max time: " + (maxOffTime / 3600) + " hours";
         }
 
     const coinElement = document.getElementById("coins");
@@ -276,37 +296,54 @@ if (currentAutoPowerElement) {
         } 
         if (clicks < autoprice && evolveLVL >= 1) {
         autoupgradeButton.classList.add("buyoff");   
-            autoupgrade.innerText = "Autopower: " + (autoprice)           
+            autoupgrade.innerText = "Autopower: " + formatNumber(autoprice)           
         }
         if (clicks >= autoprice && evolveLVL >= 1) {
             autoupgradeButton.classList.remove("buyoff");   
-            autoupgrade.innerText = "Autopower: " + (autoprice)
+            autoupgrade.innerText = "Autopower: " + formatNumber(autoprice)
         }
     }
 
 
-    const permanentupgradeButton = document.getElementById("permanentupgrade");
-    if (permanentupgradeButton) {
-        if (evolveLVL <3) {
-            permanentupgradeButton.classList.add("buyoff")
-            permanentupgrade.innerText = "Permapower unlocks after evolution 3"
-        }
-        if (clicks < permaprice && permaprice !== null && evolveLVL >= 3) {
+const permanentupgradeButton = document.getElementById("permanentupgrade");
+if (permanentupgradeButton) {
+    const currentPermapowerPrice = permaprice[permapower + 1];
+
+    if (evolveLVL < 3) {
+        permanentupgradeButton.classList.add("buyoff");
+        permanentupgradeButton.classList.remove("completed");
+        permanentupgrade.innerText = "Permapower unlocks after evolution 3";
+    }
+
+    else if (currentPermapowerPrice !== undefined && currentPermapowerPrice !== null) { 
+        if (clicks < currentPermapowerPrice && evolveLVL >= 3) {
             permanentupgradeButton.classList.add("buyoff");
-            permanentupgradeButton.classList.remove("completed")  
-            permanentupgrade.innerText = "Permapower: " + (permaprice)
-        } 
-        if (clicks >= permaprice && permaprice !== null && evolveLVL >= 3) {
+            permanentupgradeButton.classList.remove("completed");
+            permanentupgrade.innerText = "Permapower (" + (maxPermaPower - permapower) + " left): " + formatNumber(currentPermapowerPrice);
+        } else if (clicks >= currentPermapowerPrice && evolveLVL >= 3) {
             permanentupgradeButton.classList.remove("buyoff");
-            permanentupgradeButton.classList.remove("completed")
-            permanentupgrade.innerText = "Permapower: " + (permaprice)
-        }
-        if (permaprice === null) {
-            permanentupgradeButton.classList.remove("buyoff")
-            permanentupgradeButton.classList.add("completed")
-            permanentupgrade.innerText = "Permapower: MAXED ";
+            permanentupgradeButton.classList.remove("completed");
+            permanentupgrade.innerText = "Permapower (" + (maxPermaPower - permapower) + " left): " + formatNumber(currentPermapowerPrice);
         }
     }
+
+    if (permapower === 20) {
+        permanentupgradeButton.classList.remove("buyoff");
+        permanentupgradeButton.classList.add("completed");
+        permanentupgrade.innerText = "Permapower: MAXED ";
+    }
+    else if (permapower === maxPermaPower && evolveLVL >= 3) { 
+        permanentupgradeButton.classList.remove("buyoff");
+        permanentupgradeButton.classList.add("completed");
+        permanentupgrade.innerText = "Unlock more permapower upon reaching the next rank ";
+    }
+}
+
+
+
+
+
+
 
 
     const evolveButton = document.getElementById("evolve");
@@ -340,10 +377,10 @@ if (currentAutoPowerElement) {
 
                 if (clicks < mysteryprice) {
                     mysterygiftButton.classList.add("buyoff");
-                    mysterygift.innerText = "Mystery gift: " + formatNumber(mysteryprice)
+                    mysterygift.innerText = "Mystery gift: " + formatNumber(Math.round(mysteryprice))
                 } else {
                     mysterygiftButton.classList.remove("buyoff");
-                    mysterygift.innerText = "Mystery gift: " + formatNumber(mysteryprice)
+                    mysterygift.innerText = "Mystery gift: " + formatNumber(Math.round(mysteryprice))
                 }
             }
         }            
@@ -356,7 +393,7 @@ if (currentAutoPowerElement) {
     }
 
     //special upgrades
-    const ELMButton = document.getElementById("ELM");
+
     if (ELMButton) {
       
         if (coins < ELMcost) {
@@ -375,7 +412,6 @@ if (currentAutoPowerElement) {
         ELMButton.innerText = (ELMcost === null) ? "Evolve loss multiplier: MAX" : "Evolve loss multiplier -0.1: " + ELMcost + " coins";
     }
 
-    const autotimeButton = document.getElementById("autotime");
     if (autotimeButton) {
         if (coins < autotimerCost) {
             autotimeButton.classList.add("buyoff");
@@ -393,7 +429,6 @@ if (currentAutoPowerElement) {
     }
 
 
- const mysterypriceButton = document.getElementById("mysteryprice");
     if (mysterypriceButton) {
         if (coins < reduceMysterycost) {
             mysterypriceButton.classList.add("buyoff");
@@ -556,6 +591,27 @@ if (currentAutoPowerElement) {
 const popupNCElement = document.getElementById("popupNC")
 
 
+function applyTieredRounding(rawCost) {
+    let roundingFactor;
+
+    if (rawCost < 10000) {
+        roundingFactor = 250;
+    } else if (rawCost >= 10000 && rawCost < 75000) {
+        roundingFactor = 1000
+    } else if (rawCost >= 75000 && rawCost < 250000) {
+        roundingFactor = 5000;
+    } else if (rawCost >= 250000 && rawCost < 2500000) {
+        roundingFactor = 25000;
+    } else if (rawCost >= 2500000 && rawCost < 10000000) {
+        roundingFactor = 100000;
+    } else {
+        roundingFactor = 500000
+    }
+
+    return Math.round(rawCost / roundingFactor) * roundingFactor;
+}
+
+
 function priceChanges() { //function is only for things bought by points
 
     if (priceMultiplier <= 0.1) {
@@ -570,38 +626,25 @@ function priceChanges() { //function is only for things bought by points
     autoprice = Math.round(autoprice * priceMultiplier);
     autoprice = Math.round(autoprice / 5) * 5;
 
-    if (permapower === 0) {
-        permaprice = 2500 * priceMultiplier;
-        permaprice = Math.round(permaprice * priceMultiplier);
-        permaprice = Math.round(permaprice / 500) * 500;
-  
-    } else if (permaprice !== null) {
-        permaprice = permapower * increasePerma;
-        permaprice = Math.round(permaprice * priceMultiplier);
-        permaprice = Math.round(permaprice / 500) * 500;
-    }
-
-    if (permapower === 20) {
-        permaprice = null;
-    }
-
 
     if (tempevoCost !== null) {
         evoCost = tempevoCost;
     } else {
-        evoCost = Math.round(evolveLVL * increaseEvolve * priceMultiplier / 100) * 100;
+        evoCost = (evolveLVL * increaseEvolve * priceMultiplier)
         if (evolveLVL === 0) {
             evoCost = 750 * priceMultiplier;
         }
     }
-    evoCost = Math.round(evoCost / 250) * 250;
+
+    evoCost = applyTieredRounding(evoCost);
 
  
             mysteryprice = 1000 + ((clicks - 1000) * 0.75);
             if (clicks <= 1000) {
                 mysteryprice = 1000;
             }
-            
+        
+    mysteryprice = applyTieredRounding(mysteryprice);
         
 
     if (mgBought === maxMGperEvo) {
@@ -610,6 +653,7 @@ function priceChanges() { //function is only for things bought by points
 
     UpdateUI();
 }
+
 
 circle.onclick = function(){
     clicks += power * clicksMultiplier;
@@ -674,7 +718,7 @@ function updateProgressBar() {
   }
   else if (evolveLVL <25) {
     progressBarRanks.style.width = ((evolveLVL - 15) / 10 * 100) + "%"
-    progressTextRanks.innerText = "Next rank: Champion " + formatNumber(Math.round((evolveLVL - 15) / 10 * 100)) + "%"
+    progressTextRanks.innerText = "Next rank: [REDACTED] " + formatNumber(Math.round((evolveLVL - 15) / 10 * 100)) + "%"
   } 
   else if (evolveLVL >= 25) {
     progressBarRanks.style.width = 100 + "%"
@@ -725,19 +769,17 @@ autoupgrade.onclick = function() {
 
 
 permanentupgrade.onclick = function() {
-    if (permaprice !== null) {
-        if (clicks >= permaprice) {
-            clicks -= permaprice;
-            permapower ++;
+    const currentPermapowerPrice = permaprice[permapower + 1];
+
+    if (currentPermapowerPrice !== undefined && currentPermapowerPrice !== null && permapower < maxPermaPower) {
+        if (clicks >= currentPermapowerPrice) {
+            clicks -= currentPermapowerPrice; 
+            permapower ++; 
             increasePerma *= 1.35;
 
-            clicksMultiplier += 0.075
+            clicksMultiplier += 0.075;
 
-            if (permapower === 20) {
-                permaprice = null;
-            }
-
-            priceChanges();            
+            priceChanges();
             UpdateUI();
         }
     }
@@ -753,7 +795,7 @@ mysterygift.onclick = function() {
         return
     }
     else if (clicks >= mysteryprice) {
-        mystery = Math.random() * 2;
+        mystery = Math.random();
         mgBought += 1;
         if (mystery < 0.4) {
             clicks *= 2;
@@ -768,35 +810,10 @@ mysterygift.onclick = function() {
             clicks -= mysteryprice
             rewardMessage = "No reward";
         }
-         else if (mystery <1.1) {
+         else if (mystery < 1) {
             rewardMessage = "A free evolution!";
             tempevoCost = 0;
         }
-        else if (mystery <1.4) {
-            rewardMessage = "Reward broken (No Reward - no MG usage!)";
-            mgBought -= 1
-            return
-            clicks -= mysteryprice;
-            clicksMultiplier += 1;
-            setTimeout(() => {
-            clicksMultiplier -=1;
-        }, 60000);
-        }
-        else if (mystery <1.7) {
-            rewardMessage = "Reward broken (No Reward - no MG usage!)";
-            mgBought -= 1
-            return
-            clicks -= mysteryprice;
-            quartered = true; //NOT IMPLEMENTED YET
-            setTimeout(() => {
-                quartered = false;
-            }, 600000);
-        }
-        else if (mystery <2) {
-            rewardMessage = "Reward WIP (No Reward - no MG usage!)";
-            mgBought -= 1
-        }
-
         setTimeout(() => {
             rewardMessage = ""
         }, 2500);
@@ -804,6 +821,7 @@ mysterygift.onclick = function() {
         if (maxMGperEvo === mgBought) {
             mysteryprice = null;
         }
+
         UpdateUI();
         saveGame();
         priceChanges();
@@ -815,7 +833,7 @@ mysterygift.onclick = function() {
 
 
 function endgame() {
-    if (endGoalReached === false && clicks >= 2500000) {
+    if (endGoalReached === false && clicks >= endgamePoints) {
  
         priceMultiplier -= 0.5;
         if (priceMultiplier <= 0.1) {
@@ -837,7 +855,7 @@ evolve.onclick = function() {
             actualEvoCost = tempevoCost;
             isFreeEvolution = (tempevoCost === 0);
         } else {
-            actualEvoCost = Math.round(evolveLVL * increaseEvolve * priceMultiplier / 100) * 100;
+            actualEvoCost = (evolveLVL * increaseEvolve * priceMultiplier)
         }
 
         if (clicks >= actualEvoCost || isFreeEvolution) {
@@ -847,7 +865,6 @@ evolve.onclick = function() {
 
             evolveLVL++;
             evopower = evolveLVL + 1;
-            CurrentEvolutionLevel = evolveLVL;
             updateRank();
 
             power = Math.round(powerupgrades * evopower * (1-evoloss)) + (1 * evopower);
@@ -931,6 +948,7 @@ function updateRank() {
             clicksMultiplier += 0.15;
             RPpS += 0.25
             multiplier2 += 0.1
+            maxPermaPower += 3
             rank1Reached = true;
     }
     if (evolveLVL === 5 && rank2Reached === false) {
@@ -941,7 +959,9 @@ function updateRank() {
             }
             clicksMultiplier += 0.25;
             RPpS += 0.75
+            rankPoints = Math.round(rankPoints)
             multiplier2 += 0.15
+            maxPermaPower += 2
             rank2Reached = true;
     }
     if (evolveLVL === 10 && rank3Reached === false) {
@@ -952,7 +972,9 @@ function updateRank() {
             }
             clicksMultiplier += 0.3;
             RPpS += 1.5
+            rankPoints = Math.round(rankPoints)
             multiplier2 += 0.2
+            maxPermaPower += 3
             rank3Reached = true;
     }
     if (evolveLVL === 15 && rank4Reached === false) {
@@ -963,7 +985,9 @@ function updateRank() {
             }
             clicksMultiplier += 0.3;
             RPpS += 7.5
+            rankPoints = Math.round(rankPoints /10) * 10  
             multiplier2 += 0.15;
+            maxPermaPower += 4
             rank4Reached = true;        
     }
     if (evolveLVL === 25 && rank5Reached === false) {
@@ -973,7 +997,8 @@ function updateRank() {
     }
             clicksMultiplier += 0.5   ;
             multiplier2 += 0.15;
-            rank5Reached = true;           
+            maxPermaPower += 8
+            rank5Reached = true;                
         UpdateUI();
     }
 }
@@ -991,7 +1016,7 @@ function updateAuto() {
             if (timesClicked == (newCoin)) {
                 coins += 1;
                 timesClicked = 0;
-                newCoin = Math.floor(Math.random() * 500) + 1; 
+                newCoin = Math.floor(Math.random() * coinneeded) + 1
                 neededClicks = newCoin - timesClicked
                 popupNCElement.innerText = "+1 Coin!"
                 setTimeout(() => {
@@ -1198,7 +1223,6 @@ function saveGame() {
         increasePerma,
         evolveLVL,
         permapower,
-        permaprice,
         power,
         powerprice,
         evoCost,
@@ -1215,7 +1239,6 @@ function saveGame() {
         autoupgrades,
         CurrentClickPower,
         CurrentAutoPower,
-        CurrentEvolutionLevel,
         priceMultiplier,
         autoSaveToggle,
         coins,
@@ -1243,6 +1266,7 @@ function saveGame() {
         allTimeClicks,
         allTimePoints,
         multiplier2,
+        maxPermaPower,
         quartered,
         lastPlayedTime: Date.now()
     };
@@ -1287,7 +1311,6 @@ function loadGame() {
         increasePerma = gameState.increasePerma;
         evolveLVL = gameState.evolveLVL;
         permapower = gameState.permapower;
-        permaprice = gameState.permaprice;
         power = gameState.power;
         powerprice = gameState.powerprice;
         evoCost = gameState.evoCost;
@@ -1302,7 +1325,6 @@ function loadGame() {
         autoupgrades = gameState.autoupgrades;
         CurrentClickPower = gameState.CurrentClickPower;
         CurrentAutoPower = gameState.CurrentAutoPower;
-        CurrentEvolutionLevel = gameState.CurrentEvolutionLevel;
         priceMultiplier = gameState.priceMultiplier;
         autoSaveToggle = gameState.autoSaveToggle;
         evopower = evolveLVL + 1;
@@ -1334,6 +1356,7 @@ function loadGame() {
         allTimePoints = gameState.allTimePoints;
         multiplier2 = gameState.multiplier2;
         quartered = gameState.quartered;
+        maxPermaPower = gameState.maxPermaPower
         lastPlayedTime = gameState.lastPlayedTime || null;
 
 
@@ -1343,7 +1366,7 @@ function loadGame() {
 
         neededClicks = newCoin - timesClicked;
         firstload = false; 
-        ExchangeCost = 4;
+        ExchangeCost = 50;
 
         startautoclick();
         startrankpoints();
@@ -1356,6 +1379,13 @@ function loadGame() {
     }
 }
 
+
+const resetAupdate = document.getElementById("resetAupdate")
+const changelogPopup = document.getElementById("changelogPopup")
+resetAupdate.onclick = function() {
+        resetGame();
+        changelogPopup.style.display='none'; localStorage.setItem('cc_changelog_V5.01', 'seen');
+    }
 
 
 
@@ -1371,7 +1401,6 @@ function resetGame() {
         evolveLVL = 0;
         evopower = 1;
         permapower = 0;
-        permaprice = 2500;
         priceMultiplier = 1; 
         power = 1 ;
         powerprice = 1;
@@ -1387,13 +1416,13 @@ function resetGame() {
         autoupgrades = 0;
         CurrentClickPower = power;
         CurrentAutoPower = autopower;
-        CurrentEvolutionLevel = evolveLVL;
         coins = 0;
         isSpecialShop = false;
         ELMcost = 1;
         autoclick = 750;
         autotimerCost = 3;
         newCoin = 350
+        endgamePoints = 2500000
         timesClicked = 0;
         reduceMysterycost = 10;
         mgBought = 0;
@@ -1418,8 +1447,9 @@ function resetGame() {
         allTimeClicks = 0;
         allTimePoints = 0;
         multiplier2 = 0.25;
-        ExchangeCost = 4;
+        ExchangeCost = 50;
         quartered = false;
+        let maxPermaPower = 0
         localStorage.removeItem("GameState");
 
 
@@ -1493,20 +1523,34 @@ function startrankpoints() {
 const Backmessage = document.getElementById("backmessage");
     
 
-function OfflineProgress() {
+function OfflineProgress() { //vergeet niet dat de cap niet dynamisch is
     if (lastPlayedTime) {
         if (Offlinebought === true) {
         const currentTime = Date.now();
         let timeElapsedMs = currentTime - lastPlayedTime;
+        let maxOffTimeOverlapped = false;
 
-        const timeElapsedS = timeElapsedMs / 1000;
+        let timeElapsedS = timeElapsedMs / 1000;
+
+        if (timeElapsedS >= maxOffTime) {
+            timeElapsedS = maxOffTime
+            maxOffTimeOverlapped = true;
+        }
 
         const autoClicksPerSecondRate = autoclick > 0 ? (1000 / autoclick) : 0;
         const clicksGainedOffline = autopower * autoClicksPerSecondRate * clicksMultiplier * timeElapsedS * multiplier2;
+
         clicks += Math.round(clicksGainedOffline); 
         totalClicks += Math.round(clicksGainedOffline)
 
-        Backmessage.innerHTML = "Welcome back! You gained<br> " + formatNumber(Math.round((clicksGainedOffline))) + " clicks!"
+        if (maxOffTimeOverlapped === false) {
+            Backmessage.innerHTML = "Welcome back! You gained<br> " + formatNumber(Math.round((clicksGainedOffline))) + " clicks!" + " (time away: " + (timeElapsedS / 60).toFixed(0) + " minute(s)"
+        } else {
+            Backmessage.innerHTML = "Welcome back! You gained<br> " + formatNumber(Math.round((clicksGainedOffline))) + " clicks!" + " (time away: capped at 4 hours)"
+        }
+      
+            maxOffTimeOverlapped = false;
+
 
             UpdateUI();
             endgame();
