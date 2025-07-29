@@ -219,7 +219,7 @@ Reset game (recommended)
   </button>
 
   <!-- Close button -->
-  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V5.1', 'seen');" style="
+  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V6', 'seen');" style="
     background: #000000;
     color: white;
     border: none;
@@ -240,7 +240,7 @@ Reset game (recommended)
 </div>
 
 <script>
-  const changelogVersion = "V5.1"; // Change on new updates
+  const changelogVersion = "V6"; // Change on new updates
 
   window.addEventListener("load", () => {
     const seen = localStorage.getItem("cc_changelog_" + changelogVersion);
