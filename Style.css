@@ -454,7 +454,7 @@ button:hover {
     position: absolute;
     top: 18vh;
     height: 3vh;
-    width: 15.79vw;
+    width: 25vw;
     left: 50%;
     border-radius: 1.5vp;
     transform: translateX(-50%);
@@ -643,6 +643,10 @@ button:hover {
     display: none !important;
 }
 
+.hidden {
+    display: none !important;
+}
+
 
 
 #btnNormal {
@@ -679,6 +683,188 @@ button:hover {
     margin-left: 8.74vw;
     top: 77.5vh;
 }
+
+
+
+/*large popups */
+
+#large-pop-ups {
+    display: none; /* standaard verborgen */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4); /* optioneel: semi-transparant zwart */
+    z-index: 998; /* net onder #evolved */
+}
+
+#evolved {
+    z-index: 999;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75vw;
+    max-width: 450px;
+    padding: 20px;
+    background-color: brown;
+    color: white;
+    border-radius: 25px;
+    font-size: 1.3em;
+    font-weight: bold;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    max-height: 80vh;
+    text-align: center;
+}
+
+#evolved-message {
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+#evolved #choose { 
+    margin-bottom: 15px; 
+}
+
+
+#evolved .specialty-buttons-container {
+    display: flex; /* Arrange buttons in a row */
+    flex-direction: row;
+    gap: 10px; /* Space between buttons */
+    margin-top: 20px; /* Space above buttons */
+    width: 100%; /* Ensure container takes full width */
+    justify-content: center; /* Center the buttons within their container */
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+#evolved button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 12px;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+    /* REMOVED: position, left, and transform properties that caused overlap */
+    position: static; /* Ensure it flows naturally within flex container */
+    transform: none; /* Remove any previous transforms */
+    left: auto; /* Reset left property */
+    width: 48%; /* Adjust width to fit two buttons per row with gap */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+    margin-left: 25px;
+}
+
+#evolved button:hover {
+    background-color: #222;
+}
+
+
+#closeEvolvedPopup {
+    margin-top: 15px; /* Add margin to separate from other buttons */
+    width: auto; /* Allow width to be determined by content or default button styles */
+    padding: 10px 24px; /* Retain original padding */
+}
+
+
+/* DIT NOG CHECKEN */
+
+.popup-container {
+    z-index: 999;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75vw;
+    max-width: 450px;
+    padding: 20px;
+    background-color: brown;
+    color: white;
+    border-radius: 25px;
+    font-size: 1.3em;
+    font-weight: bold;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    max-height: 80vh;
+    text-align: center;
+}
+
+.popup-container h2 {
+    color: #ffd700; /* Gold color for heading */
+    margin-bottom: 15px;
+    font-size: 1.8em;
+}
+
+.popup-container p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.popup-container ul {
+    list-style: none; /* No bullet points */
+    padding: 0;
+    margin: 15px 0;
+    text-align: left; /* Align list items left */
+    border-top: 1px solid #444;
+    border-bottom: 1px solid #444;
+    padding: 10px 0;
+}
+
+.popup-container ul li {
+    margin-bottom: 5px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.popup-container ul li::before {
+    content: '•'; /* Custom bullet point */
+    color: #ffd700;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.popup-buttons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-around; /* Space out the buttons */
+    gap: 15px; /* Space between buttons */
+}
+
+.popup-buttons button {
+    background-color: #4CAF50; /* Green for "Yes" */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    flex-grow: 1; /* Allow buttons to grow and fill space */
+}
+
+.popup-buttons button#confirm-evolve-yes {
+    left: 5%
+}
+
+.popup-buttons button#confirm-evolve-no {
+    background-color: #f44336; /* Red for "No" */
+    left: 60%;
+}
+
+.popup-buttons button:hover {
+    filter: brightness(1.1); /* Slightly brighten on hover */
+}
+
+
+
+
 
 
 
@@ -999,6 +1185,14 @@ button:hover {
         transform: translateY(-50%); /* Adjust for half its own height */
         font-size: 0.8em; /* Mobile font size */
         z-index: 2; /* On top */
+    }
+
+    #large-pop-ups {
+        overflow: auto;
+    }
+
+    #confirm-evolve-no, #confirm-evolve-yes, #closeEvolvedPopup, #clicker, #offliner {
+        font-size: 0.5em;
     }
 
 }

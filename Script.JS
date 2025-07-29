@@ -5,6 +5,8 @@ function formatNumber(num) {
     return num.toLocaleString('de-DE');
 }
 
+const largePopUps = document.getElementById("large-pop-ups") //name should be changed - but stops people from clicking elsewhere
+
 
 //offline > online
 let lastPlayedTime = null;
@@ -17,6 +19,11 @@ const circle = document.getElementById("circle");
 let evoloss = 1;
 let ELMcost = 1;
 
+let mayEvolve = true;
+let noEVOallowedReason = "";
+
+let evolutionReached = new Set();
+
 
 let ExchangeCost = 50;
 
@@ -24,7 +31,7 @@ let priceMultiplier = 1;
 let clicksMultiplier = 1;
 
 let increasePower = 1;
-let increaseAuto = 100;
+let increaseAuto = 50;
 let increaseEvolve = 500;
 let increasePerma = 2500;
 
@@ -35,6 +42,7 @@ const evolve = document.getElementById("evolve");
 //permapower
 let permapower = 0;
 let maxPermaPower = 0
+let totalPermaClicksBonus = 0
 
 const permaprice = {
   1: 1250,
@@ -68,10 +76,11 @@ let powerprice = 1;
 //evolution variables
 let evoCost = 750;
 let tempevoCost = null
+let specialty = null;
 
 
 
-
+let totalAutoclickTimeReductionBonus = 0;
 let autoclick = 750;
 let autotimerCost = 3;
 
@@ -84,7 +93,7 @@ let RPpS = 0;
 let autopower = 0 * evopower 
 const autoupgrade = document.getElementById("autoupgrade")
 
-let autoprice = 100;
+let autoprice = 50;
 
 //coin variables
 let coins = 0;
@@ -100,6 +109,7 @@ let mystery = Math.random();
 let rewardMessage = "";
 let mgBought = 0 
 let maxMGperEvo = 1
+let maxMGupgradesBought = 0;
 
 
 //upgrade-count variables
@@ -178,7 +188,10 @@ function UpdateUI() {
     }
     const evoCostElement = document.getElementById("evoCost");
   if (evoCostElement) {
-    evoCostElement.innerText = formatNumber(tempevoCost !== null ? tempevoCost : evoCost);
+    evoCostElement.innerText = "Evolve: " + formatNumber(tempevoCost !== null ? tempevoCost : evoCost);
+  } 
+  if (evoCostElement && mayEvolve === false) {
+    evoCostElement.innerText = "Evolving is not allowed: " + (noEVOallowedReason);
   }
 
 
@@ -350,7 +363,7 @@ if (permanentupgradeButton) {
     if (evolveButton) {
         const effectiveEvoCost = (tempevoCost !== null) ? tempevoCost : evoCost;
 
-        if (clicks >= effectiveEvoCost) {
+        if (clicks >= effectiveEvoCost && mayEvolve === true) {
             evolveButton.classList.remove("buyoff");
         } else {
             evolveButton.classList.add("buyoff");
@@ -361,11 +374,11 @@ if (permanentupgradeButton) {
     //mysterygift
     const mysterygiftButton = document.getElementById("mysterygift");
     if (mysterygiftButton) {
-        if (evolveLVL <3) {
+        if (evolveLVL <2) {
              mysterygiftButton.classList.add("buyoff");
-            mysterygift.innerText = "Mystery gifts unlocks after evolution 3"
+            mysterygift.innerText = "Mystery gifts unlocks after evolution 2"
         }
-        if (evolveLVL >= 3) {           
+        if (evolveLVL >= 2) {           
             if (mgBought >= maxMGperEvo) {
                 mysterygiftButton.classList.add("out-of-stock");
                 mysterygiftButton.classList.remove("buyoff");
@@ -442,7 +455,7 @@ if (permanentupgradeButton) {
             mysterypriceButton.classList.remove("buyoff")
             mysterypriceButton.classList.add("completed")
         }
-        mysterypriceButton.innerText = (reduceMysterycost === null) ? "Increase max mystergifts per evo price: MAX" : "Increase max mystergifts per evo (max 4): " + formatNumber(reduceMysterycost) + " coins";
+        mysterypriceButton.innerText = (reduceMysterycost === null) ? "Increase max mystergifts per evo price: MAX" : "Increase max mystergifts per evo: " + formatNumber(reduceMysterycost) + " coins";
     }
 
     //rankupgrades !Hier de groene knop voegen!
@@ -504,24 +517,28 @@ if (permanentupgradeButton) {
         rank = "Your rank: Wood";
         currentRankElement.classList.remove(...RANK_CLASSES);
         currentRankElement.classList.add('wood');
-    } else if (evolveLVL >= 3 && evolveLVL < 5) { 
-        rank = "Your rank: Bronze";
+    } else if (evolveLVL >= 3 && evolveLVL < 5 && specialty === null) { 
+        rank = "Your rank: Bronze" + " - Speciality: not chosen" ;
+        currentRankElement.classList.remove(...RANK_CLASSES);
+        currentRankElement.classList.add('bronze');
+    }   else if (evolveLVL >= 3 && evolveLVL < 5 && specialty !== null) { 
+        rank = "Your rank: Bronze" + " - Speciality: " + (specialty);
         currentRankElement.classList.remove(...RANK_CLASSES);
         currentRankElement.classList.add('bronze');
     } else if (evolveLVL >= 5 && evolveLVL < 10) { 
-        rank = "Your rank: Iron"; 
+        rank = "Your rank: Iron" + " - Speciality: " + (specialty); 
         currentRankElement.classList.remove(...RANK_CLASSES);
         currentRankElement.classList.add('iron'); 
     } else if (evolveLVL >= 10 && evolveLVL < 15) {
-        rank = "Your rank: Gold";
+        rank = "Your rank: Gold" + " - Speciality: " + (specialty);
         currentRankElement.classList.remove(...RANK_CLASSES);
         currentRankElement.classList.add('gold');
     } else if (evolveLVL >= 15 && evolveLVL < 25) {
-        rank = "Your rank: Platinum";
+        rank = "Your rank: Platinum" + " - Speciality: " + (specialty);
         currentRankElement.classList.remove(...RANK_CLASSES);
         currentRankElement.classList.add('platinum');
     } else if (evolveLVL >= 25) {
-        rank = "Your rank: Champion";
+        rank = "Your rank: Champion" + " - Speciality: " + (specialty);
         currentRankElement.classList.remove(...RANK_CLASSES);
         currentRankElement.classList.add('champion');
     }
@@ -636,20 +653,42 @@ function priceChanges() { //function is only for things bought by points
         }
     }
 
+    // Applying tiered rounding for evolution cost
     evoCost = applyTieredRounding(evoCost);
 
- 
-            mysteryprice = 1000 + ((clicks - 1000) * 0.75);
-            if (clicks <= 1000) {
-                mysteryprice = 1000;
-            }
+    // Calculate mystery price
+    mysteryprice = 1000 + ((clicks - 1000) * 0.75);
+    if (clicks <= 1000) {
+        mysteryprice = 1000;
+    }
         
+    // Applying tiered rounding for mystery gift price
     mysteryprice = applyTieredRounding(mysteryprice);
         
 
     if (mgBought === maxMGperEvo) {
         mysteryprice = null;
     }
+
+    if (evolveLVL === 0 && allTimeClicks < 250) {
+        mayEvolve = false;
+        noEVOallowedReason = "All-time clicks need to be above 250!";
+    }
+    else if (evolveLVL === 3 && specialty === null) {
+        mayEvolve = false;
+        noEVOallowedReason = "Choose a specialty!";
+    } else if (evolveLVL === 8 && allTimePoints < 150000) {
+        mayEvolve = false;
+        noEVOallowedReason = "All-time points need to be above 150.000!";
+    } else if (evolveLVL === 19 && permapower < 5) {
+        mayEvolve = false;
+        noEVOallowedReason = "You need atleast permapower lvl 5! - current level: " + (permapower);
+    }
+    else {
+        mayEvolve = true;
+        noEVOallowedReason = "";
+    }
+
 
     UpdateUI();
 }
@@ -756,7 +795,7 @@ autoupgrade.onclick = function() {
             clicks -= autoprice;
             autoupgrades += 1;
             autopower += 1 * evopower
-            increaseAuto *= 1.2;
+            increaseAuto *= 1.25;
 
             CurrentClickPower = power;
             CurrentAutoPower = autopower;
@@ -777,7 +816,7 @@ permanentupgrade.onclick = function() {
             permapower ++; 
             increasePerma *= 1.35;
 
-            clicksMultiplier += 0.075;
+            totalPermaClicksBonus += 0.075;
 
             priceChanges();
             UpdateUI();
@@ -801,10 +840,10 @@ mysterygift.onclick = function() {
             clicks *= 2;
             rewardMessage = "Points Doubled!";
         } 
-        else if (mystery <0.7){
-            clicks -= mysteryprice;
-            clicks = Math.round(clicks /= 3);
-            rewardMessage = "Great loss!";
+        else if (mystery <0.6){
+            clicks += mysteryprice;
+            clicks = Math.round(clicks *= 5);
+            rewardMessage = "Points timed by 5!";
         }
         else if (mystery <0.9) {
             clicks -= mysteryprice
@@ -847,72 +886,445 @@ function endgame() {
     }
 }
 
+
+//evolve logic
+
+
+const evolvedPopUp = document.getElementById("evolved")
+const message = document.getElementById("evolved-message");
+const choose = document.getElementById("choose")
+const clickerSpecialty = document.getElementById("clicker")
+const offlinerSpecialty = document.getElementById("offliner")
+const closeEvolvedPopupButton = document.getElementById("closeEvolvedPopup")
+
+const rankData = {
+  1: { flag: 1 },
+  2: { flag: 2 },
+  3: {
+    flag: 3,
+    priceMultiplier: -0.075,
+    clicksMultiplier: 0.15,
+    RPpS: 0.25,
+    multiplier2: 0.1,
+    maxPermaPower: 3,
+    chooseSpecialty: true,
+    specialtyBonuses: {
+      clicker: {
+        clicksMultiplier: +0.05,
+
+      },
+      offliner: {
+        multiplier2: +0.05,
+    
+      }
+    }
+  },
+  4: {
+    flag: 4,
+    specialtyBonuses: {
+      clicker: {
+        clicksMultiplier: +0.025, 
+
+      },
+      offliner: {
+        multiplier2: +0.025, 
+      }
+    }
+  },
+  5: {
+    flag: 5,
+    priceMultiplier: -0.075,
+    clicksMultiplier: 0.25,
+    RPpS: 0.75,
+    multiplier2: 0.15,
+    maxPermaPower: 5
+  },
+  6: { flag: 6 },
+  7: { flag: 7,
+        maxMysteryGifts: + 1,
+   },
+  8: { flag: 8 },
+  9: { flag: 9,
+    specialtyBonuses: {
+      clicker: {
+        clicksMultiplier: +0.025, 
+
+      },
+      offliner: {
+        multiplier2: +0.025, 
+      }
+    }
+  },
+  10: {
+    flag: 10,
+    priceMultiplier: -0.1,
+    clicksMultiplier: 0.3,
+    RPpS: 1.5,
+    multiplier2: 0.2,
+    maxPermaPower: 8
+  },
+  11: { flag: 11 },
+  12: { flag: 12,
+        maxMysteryGifts: + 1,
+   },
+  13: { flag: 13 },
+  14: { flag: 14 },
+  15: {
+    flag: 15,
+    priceMultiplier: -0.1,
+    clicksMultiplier: 0.3,
+    RPpS: 7.5,
+    multiplier2: 0.15,
+    maxPermaPower: 12
+  },
+  16: { flag: 16 },
+  17: { flag: 17 },
+  18: {
+    flag: 18,
+    specialtyBonuses: {
+      clicker: {
+        clicksMultiplier: +0.025, 
+
+      },
+      offliner: {
+        multiplier2: +0.025, 
+      }
+    }
+  },
+  19: { flag: 19 },
+  20: { flag: 20,    
+     specialtyBonuses: {
+      clicker: {
+        clicksMultiplier: +0.25, 
+
+      },
+      offliner: {
+        multiplier2: +0.25, 
+      }
+    }
+  },
+  21: { flag: 21 },
+    22: {
+    flag: 22,
+    specialtyBonuses: {
+      clicker: {
+        clicksMultiplier: +0.025, 
+
+      },
+      offliner: {
+        multiplier2: +0.025, 
+      }
+    }
+  },
+  23: { flag: 23 },
+  24: { flag: 24 },
+  25: {
+    flag: 25,
+    priceMultiplier: -0.15,
+    clicksMultiplier: 0.5,
+    multiplier2: 0.15,
+    maxPermaPower: 20
+  },
+  26: { flag: 26 },
+  27: { flag: 27 },
+  28: { flag: 28 },
+  29: { flag: 29 },
+  30: { flag: 30 }
+};
+
+
+const evoRewards = {
+  1: "Autopower unlock!",
+  2: "Mystery gift unlock!",
+  3: "Bronze rank: -7.5% price multiplier<br>+15% clicks multiplier<br>+0.25 RankPoints per second<br>+15% offline multiplier<br>+3 max permapower<br>Choose your speciality",
+  4: "Clicker: +2.5% click multiplier<br>Offliner: +2.5% offline multiplier",
+  5: "Iron rank: -7.5% price multiplier<br>+25% clicks multiplier<br>+0.75 RankPoints per second<br>+15% offline multiplier<br>+2 max permapower<br>Coin Shop unlock",
+  6: "Nothing",
+  7: "+1 max mystery gift per evo",
+  8: "Nothing",
+  9: "Clicker: +2.5% click multiplier<br>Offliner: +2.5% offline multiplier",
+  10: "Gold rank: -10% price multiplier<br>+30% clicks multiplier<br>+1.5 RankPoints per second<br>+15% offline multiplier<br>+3 max permapower<br>Rank Shop unlock",
+  11: "Nothing",
+  12: "+1 max mystery gift per evo",
+  13: "Nothing",
+  14: "Nothing",
+  15: "Platinum rank: -10% price multiplier<br>+30% clicks multiplier<br>+7.5 RankPoints per second<br>+15% offline multiplier<br>+4 max permapower",
+  16: "Nothing",
+  17: "Nothing",
+  18: "Clicker: +2.5% click multiplier<br>Offliner: +2.5% offline multiplier",
+  19: "Nothing",
+  20: "Clicker: +25% clicks multiplier<br>Offliner: +25% offline multiplier",
+  21: "Nothing",
+  22: "Clicker: +2.5% click multiplier<br>Offliner: +2.5% offline multiplier",
+  23: "Nothing",
+  24: "Nothing",
+  25: "Champion rank: -15% price multiplier<br>+50% clicks multiplier<br>+15% offline multiplier<br>+8 max permapower",
+  26: "Nothing"
+}
+
+
+let currentRewards = evoRewards[evolveLVL] || "No rewards available";
+
+const confirmEvolvePopup = document.getElementById("confirm-evolve-popup");
+const confirmEvolveYesButton = document.getElementById("confirm-evolve-yes");
+const confirmEvolveNoButton = document.getElementById("confirm-evolve-no");
+
 evolve.onclick = function() {
-        let actualEvoCost;
-        let isFreeEvolution = false;
+    if (mayEvolve === true) {
+        document.getElementById('evolved').style.display = 'block';
+        largePopUps.style.display = 'block';
+        largePopUps.classList.remove("hidden");
+        confirmEvolvePopup.classList.remove("hidden");
+        evolvedPopUp.style.display = "none";
 
-        if (tempevoCost !== null) {
-            actualEvoCost = tempevoCost;
-            isFreeEvolution = (tempevoCost === 0);
-        } else {
-            actualEvoCost = (evolveLVL * increaseEvolve * priceMultiplier)
+    } else {
+        return;
+    }
+}
+
+confirmEvolveYesButton.onclick = () => {
+
+  executeEvolutionLogic();
+};
+
+confirmEvolveNoButton.onclick = () => {
+  hideConfirmationPopup();
+};
+
+function hideConfirmationPopup() {
+    confirmEvolvePopup.classList.add("hidden");
+    largePopUps.classList.add("hidden");
+}
+
+function executeEvolutionLogic() {
+    confirmEvolvePopup.classList.add("hidden");
+
+    let actualEvoCost;
+    let isFreeEvolution = false;
+
+    priceChanges();
+
+    if (tempevoCost !== null) {
+        actualEvoCost = tempevoCost;
+        isFreeEvolution = (tempevoCost === 0);
+    } else {
+        actualEvoCost = (evolveLVL * increaseEvolve * priceMultiplier);
+        if (evolveLVL === 0) {
+            actualEvoCost = 750 * priceMultiplier;
         }
-
-        if (clicks >= actualEvoCost || isFreeEvolution) {
-            if (!isFreeEvolution) {
-                clicks -= actualEvoCost;
-            }
-
-            evolveLVL++;
-            evopower = evolveLVL + 1;
-            updateRank();
-
-            power = Math.round(powerupgrades * evopower * (1-evoloss)) + (1 * evopower);
-            autopower = Math.round(autoupgrades * evopower * (1-evoloss)) + (1*evopower);
-
-            clicks -= Math.round(clicks * evoloss);
-
-            increaseEvolve *= 1.4   ;
-            increasePower = 1;
-            increaseAuto = 100;
-
-            powerupgrades = 0;
-            autoupgrades = 0;
-
-            mgBought = 0; 
-
-            tempevoCost = null;
-
-            CurrentClickPower = power;
-            CurrentAutoPower = autopower;
-
-            if (evolveLVL > 25) {
-                multiplier2 += 0.05
-                priceMultiplier -= 0.05
-                clicksMultiplier +=0.05
-                if (priceMultiplier < 0.1) {
-                    priceMultiplier = 0.1
-                }
-            }
-
-            priceChanges();
-            UpdateUI();
-            startautoclick();
-        } else {
-            return;
-        }
+        actualEvoCost = applyTieredRounding(actualEvoCost);
     }
 
+    if (clicks >= actualEvoCost || isFreeEvolution) {
+        if (!isFreeEvolution) {
+            clicks -= actualEvoCost;
+        }
 
-let rank1Reached = false;
-let rank2Reached = false;
-let rank3Reached = false;
-let rank4Reached = false;
-let rank5Reached = false;
+        evolveLVL++;
+        evopower = evolveLVL + 1;
+        updateRank();
 
+        power = Math.round(powerupgrades * evopower * (1 - evoloss)) + (1 * evopower);
+        autopower = Math.round(autoupgrades * evopower * (1 - evoloss));
+
+        clicks -= Math.round(clicks * evoloss);
+
+        increaseEvolve *= 1.4;
+        increasePower = 1;
+        increaseAuto = 50;
+
+        powerupgrades = 0;
+        autoupgrades = 0;
+
+        mgBought = 0;
+
+        tempevoCost = null;
+
+        CurrentClickPower = power;
+        CurrentAutoPower = autopower;
+
+        if (evolveLVL <= 25) {
+            currentRewards = evoRewards[evolveLVL] || "No rewards available";
+        } else {
+            currentRewards = evoRewards[26] || "No rewards available";
+        }
+
+        message.innerHTML = "You evolved! <br> New evolution level: " + (evolveLVL) + " <br><div style='text-align: left; border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 5px;'>Rewards:</div>" + "<div style='text-align: left;'>" + (currentRewards) + "</div>";
+
+        evolvedPopUp.style.display = "block";
+
+        if (evolveLVL === 3 && specialty === null) {
+            choose.classList.remove("hidden")
+            offlinerSpecialty.classList.remove("hidden")
+            clickerSpecialty.classList.remove("hidden")
+            closeEvolvedPopupButton.classList.add("hidden")
+        } else {
+            closeEvolvedPopupButton.classList.remove("hidden")
+            choose.classList.add("hidden");
+            offlinerSpecialty.classList.add("hidden");
+            clickerSpecialty.classList.add("hidden");
+        }
+
+        priceChanges();
+        UpdateUI();
+        startautoclick();
+    } else {
+        hideConfirmationPopup();
+    }
+}
+
+
+
+clickerSpecialty.onclick = function() {
+    specialty = "clicker";
+    const evolvedPopUp = document.getElementById("evolved");
+    evolvedPopUp.style.display = "none";
+    choose.classList.add("hidden")
+    offlinerSpecialty.classList.add("hidden")
+    clickerSpecialty.classList.add("hidden")
+    closeEvolvedPopupButton.classList.remove("hidden")
+    const largePopUps = document.getElementById("large-pop-ups")
+    largePopUps.style.display = "none"
+    updateRank()
+    UpdateUI();
+    priceChanges();
+};
+
+offlinerSpecialty.onclick = function() {
+    specialty = "offliner";
+    const evolvedPopUp = document.getElementById("evolved");
+    evolvedPopUp.style.display = "none";
+    choose.classList.add("hidden")
+    offlinerSpecialty.classList.add("hidden")
+    clickerSpecialty.classList.add("hidden")
+    closeEvolvedPopupButton.classList.remove("hidden")
+    const largePopUps = document.getElementById("large-pop-ups")
+    largePopUps.style.display = "none"
+    updateRank()
+    UpdateUI();
+    priceChanges();
+};
+
+
+closeEvolvedPopup.onclick = function () {
+    const evolvedPopUp = document.getElementById("evolved");
+    evolvedPopUp.style.display = "none";
+    choose.classList.add("hidden")
+    offlinerSpecialty.classList.add("hidden")
+    clickerSpecialty.classList.add("hidden")
+    closeEvolvedPopupButton.classList.remove("hidden")
+    const largePopUps = document.getElementById("large-pop-ups")
+    largePopUps.style.display = "none"
+    updateRank()
+    UpdateUI();
+    priceChanges();
+}
+
+
+
+
+
+function updateRank() {
+  priceMultiplier = 1;
+  clicksMultiplier = 1;
+  RPpS = 0;
+  multiplier2 = 0.25;
+  maxPermaPower = 0;
+  autoclick = 750;
+  maxMGperEvo = 1
+
+  for (const lvlStr in rankData) {
+    const lvl = Number(lvlStr);
+    const data = rankData[lvl];
+
+    if (lvl <= evolveLVL) {
+      if (data.priceMultiplier !== undefined) {
+        priceMultiplier += data.priceMultiplier;
+      }
+      if (data.clicksMultiplier !== undefined) {
+        clicksMultiplier += data.clicksMultiplier;
+      }
+      if (data.RPpS !== undefined) {
+        RPpS += data.RPpS;
+      }
+      if (data.multiplier2 !== undefined) {
+        multiplier2 += data.multiplier2;
+      }
+      if (data.maxPermaPower !== undefined) {
+        maxPermaPower = Math.max(maxPermaPower, data.maxPermaPower);
+      }
+    if (data.maxMysteryGifts !== undefined) {
+        maxMGperEvo += data.maxMysteryGifts;
+      }
+      if (data.autoclickerTime !== undefined) { 
+        autoclick -= data.autoclickerTime;
+      }
+
+      if (data.specialtyBonuses && specialty !== null) {
+        const bonus = data.specialtyBonuses[specialty];
+        if (bonus) {
+          for (const key in bonus) {
+            if (bonus.hasOwnProperty(key)) {
+              const value = bonus[key];
+              switch (key) {
+                case 'priceMultiplier':
+                  priceMultiplier += value;
+                  break;
+                case 'clicksMultiplier':
+                  clicksMultiplier += value;
+                  break;
+                case 'RPpS':
+                  RPpS += value;
+                  break;
+                case 'multiplier2':
+                  multiplier2 += value;
+                  break;
+                case 'maxPermaPower':
+                  maxPermaPower += value;
+                case 'maxMysteryGifts':
+                  maxMGperEvo += value;
+                  break;
+                case 'autoclickerTime': 
+                  autoclick -= value;
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+    clicksMultiplier += totalPermaClicksBonus;
+    autoclick -= totalAutoclickTimeReductionBonus
+    maxMGperEvo += maxMGupgradesBought
+
+    if (priceMultiplier < 0.1) {
+        priceMultiplier = 0.1;
+    }
+    if (autoclick <= 350) {
+        autotimerCost = null;
+        autoclick = 333;
+    }
+
+  for (const lvlStr in rankData) {
+    const lvl = Number(lvlStr);
+    if (lvl <= evolveLVL && !evolutionReached.has(lvl)) {
+      evolutionReached.add(lvl);
+    }
+  }
+}
+
+
+
+
+//end evolution logic
 
 const exchangeMessage = document.getElementById("exchangeMessage")
 let exchangedPoints
+
 
 RPexchange.onclick = function() {
     if (rankPoints >= ExchangeCost) {
@@ -935,73 +1347,10 @@ RPexchange.onclick = function() {
     }
 }
 
-function updateRank() {
-    if (evolveLVL >= 0) {
-        rank = "Your rank: Wood";
-    }
-    if (evolveLVL === 3 && rank1Reached === false) {
-        rank = "Your rank: Bronze";
-        priceMultiplier -= 0.075;
-            if (priceMultiplier <= 0.1) {
-                priceMultiplier = 0.1;
-            }
-            clicksMultiplier += 0.15;
-            RPpS += 0.25
-            multiplier2 += 0.1
-            maxPermaPower = 3
-            rank1Reached = true;
-    }
-    if (evolveLVL === 5 && rank2Reached === false) {
-        rank = "Your rank: Iron";
-        priceMultiplier -= 0.075;
-                    if (priceMultiplier <= 0.1) {
-                priceMultiplier = 0.1;
-            }
-            clicksMultiplier += 0.25;
-            RPpS += 0.75
-            rankPoints = Math.round(rankPoints)
-            multiplier2 += 0.15
-            maxPermaPower = 5
-            rank2Reached = true;
-    }
-    if (evolveLVL === 10 && rank3Reached === false) {
-        rank = "Your rank: Gold";
-        priceMultiplier -= 0.1;
-                if (priceMultiplier <= 0.1) {
-                priceMultiplier = 0.1;
-            }
-            clicksMultiplier += 0.3;
-            RPpS += 1.5
-            rankPoints = Math.round(rankPoints)
-            multiplier2 += 0.2
-            maxPermaPower = 8
-            rank3Reached = true;
-    }
-    if (evolveLVL === 15 && rank4Reached === false) {
-        rank = "Your rank: Platinum";
-        priceMultiplier -= 0.1;
-                if (priceMultiplier <= 0.1) {
-                priceMultiplier = 0.1;
-            }
-            clicksMultiplier += 0.3;
-            RPpS += 7.5
-            rankPoints = Math.round(rankPoints /10) * 10  
-            multiplier2 += 0.15;
-            maxPermaPower = 12
-            rank4Reached = true;        
-    }
-    if (evolveLVL === 25 && rank5Reached === false) {
-        priceMultiplier -= 0.15;
-                if (priceMultiplier <= 0.1) {
-            priceMultiplier = 0.1;   
-    }
-            clicksMultiplier += 0.5;
-            multiplier2 += 0.15;
-            maxPermaPower = 20
-            rank5Reached = true;                
-        UpdateUI();
-    }
-}
+
+
+
+//
 
 function updateAuto() {
         clicks += autopower * clicksMultiplier;
@@ -1065,11 +1414,12 @@ autotimeButton.onclick = function() {
 
     if (coins >= autotimerCost) {
         coins -= autotimerCost;
-        autoclick -= 50;
         autotimerCost += 2;
+        totalAutoclickTimeReductionBonus += 50;
 
         startautoclick();
         UpdateUI();
+        updateRank();
 
         if (autoclick <= 350) {
             autotimerCost = null;
@@ -1086,17 +1436,20 @@ mysterypriceButton.onclick = function() { //old variable name but still works
         return; 
     }
 
+
     if (coins >= reduceMysterycost) {  //old variable name but still works
     coins -= reduceMysterycost; //old variable name but still works
     reduceMysterycost += 5 //old variable name but still works
     maxMGperEvo += 1
+    maxMGupgradesBought += 1
     }
 
-    if (maxMGperEvo === 4) {
+    if (maxMGupgradesBought === 3) {
         reduceMysterycost = null; //old variable name but still works
     }
      UpdateUI(); 
      priceChanges();  
+     updateRank();
 }
 
 
@@ -1241,6 +1594,7 @@ function saveGame() {
         CurrentAutoPower,
         priceMultiplier,
         autoSaveToggle,
+        totalPermaClicksBonus,
         coins,
         evoloss,
         ELMcost,
@@ -1249,16 +1603,12 @@ function saveGame() {
         reduceMysterycost,
         mgBought,
         maxMGperEvo,
+        maxMGupgradesBought,
         CNneededcost,
         endGoalReached,
         clicksMultiplier,
         rankPoints,
         RPpS,
-        rank1Reached,
-        rank2Reached,
-        rank3Reached,
-        rank4Reached,
-        rank5Reached,
         Offlinebought,
         Offlinecost,
         coinneeded,
@@ -1266,7 +1616,9 @@ function saveGame() {
         allTimeClicks,
         allTimePoints,
         multiplier2,
+        totalAutoclickTimeReductionBonus,
         maxPermaPower,
+        specialty,
         quartered,
         lastPlayedTime: Date.now()
     };
@@ -1308,6 +1660,7 @@ function loadGame() {
         increasePower = gameState.increasePower;
         increaseAuto = gameState.increaseAuto;
         increaseEvolve = gameState.increaseEvolve;
+        maxMGupgradesBought = gameState.maxMGupgradesBought;
         increasePerma = gameState.increasePerma;
         evolveLVL = gameState.evolveLVL;
         permapower = gameState.permapower;
@@ -1344,11 +1697,6 @@ function loadGame() {
         CoinACbought= gameState.CoinACbought;
         reduceMysterycost = gameState.reduceMysterycost;
         endGoalReached = gameState.endGoalReached;
-        rank1Reached = gameState.rank1Reached;
-        rank2Reached = gameState.rank2Reached;
-        rank3Reached = gameState.rank3Reached;
-        rank4Reached = gameState.rank4Reached
-        rank5Reached = gameState.rank5Reached
         Offlinecost = gameState.Offlinecost;
         Offlinebought = gameState.Offlinebought;
         coinneeded = gameState.coinneeded;
@@ -1356,6 +1704,9 @@ function loadGame() {
         allTimePoints = gameState.allTimePoints;
         multiplier2 = gameState.multiplier2;
         quartered = gameState.quartered;
+        specialty = gameState.specialty
+        totalPermaClicksBonus = gameState.totalPermaClicksBonus
+        totalAutoclickTimeReductionBonus = gameState.totalAutoclickTimeReductionBonus
         maxPermaPower = gameState.maxPermaPower
         lastPlayedTime = gameState.lastPlayedTime || null;
 
@@ -1372,9 +1723,10 @@ function loadGame() {
         startrankpoints();
         updateRank();
         UpdateUI();
+        priceChanges();
     } else {
-        if (!firstload) {
-            alert("No save loaded!");
+        if (!firstload ||!savedGameState || !loadconfirmed) {
+        alert("No save loaded!");
         }
     }
 }
@@ -1395,7 +1747,7 @@ function resetGame() {
     if (resetconfirmed) {
         clicks = 0;
         increasePower = 1;
-        increaseAuto = 100;
+        increaseAuto = 50;
         increaseEvolve = 500;
         increasePerma = 2500;
         evolveLVL = 0;
@@ -1408,7 +1760,7 @@ function resetGame() {
         tempevoCost = null;
         evoloss = 1
         autopower = 0 ;
-        autoprice = 100 ;
+        autoprice = 50 ;
         mysteryprice = 1000
         mystery = Math.random();
         powerupgrades = 0;
@@ -1420,6 +1772,7 @@ function resetGame() {
         isSpecialShop = false;
         ELMcost = 1;
         autoclick = 750;
+        totalPermaClicksBonus = 0
         autotimerCost = 3;
         newCoin = 350
         endgamePoints = 2500000
@@ -1432,23 +1785,21 @@ function resetGame() {
         clicksMultiplier = 1;
         RPpS = 0;
         rankPoints = 0;
-        rank1Reached = false;
-        rank2Reached = false;
-        rank3Reached = false;
-        rank4Reached = false;
-        rank5Reached = false;
+        totalAutoclickTimeReductionBonus = 0;
         Offlinecost = 250;
         CoinACcost = 3000;
         CoinACbought = false;
         Offlinebought = false; 
         lastPlayedTime = null
         coinneeded = 500;
+        specialty = null; 
         stat = 1;
         allTimeClicks = 0;
         allTimePoints = 0;
         multiplier2 = 0.25;
         ExchangeCost = 50;
         quartered = false;
+        maxMGupgradesBought = 0;
         let maxPermaPower = 0
         localStorage.removeItem("GameState");
 
@@ -1544,7 +1895,7 @@ function OfflineProgress() { //vergeet niet dat de cap niet dynamisch is
         totalClicks += Math.round(clicksGainedOffline)
 
         if (maxOffTimeOverlapped === false) {
-            Backmessage.innerHTML = "Welcome back! You gained<br> " + formatNumber(Math.round((clicksGainedOffline))) + " clicks!" + " (time away: " + (timeElapsedS / 60).toFixed(0) + " minute(s)"
+            Backmessage.innerHTML = "Welcome back! You gained<br> " + formatNumber(Math.round((clicksGainedOffline))) + " clicks!" + " (time away: " + (timeElapsedS / 60).toFixed(0) + " minutes)"
         } else {
             Backmessage.innerHTML = "Welcome back! You gained<br> " + formatNumber(Math.round((clicksGainedOffline))) + " clicks!" + " (time away: capped at 4 hours)"
         }
@@ -1576,7 +1927,7 @@ if (showChangeLogsButton) {
 }
 
 
-
+priceChanges();
 upgtoggle();
 setInterval (endgame, 1000);
 startautoclick();
@@ -1586,3 +1937,4 @@ FirstLoadGame();
 OfflineProgress(); 
 updateRank();
 UpdateUI();
+
