@@ -132,8 +132,8 @@ const rankData = { //evoloss needs to be positive to turn negative! Also for aut
  2: { flag: 2 },
  3: {
   flag: 3, priceMultiplier: -0.075, clicksMultiplier: 0.15, multiplier2: 0.05, maxPermaPower: 3, chooseSpecialty: true,
-  specialtyBonuses: {
-   buyer: { pricemultiplier2: -0.25 }
+  specialtyBonuses: { //all other bonuses are done outside of this const
+   buyer: { pricemultiplier2: -0.20, RPpS: 0.05 }
   }
  },
  4: { flag: 4 },
@@ -146,36 +146,36 @@ const rankData = { //evoloss needs to be positive to turn negative! Also for aut
  9: {
   flag: 9,
   specialtyBonuses: {
-   clicker: { clicksMultiplier: 0.05 },
-   offliner: { multiplier2: 0.05 },
+   clicker: { clicksMultiplier: 0.15 },
+   offliner: { multiplier2: 0.1 },
    buyer: { priceMultiplier: -0.05, pricemultiplier2: -0.05 },
    evolver: { evoloss: 0.075 }
   }
  },
 10: {
-  flag: 10, priceMultiplier: -0.1, clicksMultiplier: 0.3, autoMultiplier: 0.3, RPpS: 1.5, multiplier2: 0.1, maxPermaPower: 8
+  flag: 10, priceMultiplier: -0.1, clicksMultiplier: 0.3, autoMultiplier: 0.3, RPpS: 1.75, multiplier2: 0.1, maxPermaPower: 8
  },
 11: {
   flag: 11,
   specialtyBonuses: {
-   clicker: { clicksMultiplier: 0.025 },
+   clicker: { clicksMultiplier: 0.125 },
    offliner: { autoclickerTime: 100 },
    buyer: { priceMultiplier: -0.1 },
-   evolver: { RPps: 0.5 }
+   evolver: { RPpS: 0.5 }
   }
  },
 12: { flag: 12, maxMysteryGifts: 1 },
 13: { flag: 13 },
 14: { flag: 14, evoloss: 0.05 },
 15: {
-  flag: 15, priceMultiplier: -0.1, clicksMultiplier: 0.3, autoMultiplier: 0.3, RPpS: 7.5, multiplier2: 0.075, maxPermaPower: 12
+  flag: 15, priceMultiplier: -0.1, clicksMultiplier: 0.3, autoMultiplier: 0.3, RPpS: 5, multiplier2: 0.075, maxPermaPower: 12
  },
 16: { flag: 16 },
 17: { flag: 17 },
 18: {
   flag: 18,
-  specialtyBonuses: {
-   offliner: { multiplier2: 0.075, autoclickerTime: 50 },
+  specialtyBonuses: { //coinmultiplier for "clicker" is done outsife of this const
+   offliner: { multiplier2: 0.1, autoclickerTime: 50 },
    buyer: { priceMultiplier: -0.05, pricemultiplier2: -0.05 },
    evolver: { evoloss: 0.05 }
   }
@@ -194,8 +194,8 @@ const rankData = { //evoloss needs to be positive to turn negative! Also for aut
 22: {
   flag: 22,
   specialtyBonuses: {
-   clicker: { clicksMultiplier: 0.025 },
-   offliner: { multiplier2: 0.025 },
+   clicker: { clicksMultiplier: 0.05 },
+   offliner: { multiplier2: 0.05 },
    buyer: { priceMultiplier: -0.025, pricemultiplier2: -0.025 },
    evolver: { evoloss: 0.05 }
   }
@@ -216,26 +216,26 @@ const evoRewards = { //Some things are done outside of the rankData!
  1: "Autopower unlocked!",
  2: "Mystery gift unlocked!",
  3: "Bronze rank:<br> -7.5% price multiplier<br>+15% clicks multiplier<br>+5% offline multiplier<br>+3 max permapower<br>Choose your speciality",
- //clicker gets +1 coin multipier and unlocks the Coin Shop earlier (3 instead of 4), offliner unlocks offline autoclicker for free and earlier (3 instead of 8), evolver removes evolution requierements, buyer gain acces to pricemultiplier for coins and Rankshop and has a lower minimum pricemultiplier
+ //clicker gets +1 coin multipier and unlocks the Coin Shop earlier (3 instead of 4), offliner unlocks offline autoclicker (and coin autoclicker) for free and earlier (3 instead of 8), evolver removes evolution requierements, buyer gain acces to pricemultiplier for coins and Rankshop and has a lower minimum pricemultiplier
  4: "Coin Shop unlocked!*",
  5: "Iron rank:<br> -7.5% price multiplier<br>+25% clicks multiplier<br>+25% auto multiplier<br>+0.75 RankPoints per second<br>+10% offline multiplier<br>+5 max permapower",
  6: "Evoloss -5%",
  7: "+1 max mystery gift per evo",
  8: "Rank Shop unlocked!*",
- 9: "Clicker: +5% click multiplier<br>Offliner: +5% offline multiplier<br>Buyer: -5% on both price multipliers<br>Evolver: -7.5% evoloss",
- 10: "Gold rank:<br> -10% price multiplier<br>+30% clicks multiplier<br>+30% auto multiplier<br>+1.5 RankPoints per second<br>+10% offline multiplier<br>+8 max permapower",
- 11: "Clicker: +2.5% click multiplier<br>Offliner: -100MS on autoclick<br>Buyer: -10% on normal prices<br>Evolver: +0.5RPpS",
+ 9: "Clicker: +15% click multiplier<br>Offliner: +10% offline multiplier<br>Buyer: -5% on both price multipliers<br>Evolver: -7.5% evoloss",
+ 10: "Gold rank:<br> -10% price multiplier<br>+30% clicks multiplier<br>+30% auto multiplier<br>+1.75 RankPoints per second<br>+10% offline multiplier<br>+8 max permapower",
+ 11: "Clicker: +12.5% click multiplier<br>Offliner: -100MS on autoclick<br>Buyer: -10% on normal prices<br>Evolver: +0.5RPpS",
  12: "+1 max mystery gift per evo",
  13: "Nothing",
  14: "Evoloss -5%",
- 15: "Platinum rank:<br> -10% price multiplier<br>+30% clicks multiplier<br>+30% auto multiplier<br>+7.5 RankPoints per second<br>+7.5% offline multiplier<br>+12 max permapower",
+ 15: "Platinum rank:<br> -10% price multiplier<br>+30% clicks multiplier<br>+30% auto multiplier<br>+5 RankPoints per second<br>+7.5% offline multiplier<br>+12 max permapower",
  16: "Nothing",
  17: "Nothing",
- 18: "Clicker: += 1 Coin Multiplier <br>Offliner: +7.5% offline multiplier, -50MS on autoclick<br>Buyer: -5% on both price multipliers<br>Evolver:-5% on evoloss",
+ 18: "Clicker: += 1 Coin Multiplier <br>Offliner: +10% offline multiplier, -50MS on autoclick<br>Buyer: -5% on both price multipliers<br>Evolver:-5% on evoloss",
  19: "Nothing",
  20: "Clicker: +50% clicks multiplier<br>Offliner: +25% offline multiplier, +25% auto multiplier<br>Buyer:-25% on normal upgrades<br>Evolver: -20% on evoloss",
  21: "Nothing",
- 22: "Clicker: +2.5% click multiplier<br>Offliner: +2.5% offline multiplier<br>Buyer: -2.5% on both price multiplier<br>Evolver: -5% on evoloss",
+ 22: "Clicker: +5% click multiplier<br>Offliner: +5% offline multiplier<br>Buyer: -2.5% on both price multiplier<br>Evolver: -5% on evoloss",
  23: "+1 max mystery gift per evo",
  24: "Nothing",
  25: "Champion rank:<br> -15% price multiplier<br>+50% clicks multiplier<br>+50% auto multiplier<br>+7.5% offline multiplier<br>+20 max permapower",
@@ -374,7 +374,7 @@ function UpdateUI() {
 
     // Update current click power display
     if (ClickPowerElement) {
-        ClickPowerElement.innerHTML = "Current Clicking Power" + formatNumber(Math.round(power)) + "<br>*" + (clicksMultiplier * 100).toFixed(1) + "%";
+        ClickPowerElement.innerHTML = "Current Clicking Power: " + formatNumber(Math.round(power)) + "<br>*" + (clicksMultiplier * 100).toFixed(1) + "%";
     }
 
     // Update current auto power display
@@ -420,7 +420,7 @@ function UpdateUI() {
 
     // Update coin display
     if (coinElement) {
-        coinElement.innerHTML = "Coins:" + formatNumber(Math.round(coins)) + "<br> Next coin in: " + (neededClicks) + " clicks (*" + (coinMultiplier) + ")";
+        coinElement.innerHTML = "Coins: " + formatNumber(Math.round(coins)) + "<br> Next coin in: " + (neededClicks) + " clicks (*" + (coinMultiplier) + ")";
     }
 
     // Update click power upgrade button
@@ -810,35 +810,48 @@ function priceChanges() {
         }
     }
        
-//evoreqs
 
-if (evolveLVL === 0 && allTimeClicks < 200) {
+//#region --- Evo Requirements ---
+
+//evoreqs --- Make it in it's own function ---
+
+if (evolveLVL === 0 && allTimeClicks < 150) {
     mayEvolve = false;
-    noEVOallowedReason = "All-time clicks need to be above 200!";
+    noEVOallowedReason = "All-time clicks need to be above 150!";
 } 
 else if (evolveLVL === 3 && (specialty === null || specialty === null)) {
     mayEvolve = false;
     noEVOallowedReason = "Choose a specialty!";
 } 
-else if (evolveLVL === 8 && specialty !== "evolver" && allTimePoints < 150000) {
+else if (evolveLVL === 8 && specialty !== "evolver" && allTimePoints < 200000) {
     mayEvolve = false;
-    noEVOallowedReason = "All-time points need to be above 150,000!";
+    noEVOallowedReason = "All-time points need to be above 200,000!";
 } 
 else if (evolveLVL === 12 && specialty !== "evolver" &&  (maxMGperEvo !== mgBought)) {
      mayEvolve = false;
     noEVOallowedReason = "Buy all available mystery gifts!";
 }
-else if (evolveLVL === 19 && specialty !== "evolver" && permapower < 5) {
+else if (evolveLVL === 13 && specialty !== "evolver" &&  autopower < 200) {
     mayEvolve = false;
-    noEVOallowedReason = "You need at least permapower level 5! - current level: " + permapower;
+    noEVOallowedReason = "Have atleast 200 Auto Power";
+}
+else if (evolveLVL === 15 && specialty !== "evolver" &&  power < 400) {
+    mayEvolve = false;
+    noEVOallowedReason = "Have atleast 400 Clicking Power";
+}
+else if (evolveLVL === 19 && specialty !== "evolver" && permapower < 6) {
+    mayEvolve = false;
+    noEVOallowedReason = "You need at least permapower level 6! - current level: " + permapower;
 } 
+else if (evolveLVL === 24 && specialty !== "evolver" &&  autopower < 1000 && power < 1000) {
+    mayEvolve = false;
+    noEVOallowedReason = "Have atleast 1000 Clicker and Auto Power";
+}
 else {
     mayEvolve = true;
     noEVOallowedReason = "";
 }
-
-
-
+//#endregion --- Evo Requirements ---
 
 //price reductions for coin-/rankshop
 
@@ -877,6 +890,8 @@ circle.onclick = function(){
     allTimeClicks ++;
     Math.round(clicks);
     neededClicks = newCoin-timesClicked
+
+    console.log(Offlinebought)
 
 
     if (timesClicked == (newCoin)) {
@@ -1227,6 +1242,9 @@ offlinerSpecialty.onclick = function() {
 
   Offlinebought = true;
   Offlinecost = null;
+
+  CoinACbought = true;
+  CoinACcost = null;
 
   updateRank()
   UpdateUI();
@@ -1680,6 +1698,7 @@ function saveGame() {
         increaseEvolve,
         increasePerma,
         evolveLVL,
+        achievementsCompleted,
         permapower,
         power,
         powerprice,
@@ -1772,6 +1791,7 @@ function loadGame() {
         evoloss = gameState.evoloss;
         clicks = gameState.clicks;
         increasePower = gameState.increasePower;
+        achievementsCompleted = gameState.achievementsCompleted
         increaseAuto = gameState.increaseAuto;
         increaseEvolve = gameState.increaseEvolve;
         maxMGupgradesBought = gameState.maxMGupgradesBought;
@@ -1931,6 +1951,7 @@ function resetGame() {
         freeEvosAllowed = 0
         evoloss = 1
         screenToggle = 1;
+        achievementsCompleted = 0;
         evolossBought = 0;
         autopower = 0 ;
         autoprice = 50 ;
@@ -2081,17 +2102,26 @@ function OfflineProgress() { //vergeet niet dat de cap niet dynamisch is
 
         const autoClicksPerSecondRate = autoclick > 0 ? (1000 / autoclick) : 0;
         const clicksGainedOffline = autopower * autoClicksPerSecondRate * autoMultiplier * timeElapsedS * multiplier2;
+        let coinsGainedOffline = 0 
+
+        if (CoinACbought === true) {
+            coinsGainedOffline = autoClicksPerSecondRate / (coinneeded * 0.66) * timeElapsedS;
+        } else {
+            coinsGainedOffline = 0;
+        }
+        
 
         clicks += Math.round(clicksGainedOffline); 
-        totalClicks += Math.round(clicksGainedOffline)
+        allTimeClicks += Math.round(clicksGainedOffline)
+
+        coins += Math.round(coinsGainedOffline);
+        totalcoins += Math.round(coinsGainedOffline);
 
         if (maxOffTimeOverlapped === false) {
-            Backmessage.innerHTML = "Welcome back! You gained<br> " + formatNumber(Math.round((clicksGainedOffline))) + " clicks!" + " (time away: " + (timeElapsedS / 60).toFixed(0) + " minutes)"
+            Backmessage.innerHTML = "Welcome back! You gained<br> " + formatNumber(Math.round((clicksGainedOffline))) + " clicks and " + Math.round(coinsGainedOffline) + " coins! (time away: " + (timeElapsedS / 60).toFixed(0) + " minutes)"
         } else {
-            Backmessage.innerHTML = "Welcome back! You gained<br> " + formatNumber(Math.round((clicksGainedOffline))) + " clicks!" + " (time away: capped at 4 hours)"
+            Backmessage.innerHTML = "Welcome back! You gained<br> " + formatNumber(Math.round((clicksGainedOffline))) + " clicks and " + Math.round(coinsGainedOffline) + " coins! (time away: capped at 4 hours)"
         }
-      
-            maxOffTimeOverlapped = false;
 
 
             UpdateUI();
@@ -2417,6 +2447,8 @@ function claimAchievement(id) {
     }
 }
 
+let achievementsCompleted = 0;
+
 function setupAchievementButtons() {
   document.querySelectorAll('#Basic-Achievments button').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -2433,6 +2465,7 @@ function setupAchievementButtons() {
         if (achievementRewards[id]) {
           achievementRewards[id]();
         }
+        achievementsCompleted ++;
 
       }
     });

@@ -99,8 +99,8 @@
                 <p id="choose" class="hidden">Choose between these options:</p>
                 <div class="specialty-buttons-container">
                   <button id="clicker" class="hidden">Clicker - specializes in clicking and coins: Coin Multiplier += 1, open up Coin Shop</button>
-                  <button id="offliner" class="hidden">Offliner - specializes in autoclickers and offline time: Activate Offline Autoclicker</button>
-                  <button id="buyer" class="hidden">Buyer - specializes in cheap upgrades: unlocks pricemultiplier for Coin Shop and Rank Shop and all shops/upgrades</button> <!-- add that multiplier somewhere--> 
+                  <button id="offliner" class="hidden">Offliner - specializes in autoclickers and offline time: Activate Offline and Coin Autoclicker</button>
+                  <button id="buyer" class="hidden">Buyer - specializes in cheap upgrades: unlocks pricemultiplier for Coin Shop and Rank Shop (starts at -20%), 0.05 RPpS, and all shops/upgrades</button> <!-- add that multiplier somewhere--> 
                   <button id="evolver" class="hidden">Evolver - specializes in evolving and evoloss: removes evolution requierements</button> 
                 </div>
                 <br>
@@ -145,22 +145,26 @@
   pointer-events: all;
 ">
 
-  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 7.1 — Optimization Time — <br> July 30, 2025 (18:30)</h3>
+  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 7.2 — Balance Update — <br> July 30, 2025 (20:15)</h3>
   <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last large update (V7.0): July 30, 2025 (16:00)</p>
 
 <h1></h1>
 <h2>This update:</h2>
-<h3>Code Optimizations</h3>
+
+<h3>Balances</h3>
 <ul>
-  <li>The code has been split into multiple segments for better readability and maintenance.</li>
-  <li><code>updateUI()</code> (the function that updates the interface) has been optimized for better performance.</li>
-  <li>Several other functions received small improvements and cleanup.</li>
+  <li>Added Evolution Requierments to: 13 > 14, 15 > 16, and 24 > 25</li>
+  <li>Changed Evolution Requierements at: 0 > 1, 8 > 9, and 19 > 20</li>
+  <li>Buyer: evo-3 reward (-25% price multiplier2 > -20% multiplier & 0.05RPpS)</li>
+  <li>Evo-10: 1.5RPps > 1.75RPpS, evo-15: 7.5RRpS > 5RPpS</li>
+  <li>Mayor stat improvements for "clicker" and miner ones "offliner"</li>
+  <li>Coin Autoclicker now also works offline! The amount needed is always 66% of your max coin rage - "offliner" starts with it activated from the start!</li>
 </ul>
 
 <h3>Bug/Issue fixes</h3>
 <ul>
-  <li>Mobile UI should now display more consistently and responsively.</li>
-  <li>Prices no longer round to 0 when the MAX option is selected.</li>
+  <li>Fixed some stat-screen issues</li>
+  <li>Fixed offline rewards!</li>
 </ul>
 
 <h2>Previous large update (V7.0) - Achievements' Arrival:</h2>
@@ -218,7 +222,7 @@ Reset game (recommended)
   </button>
 
   <!-- Close button -->
-  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V7.1', 'seen');" style="
+  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V7.2', 'seen');" style="
     background: #000000;
     color: white;
     border: none;
@@ -285,7 +289,7 @@ Reset game (recommended)
 
 
 <script>
-  const changelogVersion = "V7.1"; // Change on new updates
+  const changelogVersion = "V7.2"; // Change on new updates
 
   window.addEventListener("load", () => {
     const seen = localStorage.getItem("cc_changelog_" + changelogVersion);
