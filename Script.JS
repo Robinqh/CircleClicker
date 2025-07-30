@@ -252,7 +252,7 @@ const evoRewards = { //Some things are done outside of the rankData!
 
 
 // --- Core Game Economy & Progress ---
-let clicks = 1000000000;
+let clicks = 0;
 let coins = 0;
 let rankPoints = 0;
 let permapower = 0;
@@ -290,6 +290,7 @@ let autopower = 0 * evopower;
 let autoprice = 50;
 let autoupgrades = 0;
 let autotimerCost = 3;
+let autoTimerBought = 0;
 let totalAutoclickTimeReductionBonus = 0;
 let increaseAuto = 50;
 
@@ -336,7 +337,7 @@ let autosaveMessageFlag = 0;
 let autosaveMessageInterval;
 
 let toggle = 1;
-let isSpecialShop = false;
+let isSpecialShop = false; //coinshop
 let isRankShop = false;
 let screenToggle = 1;
 
@@ -344,6 +345,7 @@ let screenToggle = 1;
 let totalRankPoints = 0;
 let CoinACbought = false;
 let Offlinebought = false;
+let CNBought = 0;
 
 let CoinACcost = 3000;
 let Offlinecost = 750;
@@ -365,7 +367,7 @@ function formatNumber(num) {
 function UpdateUI() {
     // Update point value display
     if (pointValueElement) {
-        if (toggle === 1 || toggle === 2 || (toggle === 3 && evolveLVL < 8)) {
+        if (toggle === 1 || toggle === 2 || (toggle === 3 && evolveLVL < 8 && specialty !== "buyer")) {
             pointValueElement.innerText = "Points: " + formatNumber(Math.round(clicks));
         } else if (toggle === 3) {
             pointValueElement.innerHTML = "Rankpoints (" + (RPpS) + "): <br>" + formatNumber(rankPoints);
@@ -692,7 +694,7 @@ function UpdateUI() {
 
     // Update specialty shop button visibility/text
     if (btnSpecial) {
-        if (evolveLVL < 4 && specialty !== "clicker") {
+        if (evolveLVL < 4 && specialty !== "clicker" && specialty !== "buyer") {
             btnSpecial.classList.add("buyoff");
             btnSpecial.innerText = "Unlocks after evo- 4";
         } else {
@@ -856,21 +858,27 @@ else {
 //price reductions for coin-/rankshop
 
     if (CoinACcost != null) {
+        CoinACcost = 3000 
         CoinACcost = Math.round(CoinACcost * pricemultiplier2);
     }
     if (Offlinecost != null) {
+        Offlinecost = 750
         Offlinecost = Math.round(Offlinecost * pricemultiplier2);
     }
     if (CNneededcost != null) {
+        CNneededcost = 500 + (CNBought * 250)
         CNneededcost = Math.round(CNneededcost * pricemultiplier2);
     }
     if (ExchangeCost != null) {
+        ExchangeCost = 20;
         ExchangeCost = Math.round(ExchangeCost * pricemultiplier2);
     }
     if (autotimerCost != null) {
+        autotimerCost = 3 + (autoTimerBought * 2)
         autotimerCost = Math.round(autotimerCost * pricemultiplier2);
     }
     if (reduceMysterycost != null) {
+        reduceMysterycost = 10 + (5* maxMGupgradesBought)
         reduceMysterycost = Math.round(reduceMysterycost * pricemultiplier2);
     }
 
@@ -891,7 +899,6 @@ circle.onclick = function(){
     Math.round(clicks);
     neededClicks = newCoin-timesClicked
 
-    console.log(Offlinebought)
 
 
     if (timesClicked == (newCoin)) {
@@ -1508,6 +1515,7 @@ autotimeButton.onclick = function() {
         coins -= autotimerCost;
         autotimerCost += 2;
         totalAutoclickTimeReductionBonus += 50;
+        autoTimerBought ++;
 
         startautoclick();
         UpdateUI();
@@ -1575,7 +1583,7 @@ CN.onclick = function () {
     if (rankPoints >= CNneededcost) {
         rankPoints -= CNneededcost;
         coinneeded -= 50;
-        CNneededcost += 250;
+        CNBought ++;
         if (coinneeded <= 200) {
             CNneededcost = null;
         }
@@ -1701,12 +1709,14 @@ function saveGame() {
         achievementsCompleted,
         permapower,
         power,
+        autoTimerBought,
         powerprice,
         evoCost,
         newCoin,
         timesClicked,
         tempevoCost,
         freeEvosAllowed,
+        CNBought,
         rank,
         autopower,
         autoupgrade,
@@ -1802,11 +1812,13 @@ function loadGame() {
         powerprice = gameState.powerprice;
         evoCost = gameState.evoCost;
         tempevoCost = gameState.tempevoCost;
+        autoTimerBought = gameState.autoTimerBought;
         CNneededcost = gameState.CNneededcost;
         rank = gameState.rank;
         evolossBought = gameState.evolossBought
         autopower = gameState.autopower;
         freeEvosAllowed = gameState.freeEvosAllowed
+        CNBought = gameState.CNBought
         autoprice = gameState.autoprice;
         mystery = gameState.mystery;
         mysteryprice = gameState.mysteryprice;
@@ -1943,6 +1955,7 @@ function resetGame() {
         permapower = 0;
         priceMultiplier = 1;
         pricemultiplier2 = 1; 
+        CNBought = 0;
         power = 1 ;
         powerprice = 1;
         evoCost = 750;
@@ -1982,6 +1995,7 @@ function resetGame() {
         RPpS = 0;
         rankPoints = 0;
         totalRankPoints = 0;
+        autoTimerBought = 0
         totalAutoclickTimeReductionBonus = 0;
         Offlinecost = 750;
         CoinACcost = 3000;
