@@ -70,7 +70,7 @@
                 <button id="Offline">Offline autoclick: 250RP</button>
                 <button id="CoinAC">Coin autoclicker: 3000RP</button> 
                 <button id="CN">Decrease next coin range: <span id="priceCN"></span></button>
-                <button id="RPexchange">Trade RankPoints for clicks! <br> 50 RankPoints > += 1% clicks</button>
+                <button id="RPexchange">Trade RankPoints for clicks! <br> 20 RankPoints > += 3% clicks (cap at 2% of evolution price)</button>
         </div>
 
         <div id="toggle-shop-group">
@@ -101,8 +101,8 @@
                 <p id="evolved-message"></p>
                 <p id="choose" class="hidden">Choose between these options:</p>
                 <div class="specialty-buttons-container">
-                  <button id="clicker" class="hidden">Clicker</button>
-                  <button id="offliner" class="hidden">Offliner</button>
+                  <button id="clicker" class="hidden">Clicker - specializes in clicking and coins: Coin Multiplier += 1, open up Coin Shop</button>
+                  <button id="offliner" class="hidden">Offliner - specializes in autoclickers and offline time: Activate Offline Autoclicker</button>
                 </div>
                 <br>
                 <button id="closeEvolvedPopup">Close</button>
@@ -146,10 +146,55 @@
   pointer-events: all;
 ">
 
-  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 6 — Evolution Rework part 2 — <br>July 29, 2025 (20:30)</h3>
-  <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last large update: July 29, 2025 (14:30)</p>
+  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 6.1 — Balance Changes — <br>July 30, 2025 (10:00)</h3>
+  <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last large update: July 29, 2025 (20:30)</p>
 
 <h1></h1>
+<h2>This update:</h2>
+<h3>Balance Changes</h3>
+<h4>Unlocks and Shops</h4>
+<ul>
+  <li>Coin Shop now unlocks at evolution 4 - 3 for "clicker" speciality, Rankshop at Evolution 8</li>
+  <li>Evolution 4 reward moved to evolution 11</li>
+</ul>
+
+<h4>Currency and Multipliers</h4>
+<ul>
+  <li>Coin range (1-500 &gt; 1-400)</li>
+  <li>New Multiplier: Coin Multiplier</li>
+  <li>Clicks multiplier and Auto multiplier are now separated</li>
+  <li>Less offline multiplier as rank rewards, more as speciality rewards</li>
+</ul>
+
+<h4>Offline & Autoclicker</h4>
+<ul>
+  <li>Offliner: now gets offline autoclicker for free at evolution level 3 - which can normally only be bought after evo 8 (instead of 2.5% offline multiplier)</li>
+  <li>Offline autoclicker cost (250 RankPoints &gt; 750 RankPoints)</li>
+</ul>
+
+<h4>Mystery Chances</h4>
+<ul>
+  <li>Mystery chances changed: *2 (40% &gt; 30%), 5* (30% &gt; 10%), No reward (20% &gt; 50%), Free evo (10% &gt; 10%) - 50/50 if it is good or bad</li>
+  <li>You can now have multiple free evolutions at the same time</li>
+</ul>
+
+<h4>Points Exchange</h4>
+<ul>
+  <li>Points exchange: Price changed (50RP &gt; 20RP), points gained (1% &gt; 3%), max points gain added (2% of evolution cost)</li>
+</ul>
+
+<h4>Power Prices</h4>
+<ul>
+  <li>Power price: 15N+1.2^N &gt; 15N+1.15^N (price grows slower)</li>
+</ul>
+
+<h3>Bug fixes</h3>
+<li>Fixed some evolution texts</li>
+<li>Mystery rewards should now add to all-time points</li>
+<li>Mysteryprice should now never be higher then your ammount of points (except for under 1000)</li>
+
+
+<h2>Previous large update:</h2>
 <h3>New Features</h3>
 <h4>Evoltuion rework part 2!</h4>
 <li>Evolution Pop-Up: You'll now see which rewards you get when evolving!</li>
@@ -219,7 +264,7 @@ Reset game (recommended)
   </button>
 
   <!-- Close button -->
-  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V6', 'seen');" style="
+  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V6.1', 'seen');" style="
     background: #000000;
     color: white;
     border: none;
@@ -240,7 +285,7 @@ Reset game (recommended)
 </div>
 
 <script>
-  const changelogVersion = "V6"; // Change on new updates
+  const changelogVersion = "V6.1"; // Change on new updates
 
   window.addEventListener("load", () => {
     const seen = localStorage.getItem("cc_changelog_" + changelogVersion);

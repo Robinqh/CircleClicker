@@ -754,7 +754,7 @@ button:hover {
     position: static; /* Ensure it flows naturally within flex container */
     transform: none; /* Remove any previous transforms */
     left: auto; /* Reset left property */
-    width: 48%; /* Adjust width to fit two buttons per row with gap */
+    width: 96%; /* Adjust width to fit two buttons per row with gap */
     box-sizing: border-box; /* Include padding and border in width calculation */
     margin-left: 25px;
 }
@@ -1191,8 +1191,27 @@ button:hover {
         overflow: auto;
     }
 
+    #evolved-message {
+        max-height: 95vh;
+        height: auto;
+        margin: auto;
+    }
+
     #confirm-evolve-no, #confirm-evolve-yes, #closeEvolvedPopup, #clicker, #offliner {
         font-size: 0.5em;
+    }
+
+    #evolved {
+        height: 95vh !important;
+        font-size: 1em;
+        text-align: left;
+    }
+
+    #evolved button {
+        width: 100%;
+        height: 12vh;
+        text-align: left;
+        font-size: 0.75em;
     }
 
 }
