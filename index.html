@@ -145,12 +145,20 @@
   pointer-events: all;
 ">
 
-  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 7.2 — Balance Update — <br> July 30, 2025 (20:15)</h3>
+  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 7.21 — Bug Fixes — <br> July 30, 2025 (20:15)</h3>
   <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last large update (V7.0): July 30, 2025 (16:00)</p>
 
 <h1></h1>
 <h2>This update:</h2>
+<h3>Bug Fixes</h3>
+<ul>
+  <li>Formatnumber should be applied to clickpower</li>
+  <li>Offline points should now go to All-Time points instead of clicks</li>
+  <li>It now says MAXED even if you're below evo-12 at the coinAC if you have "offliner"</li>
+  <li>Achievement Rewards should now add to your total X</li>
+</ul>
 
+<h2>Previous Balance Update (V7.1)</h2>
 <h3>Balances</h3>
 <ul>
   <li>Added Evolution Requierments to: 13 > 14, 15 > 16, and 24 > 25</li>
@@ -222,7 +230,7 @@ Reset game (recommended)
   </button>
 
   <!-- Close button -->
-  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V7.2', 'seen');" style="
+  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V7.21', 'seen');" style="
     background: #000000;
     color: white;
     border: none;
@@ -289,7 +297,7 @@ Reset game (recommended)
 
 
 <script>
-  const changelogVersion = "V7.2"; // Change on new updates
+  const changelogVersion = "V7.21"; // Change on new updates
 
   window.addEventListener("load", () => {
     const seen = localStorage.getItem("cc_changelog_" + changelogVersion);

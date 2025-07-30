@@ -252,7 +252,7 @@ const evoRewards = { //Some things are done outside of the rankData!
 
 
 // --- Core Game Economy & Progress ---
-let clicks = 0;
+let clicks = 1000000000;
 let coins = 0;
 let rankPoints = 0;
 let permapower = 0;
@@ -430,7 +430,7 @@ function UpdateUI() {
         } else {
             powerupgradeButton.classList.add("buyoff");
         }
-        powerupgradeButton.innerHTML = "ClickPower: " + (powerprice);
+        powerupgradeButton.innerHTML = "ClickPower: " + formatNumber(powerprice);
     }
 
     // Update RP exchange button
@@ -590,7 +590,7 @@ function UpdateUI() {
 
     // Update rank upgrades
     if (CoinACButton) {
-        if (evolveLVL < 12 && specialty !== "buyer") {
+        if (evolveLVL < 12 && specialty !== "buyer" && specialty !== "offliner") {
             CoinACButton.classList.add("buyoff");
             CoinACButton.innerText = "Unlock at evo level 12";
         } else if (CoinACbought === true) {
@@ -2112,7 +2112,7 @@ function OfflineProgress() { //vergeet niet dat de cap niet dynamisch is
         
 
         clicks += Math.round(clicksGainedOffline); 
-        allTimeClicks += Math.round(clicksGainedOffline)
+        allTimePoints += Math.round(clicksGainedOffline)
 
         coins += Math.round(coinsGainedOffline);
         totalcoins += Math.round(coinsGainedOffline);
@@ -2276,26 +2276,31 @@ const achievementRewards = {
   evolve3: () => {
     const reward = 3 * 100;
     rankPoints += reward;
+    totalRankPoints += reward;
     alert(`You gained ${reward} RankPoints for 3 evolutions!`);
   },
   evolve5: () => {
     const reward = 5 * 100;
     rankPoints += reward;
+    totalRankPoints += reward;
     alert(`You gained ${reward} RankPoints for 5 evolutions!`);
   },
   evolve10: () => {
     const reward = 10 * 100;
     rankPoints += reward;
+    totalRankPoints += reward;
     alert(`You gained ${reward} RankPoints for 10 evolutions!`);
   },
   evolve15: () => {
     const reward = 15 * 100;
     rankPoints += reward;
+    totalRankPoints += reward;
     alert(`You gained ${reward} RankPoints for 15 evolutions!`);
   },
   evolve25: () => {
     const reward = 25 * 100;
     rankPoints += reward;
+    totalRankPoints += reward;
     alert(`You gained ${reward} RankPoints for 25 evolutions!`);
   },
 
@@ -2303,53 +2308,63 @@ const achievementRewards = {
   click1000: () => {
     const reward = 1000 / 500;
     coins += reward;
+    totalcoins += reward;
     alert(`You gained ${reward} coins for 1000 clicks!`);
   },
   click2500: () => {
     const reward = 2500 / 500;
     coins += reward;
+    totalcoins += reward;
     alert(`You gained ${reward} coins for 2500 clicks!`);
   },
   click10000: () => {
     const reward = 10000 / 500;
     coins += reward;
+    totalcoins += reward;
     alert(`You gained ${reward} coins for 10000 clicks!`);
   },
   click25000: () => {
     const reward = 25000 / 500;
     coins += reward;
+    totalcoins += reward;
     alert(`You gained ${reward} coins for 25000 clicks!`);
   },
   click100000: () => {
     const reward = 100000 / 500;
     coins += reward;
+    totalcoins += reward;
     alert(`You gained ${reward} coins for 100000 clicks!`);
   },
 
-  // Points: reward is 20% of required points
+  // Points: reward is 20% of required points → adds to clicks and allTimePoints
   points100000: () => {
     const reward = 100000 * 0.2;
     clicks += reward;
+    allTimePoints += reward;
     alert(`You gained ${reward} points for 100,000 points!`);
   },
   points250000: () => {
     const reward = 250000 * 0.2;
     clicks += reward;
+    allTimePoints += reward;
     alert(`You gained ${reward} points for 250,000 points!`);
   },
   points1000000: () => {
     const reward = 1000000 * 0.2;
     clicks += reward;
+    allTimePoints += reward;
     alert(`You gained ${reward} points for 1,000,000 points!`);
   },
   points2500000: () => {
     const reward = 2500000 * 0.2;
     clicks += reward;
+    allTimePoints += reward;
     alert(`You gained ${reward} points for 2,500,000 points!`);
   },
   points10000000: () => {
     const reward = 10000000 * 0.2;
     clicks += reward;
+    allTimePoints += reward;
     alert(`You gained ${reward} points for 10,000,000 points!`);
   },
 
@@ -2357,26 +2372,31 @@ const achievementRewards = {
   coin20: () => {
     const reward = 20 * 0.2;
     coins += reward;
+    totalcoins += reward;
     alert(`You gained ${reward} coins for 20 coins!`);
   },
   coin50: () => {
     const reward = 50 * 0.2;
     coins += reward;
+    totalcoins += reward;
     alert(`You gained ${reward} coins for 50 coins!`);
   },
   coin200: () => {
     const reward = 200 * 0.2;
     coins += reward;
+    totalcoins += reward;
     alert(`You gained ${reward} coins for 200 coins!`);
   },
   coin500: () => {
     const reward = 500 * 0.2;
     coins += reward;
+    totalcoins += reward;
     alert(`You gained ${reward} coins for 500 coins!`);
   },
   coin2000: () => {
     const reward = 2000 * 0.2;
     coins += reward;
+    totalcoins += reward;
     alert(`You gained ${reward} coins for 2000 coins!`);
   },
 
@@ -2384,26 +2404,31 @@ const achievementRewards = {
   rp500: () => {
     const reward = 500 * 0.2;
     rankPoints += reward;
+    totalRankPoints += reward;
     alert(`You gained ${reward} RankPoints for 500 RankPoints!`);
   },
   rp1250: () => {
     const reward = 1250 * 0.2;
     rankPoints += reward;
+    totalRankPoints += reward;
     alert(`You gained ${reward} RankPoints for 1250 RankPoints!`);
   },
   rp5000: () => {
     const reward = 5000 * 0.2;
     rankPoints += reward;
+    totalRankPoints += reward;
     alert(`You gained ${reward} RankPoints for 5000 RankPoints!`);
   },
   rp12500: () => {
     const reward = 12500 * 0.2;
     rankPoints += reward;
+    totalRankPoints += reward;
     alert(`You gained ${reward} RankPoints for 12500 RankPoints!`);
   },
   rp50000: () => {
     const reward = 50000 * 0.2;
     rankPoints += reward;
+    totalRankPoints += reward;
     alert(`You gained ${reward} RankPoints for 50000 RankPoints!`);
   },
 };
@@ -2442,8 +2467,6 @@ function claimAchievement(id) {
             btn.classList.remove("achieved");
             btn.classList.add("received");
         }
-        // Give reward logic here...
-        saveGame();
     }
 }
 
