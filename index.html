@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Circle Clicker: Game</title>
+    <title>Circle Clicker</title>
     <link rel="stylesheet" href="Style.css">
 </head>
 <body>
@@ -41,8 +41,6 @@
           <div id="progress-bar-RANKS"></div>
           <div id="progress-text-RANKS"></div>
       </div>     
-
-
 
         <b><button id="circle"><br> <span id="pointValue">0</span></button></b>
         
@@ -103,8 +101,8 @@
                 <div class="specialty-buttons-container">
                   <button id="clicker" class="hidden">Clicker - specializes in clicking and coins: Coin Multiplier += 1, open up Coin Shop</button>
                   <button id="offliner" class="hidden">Offliner - specializes in autoclickers and offline time: Activate Offline Autoclicker</button>
-                  <button id="buyer" class="hidden">Buyer - specializes in cheap upgrades: unlocks pricemultiplier for Coin Shop and Rank Shop</button> <!-- add that multiplier somewhere--> 
-                  <button id="evolver" class="hidden">Evolver - sepcializes in evolving and evoloss: removes evolution requierements</button> 
+                  <button id="buyer" class="hidden">Buyer - specializes in cheap upgrades: unlocks pricemultiplier for Coin Shop and Rank Shop and all shops/upgrades</button> <!-- add that multiplier somewhere--> 
+                  <button id="evolver" class="hidden">Evolver - specializes in evolving and evoloss: removes evolution requierements</button> 
                 </div>
                 <br>
                 <button id="closeEvolvedPopup">Close</button>
@@ -148,26 +146,33 @@
   pointer-events: all;
 ">
 
-  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 6.2 — Specilizations Galore — <br>July XX, 2025 (XX:X0)</h3>
+  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 7.0 — Achievements' Arrival — <br>July 30, 2025 (16:00)</h3>
   <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last large update: July 29, 2025 (20:30)</p>
 
 <h1></h1>
 <h2>This update:</h2>
-<h3>New features</h3><br>
-<li>Two new specialities! Buyer - Specializes in lowering prices! Evolver - Specializes in evolving more and losing less!</li>
+<h3>New features</h3>
+<h4>Achievements</h4>
+<li>Go to the new achievements screen with the new "toggle screen" button!</li>
+<li>There are currently 25 achievements you can get!</li>
+<li>Gain rewards for each achievement you complete!</li>
+
 
 <h3>Balance Changes</h3>
-<li>Bronze rank: Removed RankPoints and Auto Multiplier</li>
-<li>Endgame bomnus: nerfed (-0.5 pricemultiplier > -0.3 pricemultiplier)</li>
-<li>Price multiplier: minimum percentage (10% > 20%), for "buyer" it's 1%</li>
+<li>Changed permaprice prices so that the jumps are way smaller, especially in the beginning</li>
+<li>Upgrade max mystery gifts per evolution moved (evoLVL 4 > evoLVL 20)</li>
+<li>Upgrade "coin autoclicker" moved (evoLVL 8 > evoLVL 12)</li>
+<li>"Buyer" now skips the minimum shop and upgrade levels!</li>
 
-<h3>Bug fixes</h3><br>
+<h3>Bug/Issue fixes</h3>
+<li>Fixed some typos</li>
+<li>Mobile: Evolved message now should only take the screen space it needs</li>
 
-<h3>Known Bugs</h3><br>
-<li>If you save (with autosave for example) during choosing your speciality and you load that save, you're locked out. Temp solution: there is an forced autosave just before evolving to the third evolution and autosaves are disabled while choosing a speciality</li>
+<h3>Known Bugs</h3>
+<li>(since V6.0) If you save (with autosave for example) during choosing your speciality and you load that save, you're locked out. Temp solution: there is an forced autosave just before evolving to the third evolution and autosaves are disabled while choosing a speciality</li>
 
 
-<h2>Previous large update:</h2>
+<h2>Previous large update (V6.0):</h2>
 <h3>New Features</h3>
 <h4>Evolution rework part 2!</h4>
 <li>Evolution Pop-Up: You'll now see which rewards you get when evolving!</li>
@@ -237,7 +242,7 @@ Reset game (recommended)
   </button>
 
   <!-- Close button -->
-  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V6.2', 'seen');" style="
+  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V7.0', 'seen');" style="
     background: #000000;
     color: white;
     border: none;
@@ -257,8 +262,53 @@ Reset game (recommended)
 
 </div>
 
+<button id="toggleScreen">Toggle screen</button>
+
+<div id="achievmentScreen" class="hidden">
+  <h2>Achievements - updates every 5 seconds!</h2>
+
+  <div id="Basic-Achievments">
+    <button id="click1000">Click<br>1000<br>Times!</button>
+    <button id="points100000">Gain<br>100.000<br>Points!</button>
+    <button id="coin20">Gain<br>20<br>Coins!</button>
+    <button id="rp500">Gain<br>500<br>RankPoints!</button>
+    <button id="evolve3">Gain<br>3<br>Evolutions!</button>
+
+    <button id="click2500">Click<br>2500<br>Times!</button>
+    <button id="points250000">Gain<br>250.000<br>Points!</button>
+    <button id="coin50">Gain<br>50<br>Coins!</button>
+    <button id="rp1250">Gain<br>1.250<br>RankPoints!</button>
+    <button id="evolve5">Gain<br>5<br>Evolutions!</button>
+
+    <button id="click10000">Click<br>10000<br>Times!</button>
+    <button id="points1000000">Gain<br>1.000.000<br>Points!</button>
+    <button id="coin200">Gain<br>200<br>Coins!</button>
+    <button id="rp5000">Gain<br>5.000<br>RankPoints!</button>
+    <button id="evolve10">Gain<br>10<br>Evolutions!</button>
+
+    <button id="click25000">Click<br>25000<br>Times!</button>
+    <button id="points2500000">Gain<br>2.500.000<br>Points!</button>
+    <button id="coin500">Gain<br>500<br>Coins!</button>
+    <button id="rp12500">Gain<br>12.500<br>RankPoints!</button>
+    <button id="evolve15">Gain<br>15<br>Evolutions!</button>
+
+    <button id="click100000">Click<br>100000<br>Times!</button>
+    <button id="points10000000">Gain<br>10.000.000<br>Points!</button>
+    <button id="coin2000">Gain<br>2.000<br>Coins!</button>
+    <button id="rp50000">Gain<br>50.000<br>RankPoints!</button>
+    <button id="evolve25">Gain<br>25<br>Evolutions!</button>
+  </div>
+
+  <!--Insert line here to seperate normal and rare achievements-->
+
+</div>
+
+
+
+
+
 <script>
-  const changelogVersion = "V6.2"; // Change on new updates
+  const changelogVersion = "V7.0"; // Change on new updates
 
   window.addEventListener("load", () => {
     const seen = localStorage.getItem("cc_changelog_" + changelogVersion);

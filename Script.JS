@@ -1,3 +1,40 @@
+// --- const ---
+
+//screens
+const gameScreen = document.getElementById("game-container")
+const achievementScreen = document.getElementById("achievmentScreen")
+
+//stats
+
+
+//buttons
+
+
+//pop-ups
+
+
+//Circle
+
+
+//Progress Bars
+
+
+//Extra
+
+
+// --- Variables --- 
+
+
+
+
+
+
+
+
+const unlockedAchievements = new Set();
+const claimedAchievements = new Set();
+
+
 function formatNumber(num) {
     if (typeof num !== 'number' || isNaN(num)) {
         return ""; 
@@ -6,6 +43,8 @@ function formatNumber(num) {
 }
 
 const largePopUps = document.getElementById("large-pop-ups") //name should be changed - but stops people from clicking elsewhere
+
+
 
 
 //offline > online
@@ -64,27 +103,27 @@ let maxPermaPower = 0
 let totalPermaClicksBonus = 0
 
 const permaprice = {
-  1: 1250,
-  2: 1500,
-  3: 1750,
-  4: 7000,
+  1: 1500,
+  2: 1900,
+  3: 2400,
+  4: 4500,
   5: 7500,
-  6: 85000,
-  7: 95000,
-  8: 100000,
-  9: 500000,
-  10: 575000,
-  11: 650000,
-  12: 750000,
-  13: 1275000,
-  14: 1925000,
+  6: 28000,
+  7: 50000,
+  8: 80000,
+  9: 160000,
+  10: 270000,
+  11: 420000,
+  12: 680000,
+  13: 1150000,
+  14: 1800000,
   15: 2900000,
-  16: 4300000,
+  16: 4600000,
   17: 6500000,
-  18: 9700000,
-  19: 14500000,
-  20: 22000000
-}
+  18: 8500000,
+  19: 11300000,
+  20: 14800000,
+};
 
 
 let power = 1 * evopower 
@@ -113,6 +152,7 @@ let autoprice = 50;
 
 //coin variables
 let coins = 0;
+let totalcoins = 0;
 let coinneeded = 400;
 let newCoin = 350
 let timesClicked = 0;
@@ -155,6 +195,7 @@ let endgamePoints = 2500000
 
 //rankshop variables
 let rankPoints = 0;
+let totalRankPoints = 0;
 let CoinACbought = false;
 let Offlinebought = false;
 
@@ -173,6 +214,10 @@ let allTimePoints = 0;
 // rommel
 let quartered = false;
 let plusOneMultiplier = false;
+
+let screenToggle = 1;
+
+
 
 
 const normalUpgradesContainer = document.getElementById('normal-upgrades');
@@ -479,9 +524,14 @@ if (permanentupgradeButton) {
             mysterypriceButton.classList.add("completed")
         }
         mysterypriceButton.innerText = (reduceMysterycost === null) ? "Increase max mystergifts per evo price: MAX" : "Increase max mystergifts per evo: " + formatNumber(reduceMysterycost) + " coins";
+    
+        if (evolveLVL < 20 && specialty !== "buyer") {
+            mysterypriceButton.classList.add("buyoff");
+            mysterypriceButton.innerText = "Unlocked at evolution level 20!"
+        }
     }
 
-    //rankupgrades !Hier de groene knop voegen!
+    //rankupgrades 
     const CoinACButton = document.getElementById("CoinAC");
     if (CoinACButton) {
         if ( rankPoints < CoinACcost) {
@@ -497,6 +547,10 @@ if (permanentupgradeButton) {
             CoinACButton.classList.add("completed");
         }
         CoinACButton.innerText = (CoinACbought === true) ? "Coin autoclicker: Activated" : "Coin autoclicker: " + formatNumber(CoinACcost) + "RP";
+        if (evolveLVL < 12 && specialty !== "buyer") {
+            CoinACButton.classList.add("buyoff");
+            CoinACButton.innerText = "Unlock at evo level 12"
+        }
     }
 
     const OffButton = document.getElementById("Offline");
@@ -606,10 +660,10 @@ if (permanentupgradeButton) {
     const btnNormal = document.getElementById('btnNormal');
 
     const btnSpecial = document.getElementById('btnSpecial');
-    if (evolveLVL < 4 && specialty !== "clicker" || evolveLVL < 3 && specialty === "clicker") {
+    if (evolveLVL < 4 && specialty !== "clicker") {
         btnSpecial.classList.add("buyoff")
         btnSpecial.innerText = "Unlocks after evo-  4"
-    } if (evolveLVL >= 4 && specialty !== "clicker" || evolveLVL >= 3 && specialty === "clicker") {
+    } if (evolveLVL >= 4 && specialty !== "clicker" || evolveLVL >= 3 && specialty === "clicker" || evolveLVL >= 3 && specialty === "buyer") {
         btnSpecial.classList.remove("buyoff")
         btnSpecial.innerText = "Coin Shop"
     }
@@ -618,7 +672,7 @@ if (permanentupgradeButton) {
     if (evolveLVL < 8) {
         btnRank.classList.add("buyoff")
          btnRank.innerText = "Unlocks after evo- 8"
-    } if (evolveLVL >= 8) {
+    } if (evolveLVL >= 8 || evolveLVL >= 3 && specialty === "buyer") {
         btnRank.classList.remove("buyoff")
         btnRank.innerText = "Rank shop"
     }
@@ -782,8 +836,10 @@ circle.onclick = function(){
     Math.round(clicks);
     neededClicks = newCoin-timesClicked
 
+
     if (timesClicked == (newCoin)) {
         coins += coinMultiplier * 1;
+        totalcoins += coinMultiplier *1;
         timesClicked = 0;
         newCoin = Math.floor(Math.random() * coinneeded) + 1; 
         neededClicks = newCoin - timesClicked
@@ -1162,13 +1218,13 @@ const rankData = { //evoloss needs to be positive to turn negative! Also for aut
 const evoRewards = { //Some things are done outside of the rankData!
  1: "Autopower unlocked!",
  2: "Mystery gift unlocked!",
- 3: "Bronze rank:<br> -7.5% price multiplier<br>+15% clicks multiplier<br>+5% offline multiplier<br>+3 max permapower<br>Choose your specialty",
- //clicker gets +1 coin multipier and unlocks the Coin Shop earlier (3 instead of 4), offliner unlocks offline autoclicker for free and earlier (3 instead of 10), evolver removes evolution requierements, buyer gain acces to pricemultiplier for coins and RankPoints
+ 3: "Bronze rank:<br> -7.5% price multiplier<br>+15% clicks multiplier<br>+5% offline multiplier<br>+3 max permapower<br>Choose your speciality",
+ //clicker gets +1 coin multipier and unlocks the Coin Shop earlier (3 instead of 4), offliner unlocks offline autoclicker for free and earlier (3 instead of 8), evolver removes evolution requierements, buyer gain acces to pricemultiplier for coins and RankPoints
  4: "Coin Shop unlocked!*",
  5: "Iron rank:<br> -7.5% price multiplier<br>+25% clicks multiplier<br>+25% auto multiplier<br>+0.75 RankPoints per second<br>+10% offline multiplier<br>+5 max permapower",
  6: "Evoloss -5%",
  7: "+1 max mystery gift per evo",
- 8: "Rank Shop unlocked!",
+ 8: "Rank Shop unlocked!*",
  9: "Clicker: +5% click multiplier<br>Offliner: +5% offline multiplier<br>Buyer: -5% on both price multipliers<br>Evolver: -7.5% evoloss",
  10: "Gold rank:<br> -10% price multiplier<br>+30% clicks multiplier<br>+30% auto multiplier<br>+1.5 RankPoints per second<br>+10% offline multiplier<br>+8 max permapower",
  11: "Clicker: +2.5% click multiplier<br>Offliner: -100MS on autoclick<br>Buyer: -10% on normal prices<br>Evolver: +0.5RPpS",
@@ -1560,6 +1616,7 @@ function updateAuto() {
      
             if (timesClicked == (newCoin)) {
                 coins += coinMultiplier * 1;
+                totalcoins += coinMultiplier * 1
                 timesClicked = 0;
                 newCoin = Math.floor(Math.random() * coinneeded) + 1
                 neededClicks = newCoin - timesClicked
@@ -1576,6 +1633,7 @@ function updateAuto() {
 
 function giveRankPoints() {
     rankPoints += RPpS;
+    totalRankPoints += RPpS;
     UpdateUI();
 }
 
@@ -1778,14 +1836,14 @@ btnNormal.onclick = function() {
 }
 
 btnSpecial.onclick = function() {
-    if (evolveLVL >= 4 || evolveLVL >= 3 && specialty === "clicker") {
+    if (evolveLVL >= 4 || evolveLVL >= 3 && specialty === "clicker" || evolveLVL >= 3 && specialty === "buyer") {
         toggle = 2;
         upgtoggle();
     }
 }
 
 btnRank.onclick = function() {
-    if (evolveLVL >= 8) {
+    if (evolveLVL >= 8 || evolveLVL >= 3 && specialty === "buyer")  {
         toggle = 3;
         upgtoggle();
     }
@@ -1808,7 +1866,11 @@ toggleStats.onclick = function() {
 }
 
     
+//Save/Load/Reset
+
 function saveGame() {
+
+
     const gameState = {
         clicks,
         increasePower,
@@ -1840,6 +1902,7 @@ function saveGame() {
         autoSaveToggle,
         totalPermaClicksBonus,
         coins,
+        totalcoins,
         evoloss,
         ELMcost,
         autoclick,
@@ -1853,6 +1916,7 @@ function saveGame() {
         clicksMultiplier,
         autoMultiplier,
         rankPoints,
+        totalRankPoints,
         RPpS,
         Offlinebought,
         Offlinecost,
@@ -1866,7 +1930,11 @@ function saveGame() {
         maxPermaPower,
         specialty,
         quartered,
-        lastPlayedTime: Date.now()
+        lastPlayedTime: Date.now(),
+
+
+        unlockedAchievements: Array.from(unlockedAchievements),
+        claimedAchievements: Array.from(claimedAchievements),
     };
     localStorage.setItem("GameState", JSON.stringify(gameState));
     autosaveMessageFlag = 1;
@@ -1932,10 +2000,12 @@ function loadGame() {
         autoSaveToggle = gameState.autoSaveToggle;
         evopower = evolveLVL + 1;
         rankPoints = gameState.rankPoints;
+        totalRankPoints = gameState.totalRankPoints
         RPpS = gameState.RPpS;
         clicksMultiplier = gameState.clicksMultiplier;
         autoMultiplier = gameState.autoMultiplier
         coins = gameState.coins;
+        totalcoins = gameState.totalcoins
         newCoin = gameState.newCoin;
         timesClicked = gameState.timesClicked;
         isSpecialShop = false;
@@ -1961,8 +2031,53 @@ function loadGame() {
         maxPermaPower = gameState.maxPermaPower
         coinMultiplier = gameState.coinMultiplier
         lastPlayedTime = gameState.lastPlayedTime || null;
+        unlockedAchievements.clear();
+        claimedAchievements.clear();
 
 
+        if (gameState.unlockedAchievements && Array.isArray(gameState.unlockedAchievements)) {
+            gameState.unlockedAchievements.forEach(id => {
+                unlockedAchievements.add(id);
+                const btn = document.getElementById(id);
+                if (btn) {
+                    btn.classList.add("achieved");
+                    btn.classList.remove("received");
+                }
+            });
+        }
+
+
+        if (gameState.claimedAchievements && Array.isArray(gameState.claimedAchievements)) {
+            gameState.claimedAchievements.forEach(id => {
+                claimedAchievements.add(id);
+
+                unlockedAchievements.delete(id);
+
+                const btn = document.getElementById(id);
+                if (btn) {
+                    btn.classList.add("received");
+                    btn.classList.remove("achieved");
+                }
+            });
+        }
+
+        unlockedAchievements.forEach(id => {
+            const btn = document.getElementById(id);
+            if (btn && !claimedAchievements.has(id)) {
+            btn.classList.add('achieved');
+            btn.classList.remove('received');
+            }
+        });
+
+        claimedAchievements.forEach(id => {
+            const btn = document.getElementById(id);
+            if (btn) {
+            btn.classList.add('received');
+            btn.classList.remove('achieved');
+            }    
+        })
+
+        
         if (mgBought === maxMGperEvo) {
             mysteryprice = null;
         }
@@ -1971,12 +2086,13 @@ function loadGame() {
         firstload = false;
         ExchangeCost = 20;
 
-
         startautoclick();
         startrankpoints();
         updateRank();
         UpdateUI();
         priceChanges();
+        setInterval(checkAchievements, 5000);
+        checkAchievements()
     } else {
         if (!firstload ||!savedGameState || !loadconfirmed) {
             alert("No save loaded!");
@@ -2015,6 +2131,7 @@ function resetGame() {
         coinMultiplier = 1;
         freeEvosAllowed = 0
         evoloss = 1
+        screenToggle = 1;
         evolossBought = 0;
         autopower = 0 ;
         autoprice = 50 ;
@@ -2026,6 +2143,7 @@ function resetGame() {
         CurrentClickPower = power;
         CurrentAutoPower = autopower;
         coins = 0;
+        totalcoins = 0;
         isSpecialShop = false;
         ELMcost = 1;
         autoclick = 750;
@@ -2043,6 +2161,7 @@ function resetGame() {
         autoMultiplier = 1;
         RPpS = 0;
         rankPoints = 0;
+        totalRankPoints = 0;
         totalAutoclickTimeReductionBonus = 0;
         Offlinecost = 750;
         CoinACcost = 3000;
@@ -2059,13 +2178,26 @@ function resetGame() {
         quartered = false;
         maxMGupgradesBought = 0;
         maxPermaPower = 0
-        localStorage.removeItem("GameState");
+   
+
+            unlockedAchievements.clear();
+            claimedAchievements.clear();
+
+            // Remove achievement classes from buttons
+            document.querySelectorAll('#Basic-Achievments button').forEach(btn => {
+            btn.classList.remove('achieved', 'received');
+            });
+
+            // Remove saved game from localStorage
+            localStorage.removeItem("GameState");
 
 
         startautoclick();
         startrankpoints();
         updateRank();
         UpdateUI();
+        checkAchievements()
+        setInterval(checkAchievements, 5000);
         setInterval (endgame, 1000);
     } else {
         return;
@@ -2185,6 +2317,331 @@ if (showChangeLogsButton) {
 }
 
 
+const toggleScreenButton = document.getElementById("toggleScreen");
+
+toggleScreenButton.onclick = function() {
+    if (screenToggle === 1) {
+        screenToggle = 2;
+        gameScreen.classList.add("hidden")
+        achievementScreen.classList.remove("hidden")
+    }
+    else if (screenToggle === 2) {
+        screenToggle = 1;
+        gameScreen.classList.remove("hidden")
+        achievementScreen.classList.add("hidden")
+    }
+}
+
+
+
+//achievements:
+// Click achievements
+const click1000 = document.getElementById("click1000");
+const click2500 = document.getElementById("click2500");
+const click10000 = document.getElementById("click10000");
+const click25000 = document.getElementById("click25000");
+const click100000 = document.getElementById("click100000");
+
+// Points achievements
+const points100000 = document.getElementById("points100000");
+const points250000 = document.getElementById("points250000");
+const points1000000 = document.getElementById("points1000000");
+const points2500000 = document.getElementById("points2500000");
+const points10000000 = document.getElementById("points10000000");
+
+// Coins achievements
+const coin20 = document.getElementById("coin20");
+const coin50 = document.getElementById("coin50");
+const coin200 = document.getElementById("coin200");
+const coin500 = document.getElementById("coin500");
+const coin2000 = document.getElementById("coin2000");
+
+// RankPoints achievements
+const rp500 = document.getElementById("rp500");
+const rp1250 = document.getElementById("rp1250");
+const rp5000 = document.getElementById("rp5000");
+const rp12500 = document.getElementById("rp12500");
+const rp50000 = document.getElementById("rp50000");
+
+// Evolutions achievements
+const evolve3 = document.getElementById("evolve3");
+const evolve5 = document.getElementById("evolve5");
+const evolve10 = document.getElementById("evolve10");
+const evolve15 = document.getElementById("evolve15");
+const evolve25 = document.getElementById("evolve25");
+
+//
+const click_1000 = 1000;
+const click_2500 = 2500;
+const click_10000 = 10000;
+const click_25000 = 25000;
+const click_100000 = 100000;
+
+const points_100000 = 100000;
+const points_250000 = 250000;
+const points_1000000 = 1000000;
+const points_2500000 = 2500000;
+const points_10000000 = 10000000;
+
+const coin_20 = 20;
+const coin_50 = 50;
+const coin_200 = 200;
+const coin_500 = 500;
+const coin_2000 = 2000;
+
+const rp_500 = 500;
+const rp_1250 = 1250;
+const rp_5000 = 5000;
+const rp_12500 = 12500;
+const rp_50000 = 50000;
+
+const evolve_3 = 3;
+const evolve_5 = 5;
+const evolve_10 = 10;
+const evolve_15 = 15;
+const evolve_25 = 25;
+
+
+//
+function checkAchievements() {
+  // Click achievements
+  checkClickAchievement(click1000, allTimeClicks, click_1000);
+  checkClickAchievement(click2500, allTimeClicks, click_2500);
+  checkClickAchievement(click10000, allTimeClicks, click_10000);
+  checkClickAchievement(click25000, allTimeClicks, click_25000);
+  checkClickAchievement(click100000, allTimeClicks, click_100000);
+
+  // Points achievements
+  checkClickAchievement(points100000, allTimePoints, points_100000);
+  checkClickAchievement(points250000, allTimePoints, points_250000);
+  checkClickAchievement(points1000000, allTimePoints, points_1000000);
+  checkClickAchievement(points2500000, allTimePoints, points_2500000);
+  checkClickAchievement(points10000000, allTimePoints, points_10000000);
+
+  // Coins achievements
+  checkClickAchievement(coin20, totalcoins, coin_20);
+  checkClickAchievement(coin50, totalcoins, coin_50);
+  checkClickAchievement(coin200, totalcoins, coin_200);
+  checkClickAchievement(coin500, totalcoins, coin_500);
+  checkClickAchievement(coin2000, totalcoins, coin_2000);
+
+  // RankPoints achievements
+  checkClickAchievement(rp500, totalRankPoints, rp_500);
+  checkClickAchievement(rp1250, totalRankPoints, rp_1250);
+  checkClickAchievement(rp5000, totalRankPoints, rp_5000);
+  checkClickAchievement(rp12500, totalRankPoints, rp_12500);
+  checkClickAchievement(rp50000, totalRankPoints, rp_50000);
+
+  // Evolutions achievements
+  checkClickAchievement(evolve3, evolveLVL, evolve_3);
+  checkClickAchievement(evolve5, evolveLVL, evolve_5);
+  checkClickAchievement(evolve10, evolveLVL, evolve_10);
+  checkClickAchievement(evolve15, evolveLVL, evolve_15);
+  checkClickAchievement(evolve25, evolveLVL, evolve_25);
+}
+
+const achievementRewards = {
+  // Evolutions: reward in rankPoints = required * 100
+  evolve3: () => {
+    const reward = 3 * 100;
+    rankPoints += reward;
+    alert(`You gained ${reward} RankPoints for 3 evolutions!`);
+  },
+  evolve5: () => {
+    const reward = 5 * 100;
+    rankPoints += reward;
+    alert(`You gained ${reward} RankPoints for 5 evolutions!`);
+  },
+  evolve10: () => {
+    const reward = 10 * 100;
+    rankPoints += reward;
+    alert(`You gained ${reward} RankPoints for 10 evolutions!`);
+  },
+  evolve15: () => {
+    const reward = 15 * 100;
+    rankPoints += reward;
+    alert(`You gained ${reward} RankPoints for 15 evolutions!`);
+  },
+  evolve25: () => {
+    const reward = 25 * 100;
+    rankPoints += reward;
+    alert(`You gained ${reward} RankPoints for 25 evolutions!`);
+  },
+
+  // Clicks: reward in coins = required / 500
+  click1000: () => {
+    const reward = 1000 / 500;
+    coins += reward;
+    alert(`You gained ${reward} coins for 1000 clicks!`);
+  },
+  click2500: () => {
+    const reward = 2500 / 500;
+    coins += reward;
+    alert(`You gained ${reward} coins for 2500 clicks!`);
+  },
+  click10000: () => {
+    const reward = 10000 / 500;
+    coins += reward;
+    alert(`You gained ${reward} coins for 10000 clicks!`);
+  },
+  click25000: () => {
+    const reward = 25000 / 500;
+    coins += reward;
+    alert(`You gained ${reward} coins for 25000 clicks!`);
+  },
+  click100000: () => {
+    const reward = 100000 / 500;
+    coins += reward;
+    alert(`You gained ${reward} coins for 100000 clicks!`);
+  },
+
+  // Points: reward is 20% of required points
+  points100000: () => {
+    const reward = 100000 * 0.2;
+    clicks += reward;
+    alert(`You gained ${reward} points for 100,000 points!`);
+  },
+  points250000: () => {
+    const reward = 250000 * 0.2;
+    clicks += reward;
+    alert(`You gained ${reward} points for 250,000 points!`);
+  },
+  points1000000: () => {
+    const reward = 1000000 * 0.2;
+    clicks += reward;
+    alert(`You gained ${reward} points for 1,000,000 points!`);
+  },
+  points2500000: () => {
+    const reward = 2500000 * 0.2;
+    clicks += reward;
+    alert(`You gained ${reward} points for 2,500,000 points!`);
+  },
+  points10000000: () => {
+    const reward = 10000000 * 0.2;
+    clicks += reward;
+    alert(`You gained ${reward} points for 10,000,000 points!`);
+  },
+
+  // Coins: reward is 20% of required coins
+  coin20: () => {
+    const reward = 20 * 0.2;
+    coins += reward;
+    alert(`You gained ${reward} coins for 20 coins!`);
+  },
+  coin50: () => {
+    const reward = 50 * 0.2;
+    coins += reward;
+    alert(`You gained ${reward} coins for 50 coins!`);
+  },
+  coin200: () => {
+    const reward = 200 * 0.2;
+    coins += reward;
+    alert(`You gained ${reward} coins for 200 coins!`);
+  },
+  coin500: () => {
+    const reward = 500 * 0.2;
+    coins += reward;
+    alert(`You gained ${reward} coins for 500 coins!`);
+  },
+  coin2000: () => {
+    const reward = 2000 * 0.2;
+    coins += reward;
+    alert(`You gained ${reward} coins for 2000 coins!`);
+  },
+
+  // RankPoints: reward is 20% of required rankPoints
+  rp500: () => {
+    const reward = 500 * 0.2;
+    rankPoints += reward;
+    alert(`You gained ${reward} RankPoints for 500 RankPoints!`);
+  },
+  rp1250: () => {
+    const reward = 1250 * 0.2;
+    rankPoints += reward;
+    alert(`You gained ${reward} RankPoints for 1250 RankPoints!`);
+  },
+  rp5000: () => {
+    const reward = 5000 * 0.2;
+    rankPoints += reward;
+    alert(`You gained ${reward} RankPoints for 5000 RankPoints!`);
+  },
+  rp12500: () => {
+    const reward = 12500 * 0.2;
+    rankPoints += reward;
+    alert(`You gained ${reward} RankPoints for 12500 RankPoints!`);
+  },
+  rp50000: () => {
+    const reward = 50000 * 0.2;
+    rankPoints += reward;
+    alert(`You gained ${reward} RankPoints for 50000 RankPoints!`);
+  },
+};
+
+
+
+function checkClickAchievement(button, currentValue, threshold) {
+  if (
+    currentValue >= threshold &&
+    !button.classList.contains("achieved") &&
+    !button.classList.contains("received")
+  ) {
+    button.classList.add("achieved");
+    unlockedAchievements.add(button.id);
+  }
+}
+
+function setupAchievementClicks() {
+  const allButtons = document.querySelectorAll("#Basic-Achievments button");
+
+  allButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.classList.contains("achieved")) {
+        claimAchievement(button);
+      }
+    });
+  });
+}
+
+function claimAchievement(id) {
+    if (unlockedAchievements.has(id) && !claimedAchievements.has(id)) {
+        unlockedAchievements.delete(id);
+        claimedAchievements.add(id);
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.classList.remove("achieved");
+            btn.classList.add("received");
+        }
+        // Give reward logic here...
+        saveGame();
+    }
+}
+
+function setupAchievementButtons() {
+  document.querySelectorAll('#Basic-Achievments button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.id;
+
+      if (unlockedAchievements.has(id) && !claimedAchievements.has(id)) {
+
+        claimedAchievements.add(id);
+
+        btn.classList.remove('achieved');
+        btn.classList.add('received');
+
+        //trigger award
+        if (achievementRewards[id]) {
+          achievementRewards[id]();
+        }
+
+      }
+    });
+  });
+}
+
+
+
+
+
 priceChanges();
 upgtoggle();
 setInterval (endgame, 1000);
@@ -2195,4 +2652,6 @@ FirstLoadGame();
 OfflineProgress(); 
 updateRank();
 UpdateUI();
-
+checkAchievements();
+setInterval(checkAchievements, 5000);
+setupAchievementButtons();
