@@ -14,20 +14,18 @@
         <h2 id="WelcomeV">Welcome to Circle Clicker!</h2>
         <button id="showChangeLogs">Show Changelog</button>
 
-
-
         <div id="stats-rowA">
-            <h4 id="coincount"> Coins: <span id="coins"> </span></h4>
-            <h4 id="EvolutionLevel">Current Evolution level: <span id="CurrentEvolutionLevel"></span></h4>
-            <h4 id="ClickPower">Current ClickPower level: <span id="CurrentClickPower"></span></h4>
-            <h4 id="AutoPower">Current Autopower level: <span id="CurrentAutoPower"></span></h4>
+            <h4 id="coins"></h4>
+            <h4 id="EvolutionLevel">:</h4>
+            <h4 id="ClickPower"></h4>
+            <h4 id="AutoPower"></h4>
         </div>
 
         <div id="stats-rowB">
             <h4 id="pricemultiplier">Pricemultiplier:<br> <span id="multiplier"></span></h4>
             <h4 id="offlinemultiplier">Offlinemultiplier: <span id="multiplier2"></span> </h4>
-            <h4 id="totalClicks">All-time clicks: <span id="ATC"></span></h4>
-            <h4 id="totalPoints">All-time points: <span id="ATP"></span> </h4>
+            <h4 id="totalClicks"></h4>
+            <h4 id="totalPoints"></h4>
         </div>
 
         <h2 id="currentRank"></h2>
@@ -47,11 +45,11 @@
         
         <div id="normal-upgrades" class="null">
             <div class="upgrade-buttons-group">
-                <button id="powerupgrade">ClickingPower: <span id="upgradeCost"></span></button>
+                <button id="powerupgrade"></button>
                 <button id="autoupgrade"></button>
                 <button id="permanentupgrade"></button>
                 <button id="mysterygift"></button>
-                <button id="evolve"><span id="evoCost"> </span></button>
+                <button id="evolve"> </span></button>
             </div>
         </div>
 
@@ -68,7 +66,7 @@
                 <button id="Offline">Offline autoclick: 250RP</button>
                 <button id="CoinAC">Coin autoclicker: 3000RP</button> 
                 <button id="CN">Decrease next coin range: <span id="priceCN"></span></button>
-                <button id="RPexchange">Trade RankPoints for clicks! <br> <span id="exchangePrice"></span> RankPoints > += 3% clicks (cap at 2% of evolution price)</button>
+                <button id="RPexchange"></button>
         </div>
 
         <div id="toggle-shop-group">
@@ -85,6 +83,7 @@
         
         <button id="toggleAutoSave">Autosave: <span id="autoSaveStatus"></span></button>
         <button id="toggleStats">Toggle stats</button>
+        <button id="toggleScreen">Toggle screen</button>
 
         <div class="pop-ups">
           <h2><span id="popupAutoSave"></span></h2>
@@ -146,11 +145,25 @@
   pointer-events: all;
 ">
 
-  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 7.0 — Achievements' Arrival — <br>July 30, 2025 (16:00)</h3>
-  <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last large update: July 29, 2025 (20:30)</p>
+  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 7.1 — Optimization Time — <br> July 30, 2025 (18:30)</h3>
+  <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last large update (V7.0): July 30, 2025 (16:00)</p>
 
 <h1></h1>
 <h2>This update:</h2>
+<h3>Code Optimizations</h3>
+<ul>
+  <li>The code has been split into multiple segments for better readability and maintenance.</li>
+  <li><code>updateUI()</code> (the function that updates the interface) has been optimized for better performance.</li>
+  <li>Several other functions received small improvements and cleanup.</li>
+</ul>
+
+<h3>Bug/Issue fixes</h3>
+<ul>
+  <li>Mobile UI should now display more consistently and responsively.</li>
+  <li>Prices no longer round to 0 when the MAX option is selected.</li>
+</ul>
+
+<h2>Previous large update (V7.0) - Achievements' Arrival:</h2>
 <h3>New features</h3>
 <h4>Achievements</h4>
 <li>Go to the new achievements screen with the new "toggle screen" button!</li>
@@ -168,57 +181,19 @@
 <li>Fixed some typos</li>
 <li>Mobile: Evolved message now should only take the screen space it needs</li>
 
+
+<h2>Other stuff:</h2>
+
 <h3>Known Bugs</h3>
 <li>(since V6.0) If you save (with autosave for example) during choosing your speciality and you load that save, you're locked out. Temp solution: there is an forced autosave just before evolving to the third evolution and autosaves are disabled while choosing a speciality</li>
-
-
-<h2>Previous large update (V6.0):</h2>
-<h3>New Features</h3>
-<h4>Evolution rework part 2!</h4>
-<li>Evolution Pop-Up: You'll now see which rewards you get when evolving!</li>
-<li>Starting from evolution 3, you'll now have a speciality. This speciality gives a small bonus from time to time. But choose wisely! Once chosen it's locked in.</li>
-<li>Evo lock: for some evolutions you need to fulfill certain tasks - these tasks are mentioned inside the evolve button if you do not follow the requierements</li>
-<li>More evolution rewards! Some evolutions will have an extra reward</li>
-
-
-<h3>Balances</h3>
-<li>Mystery gifts are now available from evolution 2 onwards (from 3)</li>
-<li>Evolution rewards after evo 25 have been removed</li>
-<li>Mystery gift: "Great loss" replaced by "Points timed by 5" (20%). Chance for nothing increased by 10% (30%).</li>
-<li>Autopower: Base price reduced (100 > 50). Faster curve (1.2 > 1.25).</li>
-<li>Autopower: You'll now start without autopower after evolving. Except for what you keep from your "evoloss" stat.</li>
-
-
-<h3>Tweaks / QoL Updates</h3>
-<li>Warning message before you evolve</li>
-
-
-
-<h3>Bug Fixes</h3>
-<li>Removed typo in welcome back message</li>
-<li>Rounded prices should now be rounded - instead of only in the UI</li>
-<li>Alert if no save file is found is back</li>
-
-
-<h3>Code Optimization </h3>
-<li>Nothing</li>
-
-
-<h3>Known Bugs</h3>
-<li>Mobile UI is a little rough right now</li>
-
-<h3>Other things</h3>
-<li>Nothing</li>
-
-<h2>------</h2>
+<li>(since V5.0) Upgrade color only changes after presiing somewhere else if you can still buy another one (mobile)</li>
 
 <h3>Coming Soon</h3>
-<li>[REDACTED] System</li>
+<li>[REDACTED] System *2</li>
 <li>Toggable sounds</li>
 <li>Buy multiplier - so you do not need to click so much on your upgrades</li>
 <li>Add improved rounding to other upgrades</li>
 <li>Upgrades to max online time</li>
-<li>Code Optimization for faster everything</li>
 <li>New evolution rewards after evo 25</li>
 <li>A new currency, with a new shop</li>
 
@@ -243,7 +218,7 @@ Reset game (recommended)
   </button>
 
   <!-- Close button -->
-  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V7.0', 'seen');" style="
+  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V7.1', 'seen');" style="
     background: #000000;
     color: white;
     border: none;
@@ -263,7 +238,6 @@ Reset game (recommended)
 
 </div>
 
-<button id="toggleScreen">Toggle screen</button>
 
 <div id="achievmentScreen" class="hidden">
   <h2>Achievements - updates every 5 seconds!</h2>
@@ -302,6 +276,8 @@ Reset game (recommended)
 
   <!--Insert line here to seperate normal and rare achievements-->
 
+
+  <button id="toggleScreen2">Toggle screen</button>
 </div>
 
 
@@ -309,7 +285,7 @@ Reset game (recommended)
 
 
 <script>
-  const changelogVersion = "V7.0"; // Change on new updates
+  const changelogVersion = "V7.1"; // Change on new updates
 
   window.addEventListener("load", () => {
     const seen = localStorage.getItem("cc_changelog_" + changelogVersion);

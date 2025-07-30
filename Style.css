@@ -142,7 +142,7 @@ html, body {
     box-sizing: border-box; 
 }
 
-#coincount, #pricemultiplier {
+#coins, #pricemultiplier {
     top: 4vh;
     background-color: grey;
     display: grid;
@@ -404,7 +404,7 @@ button:hover {
     color: white;
 }
 
-#toggleStats, #toggleScreen {
+#toggleStats, #toggleScreen, #toggleScreen2 {
     width: 26.32vw;
     height: 4vh;
     position: absolute;
@@ -417,13 +417,15 @@ button:hover {
     color: white;
 }
 
-#toggleStats:hover, #toggleScreen:hover {
+#toggleStats:hover, #toggleScreen:hover, #toggleScreen2:hover {
     background-color: rgb(80, 175, 145);
 }
 
 #toggleScreen {
     top: 94.5vh;
 }
+
+
 
 
 
@@ -987,7 +989,7 @@ button:hover {
     #ClickPower,
     #AutoPower,
     #EvolutionLevel,
-    #coincount,
+    #coins,
     #pricemultiplier,
     #offlinemultiplier,
     #totalClicks,
@@ -1016,6 +1018,8 @@ button:hover {
     #version,
     #CoinAC,
     #Offline,
+    #toggleScreen,
+    #toggleScreen2,
     #btnNormal,
     #btnSpecial,
     #btnRank,
@@ -1058,7 +1062,7 @@ button:hover {
 
     /* Coin Count & Evolution Level & ClickPower/AutoPower - display side by side */
     /* Changed these to inline-block to allow them to sit next to each other if space permits */
-    #coincount, #EvolutionLevel, #ClickPower, #AutoPower, #pricemultiplier, #offlinemultiplier, #totalClicks, #totalPoints {
+    #coins, #EvolutionLevel, #ClickPower, #AutoPower, #pricemultiplier, #offlinemultiplier, #totalClicks, #totalPoints {
         width: 48%; /* Slightly less than half for spacing */
         display: inline-block; /* Allow them to be next to each other */
         vertical-align: top; /* Align tops if heights differ slightly */
@@ -1183,7 +1187,7 @@ button:hover {
         margin-bottom: 0.2vh;
     }
 
-    #toggleAutoSave, #toggleStats {
+    #toggleAutoSave, #toggleStats, #toggleScreen2 {
         font-size: 0.6em;
         height: 3.5vh;
         width: 98%;
