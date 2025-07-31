@@ -532,7 +532,7 @@ button:hover {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    color: gold;
+    color: white;
     z-index: 50;
     pointer-events: none;
 }
@@ -546,7 +546,7 @@ button:hover {
     left: 50%;
     transform: translateX(-50%);
     width: 26.32vw;
-    color: wheat;
+    color: white;
     z-index: 50;
     pointer-events: none;
 }
@@ -559,7 +559,7 @@ button:hover {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    color: gold;
+    color: white;
     z-index: 50;
     pointer-events: none;
 }

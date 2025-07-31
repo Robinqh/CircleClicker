@@ -145,43 +145,51 @@
   pointer-events: all;
 ">
 
-  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 7.22 — Bug Fixes — <br> July 30, 2025 (20:15)</h3>
+  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 8.0 — Stabalizing The Game — <br> <!--Date--></h3>
   <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last large update (V7.0): July 30, 2025 (16:00)</p>
 
 <h1></h1>
 <h2>This update:</h2>
-<h3>Bug Fixes (includes patch 7.21)</h3>
-<ul>  
-  <h4>7.21</h4>
-  <li>Formatnumber should be applied to clickpower</li>
-  <li>Offline points should now go to All-Time points instead of clicks</li>
-  <li>It now says MAXED even if you're below evo-12 at the coinAC if you have "offliner"</li>
-  <li>Achievement Rewards should now add to your total X</li>
-  <h4>7.22</h4>
-  <li>"Buyer" should now have acces to coinshop at rank 4</li>
-  <li>Removed console.log from circle function</li>
-  <li>Pricemultiplier for coins/rankshop now should not keel lowering the price until its 2</li>
-  <li>"Buyer" should now be able to see RankPoints even if under evo-8</li>
-
-
-</ul>
-
-<h2>Previous Balance Update (V7.2)</h2>
-<h3>Balances</h3>
+<h3>UI/UX - QoL - Tweaks</h3>
 <ul>
-  <li>Added Evolution Requierments to: 13 > 14, 15 > 16, and 24 > 25</li>
-  <li>Changed Evolution Requierements at: 0 > 1, 8 > 9, and 19 > 20</li>
-  <li>Buyer: evo-3 reward (-25% price multiplier2 > -20% multiplier & 0.05RPpS)</li>
-  <li>Evo-10: 1.5RPps > 1.75RPpS, evo-15: 7.5RRpS > 5RPpS</li>
-  <li>Mayor stat improvements for "clicker" and miner ones "offliner"</li>
-  <li>Coin Autoclicker now also works offline! The amount needed is always 66% of your max coin rage - "offliner" starts with it activated from the start!</li>
+  <li>Evolve button will now be orange instead of black when you do not meet the evolution requierements - this so it's easier to see if the reqs or the amount of points is the issue</li>
+  <li>The game now saves after you load so that you do not lose offline rewards!</li>
+  <li>If you've reached the max permapower for your rank, but not the absolute max, the color will be orange instead of green - this to show you can buy more later</li>
+  <li>Pop-Ups should be more readable</li>
 </ul>
-
 <h3>Bug/Issue fixes</h3>
 <ul>
-  <li>Fixed some stat-screen issues</li>
-  <li>Fixed offline rewards!</li>
+  <li>You should now be able to save even when you haven't bought any upgrades yet!</li>
+  <li>Coin-popup should be fixed if you were to get it from an autoclick!</li>
+  <li>ELMcost should now be affected by price multipliers</li>
+  <li>The +X permapower text should now show the correct numbers</li>
+  <li>Autopower stat double wording has been fixed</li>
+  <li>The evo-25 requierment now should only be completed once you actually have both powers above 1000 instead of only one</li>
+  <li>Endgame reward now should not be reset anymore after evolving</li>
 </ul>
+<h3>Balance Changes</h3>
+<ul>
+  <li>The evolution achievments rewards are halved (evoLVL * 100 > evoLVL * 50). This to reduce the early game power of the "buyer" spec.</li>
+  <li>At evolution level 16 everyone gets +1 coinmultiplier (+2 for clickers).</li>
+  <li>Offliner spec now lowers the bottom-cap of the autoclicker at 200MS instead of the regular 333MS</li>
+  <li>You'll now get (base) 15 coins instead of 1 coin. But every price has been increased by *15. This to make the pricemultiplier more usefull</li>
+  <li>Offline Coin generation is now effected by your offline multiplier</li>
+  <li>Change of mystery gift chances: 2* points (35%), 5* points (15%), no reward (45%), free evo (5%) - biggest changes: -5% chance of something negative, but also -5% chance of a free evolution  </li>
+  <li>Buyer now gains more RPpS on evo-4 and evo-8 to compensate for the fact they already had that evo's reward. (evo-4 (+0.15), evo-8 (+0.30))</li>
+  <li>Max offline time is reduced from 4 to 1 hours.</li>
+  <li>Offliners can increase the max offline time (back to 4 hours) by evolve rewards</li>
+  <li>except for the first few upgrades, autopower should be ~2.5* the price of the same clickpower upgrade</li>
+  <li>Buyer spec should now also recieve a pricemultiplier (-30%) on Rank- and Coinshop after completing the endgoal</li>
+  <li>Changed endgame goal to 10 million (from 2.5 million)</li>
+
+  <h4>Rank Changes</h4>
+  <ul>
+    <li>Bronze: Removed clicksmultiplier and offline multiploer, changed pricemultiplier from -7.5% to -15%</li>
+    <li>Platinum/[REDACTED]: changed offline multiplier from +7.5% to +15%</li>
+    <li>[REDACTED]: changed click/auto multiplier from +50% to +40%</li>
+  </ul>
+</ul>
+
 
 <h2>Previous large update (V7.0) - Achievements' Arrival:</h2>
 <h3>New features</h3>
@@ -238,7 +246,7 @@ Reset game (recommended)
   </button>
 
   <!-- Close button -->
-  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V7.22', 'seen');" style="
+  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V8.0', 'seen');" style="
     background: #000000;
     color: white;
     border: none;
@@ -305,7 +313,7 @@ Reset game (recommended)
 
 
 <script>
-  const changelogVersion = "V7.22"; // Change on new updates
+  const changelogVersion = "V8.0"; // Change on new updates
 
   window.addEventListener("load", () => {
     const seen = localStorage.getItem("cc_changelog_" + changelogVersion);
