@@ -895,7 +895,7 @@ else {
     }
     if (ELMcost !== null) {
         ELMcost = 15 + (15 * evolossBought)
-        ELMcost = Math.random(ELMcost *pricemultiplier2)
+        ELMcost = Math.round(ELMcost *pricemultiplier2)
     }
 
     if (autotimerCost != null) {
