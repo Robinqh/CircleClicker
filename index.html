@@ -70,7 +70,7 @@
         </div>
 
         <div id="toggle-shop-group">
-          <button id="btnNormal">Point shop</button>
+          <button id="btnNormal"></button>
           <button id="btnSpecial"></button>
           <button id="btnRank"></button>
         </div>
@@ -82,16 +82,9 @@
         </div>
         
         <button id="toggleAutoSave">Autosave: <span id="autoSaveStatus"></span></button>
+        <button id="toggleSound"></button>
         <button id="toggleStats">Toggle stats</button>
         <button id="toggleScreen">Toggle screen</button>
-
-        <div class="pop-ups">
-          <h2><span id="popupAutoSave"></span></h2>
-          <h1><span id="popupmysterygift"></span></h1>
-          <h1><span id="popupNC"></span></h1>
-          <h1><span id="backmessage"></span></h1>
-          <h1><span id="exchangeMessage"></span></h1>
-        </div>
 
         <div id="large-pop-ups">
             <div id="evolved" style="display: none;">
@@ -145,11 +138,60 @@
   pointer-events: all;
 ">
 
-  <h3 style="color:#4fc3f7; margin-bottom: 4px;"> Update Version 8.0 — Stabalizing The Game — <br> <!--Date--></h3>
-  <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last large update (V7.0): July 30, 2025 (16:00)</p>
+  <h1 style="color:#4fc3f7; margin-bottom: 4px"> Update Version 9.0 — UI and UX — July 31, 2025 (22:30)</h1>
+  <p style="font-size: 0.85em; color: #aaa; margin-top: 0;">Last large update (V8.0): July 31, 2025 (15:00)</p>
 
-<h1></h1>
+
 <h2>This update:</h2>
+  <h3>New Features</h3>
+  <ul>
+    <li><strong>Pop-ups!</strong> All messages now appear as sleek pop-ups — more readable, less intrusive, and visually improved!</li>
+    <li><strong>Sound!</strong> Clicking the circle now plays a short sound effect. More sounds are planned for future updates!</li>
+    <li><strong>Toggle Sound:</strong> You can now mute or unmute the game using the new “Toggle Sound” button!</li>
+    <li><strong>Shop Highlighting:</strong> The currently active shop button is now golden instead of green. Enjoy the new aesthetic — and a special message while browsing certain shops!</li>
+  </ul>
+
+  <h3>Balance Changes</h3>
+  <ul>
+    <li>The first evolution now costs <strong>500</strong> instead of <strong>750</strong>, making early progression a bit smoother.</li>
+    <li>All "Click X times" achievement rewards have been multiplied by <strong>10×</strong> to better match the new coin system (still around <strong>33% lower</strong> than they originally were).</li>
+    <li>The <strong>Clicker specialization</strong> now gains an <strong>extra +5% click multiplier at Evolution 4</strong> to compensate for already having access to the Coin Shop.</li>
+    <li><strong>Evolution requirements</strong> have been completely rebalanced — most old ones are now harder, and many new ones have been added.</li>
+  </ul>
+
+  <h3>UI/UX – Quality of Life – Visual Tweaks</h3>
+  <ul>
+    <li><strong>Dynamic Requirements:</strong> Evolution goals now show your progress instead of just the final amount required.</li>
+    <li><strong>Rank Glow:</strong> All rank names now glow — with an especially impressive glow for the mysterious [REDACTED] rank.</li>
+    <li><strong>Locked Items:</strong> Things you haven’t unlocked yet are now purple-ish, instead of plain black.</li>
+    <li><strong>Improved Autosave Logic:</strong> The game only saves on first load if autosave was already enabled.</li>
+    <li><strong>Visual Polish:</strong> Sidebars have clearer borders (on desktop), and several background colors have been updated.</li>
+    <li><strong>Readded Effect:</strong> The circle now grows/shrinks when clicked again!</li>
+  </ul>
+
+  <h3>Bug & Issue Fixes</h3>
+  <ul>
+    <li>Buyer spec's <strong>bonus RPpS</strong> at certain evolutions now applies correctly.</li>
+    <li>The <strong>evolve button</strong> now turns orange after resetting if requirements aren’t met (instead of staying black).</li>
+    <li>Buying an <strong>auto upgrade</strong> no longer immediately triggers an autoclick.</li>
+    <li>The <strong>autoclicker stat panel</strong> now correctly shows the autoclicker multiplier.</li>
+    <li><strong>Total coins</strong> are now in sync with the new 15× coin system, making coin achievements more achievable.</li>
+    <li>After resetting, players are now correctly sent back to the <strong>Base Shop</strong>.</li>
+    <li>Updated the <strong>"Coming Soon"</strong> section.</li>
+  </ul>
+
+  <h3>Code Optimizations</h3>
+  <ul>
+    <li>Cleaned up and renamed key variables to allow easier future support for:
+      <ul>
+        <li>Extra <strong>Evoloss</strong> levels.</li>
+        <li>More <strong>Mystery Gifts</strong> per evolution.</li>
+      </ul>
+    </li>
+  </ul>
+
+<!--This just shows the previous large update - doesn't really have matter-->
+<h3 style="color:#4fc3f7; margin-bottom: 4px;">Previous large update (V8.0) - Stabalizing The Game</h3>
 <h3>UI/UX - QoL - Tweaks</h3>
 <ul>
   <li>Evolve button will now be orange instead of black when you do not meet the evolution requierements - this so it's easier to see if the reqs or the amount of points is the issue</li>
@@ -191,40 +233,27 @@
 </ul>
 
 
-<h2>Previous large update (V7.0) - Achievements' Arrival:</h2>
-<h3>New features</h3>
-<h4>Achievements</h4>
-<li>Go to the new achievements screen with the new "toggle screen" button!</li>
-<li>There are currently 25 achievements you can get!</li>
-<li>Gain rewards for each achievement you complete!</li>
-
-
-<h3>Balance Changes</h3>
-<li>Changed permaprice prices so that the jumps are way smaller, especially in the beginning</li>
-<li>Upgrade max mystery gifts per evolution moved (evoLVL 4 > evoLVL 20)</li>
-<li>Upgrade "coin autoclicker" moved (evoLVL 8 > evoLVL 12)</li>
-<li>"Buyer" now skips the minimum shop and upgrade levels!</li>
-
-<h3>Bug/Issue fixes</h3>
-<li>Fixed some typos</li>
-<li>Mobile: Evolved message now should only take the screen space it needs</li>
-
-
-<h2>Other stuff:</h2>
+<!--This matters again-->
+<h2 style="color:#4fc3f7; margin-bottom: 4px;">Other stuff:</h2>
 
 <h3>Known Bugs</h3>
-<li>(since V6.0) If you save (with autosave for example) during choosing your speciality and you load that save, you're locked out. Temp solution: there is an forced autosave just before evolving to the third evolution and autosaves are disabled while choosing a speciality</li>
-<li>(since V5.0) Upgrade color only changes after presiing somewhere else if you can still buy another one (mobile)</li>
+  <p style="color:#aaa; font-size:small;">(These bugs are minor and not urgent, so they may take some time to fix.)</p>
+  <ul>
+    <li>(Since V6.0) If the game autosaves during specialization selection and you reload that save, you may get locked out. <em>Temporary solution: autosave is disabled during this screen, and a forced save occurs just before Evolution 3.</em></li>
+    <li>(Since V5.0) On mobile, upgrade button color only changes after tapping elsewhere.</li>
+    <li>(Since always) If multiple pop-ups of the same type trigger at once, their timers overwrite each other — making them disappear too fast.</li>
+  </ul>
 
-<h3>Coming Soon</h3>
-<li>[REDACTED] System *2</li>
-<li>Toggable sounds</li>
-<li>Buy multiplier - so you do not need to click so much on your upgrades</li>
-<li>Add improved rounding to other upgrades</li>
-<li>Upgrades to max online time</li>
-<li>New evolution rewards after evo 25</li>
-<li>A new currency, with a new shop</li>
-
+  <h3>Coming Soon</h3>
+  <ul>
+    <li>New systems.</li>
+    <li>More stats.</li>
+    <li>Upgrade buy multiplier (buy 1 / 10 / 100 / Max).</li>
+    <li>Improved rounding for prices and stats.</li>
+    <li>Evolutions beyond Evolution 25.</li>
+    <li>A new currency with a dedicated shop.</li>
+    <li><strong>And much, much more!</strong></li>
+  </ul>
 
 <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
 
@@ -246,7 +275,7 @@ Reset game (recommended)
   </button>
 
   <!-- Close button -->
-  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V8.0', 'seen');" style="
+  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V9.0', 'seen');" style="
     background: #000000;
     color: white;
     border: none;
@@ -265,6 +294,17 @@ Reset game (recommended)
 </div>
 
 </div>
+
+        <div class="pop-ups">
+          <h2 id="popupAutoSave" class="hidden"></h2>
+          <h1 id="popupmysterygift" class="hidden"></h1>
+          <h1 id="popupNC" class="hidden"></h1>
+          <h1 id="backmessage" class="hidden"></h1>
+          <h1 id="exchangeMessage" class="hidden"></h1>
+        </div>
+
+
+
 
 
 <div id="achievmentScreen" class="hidden">
@@ -313,7 +353,7 @@ Reset game (recommended)
 
 
 <script>
-  const changelogVersion = "V8.0"; // Change on new updates
+  const changelogVersion = "V9.0"; // Change on new updates
 
   window.addEventListener("load", () => {
     const seen = localStorage.getItem("cc_changelog_" + changelogVersion);
