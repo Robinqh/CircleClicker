@@ -748,7 +748,7 @@ function UpdateUI() {
 }
 
 function UpdateShopUI() {
-        if (btnNormal) {
+    if (btnNormal) {
         btnNormal.innerText = "Base Shop";
         if (toggle === 1) {
             btnNormal.classList.add("active-shop")
@@ -757,11 +757,13 @@ function UpdateShopUI() {
         }
     }
 
-    // Update specialty shop button visibility/text
+
     if (btnSpecial) {
-        if (evolveLVL < 4 && specialty !== "clicker" && specialty !== "buyer") {
+        const requiredEvoSpecial = (specialty === "clicker" || specialty === "buyer") ? 3 : 4;
+
+        if (evolveLVL < requiredEvoSpecial) {
             btnSpecial.classList.add("not-unlocked");
-            btnSpecial.innerText = "Unlocks after evo- 4";
+            btnSpecial.innerText = `Unlocks after evo- ${requiredEvoSpecial}`;
         } else {
             btnSpecial.classList.remove("not-unlocked");
             btnSpecial.innerText = "Coin Shop";
@@ -769,28 +771,30 @@ function UpdateShopUI() {
 
         if (toggle === 2) {
             btnSpecial.innerText = "Coming Soon!";
-            btnSpecial.classList.add("active-shop")
+            btnSpecial.classList.add("active-shop");
         } else {
-            btnSpecial.classList.remove("active-shop")
+            btnSpecial.classList.remove("active-shop");
         }
-
     }
 
-    // Update rank shop button visibility/text
+
     if (btnRank) {
-        if (evolveLVL < 8 && !(evolveLVL >= 3 && specialty === "buyer")) {
+
+        const requiredEvoRank = (specialty === "buyer" && evolveLVL >= 3) ? 3 : 8;
+
+        if (evolveLVL < requiredEvoRank) {
             btnRank.classList.add("not-unlocked");
-            btnRank.innerText = "Unlocks after evo- 8";
+            btnRank.innerText = `Unlocks after evo- ${requiredEvoRank}`;
         } else {
             btnRank.classList.remove("not-unlocked");
-            btnRank.innerText = "Rank shop";
+            btnRank.innerText = "Rank Shop";
         }
 
         if (toggle === 3) {
             btnRank.innerText = "Coming Soon!";
-            btnRank.classList.add("active-shop")
+            btnRank.classList.add("active-shop");
         } else {
-            btnRank.classList.remove("active-shop")
+            btnRank.classList.remove("active-shop");
         }
     }
 }
