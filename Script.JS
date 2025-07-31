@@ -1529,7 +1529,7 @@ ELMButton.onclick = function() {
         UpdateUI ();
         priceChanges();
 
-        if (ELMcost >= 6) {
+        if (evolossBought >= 5) {
             ELMcost = null;
         }
     }
