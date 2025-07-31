@@ -2137,7 +2137,7 @@ function OfflineProgress() {
         let coinsGainedOffline = 0 
 
         if (CoinACbought === true) {
-            coinsGainedOffline = autoClicksPerSecondRate / (coinneeded * 0.66 * 15) * timeElapsedS * multiplier2;
+            coinsGainedOffline = autoClicksPerSecondRate / (coinneeded * 0.66) * timeElapsedS * multiplier2 * 15;
         } else {
             coinsGainedOffline = 0;
         }
