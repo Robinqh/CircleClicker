@@ -690,10 +690,6 @@ button:hover {
 
 
 
-
-
-
-
 .buyoff {
     background-color: rgb(25, 25, 25) !important;
     cursor: not-allowed;
@@ -1075,15 +1071,8 @@ button:hover {
    
 
 
-
-
-
-
-
-
-
 /* Mobile styles start here */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     /* Hide the sidebars completely */
     .side-box {
         display: none !important;

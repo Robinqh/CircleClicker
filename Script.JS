@@ -534,6 +534,7 @@ function UpdateUI() {
     if (RPexchangeButton) {
         if (!(evolveLVL > 8 || specialty === "buyer")) {
             RPexchangeButton.classList.add("not-unlocked");
+            RPexchangeButton.classList.remove("buyoff");
             RPexchangeButton.innerHTML = "Unlocks at evo-8";
         } else if (rankPoints < ExchangeCost) {
             RPexchangeButton.classList.add("buyoff")
@@ -1209,7 +1210,7 @@ else {
 
 
     //#region --- Circle ---
-circle.onclick = function(){
+    circle.onclick = function(){
     clicks += power * clicksMultiplier;
     allTimePoints += power * clicksMultiplier
     timesClicked ++;
