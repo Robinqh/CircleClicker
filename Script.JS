@@ -758,44 +758,45 @@ function UpdateShopUI() {
     }
 
 
-    if (btnSpecial) {
-        const requiredEvoSpecial = (specialty === "clicker" || specialty === "buyer") ? 3 : 4;
+if (btnSpecial) {
+    // Coin Shop unlock levels:
+    // Buyer vanaf 3, Clicker vanaf 3, anderen vanaf 4
+    const requiredEvoSpecial = (specialty === "buyer" || specialty === "clicker") ? 3 : 4;
 
-        if (evolveLVL < requiredEvoSpecial) {
-            btnSpecial.classList.add("not-unlocked");
-            btnSpecial.innerText = `Unlocks after evo- ${requiredEvoSpecial}`;
-        } else {
-            btnSpecial.classList.remove("not-unlocked");
-            btnSpecial.innerText = "Coin Shop";
-        }
-
-        if (toggle === 2) {
-            btnSpecial.innerText = "Coming Soon!";
-            btnSpecial.classList.add("active-shop");
-        } else {
-            btnSpecial.classList.remove("active-shop");
-        }
+    if (evolveLVL < requiredEvoSpecial) {
+        btnSpecial.classList.add("not-unlocked");
+        btnSpecial.innerText = `Unlocks after evo- ${requiredEvoSpecial}`;
+    } else {
+        btnSpecial.classList.remove("not-unlocked");
+        btnSpecial.innerText = "Coin Shop";
     }
 
+    if (toggle === 2) {
+        btnSpecial.innerText = "Coming Soon!";
+        btnSpecial.classList.add("active-shop");
+    } else {
+        btnSpecial.classList.remove("active-shop");
+    }
+}
 
-    if (btnRank) {
+if (btnRank) {
+    // Rank Shop unlock levels:
+    // Buyer vanaf 3, anderen vanaf 8
+    const requiredEvoRank = (specialty === "buyer") ? 3 : 8;
 
-        const requiredEvoRank = (specialty === "buyer" && evolveLVL >= 3) ? 3 : 8;
+    if (evolveLVL < requiredEvoRank) {
+        btnRank.classList.add("not-unlocked");
+        btnRank.innerText = `Unlocks after evo- ${requiredEvoRank}`;
+    } else {
+        btnRank.classList.remove("not-unlocked");
+        btnRank.innerText = "Rank Shop";
+    }
 
-        if (evolveLVL < requiredEvoRank) {
-            btnRank.classList.add("not-unlocked");
-            btnRank.innerText = `Unlocks after evo- ${requiredEvoRank}`;
-        } else {
-            btnRank.classList.remove("not-unlocked");
-            btnRank.innerText = "Rank Shop";
-        }
-
-        if (toggle === 3) {
-            btnRank.innerText = "Coming Soon!";
-            btnRank.classList.add("active-shop");
-        } else {
-            btnRank.classList.remove("active-shop");
-        }
+    if (toggle === 3) {
+        btnRank.innerText = "Coming Soon!";
+        btnRank.classList.add("active-shop");
+    } else {
+        btnRank.classList.remove("active-shop");
     }
 }
 
