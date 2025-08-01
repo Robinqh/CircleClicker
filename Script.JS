@@ -557,15 +557,15 @@ function UpdateUI() {
         if (evolveLVL < 1) {
             autoupgradeButton.classList.add("not-unlocked");
             autoupgradeButton.classList.remove("buyoff");
-            autoupgrade.innerText = "Unlocks after evolution 1";
-        } else if (clicks < autoprice) {
-            autoupgradeButton.classList.add("buyoff");
-            autoupgradeButton.classList.remove("not-unlocked");
-            autoupgrade.innerText = "Autopower: " + formatNumber(autoprice);
-        } else {
+            autoupgradeButton.innerText = "Unlocks after evolution 1";
+        } else if (clicks >= autoprice) {
             autoupgradeButton.classList.remove("buyoff");
             autoupgradeButton.classList.remove("not-unlocked");
-            autoupgrade.innerText = "Autopower: " + formatNumber(autoprice);
+            autoupgradeButton.innerText = "Autopower: " + formatNumber(autoprice);
+        } else {
+            autoupgradeButton.classList.add("buyoff");
+            autoupgradeButton.classList.remove("not-unlocked");
+            autoupgradeButton.innerText = "Autopower: " + formatNumber(autoprice);
         }
     }
 
@@ -577,7 +577,7 @@ function UpdateUI() {
             permanentupgradeButton.classList.add("not-unlocked");
             permanentupgradeButton.classList.remove("completed");
             permanentupgradeButton.classList.remove("out-of-stock");
-            autoupgradeButton.classList.remove("buyoff");
+            permanentupgradeButton.classList.remove("buyoff");
             permanentupgrade.innerText = "Unlocks after evolution 3";
         } else if (permapower === 20) { // Assuming 20 is the absolute max
             permanentupgradeButton.classList.remove("buyoff");
@@ -631,7 +631,7 @@ function UpdateUI() {
         if (evolveLVL < 2) {
             mysterygiftButton.classList.add("not-unlocked");
             mysterygift.innerText = "Unlocks after evolution 2";
-            autoupgradeButton.classList.remove("buyoff");
+            mysterygiftButton.classList.remove("buyoff");
             mysterygiftButton.classList.remove("out-of-stock");
         } else if (mgBought >= maxMGperEvo) {
             mysterygiftButton.classList.add("out-of-stock");
@@ -1327,7 +1327,6 @@ powerupgrade.onclick = function(){
             
             increasePower *= 1.15;
             upgradesSinceLastMEGA += 1;
-            console.log(upgradesSinceLastMEGA)
 
   
             priceChanges();
