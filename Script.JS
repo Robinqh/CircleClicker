@@ -1562,6 +1562,7 @@ function executeEvolutionLogic() {
     priceChanges();
     UpdateUI();
     startautoclick();
+    UpdateShopUI();
   }
 
   
@@ -1583,6 +1584,7 @@ clickerSpecialty.onclick = function() {
   updateRank()
   UpdateUI();
   priceChanges();
+  UpdateShopUI();
 };
 
 offlinerSpecialty.onclick = function() {
@@ -1603,6 +1605,7 @@ offlinerSpecialty.onclick = function() {
   updateRank()
   UpdateUI();
   priceChanges();
+  UpdateShopUI();
 };
 
 buyerSpeciality.onclick = function() {
@@ -1618,6 +1621,7 @@ buyerSpeciality.onclick = function() {
   updateRank()
   UpdateUI();
   priceChanges();
+  UpdateShopUI();
 };
 
 evolverSpeciality.onclick = function() {
@@ -1633,6 +1637,7 @@ evolverSpeciality.onclick = function() {
   updateRank()
   UpdateUI();
   priceChanges();
+  UpdateShopUI();
 };
 
 
@@ -1646,6 +1651,7 @@ closeEvolvedPopup.onclick = function () {
   updateRank()
   UpdateUI();
   priceChanges();
+  UpdateShopUI();
 }
 
 
