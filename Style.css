@@ -1,4 +1,3 @@
-
 html, body {
     height: 100vh;
     width: 100vw;
@@ -11,6 +10,7 @@ html, body {
     overflow: hidden;
 }
 
+
 .side-box {
     position: absolute;
     height: 100%;
@@ -18,13 +18,13 @@ html, body {
     bottom: 0;
     width: calc((100vw - 26.32vw) / 2);
     background-color: #543fcd27;
-    border: none
+    border: none;
 }
 
 #left-side {
     left: 0;
     border-right: 0.3vw solid black;
-     z-index: 5;
+    z-index: 5;
 }
 
 #right-side {
@@ -32,6 +32,49 @@ html, body {
     border-left: 0.3vw solid black;
     z-index: 5;
 }
+
+.side-line {
+    position: absolute;
+    top: 47.5%;
+    transform: translateY(-50%);
+    height: 0.3vw;
+    background-color: black;
+    z-index: 4;
+}
+
+#left-line {
+    left: calc((100vw - 26.32vw) / 2);
+    width: 10vw;
+}
+
+#right-line {
+    right: calc((100vw - 26.32vw) / 2);
+    width: 10vw;
+}
+
+@keyframes order66Blink {
+  0%   { opacity: 0.2; }
+  20%  { opacity: 0.6; }
+  40%  { opacity: 0.1; }
+  60%  { opacity: 0.7; }
+  80%  { opacity: 0.3; }
+  100% { opacity: 0; }
+}
+
+#order66Effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+}
+
+
 
 #WelcomeV {
     top: 0vh;
@@ -115,8 +158,8 @@ html, body {
   font-weight: bold;
 }
 
-#ClickPower, #totalPoints, #AutoPower, #totalClicks,
-#EvolutionLevel, #offlinemultiplier, #coins, #pricemultiplier {
+#ClickPower, #AutoPower, #totalClicksPoints,
+#EvolutionLevel, #offlinemultiplier, #pricemultiplier {
     background-color: grey;
     display: grid;
     padding: 0.5vh;
@@ -130,57 +173,53 @@ html, body {
     box-sizing: border-box;
 }
 
-#ClickPower, #totalPoints {
-    top: 10vh;
+#ClickPower, #offlinemultiplier {
+    top: 4vh;
     margin-left: -6.58vw;
 }
 
-#AutoPower, #totalClicks {
-    top: 10vh;
-    margin-left: 6.58vw;
-}
-
-#EvolutionLevel, #offlinemultiplier {
+#AutoPower, #pricemultiplier {
     top: 4vh;
     margin-left: 6.58vw;
 }
 
-#coins, #pricemultiplier {
-    top: 4vh;
-    margin-left: -6.58vw;
+#EvolutionLevel, #totalClicksPoints {
+    top: 10vh;
+    width: 26.32vw;
 }
+
+
 
 
 #circle {
-    top: 30vh;
+    top: 31vh;
     width: 15vw; 
     height: 30vh; 
     border-radius: 50%;
-    background-color: rgb(0, 0, 100);
+    background-color: #F08080;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scale(1);
     color: white;
-    font-size: 4vh;
+    font-size: 1.45em;
     cursor: pointer;
     position: absolute;
     border-width: 0.5vh;
     overflow: hidden;
     border-color: gold;
     border-style: solid;
-    transition: background-color 3s ease, width 0.5s ease, height 0.5s ease;
+    transition: background-color 3s ease, transform 0.2s ease;
     z-index: 10;
 }
 
 #circle:hover {
-    background-color: rgb(0, 0, 175);
+    background-color: rgb(220, 108, 108);
     transition: background-color 1s ease;
 }
 
-#circle:active {
-    background-color: rgb(0, 0, 250);
-    width: 15.75vw;  
-    height: 31.5vh; 
-    transition: background-color 1s ease;
+#circle.tapped {
+    background-color: rgb(200, 88, 88);
+    transform: translateX(-50%) scale(1.05);
+    transition: background-color 0.5s ease, transform 0.1s ease;
 }
 
 
@@ -341,7 +380,45 @@ button:hover {
 
 }
 
+@keyframes MEGALINK {
+  0%   { opacity: 0.2; }
+  20%  { opacity: 0.6; }
+  40%  { opacity: 0.1; }
+  60%  { opacity: 0.7; }
+  80%  { opacity: 0.3; }
+  100% { opacity: 0; }
+}
 
+#megaEffect {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: gold;
+  backdrop-filter: blur(2px);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#megaEffect.active {
+  opacity: 1;
+  animation: MEGALINK 3s forwards;
+}
+
+
+.MEGA {
+    background-color: rgb(178, 34, 34);
+    color: white;
+    box-shadow: 0 0 25px 10px white;
+    transition: box-shadow 0.3s ease-in-out; 
+}
+
+.MEGA:hover {
+    background-color: rgb(198, 54, 54);
+    color: white;
+    box-shadow: 0 0 35px 15px white
+}
 
 #saveGameButton {
     width: 8.74vw;
@@ -409,7 +486,7 @@ button:hover {
     color: white;
 }
 
-#toggleStats, #toggleScreen, #toggleScreen2 {
+#toggleStats, #toggleScreen, #toggleScreen2, #backToGameScreen {
     width: 26.32vw;
     height: 4vh;
     position: absolute;
@@ -426,7 +503,7 @@ button:hover {
     background-color: #67A06B;
 }
 
-#toggleScreen, #toggleScreen2 {
+#toggleScreen, #toggleScreen2, #backToGameScreen {
     top: 94.5vh;
 }
 
@@ -452,15 +529,18 @@ button:hover {
 
 #currentRank {
     position: absolute;
-    top: 18vh;
+    top: 20vh;
     height: 3vh;
     width: 25vw;
     left: 50%;
-    border-radius: 1.5vp;
     transform: translateX(-50%);
     text-align: center;
     box-sizing: border-box; 
+    font-size: 1.2em;
+    cursor: default;
 }
+
+
 /* ==== Wood ==== */
 @keyframes pulse-wood {
     0% {
@@ -478,7 +558,7 @@ button:hover {
 }
 
 .wood {
-    background-color: #8B4513;
+    background-color: #8B4513 !important; 
     border: 1px solid #5C2D0C;
     animation: pulse-wood 3s infinite ease-in-out;
     color: #F5DEB3;
@@ -502,7 +582,7 @@ button:hover {
 }
 
 .bronze {
-    background-color: #CD7F32;
+    background-color: #CD7F32 !important;
     border: 1px solid #8B4000;
     animation: pulse-bronze 3s infinite ease-in-out;
     color: #FFE4B5;
@@ -526,7 +606,7 @@ button:hover {
 }
 
 .iron {
-    background-color: #4A4B4B;
+    background-color: #4A4B4B !important;
     border: 1px solid #333434;
     background-image: linear-gradient(to bottom, #5B5B5B, #4A4B4B);
     animation: pulse-iron 3s infinite ease-in-out;
@@ -551,7 +631,7 @@ button:hover {
 }
 
 .gold {
-    background-color: #FFD700;
+    background-color: #FFD700 !important;
     border: 1px solid #DAA520;
     background-image: linear-gradient(to bottom, #FFEC8B, #FFD700, #DAA520);
     color: #8B6508;
@@ -576,7 +656,7 @@ button:hover {
 }
 
 .platinum {
-    background-color: #E5E4E2;
+    background-color: #E5E4E2 !important;
     border: 2px solid #C0C0C0;
     background-image: linear-gradient(to bottom, #F5F5F5, #E5E4E2, #D3D3D3);
     color: #4B4B4B;
@@ -601,7 +681,7 @@ button:hover {
 }
 
 .champion {
-    background-color: #1A2B42;
+    background-color: #1A2B42 !important;
     border: none !important;
     color: #FFD700;
     animation: pulse-champion 2s infinite ease-in-out;
@@ -635,6 +715,11 @@ button:hover {
     color: white;
 }
 
+.order66 {
+    background-color: rgb(255, 125, 0);
+    color: white;
+}
+
 .not-unlocked {
     background-color: rgb(90, 110, 130);;
     cursor: not-allowed;
@@ -653,6 +738,7 @@ button:hover {
 .hidden {
     display: none !important;
 }
+
 
 
 
@@ -780,8 +866,7 @@ button:hover {
     background-color: brown;
     color: white;
     border-radius: 25px;
-    font-size: 1.3em;
-    font-weight: bold;
+    font-size: 1.2em;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column; 
@@ -808,11 +893,9 @@ button:hover {
     margin-top: 20px; /* Space above buttons */
     width: 100%; /* Ensure container takes full width */
     justify-content: center; /* Center the buttons within their container */
-    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
 }
 
 #evolved button {
-    padding: 10px 24px;
     border: none;
     border-radius: 12px;
     background-color: #444;
@@ -823,10 +906,8 @@ button:hover {
     /* REMOVED: position, left, and transform properties that caused overlap */
     position: static; /* Ensure it flows naturally within flex container */
     transform: none; /* Remove any previous transforms */
-    left: auto; /* Reset left property */
-    width: 96%; /* Adjust width to fit two buttons per row with gap */
+    width: auto; /* Adjust width to fit two buttons per row with gap */
     box-sizing: border-box; /* Include padding and border in width calculation */
-    margin-left: 25px;
 }
 
 #evolved button:hover {
@@ -1063,11 +1144,9 @@ button:hover {
     #ClickPower,
     #AutoPower,
     #EvolutionLevel,
-    #coins,
     #pricemultiplier,
     #offlinemultiplier,
-    #totalClicks,
-    #totalPoints,
+    #totalClicksPoints,
     #currentRank,
     #Toggle-Upgrades,
     #toggleStats,
@@ -1075,6 +1154,7 @@ button:hover {
     #autotime,
     #mysteryprice,
     #popupAutoSave,
+    #otherPopUps,
     #popupNC,
     #popupmysterygift,
     #exchangeMessage,
@@ -1095,6 +1175,7 @@ button:hover {
     #Offline,
     #toggleScreen,
     #toggleScreen2,
+    #backToGameScreen,
     #btnNormal,
     #btnSpecial,
     #btnRank,
@@ -1119,16 +1200,23 @@ button:hover {
 #popupmysterygift,
 #popupNC,
 #exchangeMessage,
-#backmessage {
+#backmessage,
+#otherPopUps {
     font-size: 0.7em;
 }
 
-    /* Specific adjustments for elements that should appear side-by-side or have unique sizing */
 
-    /* Coin Count & Evolution Level & ClickPower/AutoPower - display side by side */
-    /* Changed these to inline-block to allow them to sit next to each other if space permits */
-    #coins, #EvolutionLevel, #ClickPower, #AutoPower, #pricemultiplier, #offlinemultiplier, #totalClicks, #totalPoints {
+    #ClickPower, #AutoPower, #pricemultiplier, #offlinemultiplier {
         width: 48%; /* Slightly less than half for spacing */
+        display: inline-block; /* Allow them to be next to each other */
+        vertical-align: top; /* Align tops if heights differ slightly */
+        margin: 0vh;
+        font-size: 0.7em; /* Smaller font for better fit */
+        border-radius: 0;
+    }
+
+    #EvolutionLevel, #totalClicksPoints {
+        width: 96%;
         display: inline-block; /* Allow them to be next to each other */
         vertical-align: top; /* Align tops if heights differ slightly */
         margin-top: 0vh; /* Reduced margin */
@@ -1157,34 +1245,30 @@ button:hover {
         font-size: 0.7em;
     }
 
-    #circle {
-        position: relative; /* Keep relative in the flow */
-        top: auto; /* Removed fixed top position, rely on flow */
-        width: 40vw; /* Make it a good size for tapping */
-        height: 40vw; /* Keep it circular (height = width) */
-        left: 50%;
-        transform: translateX(-50%); /* Re-center horizontally */
-        font-size: 2vh; /* Readable font size */
-        border-width: 0.3vh;
-        display: block; /* Ensure it's a block element */
-        outline: none;
-        margin-top: 12vh;
-        margin-bottom: 2vh;
-        transition: background-color 3s ease, width 0.5s ease, height 0.5s ease;
+#circle {
+    position: relative;
+    top: auto;
+    width: 40vw;
+    height: 40vw;
+    left: 50%;
+    transform: translateX(-50%) scale(1);
+    font-size: 2vh;
+    border-width: 0.3vh;
+    display: block;
+    outline: none;
+    margin-top: 12vh;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    touch-action: manipulation;
+}
 
-         touch-action: manipulation;
-    }
-
-    #circle:active {
-    background-color: rgb(0, 0, 250);
-    width: 42vw;  
-    height: 42vw; 
-    transition: background-color 1s ease;
+#circle.tapped {
+    transform: translateX(-50%) scale(1.1);
 }
 
     #currentRank {
         width: 98%;
         font-size: 1em;
+        margin-top: 3vh;
     }
 
     /* Buttons: Ensure they are distinct and tappable */
@@ -1261,7 +1345,7 @@ button:hover {
         margin-bottom: 0.2vh;
     }
 
-    #toggleAutoSave, #toggleStats, #toggleScreen2, #toggleSound {
+    #toggleAutoSave, #toggleStats, #toggleScreen2, #toggleSound, #backToGameScreen {
         font-size: 0.6em;
         height: 3.5vh;
         width: 98%;
@@ -1363,7 +1447,8 @@ button:hover {
 
     #Basic-Achievments button {
     font-size: 0.5em;
-}
+    }
+
 
 }
 
