@@ -16,8 +16,7 @@
     <div class="side-line" id="right-line"></div>
 
     <div id="game-container">
-        <h2 id="WelcomeV">Welcome to Circle Clicker!</h2>
-        <button id="showChangeLogs">Show Changelog</button>
+        <button id="showChangeLogs">Welcome to Circle Clicker! Show Changelog V11.0</button>
 
         <div id="stats-rowA">
             <h4 id="ClickPower"></h4>
@@ -56,11 +55,17 @@
             </div>
         </div>
 
-        <div id="special-upgrades" class="hidden-upgrades">
-            <div class="special-buttons-group">
-                <button id="ELM"></button>
-                <button id="autotime"></button>
-                <button id="mysteryprice"></button>
+        <div id="special-upgrades">
+            <div id="special-buttons-group">
+                <button id="ELM">ELM</button>
+                <button id="autotime">Autotime</button>
+                <button id="mysteryprice">Mystery Price</button>
+            </div>
+
+            <div id="special-buttons-group2">
+                <button id="X">Coming Soon!</button>
+                <button id="X2">Coming Soon!</button>
+                <button id="X3">Coming Soon!</button>
             </div>
         </div>
 
@@ -81,13 +86,11 @@
         <div class="save-load-group">
             <button id="saveGameButton">Save Game</button>
             <button id="loadGameButton">Load Game</button>
-            <button id="resetGameButton">Reset Game</button>
         </div>
         
-        <button id="toggleAutoSave">Autosave: <span id="autoSaveStatus"></span></button>
-        <button id="toggleSound"></button>
         <button id="toggleStats">Toggle stats</button>
         <button id="toggleScreen">Toggle screen</button>
+        <button id="settingsScreen">Settings</button>
 
         <div id="large-pop-ups">
             <div id="evolved" style="display: none;">
@@ -105,7 +108,7 @@
             <div id="confirm-evolve-popup" class="popup-container">
                     <div class="popup-content">
                         <h2>Confirm Evolution</h2>
-                        <p>Are you sure you want to evolve? This action will have consequences.</p>
+                        <p>Are you sure you want to evolve? This action will have consequences. <br> During evolution you lose all your clicking/auto power, and your clicks * your evoloss!</p>
                         <div class="popup-buttons">
                             <button id="confirm-evolve-yes">Yes, Evolve!</button>
                             <button id="confirm-evolve-no">No, Not Yet</button>
@@ -114,208 +117,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-<div id="changelogPopup" style="
-  position: fixed;
-  text-align: left;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #1c1c1c;
-  color: white;
-  padding: 3px 16px;
-  border-radius: 16px;
-  width: 90%;
-  max-width: 480px;
-  z-index: 9999;
-  box-shadow: 0 0 15px #000;
-  display: none;
-  font-family: sans-serif;
-  font-size: 0.95em;
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 80%;
-  pointer-events: all;
-">
-
-<h1 style="color:#4fc3f7; margin-bottom: 4px;">
-  Update Version 10.0<br>
-  <b>THE BIGGEST UPDATE YET</b><br>
-  August 1, 2025 (20:00)
-</h1>
-<p style="font-size: 0.85em; color: #aaa; margin-top: 0;">
-  Last large update (V9.0): July 31, 2025 (22:30)
-</p>
-
-<h2><b>This update:</b></h2>
-<h3>New Features / Reworks</h3>
-<ul>
-  <li><strong>Evolution Hard Cap:</strong> You can now have a maximum of <strong>25 evolutions</strong>! (To be increased to <strong>50</strong> in a future update!)</li>
-  <li><strong>Free Evolutions:</strong> Evolutions no longer cost anything — but you must now <strong>complete a challenge</strong> before each one! This also means you can sometimes evolve <strong>multiple times in a row</strong> if you’re fast enough.</li>
-  <li><strong>Dynamic Requirements:</strong> Evolution goals now display how far you’ve progressed, not just the final requirement.</li>
-  <li><strong>Evolver Spec Rework:</strong> Evolver spec can <strong>no longer skip</strong> evolution requirements. However, their <strong>evo loss percentages are much improved</strong> as compensation.</li>
-  <li><strong>New Easter Egg:</strong> A secret has been added… <em>can you find it?</em></li>
-  <li><strong>Endgoal Update:</strong> The final goal is now <strong>50 million Points</strong> (was 10 million) — but it’s now based on <strong>all-time Points</strong> instead of current Points.</li>
-  <li><strong>MEGA Upgrades:</strong> Every 10th clicker upgrade now results in a MEGA upgrade — granting <strong>5×</strong> the clicking power of a normal upgrade.</li>
-  <li><strong>Secret V0.1 Mode:</strong> A hidden button in the UI brings you back to the original version of the game (V0.1). All code is faithfully copied; only a warning and return button are added. Good luck finding it!</li>
-</ul>
-
-<h3>Balance Changes</h3>
-<ul>
-  <li><strong>EvoLoss Update:</strong> Losing an evolution now <strong>always resets</strong> Power and AutoPower — even if it previously didn’t.</li>
-  <li><strong>Clicker Spec Buff:</strong> Clicker spec now starts every evolution with <strong>10 free Clicking Power upgrades</strong> (up from 1).</li>
-  <li><strong>Offliner Spec Buff:</strong> Offliner spec now starts every evolution with <strong>10 free AutoPower upgrades</strong> (up from 0).</li>
-  <li><strong>Offline Nerf:</strong> The offline multiplier now starts at <strong>10%</strong> instead of 25%, reducing the maximum possible bonus.</li>
-  <li><strong>Hard Cap:</strong> You can now only evolve up to <strong>evolution 25</strong> — for now.</li>
-  <li><strong>RP → Points Trade:</strong> RankPoints now convert to Points at a <strong>1% rate</strong>, but with <strong>no upper limit</strong>.</li>
-  <li><strong>Mystery Gift Change:</strong> The <strong>Free Evolution</strong> reward has been replaced with a <strong>2× Points</strong> reward.</li>
-  <li><strong>Rebalanced Evo Requirements:</strong> Most old requirements are now <strong>more difficult</strong>, and several new ones were added.</li>
-  <li><strong>Evolution Rewards Updated:</strong> Several rewards tied to evolutions have been <strong>rebalanced or improved</strong>.</li>
-  <li><strong>Spec Rewards Improved:</strong> Specialization benefits have been <strong>buffed overall</strong>.</li>
-  <li><strong>Rank Rewards Tweaked:</strong> Rank bonuses have been <strong>rearranged and rebalanced</strong>.</li>
-</ul>
-
-<h3>UI/UX – Quality of Life – Tweaks</h3>
-<ul>
-  <li><strong>Coin Display:</strong> You can now see your <strong>current Coins</strong> directly inside the Coin Shop!</li>
-  <li><strong>Stat Panel:</strong> The <strong>Stats</strong> page has been visually updated for clarity.</li>
-  <li><strong>PermaPower Tooltip:</strong> PermaPower now includes an <strong>info box</strong> explaining its effect.</li>
-  <li><strong>Small UI Tweaks:</strong> Various minor adjustments to layout and visuals (especially on <strong>desktop</strong>).</li>
-  <li><strong>Updated Endgoal Message:</strong> The message shown after reaching the endgoal has been improved.</li>
-  <li><strong>Spec Explanations:</strong> Specializations now provide <strong>clearer descriptions</strong> of what they do.</li>
-  <li><strong>Locked Buttons Hidden:</strong> Buttons for content you haven’t unlocked are now <strong>hidden</strong> instead of greyed out.</li>
-  <li><strong>New Circle Color:</strong> The main click-circle now better matches the overall <strong>aesthetic</strong> of the game.</li>
-  <li><strong>Offliner Rank Shop Access:</strong> The Offliner spec can now enter the Rank Shop at Evolution 3. However, all non-automatic upgrades remain locked until Evolution 8.</li>
-</ul>
-
-<h3>Bug & Issue Fixes</h3>
-<ul>
-  <li><strong>Mobile Click Bug Fixed:</strong> Tapping the Circle no longer shifts the layout on <strong>mobile devices</strong>.</li>
-  <li><strong>Color Reset Fix:</strong> Color themes now update <strong>immediately</strong> after a reset.</li>
-  <li><strong>Click Sound Fix:</strong> Fixed a bug where <strong>clicking too fast</strong> caused audio issues.</li>
-</ul>
-
-<h3>Code/Dev Optimizations</h3>
-<ul>
-  <li>Minor clean-up for the HTML document.</li>
-</ul>
-
-<!--This just shows the previous large update - doesn't really have matter-->
-<h3 style="color:#4fc3f7; margin-bottom: 4px;">Previous large update (V9.0) - Stabalizing The Game</h3>
-  <h3>New Features</h3>
-  <ul>
-    <li><strong>Pop-ups!</strong> All messages now appear as sleek pop-ups — more readable, less intrusive, and visually improved!</li>
-    <li><strong>Sound!</strong> Clicking the circle now plays a short sound effect. More sounds are planned for future updates!</li>
-    <li><strong>Toggle Sound:</strong> You can now mute or unmute the game using the new “Toggle Sound” button!</li>
-    <li><strong>Shop Highlighting:</strong> The currently active shop button is now golden instead of green. Enjoy the new aesthetic — and a special message while browsing certain shops!</li>
-  </ul>
-
-  <h3>Balance Changes</h3>
-  <ul>
-    <li>The first evolution now costs <strong>500</strong> instead of <strong>750</strong>, making early progression a bit smoother.</li>
-    <li>All "Click X times" achievement rewards have been multiplied by <strong>10×</strong> to better match the new coin system (still around <strong>33% lower</strong> than they originally were).</li>
-    <li>The <strong>Clicker specialization</strong> now gains an <strong>extra +5% click multiplier at Evolution 4</strong> to compensate for already having access to the Coin Shop.</li>
-    <li><strong>Evolution requirements</strong> have been completely rebalanced — most old ones are now harder, and many new ones have been added.</li>
-  </ul>
-
-  <h3>UI/UX – Quality of Life – Tweaks</h3>
-  <ul>
-    <li><strong>Dynamic Requirements:</strong> Evolution goals now show your progress instead of just the final amount required.</li>
-    <li><strong>Rank Glow:</strong> All rank names now glow — with an especially impressive glow for the mysterious [REDACTED] rank.</li>
-    <li><strong>Locked Items:</strong> Things you haven’t unlocked yet are now purple-ish, instead of plain black.</li>
-    <li><strong>Improved Autosave Logic:</strong> The game only saves on first load if autosave was already enabled.</li>
-    <li><strong>Visual Polish:</strong> Sidebars have clearer borders (on desktop), and several background colors have been updated.</li>
-    <li><strong>Readded Effect:</strong> The circle now grows/shrinks when clicked again!</li>
-  </ul>
-
-  <h3>Bug & Issue Fixes</h3>
-  <ul>
-    <li>Buyer spec's <strong>bonus RPpS</strong> at certain evolutions now applies correctly.</li>
-    <li>The <strong>evolve button</strong> now turns orange after resetting if requirements aren’t met (instead of staying black).</li>
-    <li>Buying an <strong>auto upgrade</strong> no longer immediately triggers an autoclick.</li>
-    <li>The <strong>autoclicker stat panel</strong> now correctly shows the autoclicker multiplier.</li>
-    <li><strong>Total coins</strong> are now in sync with the new 15× coin system, making coin achievements more achievable.</li>
-    <li>After resetting, players are now correctly sent back to the <strong>Base Shop</strong>.</li>
-    <li>Updated the <strong>"Coming Soon"</strong> section.</li>
-  </ul>
-
-  <h3>Code Optimizations</h3>
-  <ul>
-    <li>Cleaned up and renamed key variables to allow easier future support for:
-      <ul>
-        <li>Extra <strong>Evoloss</strong> levels.</li>
-        <li>More <strong>Mystery Gifts</strong> per evolution.</li>
-      </ul>
-    </li>
-  </ul>
-
-<!--This matters again-->
-
-<h2 style="color:#4fc3f7; margin-bottom: 4px;"><strong>Other Stuff:</strong></h2>
-
-<h3><strong>Known Bugs</strong></h3>
-<p style="color:#aaa; font-size: small;">
-  <em>(These bugs are minor and not urgent, so they may take some time to fix.)</em>
-</p>
-<ul>
-  <li><strong>(Since V6.0)</strong> If the game autosaves during specialization selection and you reload that save, you may get locked out. <em>Temporary solution: autosave is disabled on this screen, and a forced save occurs just before Evolution 3.</em></li>
-  <li><strong>(Since V5.0)</strong> On mobile, upgrade button colors only update after tapping elsewhere.</li>
-  <li><strong>(Since always)</strong> If multiple pop-ups of the same type trigger at once, their timers overwrite each other — causing them to disappear too quickly.</li>
-  <li><strong>(Since ???)</strong> Autoclickers do not update the evolution progress requirement until you click manually.</li>
-</ul>
-
-<h3><strong>Coming Soon</strong></h3>
-<ul>
-  <li><strong>New systems.</strong></li>
-  <li><strong>Expanded stat tracking.</strong></li>
-  <li><strong>Upgrade buy multipliers</strong> (Buy 1 / 10 / 100 / Max).</li>
-  <li><strong>Improved number formatting</strong> for prices and stats.</li>
-  <li><strong>Support for evolutions beyond Evolution 25.</strong></li>
-  <li><strong>A new currency</strong> with its own dedicated shop.</li>
-  <li><strong>And much, much more!</strong></li>
-</ul>
-
-<div style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
-
-  <!-- Reset button -->
-  <button id="resetAupdate" style="
-    background: rgb(255, 255, 255);
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-weight: bold;
-    right: 300px;
-    width: 50vw;
-        max-width: 200px;
-    height: 5vh;
-  ">
-Reset game (recommended)
-  </button>
-
-  <!-- Close button -->
-  <button onclick="document.getElementById('changelogPopup').style.display='none'; localStorage.setItem('cc_changelog_V10.0', 'seen');" style="
-    background: #000000;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-weight: bold;
-    left: 300px;
-    width: 50vw;
-    max-width: 200px;
-    height: 5vh;
-  ">
-    Close - resetting is rocommended
-  </button>
-
-</div>
-
 </div>
 
         <div class="pop-ups">
@@ -372,6 +173,22 @@ Reset game (recommended)
   <button id="toggleScreen2">Toggle screen</button>
 </div>
 
+
+
+  <div id="settings" class="hidden">
+
+    <div class="settings-container">
+      <button id="toggleAutoSave"></button>
+      <button id="resetGameButton">Reset Game</button>
+      <button id="toggleSound"></button>
+      <button id="UNUSEDSETTING">Unused setting</button>
+    </div>
+
+    <button id="leaveSettings">Leave Settings</button>
+  </div>
+
+
+
 <div id="OG-Version" class="hidden">
 
    <h1>Welcome to Circle Clicker V0.1 - WARNING: This version does not save after leaving the *whole* game!</h1>
@@ -387,7 +204,7 @@ Reset game (recommended)
 
 
 <script>
-  const changelogVersion = "V10.0"; // Change on new updates
+  const changelogVersion = "V11.0"; // Change on new updates
 
   window.addEventListener("load", () => {
     const seen = localStorage.getItem("cc_changelog_" + changelogVersion);
@@ -401,6 +218,123 @@ Reset game (recommended)
 
 <div id="order66Effect"></div>
 <div id="megaEffect"></div>
+
+
+
+<div id="changelogPopup">
+
+<h1 style="color: goldenrod; margin-bottom: 8px;">Another Evolution Update - V11.0</h1>
+
+<h3>New Features</h3>
+<ul>
+  <li><strong>Evogoals:</strong> Replacing the old endgoal, every evolution now has a second goal. Completing it takes time but grants permanent rewards. Evolving isn’t always the best choice anymore!</li>
+  <li>Completing an evogoal grants a <strong>+2.5% auto and click multiplier</strong>.</li>
+  <li>Extra evogoals added to evolutions: <strong>1–5, 9, 14, 19, 24</strong> (more coming soon).</li>
+  <li><strong>New evolution requirement:</strong> Buy a minimum number of upgrades during each evolution.</li>
+  <li><strong>MEGA Upgrades:</strong> Now available for auto-upgrades too. Clicking and autopower share the same count — choose wisely!</li>
+  <li><strong>New sound alert:</strong> Pop-ups now play a notification sound.</li>
+  <li><strong>Settings screen:</strong> Access reset and sound toggle options through the new settings button.</li>
+</ul>
+
+<h3>Balance Changes</h3>
+<ul>
+  <li>MEGA-upgrades no longer count towards the 10 required upgrades.</li>
+  <li>Adjusted some evolution requirements.</li>
+  <li>Removed the old endgoal.</li>
+  <li>First coin batch now awarded at <strong>150 clicks</strong> instead of 350.</li>
+  <li>Added a new evolution requirement: buy at least <strong>5 × your evolution level</strong> upgrades (clicker or auto).</li>
+</ul>
+
+<h3>UI/UX Improvements & Quality of Life</h3>
+<ul>
+  <li>Welcome message and update logs are now combined in a fixed position for consistent display.</li>
+  <li>The <strong>Evolve</strong> button turns green at max level (25).</li>
+  <li>Evolution messages now clearly state what you lose on evolving.</li>
+  <li>Second page of the Coin Shop is accessible (content coming soon).</li>
+  <li>Achievement rewards use the improved pop-up UI.</li>
+  <li>MEGA-upgrade effect duration shortened.</li>
+  <li>Warning shown if you haven’t reset after an update (ignore if you already did).</li>
+  <li>Game loads directly into the regular shop after loading a save.</li>
+  <li>Some buttons moved due to the new settings screen.</li>
+  <li>Changed tho look of the changelog</li>
+</ul>
+
+<h3>Bug Fixes</h3>
+<ul>
+  <li>Fixed power/autopower calculation issues after evolving.</li>
+  <li>Offline autoclicker and coin autoclicker now appear consistently on desktop and mobile.</li>
+  <li>Prices and offline multipliers are visible again.</li>
+  <li>Minor typo and spelling fixes.</li>
+  <li>Rank shop items unlock at evolution 8 instead of 9.</li>
+  <li>Reduced permaupgrade font size for better fit on smaller screens.</li>
+  <li>Clicker/offliner free upgrades start at evolution 3 instead of 4.</li>
+  <li>Fixed autoclicker UI update issue when coin autoclicker not purchased.</li>
+</ul>
+
+<h3>Known Issues</h3>
+<p style="color: #888; font-size: small; font-style: italic;">
+  These minor bugs are not urgent and may take some time to fix.
+</p>
+<ul>
+  <li><strong>Since v6.0:</strong> Autosaving during specialization selection may cause save lockout. Temporary fix: autosave disabled on this screen, forced save before Evolution 3.</li>
+  <li><strong>Since v5.0:</strong> On mobile, upgrade button colors only update after tapping elsewhere.</li>
+  <li>Multiple simultaneous pop-ups overwrite timers, causing them to disappear too quickly.</li>
+</ul>
+
+<h3>Coming Soon</h3>
+<ul>
+  <li>New gameplay systems.</li>
+  <li>Expanded stat tracking.</li>
+  <li>Upgrade buy multipliers (Buy 1 / 10 / 100 / Max).</li>
+  <li>Improved number formatting for prices and stats.</li>
+  <li>Support for evolutions beyond level 25.</li>
+  <li>A new currency with its own shop.</li>
+  <li>More code optimizations, bug fixes, and balance changes.</li>
+  <li>And much more!</li>
+</ul>
+
+<div style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
+
+  <!-- Reset button -->
+  <button id="resetAupdate" style="
+    background: rgb(255, 255, 255);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    right: 300px;
+    width: 50vw;
+        max-width: 200px;
+    height: 5vh;
+  ">
+Reset game (recommended)
+  </button>
+
+<button onclick="
+  if (confirm('Resetting is recommended.\nClick OK to close the changelog, or Cancel to keep it open.')) {
+    document.getElementById('changelogPopup').style.display = 'none';
+    localStorage.setItem('cc_changelog_V11.0', 'seen');
+  } else {
+  }
+" style="
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    left: 300px;
+    width: 50vw;
+    max-width: 200px;
+    height: 5vh;
+  ">
+  Close 
+</button>
+
+</div>
     
 <script src="Script.JS"></script>
 </body>

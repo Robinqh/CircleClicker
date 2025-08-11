@@ -10,6 +10,68 @@ html, body {
     overflow: hidden;
 }
 
+#changelogPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #121212;
+    color: #f0f0f0;
+    padding: 2vh 3vh;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 425px;
+    max-height: 80%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+    z-index: 9999;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    text-align: left;
+    pointer-events: all;
+    transition: opacity 0.3s ease;
+}
+
+
+#changelogPopup::-webkit-scrollbar {
+    width: 8px;
+}
+
+#changelogPopup::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+}
+
+#changelogPopup::-webkit-scrollbar-track {
+    background: #222;
+}
+
+#changelogPopup h2, 
+#changelogPopup h3 {
+    color: #f5a623;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+#changelogPopup a {
+    color: #f5a623;
+    text-decoration: underline;
+}
+
+#changelogPopup a:hover {
+    color: #ffcf5c;
+}
+
+li {
+  margin-bottom: 6px; 
+}
+
+li:last-child {
+  margin-bottom: 0;
+}
+
 
 .side-box {
     position: absolute;
@@ -75,23 +137,13 @@ html, body {
 }
 
 
-
-#WelcomeV {
-    top: 0vh;
-    transform: translateX(260%);
-    display: grid;
-    width: auto;
-    height: 3vh;
-    position: absolute;
-}
-
 #showChangeLogs {
+  width: 26.32vw;
   display: inline-block;
   top: 1.5vh;
   height: auto;
-  transform: translateX(50%);
-  border-radius: 10px;
-  padding: 10px 20px;
+  transform: translateX(-50%);
+  left: 50%;   
   background-color: black;
   color: white;
   text-align: center;
@@ -173,12 +225,12 @@ html, body {
     box-sizing: border-box;
 }
 
-#ClickPower, #offlinemultiplier {
+#ClickPower, #pricemultiplier {
     top: 4vh;
     margin-left: -6.58vw;
 }
 
-#AutoPower, #pricemultiplier {
+#AutoPower, #offlinemultiplier {
     top: 4vh;
     margin-left: 6.58vw;
 }
@@ -226,7 +278,7 @@ html, body {
 
 button {
     background-color: rgb(190, 250, 180);
-    position: absolute; /* Default for desktop */
+    position: absolute; 
     text-align: center;
     cursor: pointer;
     border-radius: 2vh;
@@ -298,6 +350,7 @@ button:hover {
     text-align: center;
     border-radius: 1vh;
     margin-left: -6.58vw;
+    font-size: 0.8em;
 }
 
 #mysterygift {
@@ -313,7 +366,7 @@ button:hover {
 }
 
 
-#ELM {
+#ELM, #X {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -324,7 +377,7 @@ button:hover {
     border-radius: 1vh;
 }
 
-#autotime {
+#autotime, #X2 {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -335,7 +388,7 @@ button:hover {
     border-radius: 1vh;
 }
 
-#mysteryprice {
+#mysteryprice, #X3 {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -352,7 +405,6 @@ button:hover {
     position: absolute;
     top: 62.5vh;
     left: 50%;
-    transform: translateX(-100%);
     text-align: center;
     border-radius: 1vh;
 }
@@ -363,6 +415,7 @@ button:hover {
     position: absolute;
     top: 62.5vh;
     left: 50%;
+    transform: translateX(-100%);
     text-align: center;
     border-radius: 1vh;
 
@@ -381,11 +434,9 @@ button:hover {
 }
 
 @keyframes MEGALINK {
-  0%   { opacity: 0.2; }
-  20%  { opacity: 0.6; }
-  40%  { opacity: 0.1; }
-  60%  { opacity: 0.7; }
-  80%  { opacity: 0.3; }
+  0%   { opacity: 0.5; }
+  40%  { opacity: 0.3; }
+  80%  { opacity: 0.5; }
   100% { opacity: 0; }
 }
 
@@ -403,7 +454,7 @@ button:hover {
 
 #megaEffect.active {
   opacity: 1;
-  animation: MEGALINK 3s forwards;
+  animation: MEGALINK 1.5s forwards;
 }
 
 
@@ -421,7 +472,7 @@ button:hover {
 }
 
 #saveGameButton {
-    width: 8.74vw;
+    width: 13.16vw; 
     height: 4vh;
     position: absolute;
     top: 82.5vh;
@@ -429,13 +480,13 @@ button:hover {
     transform: translateX(-50%);
     text-align: center;
     border-radius: 1vh;
-    margin-left: -8.74vw;
+    margin-left: -6.58vw;
     background-color: darkgreen;
     color: white;
 }
 
 #loadGameButton {
-    width: 8.74vw;
+    width: 13.16vw;
     height: 4vh;
     position: absolute;
     top: 82.5vh;
@@ -443,50 +494,69 @@ button:hover {
     transform: translateX(-50%);
     text-align: center;
     border-radius: 1vh;
+    margin-left: 6.58vw;
     background-color: orangered;
     color: white;
 }
 
-#resetGameButton {
-    width: 8.74vw;
-    height: 4vh;
-    position: absolute;
-    top: 82.5vh;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    border-radius: 1vh;
-    margin-left: 8.74vw;
-    background-color: darkred;
-    color: white;
+
+.settings-container {
+    position: relative;  
+    width: 40vh;
+    height: 40vh;
+    background: #333;
+    border-radius: 12px;
+    margin: 2vh auto 0 auto;
+    padding: 1vh;
+    box-sizing: border-box;
+    top: 25vh;
 }
 
-#toggleAutoSave {
-    width: 13.16vw;
-    height: 4vh;
+.settings-container button {
     position: absolute;
-    top: 86.5vh;
-    left: 50%;
-    transform: translateX(-100%);
-    text-align: center;
+    width: 15vh;
+    height: 15vh;
     border-radius: 1vh;
-    background-color: darkblue;
     color: white;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+}
+
+
+#toggleAutoSave {
+    top: 1vh;
+    left: 1vh;
+    background-color: darkgreen;
 }
 
 #toggleSound {
-    width: 13.16vw;
-    height: 4vh;
-    position: absolute;
-    top: 86.5vh;
-    left: 50%;
-    text-align: center;
-    border-radius: 1vh;
+    top: 1vh;
+    right: 1vh;
     background-color: darkblue;
-    color: white;
 }
 
-#toggleStats, #toggleScreen, #toggleScreen2, #backToGameScreen {
+#resetGameButton {
+    bottom: 1vh;
+    left: 1vh;
+    background-color: darkred;
+}
+
+#UNUSEDSETTING {
+    bottom: 1vh;
+    right: 1vh;
+    background-color: darkgrey;
+    cursor: not-allowed;
+}
+
+
+
+
+
+#settingsScreen {
     width: 26.32vw;
     height: 4vh;
     position: absolute;
@@ -495,23 +565,63 @@ button:hover {
     transform: translateX(-50%);
     text-align: center;
     border-radius: 1vh;
-    background-color: #507D53;
+    background-color: grey;
     color: white;
 }
 
-#toggleStats:hover, #toggleScreen:hover, #toggleScreen2:hover {
+#settingsScreen:hover {
+    background-color: lightgrey;
+}
+
+
+#toggleStats, #toggleScreen, #toggleScreen2, #backToGameScreen {
+    width: 13.16vw;
+    height: 4vh;
+    position: absolute;
+    top: 86.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 1vh;
+    background-color: #507D53;
+    color: white;
+    margin-left: 6.58vw;
+}
+
+#toggleScreen  {
+    margin-left: -6.58vw;
+}
+
+#toggleScreen2, #backToGameScreen {
+    width: 26.32vw;
+    margin-left: 0;
+}
+
+
+#toggleStats:hover, #toggleScreen:hover, #toggleScreen2:hover{
     background-color: #67A06B;
 }
 
-#toggleScreen, #toggleScreen2, #backToGameScreen {
-    top: 94.5vh;
+
+#leaveSettings {
+    width: 26.32vw;
+    height: 4vh;
+    position: absolute;
+    top: 90.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 1vh;
+    background-color: grey;
+    color: white; 
+}
+
+#leaveSettings:hover {
+    background-color: lightgrey;
 }
 
 
-
-
-
-#saveGameButton:hover {
+#saveGameButton:hover, #toggleAutoSave:hover {
     background-color: rgb(0, 150, 0);
 }
 
@@ -523,9 +633,11 @@ button:hover {
     background-color: rgb(200, 0, 0);
 }
 
-#toggleAutoSave:hover, #toggleSound:hover {
+#toggleSound:hover {
     background-color: rgb(0, 0, 200);
 }
+
+
 
 #currentRank {
     position: absolute;
@@ -1072,7 +1184,7 @@ button:hover {
 
 
 /* Mobile styles start here */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
     /* Hide the sidebars completely */
     .side-box {
         display: none !important;
@@ -1099,26 +1211,13 @@ button:hover {
         width: 98%; /* Give it a width to center */
     }
 
-    /* WelcomeV (Game Name) - centered on the left */
-    #WelcomeV {
-        position: static; /* Allows element to flow naturally */
-        transform: none; /* Removes any translateX/Y transforms */
-        display: inline-block; /* Make it inline to sit next to showChangeLogs */
-        width: 50%; /* Allocate width for the game name */
-        left: auto; /* Reset left property */
-
-        box-sizing: border-box; /* Include padding and border in the element's total width and height */
-        text-align: left; /* Align text to the left */
-        vertical-align: middle; /* Align with the button */
-        font-size: 0.8em; /* Keep existing font size */
-    }
 
     /* showChangeLogs button - next to the game name */
     #showChangeLogs {
         position: static; /* Allows element to flow naturally */
         transform: none; /* Removes any translateX/Y transforms */
         display: inline-block; /* Make it inline to sit next to WelcomeV */
-        width: 48%; /* Allocate width for the button */
+        width: 96%; /* Allocate width for the button */
         left: auto; /* Reset left property */
 
         box-sizing: border-box; /* Include padding and border in the element's total width and height */
@@ -1140,6 +1239,11 @@ button:hover {
     #Toggle-Upgrades,
     #toggleStats,
     #ELM,
+    #X,
+    #X2,
+    #settings-container,
+    #UNUSEDSETTING
+    #X3,
     #autotime,
     #mysteryprice,
     #popupAutoSave,
@@ -1165,6 +1269,8 @@ button:hover {
     #toggleScreen,
     #toggleScreen2,
     #backToGameScreen,
+    #leaveSettings,
+    #settingsScreen,
     #btnNormal,
     #btnSpecial,
     #btnRank,
@@ -1175,14 +1281,14 @@ button:hover {
     #progress-container-RANKS,
     #progress-bar-RANKS,
     #progress-text-RANKS {
-        position: static; /* Allows elements to flow naturally (stack) */
-        transform: none; /* Removes any translateX/Y transforms */
-        width: 90%; /* Make most elements take 90% width of the screen for better spacing */
-        display: block; /* Ensure they stack as block elements */
-        left: auto; /* Reset left property */
-        margin-left: auto; /* Center block elements */
+        position: static;
+        transform: none; 
+        display: block;
+        left: auto; 
+        margin-left: auto; 
         margin-right: auto;
-        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        box-sizing: border-box; 
+        font-size: 0.5em;
     }
 
 #popupAutoSave,
@@ -1195,44 +1301,33 @@ button:hover {
 }
 
 
-    #ClickPower, #AutoPower, #pricemultiplier, #offlinemultiplier {
-        width: 48%; /* Slightly less than half for spacing */
-        display: inline-block; /* Allow them to be next to each other */
-        vertical-align: top; /* Align tops if heights differ slightly */
-        margin: 0vh;
-        font-size: 0.7em; /* Smaller font for better fit */
-        border-radius: 0;
-    }
+#ClickPower, #offlinemultiplier,
+#AutoPower, #pricemultiplier {
+    box-sizing: border-box;
+    width: 48%; 
+    display: inline-block;
+    vertical-align: top;
+    font-size: 0.7em;
+    border-radius: 0;
+    margin: 0; 
+}
 
-    #EvolutionLevel, #totalClicksPoints {
-        width: 96%;
-        display: inline-block; /* Allow them to be next to each other */
-        vertical-align: top; /* Align tops if heights differ slightly */
-        margin-top: 0vh; /* Reduced margin */
-        margin-bottom: 0vh;
-        font-size: 0.7em; /* Smaller font for better fit */
-        border-radius: 0;
-    }
+#offlinemultiplier, #pricemultiplier {
+    margin-right: 0;
+}
 
-    /* This will make the stats-row behave like a flex container to wrap its children */
-    /* Assuming you've wrapped the top stat elements in a div with class "stats-row" in index.html */
-    #stats-rowA {
-        display: flex;
-        flex-wrap: wrap; /* Allow items to wrap to the next line */
-        justify-content: space-around; /* Distribute items with space around them */
-        width: 100%; /* Ensure it takes full width */
-        height: auto;
-        font-size: 0.7em;
-    }
+#EvolutionLevel, #totalClicksPoints {
+    box-sizing: border-box;
+    width: 96%;
+    display: block;
+    margin-top: 0;
+    font-size: 0.7em;
+    border-radius: 0;
+}
 
-    #stats-rowB {
-        display: flex;
-        flex-wrap: wrap; 
-        justify-content: space-around; 
-        width: 100%; 
-        height: auto;
-        font-size: 0.7em;
-    }
+#stats-rowA, #stats-rowB {
+    width: 96%;
+}
 
 #circle {
     position: relative;
@@ -1283,6 +1378,7 @@ button:hover {
         position: static; /* Ensure they are not absolute after being inlined */
         transform: none; /* No transforms */
         left: auto;
+        font-size: 0.6em;
     }
 
     #evolve {
@@ -1290,6 +1386,9 @@ button:hover {
     }
 
     #ELM,
+    #X,
+    #X2,
+    #X3,
     #autotime,
     #mysteryprice,
     #CoinAC,
@@ -1310,7 +1409,10 @@ button:hover {
     #autotime,
     #mysteryprice,
     #CN,
-    #RPexchange {
+    #RPexchange,
+    #X,
+    #X2,
+    #X3 {
         width: 98%;
     }
 
@@ -1318,7 +1420,6 @@ button:hover {
     /* Changed these to inline-block to allow them to sit next to each other if space permits */
     #saveGameButton,
     #loadGameButton,
-    #resetGameButton,
     #btnNormal,
     #btnSpecial,
     #btnRank {
@@ -1334,13 +1435,53 @@ button:hover {
         margin-bottom: 0.2vh;
     }
 
-    #toggleAutoSave, #toggleStats, #toggleScreen2, #toggleSound, #backToGameScreen {
+    #saveGameButton,
+    #loadGameButton {
+        width: 48%;
+    }
+
+    #toggleStats, #toggleScreen, #toggleScreen2, #backToGameScreen, #settingsScreen {
         font-size: 0.6em;
         height: 3.5vh;
         width: 98%;
         margin-top: 0.2vh; 
         margin-bottom: 0.2vh;
     }
+
+
+.settings-container {
+    position: static;
+    width: 90vw;       
+    height: 75vh;      
+    background: #333;
+    border-radius: 12px;
+    margin: 2vh auto 0 auto;
+    padding: 2vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh;       
+}
+
+#toggleAutoSave, #toggleSound, #UNUSEDSETTING, #resetGameButton {
+    width: 100%;      
+    height: 12vw;     
+    border-radius: 1vh;
+    font-size: 1.5rem;
+}
+
+#UNUSEDSETTING {
+    position: static !important;
+    width: 100%;
+    height: 12vw;
+    border-radius: 1vh;
+    font-size: 1.5rem;
+    cursor: not-allowed;
+}
+
+
+
+
 
    #progress-container {
         position: absolute; /* Revert to absolute positioning */
