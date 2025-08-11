@@ -1556,7 +1556,6 @@ autoupgrade.onclick = function() {
         if (clicks >= autoprice) {
             clicks -= autoprice;
             autoupgrades += 1;
-            autopower += 1 * evopower
             increaseAuto *= 1.15;
 
         if (upgradesSinceLastMEGA === 10) {
@@ -1583,7 +1582,6 @@ autoupgrade.onclick = function() {
                 upgradesSinceLastMEGA = 0;
             }
 
-            console.log(upgradesSinceLastMEGA)
 
             priceChanges();
             UpdateUI();
