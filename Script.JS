@@ -119,8 +119,8 @@ const loadconfirmed = false
 const toggleAutoSave = document.getElementById("toggleAutoSave")
 
     //Sound Logic
-const clickSound = new Audio("sounds/clickSound.mp3");
-const popupSound = new Audio("sounds/PopUp.mp3")
+const clickSound = new Audio("Sounds/clickSound.mp3");
+const popupSound = new Audio("Sounds/PopUp.mp3")
 
     ///Easter Eggs
 const OGVERSIONButton = document.getElementById("currentRank")
