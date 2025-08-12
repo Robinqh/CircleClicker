@@ -87,6 +87,7 @@ const exchangeMessage = document.getElementById("exchangeMessage")
 const showChangeLogsButton = document.getElementById("showChangeLogs");
 const popupAutoSave = document.getElementById("popupAutoSave")
 
+
 //Circle
 const circle = document.getElementById("circle");
 const pointValueElement = document.getElementById("pointValue");
@@ -121,6 +122,9 @@ const toggleAutoSave = document.getElementById("toggleAutoSave")
     //Sound Logic
 const clickSound = new Audio("Sounds/clickSound.mp3");
 const popupSound = new Audio("Sounds/PopUp.mp3")
+const backgroundSong = new Audio("Sounds/backgroundmusic.mp3")
+backgroundSong.loop = true;
+backgroundSong.volume = 0.3;
 
     ///Easter Eggs
 const OGVERSIONButton = document.getElementById("currentRank")
@@ -308,6 +312,7 @@ let evolossBought = 0;
 let totalExtraEvoloss = 0;
 let ELMcost = 15;
 let mayEvolve = null;
+let MainGoalAchieved = null;
 let noEVOallowedReason = "";
 let evolutionReached = new Set();
 let freeEvosAllowed = 0;
@@ -393,6 +398,7 @@ let ExchangeCost = 20;
 // --- Other Stuff ---
 let achievementsCompleted = 0;
 let soundToggle = true;
+let musicToggle = true;
 
 //#endregion --- Variables --- 
 
@@ -463,6 +469,9 @@ function UpdateUI() {
         toggleSound.innerText = "Sound: " + (soundToggle ? "ON" : "OFF");
     }
 
+    if (toggleMusic) {
+        toggleMusic.innerText = "Music " + (musicToggle ? "ON" : "OFF")
+    }
     // Update price multiplier display
     if (priceMultiplierElement) {
         priceMultiplierElement.innerHTML = "Points: " + (priceMultiplier * 100).toFixed(1) + "%<br> " + "Coins/RankPoints: " + (pricemultiplier2 * 100).toFixed(1) + "%";
@@ -479,7 +488,7 @@ function UpdateUI() {
             powerupgradeButton.classList.remove("buyoff");
             powerupgrade.classList.remove("MEGA")
             powerupgradeButton.innerHTML = "ClickPower: " + formatNumber(powerprice);
-            if (upgradesSinceLastMEGA === 10) {
+            if (upgradesSinceLastMEGA === 15) {
                 powerupgrade.classList.add("MEGA")
                 powerupgradeButton.innerHTML = "ClickPower - MEGA UPGRADE (*5): " + formatNumber(powerprice);
             }
@@ -525,7 +534,7 @@ function UpdateUI() {
             autoupgradeButton.classList.remove("MEGA")
             autoupgradeButton.classList.remove("not-unlocked");
             autoupgradeButton.innerText = "Autopower: " + formatNumber(autoprice);
-                if (upgradesSinceLastMEGA === 10) {
+                if (upgradesSinceLastMEGA === 15) {
                     autoupgradeButton.classList.add("MEGA")
                     autoupgradeButton.innerHTML = "Autopower - MEGA UPGRADE (*5): " + formatNumber(autoprice);
             }
@@ -697,7 +706,6 @@ function UpdateUI() {
     if (XXX) {
         XXX.classList.add("not-unlocked");
     }
-
 
 
     // Update rank upgrades
@@ -1456,17 +1464,7 @@ else {
         newCoin = Math.floor(Math.random() * coinneeded) + 1;
         neededClicks = newCoin - timesClicked;
 
-        // Toon popup
-        popupNCElement.innerText = "New Coins!";
-        popupNCElement.classList.remove('hidden');
-        popupNCElement.classList.add('show');
-
-        // Verberg popup na 2 seconden
-        setTimeout(() => {
-            popupNCElement.classList.remove('show');
-            popupNCElement.classList.add('hidden');
-            popupNCElement.innerText = "";
-        }, 2000);
+        showPopup("popupNC", "New Coins!", 2000)
     }
 
 priceChanges();
@@ -1483,7 +1481,7 @@ const neededUpgrades = evolveLVL * 5 - upgradesBoughtThisEvo;
 
 const upgradesDone = neededUpgrades <= 0;
 const evoCompleted = evogoalcompleted;
-const readyToEvolve = mayEvolve;
+const readyToEvolve = mayEvolve; //MainGoalAchieved (use that variable to make this work)
 
 if (upgradesDone) statusbarPercent += 33;
 
@@ -1516,7 +1514,7 @@ powerupgrade.onclick = function(){
             clicks -= powerprice;
             powerupgrades += 1;
 
-            if (upgradesSinceLastMEGA === 10) {
+            if (upgradesSinceLastMEGA === 15) {
                 power += 5 * evopower
                 powerupgradeButton.classList.remove("MEGA")
 
@@ -1537,7 +1535,7 @@ powerupgrade.onclick = function(){
             increasePower *= 1.15;
             upgradesSinceLastMEGA += 1;
 
-            if (upgradesSinceLastMEGA > 10) {
+            if (upgradesSinceLastMEGA > 15) {
                 upgradesSinceLastMEGA = 0;
             }
 
@@ -1558,7 +1556,7 @@ autoupgrade.onclick = function() {
             autoupgrades += 1;
             increaseAuto *= 1.15;
 
-        if (upgradesSinceLastMEGA === 10) {
+        if (upgradesSinceLastMEGA === 15) {
                 autopower += 5 * evopower
                 powerupgradeButton.classList.remove("MEGA")
 
@@ -1578,7 +1576,7 @@ autoupgrade.onclick = function() {
             upgradesBoughtThisEvo ++ 
             upgradesSinceLastMEGA ++;
 
-            if (upgradesSinceLastMEGA > 10) {
+            if (upgradesSinceLastMEGA > 15) {
                 upgradesSinceLastMEGA = 0;
             }
 
@@ -1636,9 +1634,7 @@ mysterygift.onclick = function() {
             rewardMessage = "No reward";
         } 
 
-        setTimeout(() => {
-            rewardMessage = "";
-        }, 2500);
+        showPopup("popupmysterygift",rewardMessage, 2500);
 
         if (maxMGperEvo === mgBought) {
             mysteryprice = null;
@@ -2060,6 +2056,9 @@ function updateAuto() {
         clicks += autopower * autoMultiplier;
         allTimePoints += autopower * autoMultiplier
         clicks = Math.round(clicks);
+        if (autopower !== 0) {
+            allTimeClicks ++
+        }
 
 
         if (CoinACbought === true) {
@@ -2073,17 +2072,7 @@ if (timesClicked == newCoin) {
     newCoin = Math.floor(Math.random() * coinneeded) + 1;
     neededClicks = newCoin - timesClicked;
 
-    // Toon popup
-    popupNCElement.innerText = "New Coins!";
-    popupNCElement.classList.remove('hidden');
-    popupNCElement.classList.add('show');
-
-    // Verberg popup na 2 seconden
-    setTimeout(() => {
-        popupNCElement.classList.remove('show');
-        popupNCElement.classList.add('hidden');
-        popupNCElement.innerText = "";
-    }, 2000);
+    showPopup("popupNC", "New Coins!", 2000)
 }
         }
     priceChanges();
@@ -2222,22 +2211,7 @@ RPexchange.onclick = function() {
         clicks += clicksgained;
         allTimePoints += clicksgained; // clicks and points are used interchangeably
 
-        const exchangePopup = document.getElementById('exchangeMessage');
-        if (exchangePopup) {
-            if (clicksGainedCapped) {
-                exchangePopup.innerText = `You gained ${clicksgained} clicks! (capped at 2% of evolution price)`;
-            } else {
-                exchangePopup.innerText = `You gained ${clicksgained} clicks!`;
-            }
-            exchangePopup.classList.remove('hidden');
-            exchangePopup.classList.add('show');
-
-            setTimeout(() => {
-                exchangePopup.classList.remove('show');
-                exchangePopup.classList.add('hidden');
-                exchangePopup.innerText = "";
-            }, 2500);
-        }
+        showPopup("exchangeMessage", "You gained" +clicksgained + "clicks!", 2500 )
 
         clicksGainedCapped = false;
         clicksgained = 0;
@@ -2372,6 +2346,7 @@ function saveGame() {
         pricemultiplier2,
         autoSaveToggle,
         soundToggle,
+        musicToggle,
         totalPermaClicksBonus,
         coins,
         totalcoins,
@@ -2471,6 +2446,7 @@ function loadGame() {
         pricemultiplier2 = gameState.pricemultiplier2
         autoSaveToggle = gameState.autoSaveToggle;
         soundToggle = gameState.soundToggle
+        musicToggle = gameState.musicToggle
         evopower = evolveLVL + 1;
         rankPoints = gameState.rankPoints;
         totalRankPoints = gameState.totalRankPoints
@@ -2588,7 +2564,7 @@ const resetAupdate = document.getElementById("resetAupdate")
 const changelogPopup = document.getElementById("changelogPopup")
 resetAupdate.onclick = function() {
         resetGame();
-        changelogPopup.style.display='none'; localStorage.setItem('cc_changelog_V11.0', 'seen');
+        changelogPopup.style.display='none'; localStorage.setItem('cc_changelog_V11.1', 'seen');
     }
 
 
@@ -2708,7 +2684,12 @@ toggleAutoSave.onclick = function() {
 
 toggleSound.onclick = function() {
     soundToggle = !soundToggle;
-    autosave();
+    UpdateUI(); 
+}
+
+toggleMusic.onclick = function() {
+    musicToggle = !musicToggle
+    backgroundMusic();
     UpdateUI(); 
 }
 
@@ -2769,6 +2750,7 @@ function OfflineProgress() {
             
             clicks += Math.round(clicksGainedOffline); 
             allTimePoints += Math.round(clicksGainedOffline);
+            allTimePoints += (autoClicksPerSecondRate * timeElapsedS)
 
             coins += Math.round(coinsGainedOffline);
             totalcoins += Math.round(coinsGainedOffline);
@@ -3180,26 +3162,45 @@ function setupAchievementButtons() {
   });
 }
 
+function backgroundMusic() {
+    if (musicToggle) {
+        backgroundSong.play();
+    } else {
+        backgroundSong.pause();
+    }
+}
+
+
+    //#region --- PopUps ---
+
 function showPopup(popupId, message, duration = 3000) {
   const popup = document.getElementById(popupId);
   if (!popup) return;
 
-  popup.innerText = message;
+  if (popup.hideTimeout) {
+    clearTimeout(popup.hideTimeout);
+  }
 
+  popup.innerText = message;
   popup.classList.remove('hidden');
   popup.classList.add('show');
 
-    if (soundToggle) {
-    const clickSoundInstance = new Audio(popupSound.src);
-    clickSoundInstance.play();
-    }
+  if (soundToggle) {
+    popupSound.play();
+  }
 
-  setTimeout(() => {
+  popup.hideTimeout = setTimeout(() => {
     popup.classList.remove('show');
     popup.classList.add('hidden');
-    popup.innerText = ''; 
+    popup.innerText = '';
+    popup.hideTimeout = null;
   }, duration);
 }
+
+//#endregion --- PopUps ---
+
+
+    //#region --- Change Screens ---
 
 backToGameScreen.onclick = function() {
     gameScreen.classList.remove("hidden")
@@ -3222,6 +3223,10 @@ leaveSettings.onclick = function() {
     styleSheetOG.disabled = true;
 
 }
+
+//#endregion --- Change Screens ---
+
+
     //#region --- Settings ---
 
 
@@ -3317,6 +3322,7 @@ FirstLoadGame();
 OfflineProgress(); 
 UpdateShopUI();
 updateRank();
+backgroundMusic();
 UpdateUI();
 checkAchievements();
 setInterval(checkAchievements, 5000);
