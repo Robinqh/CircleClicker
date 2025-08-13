@@ -72,6 +72,11 @@ const OffButton = document.getElementById("Offline");
 const CNButton = document.getElementById("CN");
 const RPexchangeButton = document.getElementById("RPexchange");
 
+const XXXX = document.getElementById("X4")
+const XXXXX = document.getElementById("X5")
+const XXXXXX = document.getElementById("X6")
+const XXXXXXX = document.getElementById("X7")
+
     //Shops
 const btnNormal = document.getElementById('btnNormal');
 const btnSpecial = document.getElementById('btnSpecial');
@@ -80,6 +85,8 @@ const btnRank = document.getElementById('btnRank');
 const coinShop1 = document.getElementById("special-buttons-group")
 const coinShop2 = document.getElementById("special-buttons-group2")
 
+const rankShop1 = document.getElementById("rank-buttons-group")
+const rankShop2 = document.getElementById("rank-buttons-group2")
 //Pop-Ups
 const popupmysterygiftElement = document.getElementById("popupmysterygift");
 const popupNCElement = document.getElementById("popupNC")
@@ -158,14 +165,14 @@ const permaprice = { //not effected by price multipliers
     //#region --- Evolution Rewards ---
 
 const rankData = { //evoloss needs to be positive to turn negative! Also for autoclicktimer - multiplier2 = offlinemultiplier
- 1: { flag: 1 },
- 2: { flag: 2 },
+ 1: { flag: 1 }, //unlocks autopower
+ 2: { flag: 2 }, //unlocks mysterygifts
  3: {
   flag: 3, maxPermaPower: 3, chooseSpecialty: true,
   specialtyBonuses: { //all other bonuses are done outside of this const
    buyer: { pricemultiplier2: -0.20, RPpS: 0.05 },
    evolver: {evoloss: 0.60}
-  }
+  } //unlocks permapower
  },
  4: { flag: 4, //Coin shop unlock for other specs 
     specialtyBonuses: {
@@ -211,7 +218,7 @@ const rankData = { //evoloss needs to be positive to turn negative! Also for aut
   flag: 15, priceMultiplier: -0.1, clicksMultiplier: 0.35, autoMultiplier: 0.35, RPpS: 5, multiplier2: 0.15, maxPermaPower: 12
  },
 16: { flag: 16 }, //coinmultiplier is done outisde of this const (in the evolve.onclick logic)
-17: { flag: 17 },
+17: { flag: 17, pricemultiplier: -0.05 },
 18: {
   flag: 18,
   specialtyBonuses: { //coinmultiplier for "clicker" is done outsife of this const (in the evolve.onclick logic)
@@ -220,7 +227,7 @@ const rankData = { //evoloss needs to be positive to turn negative! Also for aut
    evolver: { evoloss: 0.05 }
   }
  },
-19: { flag: 19 },
+19: { flag: 19, pricemultiplier: -0.05 },
 20: {
   flag: 20,
   specialtyBonuses: {
@@ -251,12 +258,8 @@ const rankData = { //evoloss needs to be positive to turn negative! Also for aut
 const evoRewards = {
   1: "Autopower unlocked!",
   2: "Mystery gift unlocked!",
-3: `Bronze rank:<br>+3 max permapower<br><br>
-Choose your speciality:<br>
-- Clicker: specializes in clicking and coins — Coin Multiplier += 1, opens up Coin Shop<br>
-- Offliner: specializes in autoclickers and offline time — activates Offline and Coin Autoclicker<br>
-- Buyer: specializes in cheap upgrades — unlocks price multipliers for Coin Shop and Rank Shop (starts at -20%), +0.05 RPpS, and all shops/upgrades<br>
-- Evolver: specializes in evolving and evoloss — lowers minimum evoloss and starts with a much lower evoloss`,
+3: `Bronze rank:<br>+3 max permapower<br>
+    Choose your speciality!`,
   4: "Coin Shop unlocked!*<br>Buyer: +0.15 RPpS<br>Clicker: +15% click multiplier",
   5: `Iron rank:<br>-15% price multiplier<br>+15% clicks multiplier<br>+15% auto multiplier<br>+0.75 RankPoints per second<br>+2 max permapower`,
   6: "Evoloss -5%",
@@ -270,9 +273,9 @@ Choose your speciality:<br>
   14: "Evoloss -5%",
   15: `Platinum rank:<br>-10% price multiplier<br>+35% clicks multiplier<br>+35% auto multiplier<br>+5 RankPoints per second<br>+15% offline multiplier<br>+4 max permapower`,
   16: "+1 coin multiplier (+2 for clicker)",
-  17: "Nothing",
+  17: "-5% pricemultiplier",
   18: `Clicker: +1 coin multiplier<br>Offliner: +10% offline multiplier, -50MS on autoclick, +2 hours max offline time<br>Buyer: -5% on both price multipliers<br>Evolver: -5% evoloss`,
-  19: "Nothing",
+  19: "-5% pricemultiplier",
   20: `Clicker: +50% clicks multiplier<br>Offliner: +25% offline multiplier, +25% auto multiplier<br>Buyer: -25% on normal upgrades<br>Evolver: -20% evoloss`,
   21: "Nothing",
   22: `Clicker: +10% click multiplier<br>Offliner: +10% offline multiplier<br>Buyer: -2.5% on both price multipliers<br>Evolver: -5% evoloss`,
@@ -318,6 +321,7 @@ let evolutionReached = new Set();
 let freeEvosAllowed = 0;
 let evogoal = null;
 let evogoalcompleted = false;
+let mainEvoGoalCompleted = false;
 
 // --- Click & Auto-Click Mechanics ---
 let power = 1 * evopower;
@@ -442,18 +446,6 @@ function UpdateUI() {
         currentRankElement.innerText = rank;
     }
 
-    // Update mystery gift popup
-    if (popupmysterygiftElement) {
-        if (rewardMessage && rewardMessage !== "") {
-            popupmysterygiftElement.innerText = rewardMessage;
-            popupmysterygiftElement.classList.remove('hidden');
-            popupmysterygiftElement.classList.add('show');
-        } else {
-            popupmysterygiftElement.classList.remove('show');
-            popupmysterygiftElement.classList.add('hidden');
-            popupmysterygiftElement.innerText = "";
-        }
-    }
 
     // Update evolution level display
     if (evolutionLevelElement) {
@@ -594,8 +586,7 @@ function UpdateUI() {
             evolveButton.classList.remove("buyoff");
             evolveButton.classList.remove("order66");
         } else {
-            const extraNote = (evolveLVL === 2) ? " (Autosaves just before evolving!)" : "";
-            evolveButton.innerText = "Evolve " + extraNote;
+            evolveButton.innerText = "Evolve"
             evolveButton.classList.remove("out-of-stock");
             evolveButton.classList.remove("order66");
             evolveButton.classList.remove("completed");
@@ -611,6 +602,13 @@ function UpdateUI() {
             evolveButton.classList.remove("out-of-stock");
             evolveButton.classList.remove("buyoff");
             evolveButton.classList.remove("order66");
+        }
+
+        if (evolveLVL === 3 && specialty === null) {
+            evolveButton.innerText = "Choose Specialty"
+            evolveButton.classList.remove("out-of-stock");
+            evolveButton.classList.remove("order66");
+            evolveButton.classList.remove("completed");
         }
     }
 
@@ -653,7 +651,7 @@ function UpdateUI() {
                 ELMButton.classList.remove("buyoff");
                 ELMButton.classList.remove("completed");
             }
-            ELMButton.innerText = "Evolve loss multiplier -0.1: " + ELMcost + " coins";
+            ELMButton.innerText = "Evolve loss multiplier -0.05: " + ELMcost + " coins";
         }
     }
 
@@ -776,6 +774,19 @@ function UpdateUI() {
         }
     }
 
+        if (XXXX) {
+         XXXX.classList.add("not-unlocked");
+        }
+        if (XXXXX) {
+            XXXXX.classList.add("not-unlocked");
+        }
+        if (XXXXXX) {
+            XXXXXX.classList.add("not-unlocked");
+        }
+        if (XXXXXXX) {
+            XXXXXXX.classList.add("not-unlocked");
+        }
+
     // Set evolution titles and classes
     if (currentRankElement) {
         currentRankElement.classList.remove(...RANK_CLASSES); // Assuming RANK_CLASSES is defined elsewhere
@@ -845,7 +856,7 @@ function UpdateShopUI() {
         }
 
         if (toggle === 2) {
-            btnSpecial.innerText = "Toggle upgrades!";
+            btnSpecial.innerText = "Toggle Upgrades!";
             btnSpecial.classList.add("active-shop");
         } else {
             btnSpecial.classList.remove("active-shop");
@@ -864,7 +875,7 @@ function UpdateShopUI() {
         }
 
         if (toggle === 3) {
-            btnRank.innerText = "Coming Soon!";
+            btnRank.innerText = "Toggle Upgrades!";
             btnRank.classList.add("active-shop");
         } else {
             btnRank.classList.remove("active-shop");
@@ -994,9 +1005,18 @@ function priceChanges() {
 
 if (evolveLVL === 0 ) {
     mayEvolve = false;
-    noEVOallowedReason = "Gain " + formatNumber(Math.round(350 - allTimePoints)) + " more points!";
+     mainEvoGoalCompleted = allTimePoints >= 350;
 
-    if (allTimePoints >= 350) {
+    
+    if (!mainEvoGoalCompleted) {
+        mayEvolve = false;
+        noEVOallowedReason = "Get " + formatNumber(Math.round(350 - allTimePoints)) + " more points!";
+    } else if (upgradesBoughtThisEvo < 3) {
+        const neededupgrades = 3 - upgradesBoughtThisEvo;
+        mayEvolve = false;
+        noEVOallowedReason = "Buy " + neededupgrades + " more upgrades!";
+    }
+     else {
         mayEvolve = true;
         noEVOallowedReason = "";
     }
@@ -1010,11 +1030,14 @@ if (evolveLVL === 0 ) {
     mayEvolve = true
     }
 }
-
+//fix the const XXX, it should be hard coded into the text, not a const
 else if (evolveLVL === 1) {
-    if (allTimePoints < 1250) {
+    const pointsNeeded = 1250 - allTimePoints;
+    mainEvoGoalCompleted = allTimePoints >= 1250;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Get " + formatNumber(Math.round(1250 - allTimePoints)) + " more points!";
+        noEVOallowedReason = "Get " + formatNumber(Math.round(pointsNeeded)) + " more points!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1027,9 +1050,12 @@ else if (evolveLVL === 1) {
     evogoalcompleted = allTimePoints >= 3000;
 }
 else if (evolveLVL === 2) {
-    if (allTimePoints < 5000) {
+    const pointsNeeded = 5000 - allTimePoints;
+    mainEvoGoalCompleted = allTimePoints >= 5000;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Get " + formatNumber(Math.round(5000 - allTimePoints)) + " more points!";
+        noEVOallowedReason = "Get " + formatNumber(Math.round(pointsNeeded)) + " more points!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1042,15 +1068,17 @@ else if (evolveLVL === 2) {
     evogoalcompleted = mgBought === maxMGperEvo;
 }
 else if (evolveLVL === 3 && specialty === null) {
-    mayEvolve = false;
-    noEVOallowedReason = "Choose a specialty!";
+    mayEvolve = true;
     evogoal = "";
     evogoalcompleted = false;
 }
 else if (evolveLVL === 3 && specialty !== null) {
-    if (power < 75) {
+    const powerNeeded = 75 - power;
+    mainEvoGoalCompleted = power >= 75;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(75 - power)) + " more clicking power!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(powerNeeded)) + " more clicking power!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1063,9 +1091,12 @@ else if (evolveLVL === 3 && specialty !== null) {
     evogoalcompleted = upgradesBoughtThisEvo >= 25;
 }
 else if (evolveLVL === 4) {
-    if (allTimePoints < 25000) {
+    const pointsNeeded = 25000 - allTimePoints;
+    mainEvoGoalCompleted = allTimePoints >= 25000;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(25000 - allTimePoints)) + " more points!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(pointsNeeded)) + " more points!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1078,9 +1109,12 @@ else if (evolveLVL === 4) {
     evogoalcompleted = allTimeClicks >= 800;
 }
 else if (evolveLVL === 5) {
-    if (achievementsCompleted < 4) {
+    const achievementsNeeded = 4 - achievementsCompleted;
+    mainEvoGoalCompleted = achievementsCompleted >= 4;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Complete " + formatNumber(Math.round(4 - achievementsCompleted)) + " more achievements!";
+        noEVOallowedReason = "Complete " + formatNumber(Math.round(achievementsNeeded)) + " more achievements!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1093,9 +1127,12 @@ else if (evolveLVL === 5) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 6) {
-    if (allTimeClicks < 1000) {
+    const clicksNeeded = 1000 - allTimeClicks;
+    mainEvoGoalCompleted = allTimeClicks >= 1000;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Click " + formatNumber(Math.round(1000 - allTimeClicks)) + " more times!";
+        noEVOallowedReason = "Click " + formatNumber(Math.round(clicksNeeded)) + " more times!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1108,9 +1145,12 @@ else if (evolveLVL === 6) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 7) {
-    if (permapower < 5) {
+    const permapowerNeeded = 5 - permapower;
+    mainEvoGoalCompleted = permapower >= 5;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(5 - permapower)) + " more permapower!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(permapowerNeeded)) + " more permapower!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1123,9 +1163,12 @@ else if (evolveLVL === 7) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 8) {
-    if (allTimePoints < 500000) {
+    const pointsNeeded = 500000 - allTimePoints;
+    mainEvoGoalCompleted = allTimePoints >= 500000;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(500000 - allTimePoints)) + " more points!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(pointsNeeded)) + " more points!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1138,9 +1181,12 @@ else if (evolveLVL === 8) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 9) {
-    if (achievementsCompleted < 7) {
+    const achievementsNeeded = 7 - achievementsCompleted;
+    mainEvoGoalCompleted = achievementsCompleted >= 7;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Complete " + formatNumber(Math.round(7 - achievementsCompleted)) + " more achievements!";
+        noEVOallowedReason = "Complete " + formatNumber(Math.round(achievementsNeeded)) + " more achievements!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1149,13 +1195,16 @@ else if (evolveLVL === 9) {
         mayEvolve = true;
         noEVOallowedReason = "";
     }
-    evogoal = "Click " + (2500 - allTimeClicks) + " more times!";;
+    evogoal = "Click " + (2500 - allTimeClicks) + " more times!";
     evogoalcompleted = allTimeClicks >= 2500;
 }
 else if (evolveLVL === 10) {
-    if (totalcoins < 100) {
+    const coinsNeeded = 100 - totalcoins;
+    mainEvoGoalCompleted = totalcoins >= 100;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(100 - totalcoins)) + " more coins!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(coinsNeeded)) + " more coins!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1168,9 +1217,12 @@ else if (evolveLVL === 10) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 11) {
-    if (autopower < 500) {
+    const autopowerNeeded = 500 - autopower;
+    mainEvoGoalCompleted = autopower >= 500;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(500 - autopower)) + " more autopower!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(autopowerNeeded)) + " more autopower!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1183,9 +1235,12 @@ else if (evolveLVL === 11) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 12) {
-    if (mgBought < maxMGperEvo) {
+    const mysteryGiftsNeeded = maxMGperEvo - mgBought;
+    mainEvoGoalCompleted = mgBought >= maxMGperEvo;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Buy " + formatNumber(Math.round(maxMGperEvo - mgBought)) + " more mystery gifts!";
+        noEVOallowedReason = "Buy " + formatNumber(Math.round(mysteryGiftsNeeded)) + " more mystery gifts!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1198,9 +1253,12 @@ else if (evolveLVL === 12) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 13) {
-    if (power < 1200) {
+    const powerNeeded = 1200 - power;
+    mainEvoGoalCompleted = power >= 1200;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(1200 - power)) + " more clicking power!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(powerNeeded)) + " more clicking power!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1213,9 +1271,12 @@ else if (evolveLVL === 13) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 14) {
-    if (achievementsCompleted < 9) {
+    const achievementsNeeded = 9 - achievementsCompleted;
+    mainEvoGoalCompleted = achievementsCompleted >= 9;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Complete " + formatNumber(Math.round(9 - achievementsCompleted)) + " more achievements!";
+        noEVOallowedReason = "Complete " + formatNumber(Math.round(achievementsNeeded)) + " more achievements!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1228,9 +1289,12 @@ else if (evolveLVL === 14) {
     evogoalcompleted = upgradesBoughtThisEvo >= 100;
 }
 else if (evolveLVL === 15) {
-    if (power < 1500) {
+    const powerNeeded = 1500 - power;
+    mainEvoGoalCompleted = power >= 1500;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(1500 - power)) + " more clicking power!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(powerNeeded)) + " more clicking power!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1243,9 +1307,12 @@ else if (evolveLVL === 15) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 16) {
-    if (allTimeClicks < 1500) {
+    const clicksNeeded = 1500 - allTimeClicks;
+    mainEvoGoalCompleted = allTimeClicks >= 1500;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Click " + formatNumber(Math.round(1500 - allTimeClicks)) + " more times!";
+        noEVOallowedReason = "Click " + formatNumber(Math.round(clicksNeeded)) + " more times!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1258,9 +1325,12 @@ else if (evolveLVL === 16) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 17) {
-    if (power < 1600) {
+    const powerNeeded = 1600 - power;
+    mainEvoGoalCompleted = power >= 1600;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(1600 - power)) + " more clicking power!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(powerNeeded)) + " more clicking power!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1273,9 +1343,12 @@ else if (evolveLVL === 17) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 18) {
-    if (totalcoins < 400) {
+    const coinsNeeded = 400 - totalcoins;
+    mainEvoGoalCompleted = totalcoins >= 400;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(400 - totalcoins)) + " more coins!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(coinsNeeded)) + " more coins!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1288,9 +1361,12 @@ else if (evolveLVL === 18) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 19) {
-    if (permapower < 11) {
+    const permapowerNeeded = 11 - permapower;
+    mainEvoGoalCompleted = permapower >= 11;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(11 - permapower)) + " more permapower!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(permapowerNeeded)) + " more permapower!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1303,9 +1379,12 @@ else if (evolveLVL === 19) {
     evogoalcompleted = allTimePoints >= 3500000;
 }
 else if (evolveLVL === 20) {
-    if (allTimePoints < 4000000) {
+    const pointsNeeded = 4000000 - allTimePoints;
+    mainEvoGoalCompleted = allTimePoints >= 4000000;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(4000000 - allTimePoints)) + " more points!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(pointsNeeded)) + " more points!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1319,9 +1398,12 @@ else if (evolveLVL === 20) {
 }
 else if (evolveLVL === 21) {
     let spentRankPoints = totalRankPoints - rankPoints;
-    if (spentRankPoints < 1000) {
+    const rankPointsNeeded = 1000 - spentRankPoints;
+    mainEvoGoalCompleted = spentRankPoints >= 1000;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Spend " + formatNumber(Math.round(1000 - spentRankPoints)) + " more Rank Points!";
+        noEVOallowedReason = "Spend " + formatNumber(Math.round(rankPointsNeeded)) + " more Rank Points!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1334,9 +1416,12 @@ else if (evolveLVL === 21) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 22) {
-    if (autopower < 1750) {
+    const autopowerNeeded = 1750 - autopower;
+    mainEvoGoalCompleted = autopower >= 1750;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(1750 - autopower)) + " more autopower!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(autopowerNeeded)) + " more autopower!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1349,9 +1434,12 @@ else if (evolveLVL === 22) {
     evogoalcompleted = false;
 }
 else if (evolveLVL === 23) {
-    if (totalcoins < 500) {
+    const coinsNeeded = 500 - totalcoins;
+    mainEvoGoalCompleted = totalcoins >= 500;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
-        noEVOallowedReason = "Gain " + formatNumber(Math.round(500 - totalcoins)) + " more coins!";
+        noEVOallowedReason = "Gain " + formatNumber(Math.round(coinsNeeded)) + " more coins!";
     } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
         const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
         mayEvolve = false;
@@ -1366,7 +1454,9 @@ else if (evolveLVL === 23) {
 else if (evolveLVL === 24) {
     const powerReq = power < 2500;
     const autoReq = autopower < 2000;
-    if (powerReq || autoReq) {
+    mainEvoGoalCompleted = !powerReq && !autoReq;
+
+    if (!mainEvoGoalCompleted) {
         mayEvolve = false;
         noEVOallowedReason = "Gain ";
         if (powerReq) noEVOallowedReason += formatNumber(Math.round(2500 - power)) + " more power";
@@ -1384,13 +1474,13 @@ else if (evolveLVL === 24) {
     evogoal = "Buy " + (250 - upgradesBoughtThisEvo) + " more upgrades!";
     evogoalcompleted = upgradesBoughtThisEvo >= 250;
 }
-else if (evolveLVL === 25) {
-    mayEvolve = false;
-    noEVOallowedReason = "Evolution level maxed out!";
-}
-else {
-    mayEvolve = true;
-    noEVOallowedReason = "";
+    else if (evolveLVL === 25) {
+        mayEvolve = false;
+        noEVOallowedReason = "Evolution level maxed out!";
+    }
+    else {
+        mayEvolve = true;
+        noEVOallowedReason = "";
 }
 
 
@@ -1481,9 +1571,12 @@ const neededUpgrades = evolveLVL * 5 - upgradesBoughtThisEvo;
 
 const upgradesDone = neededUpgrades <= 0;
 const evoCompleted = evogoalcompleted;
-const readyToEvolve = mayEvolve; //MainGoalAchieved (use that variable to make this work)
+const readyToEvolve = mainEvoGoalCompleted; 
 
-if (upgradesDone) statusbarPercent += 33;
+if (upgradesDone && evolveLVL > 0) statusbarPercent += 33;
+    if (evolveLVL === 0 && upgradesBoughtThisEvo >= 3) {
+        statusbarPercent += 33;
+    }
 
 if (evogoal === "None" || evoCompleted) {
   statusbarPercent += 33;
@@ -1634,7 +1727,7 @@ mysterygift.onclick = function() {
             rewardMessage = "No reward";
         } 
 
-        showPopup("popupmysterygift",rewardMessage, 2500);
+        showPopup("popupmysterygift", rewardMessage, 2500);
 
         if (maxMGperEvo === mgBought) {
             mysteryprice = null;
@@ -1657,7 +1750,7 @@ mysterygift.onclick = function() {
 
 let order66activated = false
 evolve.onclick = function() {
-  if (mayEvolve === true) {
+if (mayEvolve === true && !(evolveLVL === 3 && specialty === null)) {
 
 if (mayEvolve && evolveLVL === 0 && allTimePoints === 66) {
     showPopup('otherPopUps', '🟥 EXECUTE ORDER 66\n\nYou feel a disturbance in the clicking force...\n\n– Click & Autopower +66% (after evo-1)\n\nUse this gift wisely, Commander.', 5000);
@@ -1679,9 +1772,12 @@ if (mayEvolve && evolveLVL === 0 && allTimePoints === 66) {
     largePopUps.classList.remove("hidden");
     confirmEvolvePopup.classList.remove("hidden");
     evolvedPopUp.style.display = "none";
+  } 
 
-  } else {
-    return;
+  if (mayEvolve === true && evolveLVL === 3 && specialty === null) {
+    largePopUps.style.display = 'block';
+    largePopUps.classList.remove("hidden");
+    executeEvolutionLogic()
   }
 }
 
@@ -1703,9 +1799,23 @@ function executeEvolutionLogic() {
   confirmEvolvePopup.classList.add("hidden");
 
 
-  if (evolveLVL === 2) {
-    saveGame();
-  }
+    if (evolveLVL === 3 && specialty === null) {
+        message.innerHTML = `Choose your speciality:<br>
+        - <strong>Clicker:</strong> specializes in clicking and coins — Coin Multiplier += 1, opens up Coin Shop<br>
+        - <strong>Offliner:</strong> specializes in autoclickers and offline time — activates Offline and Coin Autoclicker<br>
+        - <strong>Buyer:</strong> specializes in cheap upgrades — unlocks price multipliers for Coin Shop and Rank Shop (starts at -20%), +0.05 RPpS, and all shops/upgrades<br>
+        - <strong>Evolver:</strong> specializes in evolving and evoloss — lowers minimum evoloss and starts with a much lower evoloss`;
+
+
+        evolvedPopUp.style.display = "block";
+        choose.classList.remove("hidden")
+        offlinerSpecialty.classList.remove("hidden")
+        clickerSpecialty.classList.remove("hidden")
+        buyerSpeciality.classList.remove("hidden")
+        evolverSpeciality.classList.remove("hidden")
+    } 
+    else {
+
   priceChanges();
 
 
@@ -1765,28 +1875,19 @@ function executeEvolutionLogic() {
 
     evolvedPopUp.style.display = "block";
 
-    if (evolveLVL === 3 && specialty === null) {
-      choose.classList.remove("hidden")
-      offlinerSpecialty.classList.remove("hidden")
-      clickerSpecialty.classList.remove("hidden")
-        buyerSpeciality.classList.remove("hidden")
-        evolverSpeciality.classList.remove("hidden")
-
-      closeEvolvedPopupButton.classList.add("hidden")
-    } else {
-      closeEvolvedPopupButton.classList.remove("hidden")
-      choose.classList.add("hidden");
-      offlinerSpecialty.classList.add("hidden");
-      clickerSpecialty.classList.add("hidden");
-        buyerSpeciality.classList.add("hidden")
-        evolverSpeciality.classList.add("hidden")
-    }
+    closeEvolvedPopupButton.classList.remove("hidden")
+    choose.classList.add("hidden");
+    offlinerSpecialty.classList.add("hidden");
+    clickerSpecialty.classList.add("hidden");
+    buyerSpeciality.classList.add("hidden")
+    evolverSpeciality.classList.add("hidden")
 
     if (evogoalcompleted === true) {
         totalPermaClicksBonus += 0.025;
     }
 
     evogoalcompleted = false;
+    mainEvoGoalCompleted = false;
     upgradesBoughtThisEvo = 0;
     
     statusbarPercent = 0;
@@ -1796,11 +1897,7 @@ function executeEvolutionLogic() {
     startautoclick();
     UpdateShopUI();
   }
-
-  
-
-
-
+}
 
 clickerSpecialty.onclick = function() {
   specialty = "clicker";
@@ -1812,7 +1909,7 @@ clickerSpecialty.onclick = function() {
   largePopUps.style.display = "none"
 
     coinMultiplier += 1;
-    power = 10 * (evolveLVL + 1)
+    power += 10 * (evolveLVL + 1)
 
   updateRank()
   UpdateUI();
@@ -1835,7 +1932,7 @@ offlinerSpecialty.onclick = function() {
   CoinACbought = true;
   CoinACcost = null;
 
-  autopower = 10 * (evolveLVL + 1)
+  autopower += 10 * (evolveLVL + 1)
 
   updateRank()
   UpdateUI();
@@ -2095,7 +2192,7 @@ ELMButton.onclick = function() {
 
     if (coins >= ELMcost) {
         coins -= ELMcost;
-        totalExtraEvoloss += 0.1;
+        totalExtraEvoloss += 0.05;
         evolossBought += 1;
 
         
@@ -2264,7 +2361,7 @@ btnNormal.onclick = function() {
 }
 
 btnSpecial.onclick = function () {
-    if (evolveLVL >= 4 || evolveLVL >= 3 && specialty === "clicker" || evolveLVL >= 3 && specialty === "buyer") {
+    if ((evolveLVL >= 4 || (evolveLVL >= 3 && (specialty === "clicker" || specialty === "buyer"))) && toggle !== 2) {
         toggle = 2;
         groupNumber = 2
         upgtoggle();
@@ -2286,12 +2383,28 @@ btnSpecial.onclick = function () {
     }
 };
 
-btnRank.onclick = function() {
-    if (evolveLVL >= 8 || evolveLVL >= 3 && specialty === "buyer" || evolveLVL >= 3 && specialty === "offliner")  {
+btnRank.onclick = function () {
+    if ((evolveLVL >= 8 || (evolveLVL >= 3 && (specialty === "buyer" || specialty === "offliner"))) && toggle !== 3) {
         toggle = 3;
+        groupNumber = 4;
         upgtoggle();
     }
-}
+    if (toggle === 3) {
+        if (groupNumber === 3) {
+            groupNumber = 4;
+        } else {
+            groupNumber = 3;
+        }
+
+        if (groupNumber === 3) {
+            rankShop1.classList.remove('hidden-upgrades');
+            rankShop2.classList.add('hidden-upgrades');
+        } else if (groupNumber === 4) {
+            rankShop1.classList.add('hidden-upgrades');
+            rankShop2.classList.remove('hidden-upgrades');
+        }
+    }
+};
 
 
 toggleStats.onclick = function() {
@@ -2562,12 +2675,25 @@ function loadGame() {
 
 const resetAupdate = document.getElementById("resetAupdate")
 const changelogPopup = document.getElementById("changelogPopup")
+
+if (showChangeLogsButton) {
+    showChangeLogsButton.addEventListener("click", function () {
+        const changelogPopup = document.getElementById("changelogPopup");
+        if (changelogPopup) {
+            changelogPopup.style.display = "block";
+        }
+    });
+}
+
 resetAupdate.onclick = function() {
         resetGame();
-        changelogPopup.style.display='none'; localStorage.setItem('cc_changelog_V11.1', 'seen');
+        closeChangelog();
     }
 
-
+function closeChangelog() {
+    changelogPopup.style.display = 'none';   
+    localStorage.setItem('cc_changelog_V11.2', 'seen'); 
+}
 
 function resetGame() {
     const resetconfirmed = confirm("Are you sure you want to reset the game?");
@@ -2643,6 +2769,7 @@ function resetGame() {
         maxMGupgradesBought = 0;
         totalExtraMGs = 0;
         mayEvolve = null;
+        mainEvoGoalCompleted = false;
         maxPermaPower = 0
    
 
@@ -2801,14 +2928,6 @@ function startrankpoints() {
 }
 
 
-if (showChangeLogsButton) {
-    showChangeLogsButton.addEventListener("click", function () {
-        const changelogPopup = document.getElementById("changelogPopup");
-        if (changelogPopup) {
-            changelogPopup.style.display = "block";
-        }
-    });
-}
 
 toggleScreenButton.onclick = togglescreen
 toggleScreenButton2.onclick = togglescreen
@@ -3253,7 +3372,6 @@ OGVERSIONButton.onclick = function() {
     styleSheetOG.disabled = false;
 
 }
-
 
 
 let clicksOG = 0;

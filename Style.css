@@ -10,6 +10,16 @@ html, body {
     overflow: hidden;
 }
 
+@keyframes fadeIn {
+  from {opacity: 0; transform: translate(-50%, -60%) scale(0.95);}
+  to {opacity: 1; transform: translate(-50%, -50%) scale(1);}
+}
+
+#changelogPopup {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+
 #changelogPopup {
     position: fixed;
     top: 50%;
@@ -24,13 +34,28 @@ html, body {
     max-height: 80%;
     overflow-y: auto;
     overflow-x: hidden;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.75),
+        0 0 15px rgba(245, 166, 35, 0.5);
     z-index: 9999;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1rem;
     text-align: left;
     pointer-events: all;
     transition: opacity 0.3s ease;
+}
+
+.message {
+  text-align: left;
+  margin: 20px auto;
+  padding: 15px 25px;
+  width: fit-content;
+  border-radius: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  color: white;
+  box-shadow: none;
+  background-color: transparent;
 }
 
 
@@ -47,12 +72,15 @@ html, body {
     background: #222;
 }
 
+#changelogPopup h1, 
 #changelogPopup h2, 
 #changelogPopup h3 {
     color: #f5a623;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
     font-weight: 600;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 5px #f5a623aa;
 }
 
 #changelogPopup a {
@@ -64,7 +92,7 @@ html, body {
     color: #ffcf5c;
 }
 
-li {
+#changelogPopup li {
   margin-bottom: 6px; 
 }
 
@@ -72,6 +100,63 @@ li:last-child {
   margin-bottom: 0;
 }
 
+
+
+.bug-report-container {
+  display: flex;
+  margin: 4vh 0;
+}
+
+.bug-report-btn {
+  background: rgb(255, 255, 255);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 50vw;
+  max-width: 150px;
+  height: 5vh;
+}
+
+
+.popup-button-container {
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+}
+
+.reset-btn,
+.close-btn {
+    display: block; 
+    height: 4vh;
+    max-width: 400px;
+    width: 50vw;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    box-sizing: border-box;
+    background-clip: padding-box;
+    transition: background-color 0.3s ease;
+    user-select: none;
+}
+
+.reset-btn {
+  background: rgb(255, 255, 255);
+  color: #000;
+}
+
+.close-btn {
+  background: #000000;
+  color: white;
+}
+
+.reset-btn:hover,
+.close-btn:hover {
+  background-color: grey;
+}
 
 .side-box {
     position: absolute;
@@ -197,9 +282,36 @@ li:last-child {
 #progress-bar, #progress-bar-RANKS {
   height: 100%;
   width: 100%;
-  background-color: #4caf50;
+  background: linear-gradient(270deg, #FFD700, #FFA500, #FFF700, #FFD700);
+  background-size: 600% 600%;
   transition: width 0.3s;
-    position: absolute;
+  position: absolute;
+
+
+  box-shadow: 0 0 15px #FFD700, 0 0 30px #FFA500, 0 0 45px #FFF700, 0 0 60px #FFD700;
+  animation: shimmer 6s ease-in-out infinite, flicker 3s infinite alternate;
+}
+
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes flicker {
+  0% {
+    box-shadow: 0 0 10px #FFD700, 0 0 20px #FFA500, 0 0 30px #FFF700, 0 0 40px #FFD700;
+    opacity: 0.85;
+  }
+  50% {
+    box-shadow: 0 0 25px #FFD700, 0 0 50px #FFA500, 0 0 75px #FFF700, 0 0 100px #FFD700;
+    opacity: 1;
+  }
+  100% {
+    box-shadow: 0 0 10px #FFD700, 0 0 20px #FFA500, 0 0 30px #FFF700, 0 0 40px #FFD700;
+    opacity: 0.85;
+  }
 }
 
 #progress-text, #progress-text-RANKS {
@@ -328,7 +440,7 @@ button:hover {
     margin-left: -6.58vw;
 }
 
-#RPexchange {
+#RPexchange, #X7 {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -399,7 +511,7 @@ button:hover {
     border-radius: 1vh;
 }
 
-#CoinAC {
+#CoinAC, #X5 {
     width: 13.16vw;
     height: 5vh;
     position: absolute;
@@ -409,7 +521,7 @@ button:hover {
     border-radius: 1vh;
 }
 
-#Offline {
+#Offline, #X4 {
     width: 13.16vw;
     height: 5vh;
     position: absolute;
@@ -421,7 +533,7 @@ button:hover {
 
 }
 
-#CN {
+#CN, #X6 {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -992,18 +1104,14 @@ button:hover {
     line-height: 1.6;
 }
 
-#evolved #choose { 
-    margin-bottom: 15px; 
-}
-
 
 #evolved .specialty-buttons-container {
-    display: flex; /* Arrange buttons in a row */
+    display: flex; 
     flex-direction: row;
-    gap: 10px; /* Space between buttons */
-    margin-top: 20px; /* Space above buttons */
-    width: 100%; /* Ensure container takes full width */
-    justify-content: center; /* Center the buttons within their container */
+    gap: 10px; 
+    margin-top: 20px; 
+    width: 100%; 
+    justify-content: center; 
 }
 
 #evolved button {
@@ -1025,12 +1133,6 @@ button:hover {
     background-color: #222;
 }
 
-
-#closeEvolvedPopup {
-    margin-top: 15px; /* Add margin to separate from other buttons */
-    width: auto; /* Allow width to be determined by content or default button styles */
-    padding: 10px 24px; /* Retain original padding */
-}
 
 
 /* DIT NOG CHECKEN */
@@ -1244,9 +1346,13 @@ button:hover {
     #ELM,
     #X,
     #X2,
+    #X4,
+    #X5,
+    #X6,
     #settings-container,
     #toggleMusic
     #X3,
+    #X7,
     #autotime,
     #mysteryprice,
     #popupAutoSave,
@@ -1266,6 +1372,7 @@ button:hover {
     #resetGameButton,
     #toggleAutoSave, /* Moved autosave here */
     #toggleSound,
+    #toggleMusic,
     #version,
     #CoinAC,
     #Offline,
@@ -1307,7 +1414,7 @@ button:hover {
 #ClickPower, #offlinemultiplier,
 #AutoPower, #pricemultiplier {
     box-sizing: border-box;
-    width: 48%; 
+    width: 48.5%; 
     display: inline-block;
     vertical-align: top;
     font-size: 0.7em;
@@ -1375,7 +1482,7 @@ button:hover {
     #evolve,
     #permanentupgrade,
     #mysterygift {
-        width: 48%; /* Make buttons half width to fit side-by-side */
+        width: 48.5%; /* Make buttons half width to fit side-by-side */
         display: inline-block; /* Allow them to be next to each other */
         vertical-align: top;
         position: static; /* Ensure they are not absolute after being inlined */
@@ -1397,8 +1504,12 @@ button:hover {
     #CoinAC,
     #Offline,
     #CN,
-    #RPexchange {
-        width: 48%;
+    #RPexchange,
+    #X4,
+    #X5,
+    #X6,
+    #X7 {
+        width: 48.5%;
         display: inline-block; /* Allow them to be next to each other */
         margin-top: 0.2vh;
         margin-bottom: 0.2vh;
@@ -1415,8 +1526,18 @@ button:hover {
     #RPexchange,
     #X,
     #X2,
-    #X3 {
+    #X3,
+    #X6,
+    #X7  {
         width: 98%;
+    }
+
+    .popup-button-container {
+    margin-top: 16px;
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    gap: 0;
     }
 
     /* Save/Load/Reset buttons - arrange side-by-side */
@@ -1440,7 +1561,7 @@ button:hover {
 
     #saveGameButton,
     #loadGameButton {
-        width: 48%;
+        width: 48.5%;
     }
 
     #toggleStats, #toggleScreen, #toggleScreen2, #backToGameScreen, #settingsScreen {
@@ -1554,7 +1675,16 @@ button:hover {
 
     #confirm-evolve-no, #confirm-evolve-yes, #closeEvolvedPopup, #clicker, #offliner, #buyer, #evolver {
         font-size: 0.5em;
+        min-width: 20vw;
+        text-align: center !important;
     }
+
+    #closeEvolvedPopup {
+        margin-left: 30vw;
+    }
+
+
+
 
     #evolved {
         height: auto;

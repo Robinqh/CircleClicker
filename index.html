@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Circle Clicker</title>
-    <link id="stylesheet" rel="stylesheet" href="Style.css">
-    <link id="stylesheetOG" rel="stylesheet" href="StyleOG.css" disabled>
+    <link id="stylesheet" rel="stylesheet" href="Style.css"> <!--Deactivates upon entering OG-Mode-->
+    <link id="stylesheetOG" rel="stylesheet" href="StyleOG.css" disabled> <!--Activates upon entering OG-Mode-->
 </head>
 <body id="body">
 
@@ -16,7 +16,7 @@
     <div class="side-line" id="right-line"></div>
 
     <div id="game-container">
-        <button id="showChangeLogs">Welcome to Circle Clicker! Show Changelog V11.1</button>
+        <button id="showChangeLogs">Welcome to Circle Clicker! Show Changelog - V11.2</button>
 
         <div id="stats-rowA">
             <h4 id="ClickPower"></h4>
@@ -42,10 +42,10 @@
           <div id="progress-text-RANKS"></div>
       </div>     
 
-        <b><button id="circle"><br> <span id="pointValue">0</span></button></b>
+      <button id="circle"><br><span id="pointValue">0</span></button>
         
-        
-        <div id="normal-upgrades" class="null">
+
+        <div id="normal-upgrades">
             <div class="upgrade-buttons-group">
                 <button id="powerupgrade"></button>
                 <button id="autoupgrade"></button>
@@ -69,13 +69,23 @@
             </div>
         </div>
 
-        <div id="rank-upgrades" class="hidden-upgrades">
-            <div class="rank-upgrades-group"></div>
+        <div id="rank-upgrades">
+            <div id="rank-buttons-group">
                 <button id="Offline"></button>
                 <button id="CoinAC"></button> 
                 <button id="CN"></button>
                 <button id="RPexchange"></button>
+                </div>
+
+              <div id="rank-buttons-group2">
+                <button id="X4">Coming Soon!</button>
+                <button id="X5">Coming Soon!</button>
+                <button id="X6">Coming Soon!</button>
+                <button id="X7">Coming Soon!</button>
+            </div>
         </div>
+
+
 
         <div id="toggle-shop-group">
           <button id="btnNormal"></button>
@@ -95,7 +105,7 @@
         <div id="large-pop-ups">
             <div id="evolved" style="display: none;">
                 <p id="evolved-message"></p>
-                <p id="choose" class="hidden">Choose between these options:</p>
+                <p id="choose" class="hidden"></p>
                 <div class="specialty-buttons-container">
                   <button id="clicker" class="hidden">Clicker</button>
                   <button id="offliner" class="hidden">Offliner</button>
@@ -105,10 +115,16 @@
                 <br>
                 <button id="closeEvolvedPopup">Close</button>
             </div>
+            
             <div id="confirm-evolve-popup" class="popup-container">
                     <div class="popup-content">
-                        <h2>Confirm Evolution</h2>
-                        <p>Are you sure you want to evolve? This action will have consequences. <br> During evolution you lose all your clicking/auto power, and your clicks * your evoloss!</p>
+                        <h2>⚠️Confirm Evolution⚠️</h2>
+                        <p>Are you sure you want to evolve?<br> During evolution you lose:
+                          <ul>
+                            <li>Clicking power</li>
+                            <li>Auto power</li>
+                            <li>Clicks * evoLoss</li>
+                          </ul></p>
                         <div class="popup-buttons">
                             <button id="confirm-evolve-yes">Yes, Evolve!</button>
                             <button id="confirm-evolve-no">No, Not Yet</button>
@@ -189,173 +205,89 @@
 
 
 
-<div id="OG-Version" class="hidden"><h3>Known Issues</h3>
-<p style="color: #888; font-size: small; font-style: italic;">
-  These minor bugs are not urgent and may take some time to fix, most of these are purely visual.
-</p>
-<ul>
-  <li>No known bugs</li>
-</ul>
-
-<div style="display: flex; justify-content: center; margin: 4vh 0;">
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdoR9VI_etS4_V7QrpPQuxCVI4oGBP0-u48dqbhvxkjC02YxQ/viewform" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-    <button style="
-      background: rgb(255, 255, 255);
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-weight: bold;
-      width: 50vw;
-      max-width: 200px;
-      height: 5vh;
-      ">
-      Encountered a bug?
-    </button>
-  </a>
-</div>
-
-<h3>Coming Soon!</h3>
-<ul>
-  <li>[REDACTED]</li>
-</ul>
-
-   <h1>Welcome to Circle Clicker V0.1 - WARNING: This version does not save after leaving the *whole* game!</h1>
-    <button id="circleOG">Points: <span id="pointValueOG">0</span></button>
-    <button id="upgradeOG">Upgrade: <span id="pointCostOG"></span></button>
-    <button id="evolveOG">Evolve: <span id="evoCostOG"> </span> <br>WARNING: Resets everything except evolutions to 0</button>
-
-
+<div id="OG-Version" class="hidden">
+  <h1>Welcome to Circle Clicker V0.1 - WARNING: This version does not save after leaving the *whole* game!</h1>
+  <button id="circleOG">Points: <span id="pointValueOG">0</span></button>
+  <button id="upgradeOG">Upgrade: <span id="pointCostOG"></span></button>
+  <button id="evolveOG">Evolve: <span id="evoCostOG"> </span> <br>WARNING: Resets everything except evolutions to 0</button>
 
   <button id="backToGameScreen">Back To The Game</button>
 </div>
 
 
-
-
-
-<div id="order66Effect"></div>
-<div id="megaEffect"></div>
-
-
-
 <div id="changelogPopup">
-
-<h1 style="color: goldenrod; margin-bottom: 8px;">V11.1</h1>
-
-<h3>New feature</h3>
-<ul>
-  <li>Added a <b>temporary</b> background music, which can be toggled in the settings. A better fitting music will be added <em>soon!</em></li>
-  <li>In the changelogs you can now find a new button where you can <b>inform me</b> of any bugs you might have found!</li>
-</ul>
-
-<h3>Bug/issue Fixes</h3>
-<ul>
-  <li>Changelogs now only show on the first load after the update</li>
-  <li>Pop-up timers reset if you get the same type of pop-up at the same time — note, only the newest popup of that type is shown!</li>
-  <li>All pop-ups now play sound</li>
-  <li>Fixed an issue where toggling sound resets the autosave timer</li>
-</ul>
-
-<h3>UI/UX Improvements & Quality of Life</h3>
-<ul>
-  <li>A forced save before Evolution 2 is now mandatory — this cannot be turned off!</li>
-  <li>Minor UI changes</li>
-</ul>
-
-<h3>Balance Changes</h3>
-<ul>
-  <li>MEGA-upgrades are now only allowed every 15 upgrades, instead of every 10</li>
-  <li>Autoclicks now also count for All-time clicks, of course, only if autopower > 0</li>
-</ul>
-
-<h3>Known Issues</h3>
-<p style="color: #888; font-size: small; font-style: italic;">
-  These minor bugs are not urgent and may take some time to fix, most of these are purely visual.
-</p>
-<ul>
-  <li>No known bugs</li>
-</ul>
-
-<div style="display: flex; margin: 4vh 0;">
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdoR9VI_etS4_V7QrpPQuxCVI4oGBP0-u48dqbhvxkjC02YxQ/viewform" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-    <button aria-label="Report a bug" style="
-      background: rgb(255, 255, 255);
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-weight: bold;
-      width: 50vw;
-      max-width: 200px;
-      height: 5vh;
-      ">
-      Encountered a bug?
-    </button>
-  </a>
-  <br>
-</div>
-
-<h3>Coming Soon!</h3>
-<ul>
-  <li>[REDACTED]</li>
-</ul>
-
-<h4 style="color: aqua;"><strong>Have fun</strong> with this new and improved version!</h4>
-
-<div style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
-
-  <!-- Reset button -->
-  <button id="resetAupdate" style="
-    background: rgb(255, 255, 255);
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-weight: bold;
-    right: 300px;
-    width: 50vw;
-    max-width: 200px;
-    height: 5vh;
-  ">
-Reset game (recommended)
-  </button>
-
-<button onclick="
-  if (confirm('Resetting is recommended.\nClick OK to close the changelog, or Cancel to keep it open.')) {
-    document.getElementById('changelogPopup').style.display = 'none';
-    localStorage.setItem('cc_changelog_V11.1', 'seen');
-  } 
-" style="
-    background: #000000;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-weight: bold;
-    left: 300px;
-    width: 50vw;
-    max-width: 200px;
-    height: 5vh;
-  ">
-  Close 
-</button>
-
+  <h1 style="color: goldenrod; margin-bottom: 8px;">Version - 11.2</h1>
+  <h3>Balance Changes</h3>
+    <ul>
+      <li><b>EvoLoss multiplier</b> now reduces <em>coin shop gains</em> by -5% instead of -10%</li>
+      <li><b>Evo-17</b> and <b>Evo-19</b> now give -5% to the <em>price multiplier</em></li>
+      <li>You now need to buy at least <b>3 upgrades</b> before performing your first evolution</li>
+    </ul>
+    <h3>UI/UX Improvements, Quality of Life Changes, and Small Tweaks</h3>
+    <ul>
+      <li>Updated <em>changelog layout</em> for a cleaner look</li>
+      <li>Removed the warning message when closing the changelog without resetting; the <b>reset button</b> warning is sufficient</li>
+      <li>Added an <em>animation</em> when opening the changelog</li>
+      <li>Updated the <b>evolve warning message</b></li>
+      <li>Updated the <b>evolve rewards message</b></li>
+      <li>You now choose your <b>speciality</b> after reaching Evo-3 instead of during evolution; the forced save is also removed</li>
+      <li>You can now enter the second (currently empty) <b>Rank Shop page</b>! Content coming soon</li>
+      <li>Improved the appearance of the <b>progress bar</b></li>
+    </ul>
+    <h3>Bug / Issue Fixes</h3>
+    <ul>
+      <li>Changelogs no longer appear in <b>OG-Mode</b></li>
+      <li>You will never lock yourself out of evolving if something goes wrong while choosing a speciality</li>
+      <li>The <b>Toggle Music</b> button is now visible in the <em>settings screen</em> (mobile)</li>
+      <li>The second (empty) page of the <b>Coin Shop</b> is now accessible</li>
+      <li>The <b>Mystery Gift</b> popup now disappears after 2.5 seconds</li>
+      <li>Fixed various issues with the <b>evo progress bar</b></li>
+      <li>Fixed some <em>mobile UI</em> issues</li>
+    </ul>
+    <hr>
+    <h1 style="color: goldenrod; margin-bottom: 8px;">Further Information</h1>
+    <h3>Known Issues</h3>
+    <p style="color: #888; font-size: small; font-style: italic;">
+      These minor bugs are not urgent and may take some time to fix. Most of them are purely visual.
+    </p>
+    <ul>
+      <li>No known critical bugs at the moment</li>
+    </ul>
+    <div class="bug-report-container">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdoR9VI_etS4_V7QrpPQuxCVI4oGBP0-u48dqbhvxkjC02YxQ/viewform" target="_blank" rel="noopener noreferrer">
+        <button class="bug-report-btn" aria-label="Report a bug"><b>Encountered a bug?</b></button><br>
+      </a>
+    </div>
+    <h3>Coming Soon!</h3>
+    <ul>
+      <li><em>[REDACTED]</em></li>
+    </ul>
+    <h4 style="color: aqua;"><em><b>Have fun</b> with this new and improved version!</em></h4>
+    <hr>
+    <div class="popup-button-container">
+      <div>
+        <button id="resetAupdate" class="reset-btn"><b>Reset Game</b> (recommended on first load)</button>
+      </div>
+      <div>
+        <button class="close-btn" onclick="closeChangelog()"><b>Close</b></button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-  const changelogVersion = "V11.1"; // Change on new updates
+  const changelogVersion = "V11.2"; // Change on new updates
   window.addEventListener('load', () => {
-    if (localStorage.getItem('cc_changelog_V11.1') === 'seen') {
+    if (localStorage.getItem('cc_changelog_V11.2') === 'seen') {
       const popup = document.getElementById('changelogPopup');
       if (popup) popup.style.display = 'none';
     }
   });
 </script>
+
+<div id="order66Effect"></div>
+<div id="megaEffect"></div>
+
     
 <script src="Script.JS"></script>
 </body>
