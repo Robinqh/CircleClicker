@@ -2692,7 +2692,7 @@ resetAupdate.onclick = function() {
 
 function closeChangelog() {
     changelogPopup.style.display = 'none';   
-    localStorage.setItem('cc_changelog_V11.2', 'seen'); 
+    localStorage.setItem('cc_changelog_V11.21', 'seen'); 
 }
 
 function resetGame() {

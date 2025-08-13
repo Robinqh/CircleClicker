@@ -16,7 +16,7 @@
     <div class="side-line" id="right-line"></div>
 
     <div id="game-container">
-        <button id="showChangeLogs">Welcome to Circle Clicker! Show Changelog - V11.2</button>
+        <button id="showChangeLogs">Welcome to Circle Clicker! Show Changelog - V11.21</button>
 
         <div id="stats-rowA">
             <h4 id="ClickPower"></h4>
@@ -219,8 +219,8 @@
   <h1 style="color: goldenrod; margin-bottom: 8px;">Version - 11.2</h1>
   <h3>Balance Changes</h3>
     <ul>
-      <li><b>EvoLoss multiplier</b> now reduces <em>coin shop gains</em> by -5% instead of -10%</li>
-      <li><b>Evo-17</b> and <b>Evo-19</b> now give -5% to the <em>price multiplier</em></li>
+      <li>EvoLoss multiplier bought from the CoinShop now reduced EvoLoss by ><b>-5% instead of -10%</b></li>
+      <li><b>Evo-17</b> and <b>Evo-19</b> now give a -5% to the <em>price multiplier</em></li>
       <li>You now need to buy at least <b>3 upgrades</b> before performing your first evolution</li>
     </ul>
     <h3>UI/UX Improvements, Quality of Life Changes, and Small Tweaks</h3>
@@ -243,6 +243,8 @@
       <li>The <b>Mystery Gift</b> popup now disappears after 2.5 seconds</li>
       <li>Fixed various issues with the <b>evo progress bar</b></li>
       <li>Fixed some <em>mobile UI</em> issues</li>
+
+      <li>(V11.21): Fixed some small issues in the <em>changelog</em></li>
     </ul>
     <hr>
     <h1 style="color: goldenrod; margin-bottom: 8px;">Further Information</h1>
@@ -276,9 +278,9 @@
 </div>
 
 <script>
-  const changelogVersion = "V11.2"; // Change on new updates
+  const changelogVersion = "V11.21"; // Change on new updates
   window.addEventListener('load', () => {
-    if (localStorage.getItem('cc_changelog_V11.2') === 'seen') {
+    if (localStorage.getItem('cc_changelog_V11.21') === 'seen') {
       const popup = document.getElementById('changelogPopup');
       if (popup) popup.style.display = 'none';
     }
