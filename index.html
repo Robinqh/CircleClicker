@@ -16,7 +16,7 @@
 <body id="body">
 
   <div id="game-container"> <!-- Contains the main game screen-->
-    <button id="showChangeLogs">Welcome to Circle Clicker! Show Changelog: V12.0</button>
+    <button id="showChangeLogs">Welcome to Circle Clicker! Show Changelog: V12.01</button>
 
     <div id="stats-rowA">
         <div id="ClickPower"></div> <!-- *** -->
@@ -129,14 +129,19 @@
             </div>
         </div>
     </div>
+  </div>
+
+    <div id="reset" class="hidden">
+      <h1>Are you sure you want to reset the game?</h1>
+      <button id="confirmreset">Confirm Reset</button>
+      <button id="cancelreset">Cancel Reset</button>
+    </div>
 
     <div id="load" class="hidden">
-      <h1>Are you sure you want to reset the game?</h1>
+      <h1>Are you sure you want to load your savefile?</h1>
       <button id="confirmload">Confirm Load</button>
       <button id="cancelload">Cancel Load</button>
     </div>
-  </div>
-
 
   <div class="pop-ups">
     <h1 id="popupAutoSave" class="hidden"></h1> <!-- *** -->
@@ -196,12 +201,6 @@
       <button id="toggleMusic"></button> <!-- *** -->
     </div>
 
-    <div id="reset" class="hidden">
-      <h1>Are you sure you want to reset the game?</h1>
-      <button id="confirmreset">Confirm Reset</button>
-      <button id="cancelreset">Cancel Reset</button>
-    </div>
-
     <button id="leaveSettings">Leave Settings</button>
   </div>
 
@@ -221,13 +220,13 @@
 
 
 <div id="changelogPopup">  <!-- Shows the changelog -->
-    <h1><b>Version - 12.0</b></h1>
+    <h1><b>Version - 12.01</b></h1>
 
     <h3><b>New Features</b></h3>
     <ul>
         <li>Added the <b>third evo goal</b> to all currently available evolutions</li>
         <li>Added a new <b>CoinShop item</b>: with this, you can increase your <b>max permapower</b> by 1, up to 5 times!</li>
-        <li>Added a new <b>sound</b> when entering the <b>Settings</b> and changing settings (excluding <em>Reset Game</em>)</li>
+        <s><li>Added a new <b>sound</b> when entering the <b>Settings</b> and changing settings (excluding <em>Reset Game</em>)</s> - removed in V12.01</li>
     </ul>
 
     <h3><b>Balance Changes</b></h3>
@@ -251,6 +250,9 @@
     <ul>
         <li>Fixed minor <b>mobile UI issues</b></li>
         <li>Clicks made by the <b>autoclicker</b> during offline time now count toward <b>all-time clicks</b>, not all-time points</li>
+        <li><b><em>(V12.01)</em></b>: reset <b>pop-up</b> now actually shows</li>
+        <li><b><em>(V12.01)</em></b>: load <b>pop-up</b> now shows the correct text</li>
+        <li><b><em>(V12.01)</em></b>: the reset <b>button</b> in the <b>changelogs</b> now work</li>
     </ul>
 
     <h3><b>Code Optimizations</b></h3>

@@ -1126,33 +1126,36 @@ function FirstLoadGame() {
 
 
 function loadGame() {
-    let loadconfirmed = false;
+    const savedGameState = localStorage.getItem("GameState");
+    const saveExists = savedGameState && savedGameState.trim() !== "";
 
     if (!firstload) {
         loadPopUp.style.display = 'block';
         loadPopUp.classList.remove("hidden");
 
-        cancelload.onclick = function() {
+        cancelload.onclick = function () {
             loadPopUp.style.display = 'none';
             loadPopUp.classList.add("hidden");
-            return
-        }
-        confirmload.onclick = function() {
-            loadPopUp.style.display = 'none';
-            loadPopUp.classList.add("hidden");
-            loadconfirmed = true
+        };
 
-            if (gamesaved) {
-                loadgamePart2()
+        confirmload.onclick = function () {
+            loadPopUp.style.display = 'none';
+            loadPopUp.classList.add("hidden");
+
+            if (saveExists) {
+                loadgamePart2(savedGameState);
             } else {
-                showPopup("otherPopUps", "No Safe Found!", 2500);
+                showPopup("otherPopUps", "No Save Found!", 2500);
             }
-        }
-    } else {
-        loadgamePart2()
-    }
+        };
 
+    } else {
+        if (saveExists) {
+            loadgamePart2(savedGameState);
+        }
+    }
 }
+
 function loadgamePart2() {
     const savedGameState = localStorage.getItem("GameState");
 
@@ -1319,12 +1322,12 @@ resetAupdate.onclick = function() {
 
 function closeChangelog() {
     changelogPopup.style.display = 'none';   
-    localStorage.setItem('cc_changelog_V12.0', 'seen'); 
+    localStorage.setItem('cc_changelog_V12.01', 'seen'); 
 }
 
-const changelogVersion = "V12.0"; // Change on new updates
+const changelogVersion = "V12.01"; // Change on new updates
 window.addEventListener('load', () => {
-if (localStorage.getItem('cc_changelog_V12.0') === 'seen') {
+if (localStorage.getItem('cc_changelog_V12.01') === 'seen') {
     const popup = document.getElementById('changelogPopup');
     if (popup) popup.style.display = 'none';
     }
@@ -1453,29 +1456,17 @@ toggleAutoSave.onclick = function() {
     autoSaveToggle = !autoSaveToggle;
     autosave();
     UpdateUI();
-    if (soundToggle) {
-        const settingsSoundInstance = new Audio(settingsSound.src);
-        settingsSoundInstance.play();
-        }
 }
 
 toggleSound.onclick = function() {
     soundToggle = !soundToggle;
     UpdateUI(); 
-    if (soundToggle) {
-        const settingsSoundInstance = new Audio(settingsSound.src);
-        settingsSoundInstance.play();
-        }
 }
 
 toggleMusic.onclick = function() {
     musicToggle = !musicToggle
     backgroundMusic();
     UpdateUI(); 
-    if (soundToggle) {
-        const settingsSoundInstance = new Audio(settingsSound.src);
-        settingsSoundInstance.play();
-        }
 }
 
 function autosave() {
@@ -2021,12 +2012,6 @@ leaveSettings.onclick = function() {
         sidelineLeft.classList.add("hidden")
         sidelineRight.classList.add("hidden")
         settings.classList.remove("hidden")
-
-    if (soundToggle) {
-        const settingsSoundInstance = new Audio(settingsSound.src);
-        settingsSoundInstance.play();
-        }
-
     }
 
 //#endregion --- Settings ---

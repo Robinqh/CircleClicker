@@ -138,7 +138,6 @@ const cancelload = document.getElementById("cancelload")
     //Sound Logic
 const clickSound = new Audio("Sounds/clickSound.mp3");
 const popupSound = new Audio("Sounds/PopUp.mp3")
-const settingsSound = new Audio("Sounds/settings.mp3")
 
 const backgroundSong = new Audio("Sounds/backgroundmusic.mp3")
 backgroundSong.loop = true;
