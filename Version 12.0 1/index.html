@@ -1,0 +1,322 @@
+<!-- General Information:
+1. Notes that only contains "***" means that the text of that item is completely done by the JS file.
+2. Most buttons are (de)activated by the JS file, so even if they seem activated here, they are not.
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle Clicker</title>
+    <link id="stylesheet" rel="stylesheet" href="Styles/Style.css"> <!--Deactivates upon entering OG-Mode-->
+    <link id="stylesheetOG" rel="stylesheet" href="Styles/StyleOG.css" disabled> <!--Activates upon entering OG-Mode-->
+</head>
+<body id="body">
+
+  <div id="game-container"> <!-- Contains the main game screen-->
+    <button id="showChangeLogs">Welcome to Circle Clicker! Show Changelog: V12.01</button>
+
+    <div id="stats-rowA">
+        <div id="ClickPower"></div> <!-- *** -->
+        <div id="AutoPower"></div> <!-- *** -->
+        <div id="EvolutionLevel"></div> <!-- *** -->
+    </div>
+
+    <div id="stats-rowB">
+        <div id="pricemultiplier"></div> <!-- *** -->
+        <div id="offlinemultiplier"></div> <!-- *** -->
+        <div id="totalClicksPoints"></div> <!-- *** -->
+    </div>
+
+    <button id="currentRank"></button> <!-- *** -->
+        
+    <div id="progress-container"> 
+      <div id="progress-bar"></div> 
+      <div id="progress-text"></div> <!-- *** -->
+    </div>
+      
+    <div id="progress-container-RANKS"> 
+        <div id="progress-bar-RANKS"></div> 
+        <div id="progress-text-RANKS"></div> <!-- *** -->
+     </div>     
+
+    <button id="circle"><br><span id="pointValue"></span></button> <!-- *** -->
+        
+
+    <div id="normal-upgrades">
+      <div class="upgrade-buttons-group">
+        <button id="powerupgrade"></button> <!-- *** -->
+        <button id="autoupgrade"></button> <!-- *** -->
+        <button id="permanentupgrade"></button> <!-- *** -->
+        <button id="mysterygift"></button> <!-- *** -->
+        <button id="evolve"></button> <!-- *** -->
+      </div>
+    </div>
+
+    <div id="special-upgrades">
+        <div id="special-buttons-group">
+            <button id="ELM"></button > <!-- *** -->
+            <button id="autotime"></button> <!-- *** -->
+            <button id="mysteryprice"></button> <!-- *** -->
+        </div>
+        <div id="special-buttons-group2">
+            <button id="ExtraMaxPermaPower"></button> <!-- *** -->
+            <button id="X2">Coming Soon!</button>
+            <button id="X3">Coming Soon!</button>
+        </div>
+    </div>
+
+    <div id="rank-upgrades">
+        <div id="rank-buttons-group">
+            <button id="Offline"></button> <!-- *** -->
+            <button id="CN"></button> <!-- *** -->
+            <button id="RPexchange"></button> <!-- *** -->
+        </div>
+        <div id="rank-buttons-group2">
+            <button id="CoinAC"></button>
+            <button id="X5">Coming Soon!</button>
+            <button id="X6">Coming Soon!</button>
+        </div>
+    </div>
+
+    <div id="toggle-shop-group">
+        <button id="btnNormal"></button> <!-- *** -->
+        <button id="btnSpecial"></button> <!-- *** -->
+        <button id="btnRank"></button> <!-- *** -->
+    </div>
+
+    <div class="save-load-group">
+        <button id="saveGameButton">Save Game</button>
+        <button id="loadGameButton">Load Game</button>
+    </div>
+
+    <button id="toggleScreen">Open Achievements</button>
+    <button id="toggleStats">Toggle stats</button>
+    <button id="settingsScreen">Settings</button>
+
+    <div id="large-pop-ups">
+        <div id="evolved">
+            <p id="evolved-message"></p>
+            <p id="choose" class="hidden"></p>
+            <div class="specialty-buttons-container">
+                <button id="clicker" class="hidden">Clicker</button>
+                <button id="offliner" class="hidden">Offliner</button>
+                <button id="buyer" class="hidden">Buyer</button>
+                <button id="evolver" class="hidden">Evolver</button>
+            </div>
+            <br>
+            <button id="closeEvolvedPopup">Close</button>
+        </div>
+
+        <div id="confirm-evolve-popup" class="popup-container">
+            <div class="popup-content">
+                <h2>⚠️Confirm Evolution⚠️</h2>
+                <p>
+                    Are you sure you want to evolve?<br>
+                    During evolution you lose:
+                <ul>
+                    <li>Clicking power</li>
+                    <li>Auto power</li>
+                    <li>Clicks * evoLoss</li>
+                </ul>
+                </p>
+                <div class="popup-buttons">
+                    <button id="confirm-evolve-yes">Yes, Evolve!</button>
+                    <button id="confirm-evolve-no">No, Not Yet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+    <div id="reset" class="hidden">
+      <h1>Are you sure you want to reset the game?</h1>
+      <button id="confirmreset">Confirm Reset</button>
+      <button id="cancelreset">Cancel Reset</button>
+    </div>
+
+    <div id="load" class="hidden">
+      <h1>Are you sure you want to load your savefile?</h1>
+      <button id="confirmload">Confirm Load</button>
+      <button id="cancelload">Cancel Load</button>
+    </div>
+
+  <div class="pop-ups">
+    <h1 id="popupAutoSave" class="hidden"></h1> <!-- *** -->
+    <h1 id="popupmysterygift" class="hidden"></h1> <!-- *** -->
+    <h1 id="popupNC" class="hidden"></h1> <!-- *** -->
+    <h1 id="backmessage" class="hidden"></h1> <!-- *** -->
+    <h1 id="exchangeMessage" class="hidden"></h1> <!-- *** -->
+    <h1 id="otherPopUps" class="hidden"></h1> <!-- *** -->
+  </div>
+
+  <div id="achievmentScreen" class="hidden"> <!-- Contains the main achievement screen -->
+
+    <h2>Achievements - updates every 5 seconds!</h2>
+
+    <div id="Basic-Achievments">
+      <button id="click1000">Click<br>1000<br>Times!</button>
+      <button id="points100000">Gain<br>100.000<br>Points!</button>
+      <button id="coin20">Gain<br>20<br>Coins!</button>
+      <button id="rp500">Gain<br>500<br>RankPoints!</button>
+      <button id="evolve3">Gain<br>3<br>Evolutions!</button>
+
+      <button id="click2500">Click<br>2500<br>Times!</button>
+      <button id="points250000">Gain<br>250.000<br>Points!</button>
+      <button id="coin50">Gain<br>50<br>Coins!</button>
+      <button id="rp1250">Gain<br>1.250<br>RankPoints!</button>
+      <button id="evolve5">Gain<br>5<br>Evolutions!</button>
+
+      <button id="click10000">Click<br>10000<br>Times!</button>
+      <button id="points1000000">Gain<br>1.000.000<br>Points!</button>
+      <button id="coin200">Gain<br>200<br>Coins!</button>
+      <button id="rp5000">Gain<br>5.000<br>RankPoints!</button>
+      <button id="evolve10">Gain<br>10<br>Evolutions!</button>
+
+      <button id="click25000">Click<br>25000<br>Times!</button>
+      <button id="points2500000">Gain<br>2.500.000<br>Points!</button>
+      <button id="coin500">Gain<br>500<br>Coins!</button>
+      <button id="rp12500">Gain<br>12.500<br>RankPoints!</button>
+      <button id="evolve15">Gain<br>15<br>Evolutions!</button>
+
+      <button id="click100000">Click<br>100000<br>Times!</button>
+      <button id="points10000000">Gain<br>10.000.000<br>Points!</button>
+      <button id="coin2000">Gain<br>2.000<br>Coins!</button>
+      <button id="rp50000">Gain<br>50.000<br>RankPoints!</button>
+      <button id="evolve25">Gain<br>25<br>Evolutions!</button>
+  </div>
+
+    <button id="toggleScreen2">Return to the Game</button>
+  </div>
+
+
+
+  <div id="settings" class="hidden">
+    <div class="settings-container">
+      <button id="toggleAutoSave"></button> <!-- *** -->
+      <button id="resetGameButton">Reset Game</button>
+      <button id="toggleSound"></button> <!-- *** -->
+      <button id="toggleMusic"></button> <!-- *** -->
+    </div>
+
+    <button id="leaveSettings">Leave Settings</button>
+  </div>
+
+
+
+<div id="OG-Version" class="hidden">  <!-- OG-MODE screen -->
+    <h1>Welcome to Circle Clicker V0.1 - WARNING: This version does not save after leaving the *whole* game!</h1>
+    <button id="circleOG">Points: <span id="pointValueOG">0</span></button>
+    <button id="upgradeOG">Upgrade: <span id="pointCostOG"></span></button>
+    <button id="evolveOG">
+        Evolve: <span id="evoCostOG"></span><br>
+        WARNING: Resets everything except evolutions to 0
+    </button>
+    <button id="backToGameScreen">Back To The Game</button>
+</div>
+
+
+
+<div id="changelogPopup">  <!-- Shows the changelog -->
+    <h1><b>Version - 12.01</b></h1>
+
+    <h3><b>New Features</b></h3>
+    <ul>
+        <li>Added the <b>third evo goal</b> to all currently available evolutions</li>
+        <li>Added a new <b>CoinShop item</b>: with this, you can increase your <b>max permapower</b> by 1, up to 5 times!</li>
+        <s><li>Added a new <b>sound</b> when entering the <b>Settings</b> and changing settings (excluding <em>Reset Game</em>)</s> - removed in V12.01</li>
+    </ul>
+
+    <h3><b>Balance Changes</b></h3>
+    <ul>
+        <li>Adjusted some of the <b>evolution requirements</b>; some are now harder, others easier</li>
+        <li>Added a small reward when <em>frgertdhtrhrtyhsabfqdwqweuyifbwfsasd</em> occurs!</li>
+    </ul>
+
+    <h3><b>UI/UX Improvements, Quality of Life Changes, and Small Tweaks</b></h3>
+    <ul>
+        <li>The <b>rank progress bar</b> now shows progress to the <b>final rank</b> instead of the next rank. You'll still see when the next rank is reached!</li>
+        <li>Updated the <b>text display</b> when evolving while having the <em>optional evoGoal</em> completed</li>
+        <li>The <b>Achievement screen</b> and <b>Toggle Stats</b> are now side by side on mobile, like on desktop</li>
+        <li>The <b>Music toggle</b> now starts as <em>off</em></li>
+        <li>The <b>RankShop</b> now has a 2×3 layout to match the <b>CoinShop</b></li>
+        <li>The <b>Reset button</b> now shows a pop-up instead of an HTML alert; the same applies for <b>Load Game</b></li>
+        <li>The <b>Leave Settings</b> button on mobile is now correctly sized</li>
+    </ul>
+
+    <h3><b>Bug / Issue Fixes</b></h3>
+    <ul>
+        <li>Fixed minor <b>mobile UI issues</b></li>
+        <li>Clicks made by the <b>autoclicker</b> during offline time now count toward <b>all-time clicks</b>, not all-time points</li>
+        <li><b><em>(V12.01)</em></b>: reset <b>pop-up</b> now actually shows</li>
+        <li><b><em>(V12.01)</em></b>: load <b>pop-up</b> now shows the correct text</li>
+        <li><b><em>(V12.01)</em></b>: the reset <b>button</b> in the <b>changelogs</b> now work</li>
+    </ul>
+
+    <h3><b>Code Optimizations</b></h3>
+    <ul>
+        <li>Cleaned up the <b>HTML code</b></li>
+        <li>Added clear <b>notes</b> in the HTML for future reference</li>
+        <li>The <b>Evolution requirements</b> are now checked from a separate JS file for easier future access</li>
+        <li>The <b>UpdateUI</b> function is now checked from a separate JS file for easier future access</li>
+        <li>All <b>const</b> and <b>let</b> declarations are now in separate files for easier future access</li>
+    </ul>
+
+    <hr>
+
+    <h1><b>Further Information</b></h1>
+    <h3><b>Known Issues</b></h3>
+    <p id="knownbugsmessage">These minor bugs are not urgent and may take some time to fix. Most are purely visual.</p>
+    <ul>
+        <li>Resetting the game does not revert you back to the <b>base shop</b></li>
+        <li>The changelog opens at the bottom instead of the top when opened a second time</li>
+    </ul>
+
+    <div class="bug-report-container">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdoR9VI_etS4_V7QrpPQuxCVI4oGBP0-u48dqbhvxkjC02YxQ/viewform" target="_blank" rel="noopener noreferrer">
+            <button class="bug-report-btn" aria-label="Report a bug"><b>Encountered a bug?</b></button>
+            <br>
+        </a>
+    </div>
+
+    <h3><b>Coming Soon!</b></h3>
+    <ul>
+        <li><em>[REDACTED]</em></li>
+    </ul>
+
+    <h4><em><b>Have fun</b> with this new and improved version!</em></h4>
+
+    <hr>
+
+    <div class="popup-button-container">
+        <div>
+            <button id="resetAupdate" class="reset-btn"><b>Reset Game</b> (recommended on first load)</button>
+        </div>
+        <div>
+            <button class="close-btn" onclick="closeChangelog()"><b>Close</b></button>
+        </div>
+    </div>
+</div>
+
+
+
+  <div id="order66Effect"></div>
+  <div id="megaEffect"></div>
+
+  <div>
+    <div class="side-box" id="left-side"></div>
+    <div class="side-box" id="right-side"></div>
+    <div class="side-line" id="left-line"></div>
+    <div class="side-line" id="right-line"></div>
+  </div>
+    
+<script src="JavaScripts/const.js"></script>
+<script src="JavaScripts/variables.js"></script>
+<script src="JavaScripts/EvoRequierements.JS"></script>  
+<script src="JavaScripts/UpdateUI.js"></script>
+<script src="JavaScripts/Script.JS"></script>
+
+</body>
+</html>

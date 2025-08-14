@@ -1,0 +1,29 @@
+  <h3>Balance Changes</h3>
+    <ul>
+      <li><b>EvoLoss multiplier</b> now reduces <em>coin shop gains</em> by -5% instead of -10%</li>
+      <li><b>Evo-17</b> and <b>Evo-19</b> now give -5% to the <em>price multiplier</em></li>
+      <li>You now need to buy at least <b>3 upgrades</b> before performing your first evolution</li>
+    </ul>
+    <h3>UI/UX Improvements, Quality of Life Changes, and Small Tweaks</h3>
+    <ul>
+      <li>Updated <em>changelog layout</em> for a cleaner look</li>
+      <li>Removed the warning message when closing the changelog without resetting; the <b>reset button</b> warning is sufficient</li>
+      <li>Added an <em>animation</em> when opening the changelog</li>
+      <li>Updated the <b>evolve warning message</b></li>
+      <li>Updated the <b>evolve rewards message</b></li>
+      <li>You now choose your <b>speciality</b> after reaching Evo-3 instead of during evolution; the forced save is also removed</li>
+      <li>You can now enter the second (currently empty) <b>Rank Shop page</b>! Content coming soon</li>
+      <li>Improved the appearance of the <b>progress bar</b></li>
+    </ul>
+    <h3>Bug / Issue Fixes</h3>
+    <ul>
+      <li>Changelogs no longer appear in <b>OG-Mode</b></li>
+      <li>You will never lock yourself out of evolving if something goes wrong while choosing a speciality</li>
+      <li>The <b>Toggle Music</b> button is now visible in the <em>settings screen</em> (mobile)</li>
+      <li>The second (empty) page of the <b>Coin Shop</b> is now accessible</li>
+      <li>The <b>Mystery Gift</b> popup now disappears after 2.5 seconds</li>
+      <li>Fixed various issues with the <b>evo progress bar</b></li>
+      <li>Fixed some <em>mobile UI</em> issues</li>
+
+      <li>(V11.21): Fixed some small issues in the <em>changelog</em></li>
+    </ul>

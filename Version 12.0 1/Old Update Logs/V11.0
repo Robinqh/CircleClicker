@@ -1,0 +1,45 @@
+<h3>New Features</h3>
+<ul>
+  <li><strong>Evogoals:</strong> Replacing the old endgoal, every evolution now has a second goal. Completing it takes time but grants permanent rewards. Evolving isn’t always the best choice anymore!</li>
+  <li>Completing an evogoal grants a <strong>+2.5% auto and click multiplier</strong>.</li>
+  <li>Extra evogoals added to evolutions: <strong>1–5, 9, 14, 19, 24</strong> (more coming soon).</li>
+  <li><strong>New evolution requirement:</strong> Buy a minimum number of upgrades during each evolution.</li>
+  <li><strong>MEGA Upgrades:</strong> Now available for auto-upgrades too. Clicking and autopower share the same count — choose wisely!</li>
+  <li><strong>New sound alert:</strong> Pop-ups now play a notification sound.</li>
+  <li><strong>Settings screen:</strong> Access reset and sound toggle options through the new settings button.</li>
+</ul>
+
+<h3>Balance Changes</h3>
+<ul>
+  <li>MEGA-upgrades no longer count towards the 10 required upgrades.</li>
+  <li>Adjusted some evolution requirements.</li>
+  <li>Removed the old endgoal.</li>
+  <li>First coin batch now awarded at <strong>150 clicks</strong> instead of 350.</li>
+  <li>Added a new evolution requirement: buy at least <strong>5 × your evolution level</strong> upgrades (clicker or auto).</li>
+</ul>
+
+<h3>UI/UX Improvements & Quality of Life</h3>
+<ul>
+  <li>Welcome message and update logs are now combined in a fixed position for consistent display.</li>
+  <li>The <strong>Evolve</strong> button turns green at max level (25).</li>
+  <li>Evolution messages now clearly state what you lose on evolving.</li>
+  <li>Second page of the Coin Shop is accessible (content coming soon).</li>
+  <li>Achievement rewards use the improved pop-up UI.</li>
+  <li>MEGA-upgrade effect duration shortened.</li>
+  <li>Warning shown if you haven’t reset after an update (ignore if you already did).</li>
+  <li>Game loads directly into the regular shop after loading a save.</li>
+  <li>Some buttons moved due to the new settings screen.</li>
+  <li>Changed tho look of the changelog</li>
+</ul>
+
+<h3>Bug Fixes</h3>
+<ul>
+  <li>Fixed power/autopower calculation issues after evolving.</li>
+  <li>Offline autoclicker and coin autoclicker now appear consistently on desktop and mobile.</li>
+  <li>Prices and offline multipliers are visible again.</li>
+  <li>Minor typo and spelling fixes.</li>
+  <li>Rank shop items unlock at evolution 8 instead of 9.</li>
+  <li>Reduced permaupgrade font size for better fit on smaller screens.</li>
+  <li>Clicker/offliner free upgrades start at evolution 3 instead of 4.</li>
+  <li>Fixed autoclicker UI update issue when coin autoclicker not purchased.</li>
+</ul>
