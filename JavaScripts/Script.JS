@@ -12,13 +12,41 @@ function priceChanges() {
     }
     }
 
-    powerprice = Math.round(15 * powerupgrades + increasePower);
-    powerprice = Math.round(powerprice * priceMultiplier);
-    powerprice = Math.round(powerprice / 1) * 1;
+    let rawPowerPrice = (15 * powerupgrades + increasePower) * priceMultiplier;
+    let rawAutoPrice  = (37.5 * autoupgrades + increaseAuto) * priceMultiplier;
+    let roundingFactorPower;
+    let roundingFactorAuto;
 
-    autoprice = Math.round(37.5 * autoupgrades + increaseAuto);
-    autoprice = Math.round(autoprice * priceMultiplier);
-    autoprice = Math.round(autoprice / 5) * 5;
+    if (rawPowerPrice < 10000) {
+        roundingFactorPower = 1;
+    } else if (rawPowerPrice >= 10000 && rawPowerPrice < 75000) {
+        roundingFactorPower = 100;
+    } else if (rawPowerPrice >= 75000 && rawPowerPrice < 250000) {
+        roundingFactorPower = 250;
+    } else if (rawPowerPrice >= 250000 && rawPowerPrice < 2500000) {
+        roundingFactorPower = 5000;
+    } else if (rawPowerPrice >= 2500000 && rawPowerPrice < 10000000) {
+        roundingFactorPower = 100000;
+    } else {
+        roundingFactorPower = 500000;
+    }
+
+    if (rawAutoPrice < 10000) {
+        roundingFactorAuto = 5;
+    } else if (rawAutoPrice >= 10000 && rawAutoPrice < 75000) {
+        roundingFactorAuto = 250;
+    } else if (rawAutoPrice >= 75000 && rawAutoPrice < 250000) {
+        roundingFactorAuto = 1000;
+    } else if (rawAutoPrice >= 250000 && rawAutoPrice < 2500000) {
+        roundingFactorAuto = 25000;
+    } else if (rawAutoPrice >= 2500000 && rawAutoPrice < 10000000) {
+        roundingFactorAuto = 100000;
+    } else {
+        roundingFactorAuto = 500000;
+    }
+
+    powerprice = Math.round(rawPowerPrice / roundingFactorPower) * roundingFactorPower;
+    autoprice  = Math.round(rawAutoPrice / roundingFactorAuto) * roundingFactorAuto;
 
 
 
@@ -74,7 +102,9 @@ function priceChanges() {
         CNneededcost = Math.round(CNneededcost * pricemultiplier2);
     }
     if (ExchangeCost != null) {
-        ExchangeCost = 20;
+        let pointsGain = Math.floor(clicks * 0.01); 
+        let millions = Math.floor(pointsGain / 500000);
+        ExchangeCost = 20 + (10 * millions);
         ExchangeCost = Math.round(ExchangeCost * pricemultiplier2);
     }
     if (ELMcost !== null) {
@@ -165,9 +195,12 @@ function updateProgressBar() {
 
     document.getElementById("progress-bar").style.width = statusbarPercent + "%";
 
-    if (evogoal === false || evogoal === "None") {
-        document.getElementById("progress-text").innerHTML = "No Evogoal Available";
-    } else if (evoCompleted) {
+    if (evolveLVL < 25 (evogoal === false || evogoal === "None")) {
+        document.getElementById("progress-text").innerHTML = "No Optional Evogoal Available";
+    } else if (evolveLVL > 25) {
+        document.getElementById("progress-text").innerHTML = "All Optional Evogoals Passed!";
+    }
+    else if (evoCompleted) {
         document.getElementById("progress-text").innerHTML = "EvoGoal achieved";
     } else {
         document.getElementById("progress-text").innerHTML = "Optional EvoGoal: " + evogoal;
@@ -295,11 +328,11 @@ mysterygift.onclick = function() {
             rewardMessage = "Points Doubled!";
             clicksgained = null;
         } 
-        else if (mystery < 0.55) { 
-            clicksgained = Math.round(clicks * 4); 
+        else if (mystery < 0.50) { 
+            clicksgained = Math.round(clicks * 2); 
             clicks += clicksgained;
             allTimePoints += clicksgained;
-            rewardMessage = "Points times 5!";
+            rewardMessage = "Points times 3!";
             clicksgained = null;
         } 
         else if (mystery < 1) { 
@@ -499,15 +532,13 @@ RPexchange.onclick = function() {
     if (rankPoints >= ExchangeCost) {
         rankPoints -= ExchangeCost;
         let clicksgained = Math.round(clicks * 0.01);
-        let clicksGainedCapped = false;
-   
+
 
         clicks += clicksgained;
         allTimePoints += clicksgained; // clicks and points are used interchangeably
 
-        showPopup("exchangeMessage", "You gained " +clicksgained + "clicks!", 2500 )
+        showPopup("exchangeMessage", "You gained " + clicksgained + " clicks!", 2500 )
 
-        clicksGainedCapped = false;
         clicksgained = 0;
 
         UpdateUI();
@@ -649,7 +680,7 @@ function OfflineProgress() {
             
             clicks += Math.round(clicksGainedOffline); 
             allTimePoints += Math.round(clicksGainedOffline);
-            allTimeClicks += (autoClicksPerSecondRate * timeElapsedS)
+            allTimeClicks += Math.round(autoClicksPerSecondRate * timeElapsedS)
 
             coins += Math.round(coinsGainedOffline);
             totalcoins += Math.round(coinsGainedOffline);

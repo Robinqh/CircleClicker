@@ -16,7 +16,7 @@ let RPpS = 0;
 let upgradesBoughtThisEvo = 0; //only counts clicker/auto power
 
 // --- Evolution System ---
-let evolveLVL = 0;
+let evolveLVL = 20;
 let evopower = evolveLVL + 1;
 let specialty = null;
 let evoloss = 1;

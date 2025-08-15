@@ -283,6 +283,7 @@ if (showChangeLogsButton) {
         const changelogPopup = document.getElementById("changelogPopup");
         if (changelogPopup) {
             changelogPopup.style.display = "block";
+            changelogPopup.scrollTo({ top: 0, behavior: "smooth" });
         }
     });
 }
@@ -294,12 +295,12 @@ resetAupdate.onclick = function() {
 
 function closeChangelog() {
     changelogPopup.style.display = 'none';   
-    localStorage.setItem('cc_changelog_V12.1', 'seen'); 
+    localStorage.setItem('cc_changelog_V12.2', 'seen');  // Change on new updates
 }
 
-const changelogVersion = "V12.1"; // Change on new updates
+const changelogVersion = "V12.2"; // Change on new updates
 window.addEventListener('load', () => {
-if (localStorage.getItem('cc_changelog_V12.1') === 'seen') {
+if (localStorage.getItem('cc_changelog_V12.2') === 'seen') { // Change on new updates
     const popup = document.getElementById('changelogPopup');
     if (popup) popup.style.display = 'none';
     }
@@ -411,8 +412,8 @@ function resetGame() {
             // Remove saved game from localStorage
             localStorage.removeItem("GameState");
 
-            
-
+        
+        upgtoggle();
         priceChanges();
         startautoclick();
         startrankpoints();

@@ -82,10 +82,10 @@ function UpdateUI() {
 
     // Update RP exchange button
     if (RPexchangeButton) {
-        if (!(evolveLVL >= 8 || specialty === "buyer")) {
+        if (!(evolveLVL >= 13 || specialty === "buyer")) {
             RPexchangeButton.classList.add("not-unlocked");
             RPexchangeButton.classList.remove("buyoff");
-            RPexchangeButton.innerHTML = "Unlocks at evo-8";
+            RPexchangeButton.innerHTML = "Unlocks at evo-13";
         } else if (rankPoints < ExchangeCost) {
             RPexchangeButton.classList.add("buyoff")
             RPexchangeButton.classList.remove("not-unlocked");
@@ -186,7 +186,7 @@ function UpdateUI() {
                 evolveButton.classList.remove("completed"); 
             }
         }
-        if (evolveLVL === 28) {
+        if (evolveLVL === 35) {
             evolveButton.classList.add("completed");
             evolveButton.classList.remove("out-of-stock");
             evolveButton.classList.remove("buyoff");

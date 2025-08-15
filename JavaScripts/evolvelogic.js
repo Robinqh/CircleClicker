@@ -390,6 +390,9 @@ function updateRank() {
     }
 
 
+
+
+
  for (const lvlStr in rankData) {
   const lvl = Number(lvlStr);
   if (lvl <= evolveLVL && !evolutionReached.has(lvl)) {

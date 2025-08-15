@@ -1417,19 +1417,22 @@ button:hover {
 }
 
 
-#ClickPower, #offlinemultiplier,
-#AutoPower, #pricemultiplier {
-    box-sizing: border-box;
-    width: 48.5%; 
-    display: inline-block;
-    vertical-align: top;
-    font-size: 0.7em;
-    border-radius: 0;
-    margin: 0; 
+
+#stats-rowA, #stats-rowB {
+    font-size: 0em;
+    margin: 0;
+    padding: 0;
 }
 
-#offlinemultiplier, #pricemultiplier {
-    margin-right: 0;
+#ClickPower, #offlinemultiplier, #AutoPower, #pricemultiplier {
+    box-sizing: border-box;
+    width: 48%; 
+    display: inline-block;
+    vertical-align: top;
+    font-size: 10.08px;
+    border-radius: 0;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 #EvolutionLevel, #totalClicksPoints {
@@ -1437,13 +1440,10 @@ button:hover {
     width: 96%;
     display: block;
     margin-top: 0;
-    font-size: 0.7em;
+    font-size: 10.08px;
     border-radius: 0;
 }
 
-#stats-rowA, #stats-rowB {
-    width: 96%;
-}
 
 #circle {
     position: relative;
@@ -1488,7 +1488,7 @@ button:hover {
     #evolve,
     #permanentupgrade,
     #mysterygift {
-        width: 48.5%; /* Make buttons half width to fit side-by-side */
+        width: 48%; /* Make buttons half width to fit side-by-side */
         display: inline-block; /* Allow them to be next to each other */
         vertical-align: top;
         position: static; /* Ensure they are not absolute after being inlined */
@@ -1536,7 +1536,7 @@ button:hover {
     #btnNormal,
     #btnSpecial,
     #btnRank {
-        width: 32%; /* Make them roughly a third width for side-by-side */
+        width: 31.5%; /* Make them roughly a third width for side-by-side */
         display: inline-block;
         vertical-align: top;
         position: static;
@@ -1550,7 +1550,7 @@ button:hover {
 
     #saveGameButton,
     #loadGameButton {
-        width: 48.5%;
+        width: 48%;
     }
 
     #toggleStats, #toggleScreen, #toggleScreen2, #backToGameScreen, #settingsScreen{
@@ -1562,7 +1562,7 @@ button:hover {
     }
 
     #toggleStats, #toggleScreen {
-        width: 48.5%;
+        width: 48%;
         display: inline-block;
     }
 
