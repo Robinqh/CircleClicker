@@ -267,7 +267,16 @@ const rankData = { //evoloss needs to be positive to turn negative! Also for aut
 25: {
   flag: 25, priceMultiplier: -0.15, clicksMultiplier: 0.6, autoMultiplier: 0.6, multiplier2: 0.15, maxPermaPower: 20, RPpS: 2.5
  },
-
+26: {flag: 26,
+    specialtyBonuses: {
+        clicker: { clicksMultiplier: 0.25 },
+        offliner: { multiplier2: 0.25 },
+        buyer: { priceMultiplier: -0.05, pricemultiplier2: -0.05 },
+        evolver: { evoloss: 0.05 }
+    }
+},
+27: {flag: 27, maxMysteryGifts: 1},
+28: {flag: 28, clicksMultiplier: 1, autoMultiplier: 1},
 };
 
 const evoRewards = {
@@ -286,7 +295,7 @@ const evoRewards = {
   12: "+1 max mystery gift per evo",
   13: "Nothing",
   14: "Evoloss -5%",
-  15: `Platinum rank:<br>-10% price multiplier<br>+35% clicks multiplier<br>+35% auto multiplier<br>+5 RankPoints per second<br>+15% offline multiplier<br>+4 max permapower`,
+  15: `Platinum rank:<br>-10% price multiplier<br>+35% clicks multiplier<br>+35% auto multiplier<br>+5 RPpS per second<br>+15% offline multiplier<br>+4 max permapower`,
   16: "+1 coin multiplier (+2 for clicker)",
   17: "-5% pricemultiplier",
   18: `Clicker: +1 coin multiplier<br>Offliner: +10% offline multiplier, -50MS on autoclick, +2 hours max offline time<br>Buyer: -5% on both price multipliers<br>Evolver: -5% evoloss`,
@@ -297,5 +306,8 @@ const evoRewards = {
   23: "+1 max mystery gift per evo",
   24: "-75MS on autoclicker",
   25: `Champion rank:<br>-15% price multiplier<br>+60% clicks multiplier<br>+60% auto multiplier<br>+15% offline multiplier<br>+8 max permapower<br>+2.5 RPpS`,
+  26: `Clicker: +25% click multiplier<br>Offliner: +25% offline multiplier<br>Buyer: -5% on both price multipliers<br>Evolver: -5% evoloss`,
+  27: "+1 max mystery gift per evo",
+  28: "+100% clicksmultiplier<br>+100% automultiplier"
 };
 //#endregion --- Evolution Rewards ---

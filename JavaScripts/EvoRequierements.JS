@@ -171,7 +171,7 @@ function checkEvoRequirements() {
             mayEvolve = true;
             noEVOallowedReason = "";
         }
-        evogoal = "Gain " + formatNumber(Math.round(750000 - allTimePoints));
+        evogoal = "Gain " + formatNumber(Math.round(750000 - allTimePoints)) + " more points!";
         evogoalcompleted = allTimePoints >= 750000;
     }
     else if (evolveLVL === 9) {
@@ -468,12 +468,63 @@ function checkEvoRequirements() {
         evogoal = "Buy " + (250 - upgradesBoughtThisEvo) + " more upgrades!";
         evogoalcompleted = upgradesBoughtThisEvo >= 250;
     }
-        else if (evolveLVL === 25) {
+    else if (evolveLVL === 25) {
+        const pointsNeeded = 15000000 - allTimePoints; 
+        mainEvoGoalCompleted = allTimePoints >= 15000000
+
+        if (!mainEvoGoalCompleted) {
             mayEvolve = false;
-            noEVOallowedReason = "Evolution level maxed out!";
-        }
-        else {
+            noEVOallowedReason = " Gain " + formatNumber(Math.round(pointsNeeded)) + " more points!";
+        } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
+            const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
+            mayEvolve = false;
+            noEVOallowedReason = "Buy " + neededupgrades + " more upgrades!";
+        } else {
             mayEvolve = true;
             noEVOallowedReason = "";
+        }
+        evogoal = "None";
+        evogoalcompleted = null;
+    }
+    else if (evolveLVL === 26) {
+        let spentRankPoints = totalRankPoints - rankPoints;
+        const rankPointsNeeded = 20000 - spentRankPoints;
+        mainEvoGoalCompleted = spentRankPoints >= 20000;
+
+        if (!mainEvoGoalCompleted) {
+            mayEvolve = false;
+            noEVOallowedReason = "Spend " + formatNumber(Math.round(rankPointsNeeded)) + " more Rank Points!";
+        } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
+            const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
+            mayEvolve = false;
+            noEVOallowedReason = "Buy " + neededupgrades + " more upgrades!";
+        } else {
+            mayEvolve = true;
+            noEVOallowedReason = "";
+        }
+        evogoal = "None";
+        evogoalcompleted = null;
+    }
+    else if (evolveLVL === 27) {
+        const permapowerNeeded = 16 - permapower;
+        mainEvoGoalCompleted = permapower >= 16;
+
+        if (!mainEvoGoalCompleted) {
+            mayEvolve = false;
+            noEVOallowedReason = "Gain " + formatNumber(Math.round(permapowerNeeded)) + " more permapower!";
+        } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
+            const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
+            mayEvolve = false;
+            noEVOallowedReason = "Buy " + neededupgrades + " more upgrades!";
+        } else {
+            mayEvolve = true;
+            noEVOallowedReason = "";
+        }
+        evogoal = "None";
+        evogoalcompleted = null;
+    }
+    else if (evolveLVL === 28) {
+        mayEvolve = false;
+        noEVOallowedReason = "Evolution level maxed out!";
     }
 }

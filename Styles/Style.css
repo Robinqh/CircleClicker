@@ -969,7 +969,7 @@ button:hover {
   transform: translateX(-50%);
   z-index: 99999;
   width: 85vw;
-  max-width: 420px;
+  max-width: 480px;
   pointer-events: none;
 
   /* Optioneel: scroll als er te veel zijn */
@@ -1187,38 +1187,58 @@ button:hover {
     top: 0;
 }
 
-.popup-buttons {
-    margin-top: 25px;
-    display: flex;
-    justify-content: space-around; /* Space out the buttons */
-    gap: 15px; /* Space between buttons */
+/* Popup container */
+.popup-buttons,
+#loadbuttons,
+#resetbuttons {
+    position: relative;
+    height: 60px; /* adjust to your button height */
 }
 
-.popup-buttons button, #confirmreset, #cancelreset, #confirmload, #cancelload {
-    background-color: #4CAF50; /* Green for "Yes" */
-    color: white;
+/* Base button styles */
+.popup-buttons button,
+#loadbuttons button,
+#resetbuttons button,
+#confirmreset,
+#cancelreset,
+#confirmload,
+#cancelload,
+#confirm-evolve-yes,
+#confirm-evolve-no {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* center vertically */
     padding: 12px 25px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.1em;
+    color: white;
     transition: background-color 0.3s ease;
-    flex-grow: 1; /* Allow buttons to grow and fill space */
 }
 
-.popup-buttons button, #confirm-evolve-yes, #cancelreset, #confirmload {
-    left: 5%
+/* Yes buttons (right side) */
+#confirm-evolve-yes,
+#cancelreset,
+#confirmload {
+    background-color: #4CAF50;
+    right: 5; /* distance from right edge */
 }
 
-.popup-buttons button, #confirm-evolve-no, #confirmreset, #cancelload {
-    background-color: #f44336; /* Red for "No" */
-    left: 60%;
+/* No buttons (left side) */
+#confirm-evolve-no,
+#confirmreset,
+#cancelload {
+    background-color: #f44336;
+    left: 5%; /* distance from left edge */
 }
 
-.popup-buttons button:hover {
-    filter: brightness(1.1); /* Slightly brighten on hover */
+/* Hover effect */
+.popup-buttons button:hover,
+#loadbuttons button:hover,
+#resetbuttons button:hover {
+    filter: brightness(1.1);
 }
-
 
 
 
@@ -1300,10 +1320,6 @@ button:hover {
         height: 100vh; /* Keep height fixed to prevent scrollbar from appearing */
         width: 100vw; /* Keep width fixed */
         -webkit-tap-highlight-color: transparent;
-    }
-
-    #game-container {
-        height: 100vh; /* Allow content to dictate height */
         position: relative; /* Ensure children can be positioned relative to it if needed */
         margin: 0 auto; /* Center the game container */
         width: 98%; /* Give it a width to center */
@@ -1507,7 +1523,7 @@ button:hover {
         left: auto;
     }
 
-    .popup-button-container {
+    .popup-button-container, #load button, #reset button{
     margin-top: 16px;
     text-align: center; 
     display: flex;
@@ -1515,8 +1531,6 @@ button:hover {
     gap: 0;
     }
 
-    /* Save/Load/Reset buttons - arrange side-by-side */
-    /* Changed these to inline-block to allow them to sit next to each other if space permits */
     #saveGameButton,
     #loadGameButton,
     #btnNormal,
@@ -1683,4 +1697,32 @@ button:hover {
     }
 
 
-}
+
+    .popup-buttons,
+    #loadbuttons,
+    #resetbuttons {
+        height: auto; /* let height expand */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: static; /* remove absolute positioning */
+    }
+
+    .popup-buttons button,
+    #loadbuttons button,
+    #resetbuttons button,
+    #confirmreset,
+    #cancelreset,
+    #confirmload,
+    #cancelload,
+    #confirm-evolve-yes,
+    #confirm-evolve-no {
+        position: static;
+        transform: none;
+        height: 6vh;
+        width: 80%; /* make them wide on mobile */
+    }
+}  
+
+
+

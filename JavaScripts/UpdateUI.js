@@ -186,7 +186,7 @@ function UpdateUI() {
                 evolveButton.classList.remove("completed"); 
             }
         }
-        if (evolveLVL === 25) {
+        if (evolveLVL === 28) {
             evolveButton.classList.add("completed");
             evolveButton.classList.remove("out-of-stock");
             evolveButton.classList.remove("buyoff");

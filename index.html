@@ -16,7 +16,7 @@
 <body id="body">
 
   <div id="game-container"> <!-- Contains the main game screen-->
-    <button id="showChangeLogs">Welcome to Circle Clicker! Show Changelog: V12.01</button>
+    <button id="showChangeLogs">Welcome to Circle Clicker! Show Changelog: V12.1</button>
 
     <div id="stats-rowA">
         <div id="ClickPower"></div> <!-- *** -->
@@ -75,7 +75,7 @@
             <button id="RPexchange"></button> <!-- *** -->
         </div>
         <div id="rank-buttons-group2">
-            <button id="CoinAC"></button>
+            <button id="CoinAC"></button> <!-- *** -->
             <button id="X5">Coming Soon!</button>
             <button id="X6">Coming Soon!</button>
         </div>
@@ -133,14 +133,18 @@
 
     <div id="reset" class="hidden">
       <h1>Are you sure you want to reset the game?</h1>
-      <button id="confirmreset">Confirm Reset</button>
-      <button id="cancelreset">Cancel Reset</button>
+          <div id="resetbuttons">
+            <button id="confirmreset">Confirm Reset</button>
+            <button id="cancelreset">Cancel Reset</button>
+        </div>
     </div>
 
     <div id="load" class="hidden">
       <h1>Are you sure you want to load your savefile?</h1>
-      <button id="confirmload">Confirm Load</button>
-      <button id="cancelload">Cancel Load</button>
+      <div id="loadbuttons">
+        <button id="confirmload">Confirm Load</button>
+        <button id="cancelload">Cancel Load</button>
+      </div>
     </div>
 
   <div class="pop-ups">
@@ -220,13 +224,14 @@
 
 
 <div id="changelogPopup">  <!-- Shows the changelog -->
-    <h1><b>Version - 12.01</b></h1>
+    <h1><b>Version - V12.1</b></h1>
 
     <h3><b>New Features</b></h3>
     <ul>
         <li>Added the <b>third evo goal</b> to all currently available evolutions</li>
         <li>Added a new <b>CoinShop item</b>: with this, you can increase your <b>max permapower</b> by 1, up to 5 times!</li>
         <s><li>Added a new <b>sound</b> when entering the <b>Settings</b> and changing settings (excluding <em>Reset Game</em>)</s> - removed in V12.01</li>
+        <li><b><em>(V???)</em></b>Added evolutions 26 - 28, NOTE: optional evolution goals not included!</li> 
     </ul>
 
     <h3><b>Balance Changes</b></h3>
@@ -244,6 +249,8 @@
         <li>The <b>RankShop</b> now has a 2×3 layout to match the <b>CoinShop</b></li>
         <li>The <b>Reset button</b> now shows a pop-up instead of an HTML alert; the same applies for <b>Load Game</b></li>
         <li>The <b>Leave Settings</b> button on mobile is now correctly sized</li>
+        <li><b><em>(V12.1)<em></b>: pop-ups are a little <b>wider</b> now</li>
+        <li><b><em>(V12.1)</em></b>: small UI changes</li>
     </ul>
 
     <h3><b>Bug / Issue Fixes</b></h3>
@@ -253,6 +260,9 @@
         <li><b><em>(V12.01)</em></b>: reset <b>pop-up</b> now actually shows</li>
         <li><b><em>(V12.01)</em></b>: load <b>pop-up</b> now shows the correct text</li>
         <li><b><em>(V12.01)</em></b>: the reset <b>button</b> in the <b>changelogs</b> now work</li>
+        <li><b><em>(V12.1)</em></b>: the confirm evolution button is now <b>green</b> instead of <b>red</b></li>
+        <li><b><em>(V12.1)</em></b>: the optional evoGoal at evo-8 now shows <b>the correct text</b></li>
+        <li><b><em>(V12.1)</em></b>: the points exchange now shows <b>the correct text</b></li>
     </ul>
 
     <h3><b>Code Optimizations</b></h3>
@@ -262,8 +272,11 @@
         <li>The <b>Evolution requirements</b> are now checked from a separate JS file for easier future access</li>
         <li>The <b>UpdateUI</b> function is now checked from a separate JS file for easier future access</li>
         <li>All <b>const</b> and <b>let</b> declarations are now in separate files for easier future access</li>
+        <li><b><em>(V12.1)</em></b>: the <b>Save/Load/Reset</b> functions are now checked from a separate JS file for easier future access</li>
+        <li><b><em>(V12.1)</em></b>: the <b>Achievement</b> functions are now checked from a separate JS file for easier future access</li>
+        <li><b><em>(V12.1)</em></b>: the <b>[REDACTED]</b> functions are now checked from a separate JS file for easier future access</li>
+        <li><b><em>(V12.1)</em></b>: the <b>evolve logics</b> is now done by a separate JS file for easier future access</li>
     </ul>
-
     <hr>
 
     <h1><b>Further Information</b></h1>
@@ -315,7 +328,11 @@
 <script src="JavaScripts/const.js"></script>
 <script src="JavaScripts/variables.js"></script>
 <script src="JavaScripts/EvoRequierements.JS"></script>  
+<script src="JavaScripts/evolvelogic.js"></script>
+<script src="JavaScripts/achievements.js"></script>
 <script src="JavaScripts/UpdateUI.js"></script>
+<script src="JavaScripts/savesystem.js"></script>
+<script src="JavaScripts/og.js"></script>
 <script src="JavaScripts/Script.JS"></script>
 
 </body>
