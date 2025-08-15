@@ -195,7 +195,7 @@ function updateProgressBar() {
 
     document.getElementById("progress-bar").style.width = statusbarPercent + "%";
 
-    if (evolveLVL <= 25 (evogoal === false || evogoal === "None")) {
+    if (evolveLVL < 25 && (evogoal === false || evogoal === "None")) {
         document.getElementById("progress-text").innerHTML = "No Optional Evogoal Available";
     } else if (evolveLVL > 25) {
         document.getElementById("progress-text").innerHTML = "All Optional Evogoals Passed!";
