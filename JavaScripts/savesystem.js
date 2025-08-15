@@ -154,7 +154,7 @@ function loadgamePart2() {
         coinBoughtMaxPermaPower = gameState.coinBoughtMaxPermaPower 
         increasePerma = gameState.increasePerma;
         extraFreeAuto = gameState.extraFreeAuto
-        extraFreePower = gameState. extraFreePower
+        extraFreePower = gameState.extraFreePower
         evolveLVL = gameState.evolveLVL;
         offlineRPBought = gameState.offlineRPBought;
         permapower = gameState.permapower;
@@ -488,3 +488,4 @@ function autosaveMessage() {
 saveGameButton.onclick = saveGame;
 loadGameButton.onclick = loadGame;
 resetGameButton.onclick = resetGame;
+
