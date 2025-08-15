@@ -443,7 +443,7 @@ button:hover {
     margin-left: -6.58vw;
 }
 
-#RPexchange, #X6 {
+#RPexchange, #ExtraMG {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -492,7 +492,7 @@ button:hover {
     border-radius: 1vh;
 }
 
-#autotime, #X2 {
+#autotime, #FreePower {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -503,7 +503,7 @@ button:hover {
     border-radius: 1vh;
 }
 
-#mysteryprice, #X3 {
+#mysteryprice, #FreeAuto {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -528,7 +528,7 @@ button:hover {
 
 }
 
-#CN, #X5 {
+#CN, #OfflineRP {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -1354,12 +1354,12 @@ button:hover {
     #toggleStats,
     #ELM,
     #ExtraMaxPermaPower,
-    #X2,
-    #X5,
-    #X6,
+    #FreePower,
+    #OfflineRP,
+    #XExtraMG,
     #settings-container,
     #toggleMusic
-    #X3,
+    #FreeAuto,
     #autotime,
     #mysteryprice,
     #popupAutoSave,
@@ -1509,10 +1509,10 @@ button:hover {
     #Offline,
     #RPexchange,
     #ExtraMaxPermaPower,
-    #X2,
-    #X3,
-    #X5,
-    #X6 {
+    #FreePower,
+    #FreeAuto,
+    #OfflineRP,
+    #ExtraMG {
         width: 98%;
         display: inline-block; /* Allow them to be next to each other */
         margin-top: 0.2vh;
@@ -1726,3 +1726,22 @@ button:hover {
 
 
 
+.end-note {
+    background-color: #f0f8ff; /* soft light blue */
+    border-left: 5px solid #007acc; /* accent color */
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: black;
+}
+
+.end-note p {
+    margin-bottom: 15px;
+}
+
+.end-note em {
+    font-style: italic;
+    color: #d35400; /* subtle highlight for emphasis */
+}

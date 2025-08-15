@@ -63,19 +63,17 @@ const autotimeButton = document.getElementById('autotime');
 const mysterypriceButton = document.getElementById('mysteryprice');
 
 const ExtraMaxPermaPower = document.getElementById("ExtraMaxPermaPower")
-const XX = document.getElementById("X2")
-const XXX = document.getElementById("X3")
+const FreePower = document.getElementById("FreePower")
+const FreeAuto = document.getElementById("FreeAuto")
 
     //Rankshop 
 const CoinACButton = document.getElementById("CoinAC");
 const OffButton = document.getElementById("Offline");
 const CNButton = document.getElementById("CN");
-const RPexchangeButton = document.getElementById("RPexchange");
 
-const XXXX = document.getElementById("X4")
-const XXXXX = document.getElementById("X5")
-const XXXXXX = document.getElementById("X6")
-const XXXXXXX = document.getElementById("X7")
+const RPexchangeButton = document.getElementById("RPexchange");
+const OfflineRP = document.getElementById("OfflineRP")
+const ExtraMG = document.getElementById("ExtraMG")
 
     //Shops
 const btnNormal = document.getElementById('btnNormal');

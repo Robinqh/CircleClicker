@@ -107,6 +107,14 @@ function priceChanges() {
         ExchangeCost = 20 + (10 * millions);
         ExchangeCost = Math.round(ExchangeCost * pricemultiplier2);
     }
+    if (ExtraMGCost != null) {
+        ExtraMGCost = 2500 + (2500 * maxMGupgradesBoughtRP)
+        ExtraMGCost = Math.round(ExtraMGCost * pricemultiplier2)
+    }
+    if (OfflineRPCost != null) {
+        OfflineRPCost = 5000
+        OfflineRPCost = Math.round(OfflineRPCost * pricemultiplier2)
+    }
     if (ELMcost !== null) {
         ELMcost = 15 + (15 * evolossBought)
         ELMcost = Math.round(ELMcost *pricemultiplier2)
@@ -115,7 +123,14 @@ function priceChanges() {
         ExtraMaxPermaPowerCost = 300 + (300 * coinBoughtMaxPermaPower)
         ExtraMaxPermaPowerCost = Math.round(ExtraMaxPermaPowerCost * pricemultiplier2)
     }
-
+    if (FreePowerPrice !== null) {
+        FreePowerPrice = 250 + (250 * extraFreePower)
+        FreePowerPrice = Math.round(FreePowerPrice * pricemultiplier2)
+    }
+    if (FreeAutoPrice !== null) {
+        FreeAutoPrice = 500 + (500 * extraFreeAuto)
+        FreeAutoPrice = Math.round(FreeAutoPrice * pricemultiplier2)
+    }
     if (autotimerCost != null) {
         autotimerCost = 45 + (autoTimerBought * 30)
         autotimerCost = Math.round(autotimerCost * pricemultiplier2);
@@ -489,6 +504,43 @@ ExtraMaxPermaPower.onclick = function() {
      updateRank();
 }
 
+FreePower.onclick = function() {
+    if (FreePowerPrice === null) {
+        return
+    }
+
+    if (coins >= FreePowerPrice) {
+        coins -= FreePowerPrice
+        extraFreePower += 1
+    }
+
+    if (extraFreePower === 3) {
+        FreePowerPrice = null
+    }
+
+     UpdateUI(); 
+     priceChanges();  
+     updateRank();
+}
+
+FreeAuto.onclick = function() {
+    if (FreeAutoPrice === null) {
+        return
+    }
+
+    if (coins >= FreeAutoPrice) {
+        coins -= FreeAutoPrice
+        extraFreeAuto += 1
+    }
+
+    if (extraFreeAuto === 3) {
+        FreeAutoPrice = null
+    }
+
+     UpdateUI(); 
+     priceChanges();  
+     updateRank();
+}
 
 //#endregion --- Coin Shop ---
 
@@ -512,6 +564,15 @@ Offline.onclick = function() {
         Offlinecost = null;
     }
     priceChanges();
+}
+
+OfflineRP.onclick = function() {
+    if (rankPoints >= OfflineRPCost) {
+        rankPoints -= OfflineRPCost;
+        offlineRPBought = true;
+        OfflineRPCost = null
+    }
+    priceChanges()
 }
 
 
@@ -545,6 +606,28 @@ RPexchange.onclick = function() {
         priceChanges();
     }
 };
+
+ExtraMG.onclick = function() { //old variable name but still works 
+    if (ExtraMGCost === null) {
+        return; 
+    }
+
+
+    if (rankPoints >= ExtraMGCost) {  //old variable name but still works
+    rankPoints -= ExtraMGCost; //old variable name but still works
+    maxMGperEvo += 1
+    maxMGupgradesBoughtRP += 1
+    totalExtraMGs += 1
+    }
+
+    if (maxMGupgradesBoughtRP >= 3) {
+        ExtraMGCost = null; //old variable name but still works
+    }
+
+     UpdateUI(); 
+     priceChanges();  
+     updateRank();
+}
 //#endregion --- Rank Shop ---
 
 
@@ -677,21 +760,29 @@ function OfflineProgress() {
             } else {
                 coinsGainedOffline = 0;
             }
+
+            let RPGainedOffline = 0
+            
+            if (offlineRPBought === true) {
+                RPGainedOffline = Math.round(RPpS * timeElapsedS) 
+            } else {
+                RPGainedOffline = 0
+            }
             
             clicks += Math.round(clicksGainedOffline); 
             allTimePoints += Math.round(clicksGainedOffline);
             allTimeClicks += Math.round(autoClicksPerSecondRate * timeElapsedS)
+            rankPoints += Math.round(RPGainedOffline)
 
             coins += Math.round(coinsGainedOffline);
             totalcoins += Math.round(coinsGainedOffline);
 
-            // Gebruik de juiste popup
             const backmessagePopup = document.getElementById('backmessage');
             if (backmessagePopup) {
                 if (!maxOffTimeOverlapped) {
-                    backmessagePopup.innerHTML = `Welcome back! You gained<br> ${formatNumber(Math.round(clicksGainedOffline))} clicks and<br> ${Math.round(coinsGainedOffline)} coins! (time away: ${(timeElapsedS / 60).toFixed(0)} minutes)`;
+                    backmessagePopup.innerHTML = `Welcome back! You gained<br> ${formatNumber(Math.round(clicksGainedOffline))} clicks, ${Math.round(coinsGainedOffline)} coins and ${Math.round(RPGainedOffline)} RankPoints! (time away: ${(timeElapsedS / 60).toFixed(0)} minutes)`;
                 } else {
-                    backmessagePopup.innerHTML = `Welcome back! You gained<br> ${formatNumber(Math.round(clicksGainedOffline))} clicks and ${Math.round(coinsGainedOffline)} coins! (time away: capped by max offline time!)`;
+                    backmessagePopup.innerHTML = `Welcome back! You gained<br> ${formatNumber(Math.round(clicksGainedOffline))} clicks, ${Math.round(coinsGainedOffline)} coins and ${Math.round(RPGainedOffline)} RankPoints! (time away: capped by max offline time!)`;
                 }
                 backmessagePopup.classList.remove('hidden');
                 backmessagePopup.classList.add('show');

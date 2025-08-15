@@ -3,6 +3,9 @@
 2. Most buttons are (de)activated by the JS file, so even if they seem activated here, they are not.
 -->
 
+<!-- Project Information:
+1. the CSS and JS still need loads of work for neatness and other things
+-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +19,7 @@
 <body id="body">
 
   <div id="game-container"> <!-- Contains the main game screen-->
-    <button id="showChangeLogs">Welcome to Circle Clicker! Show Changelog: V12.2</button>
+    <button id="showChangeLogs">Welcome to Circle Clicker! Show Changelog: V12.3</button>
 
     <div id="stats-rowA">
         <div id="ClickPower"></div> <!-- *** -->
@@ -57,27 +60,27 @@
 
     <div id="special-upgrades">
         <div id="special-buttons-group">
-            <button id="ELM"></button > <!-- *** -->
+            <button id="ELM"></button > <!-- *** --> <!--ELM stands for EvoLoss Multipliers-->
             <button id="autotime"></button> <!-- *** -->
             <button id="mysteryprice"></button> <!-- *** -->
         </div>
         <div id="special-buttons-group2">
             <button id="ExtraMaxPermaPower"></button> <!-- *** -->
-            <button id="X2">Coming Soon!</button>
-            <button id="X3">Coming Soon!</button>
-        </div>
+            <button id="FreePower"></button> <!-- *** -->
+            <button id="FreeAuto"></button> <!-- *** -->
+        </div> 
     </div>
 
     <div id="rank-upgrades">
         <div id="rank-buttons-group">
             <button id="Offline"></button> <!-- *** -->
-            <button id="CN"></button> <!-- *** -->
+            <button id="CN"></button> <!-- *** --> <!-- CN stands for clicks needed, it means how many clicks you need for the next batch of coins-->
             <button id="RPexchange"></button> <!-- *** -->
         </div>
         <div id="rank-buttons-group2">
             <button id="CoinAC"></button> <!-- *** -->
-            <button id="X5">Coming Soon!</button>
-            <button id="X6">Coming Soon!</button>
+            <button id="OfflineRP"></button> <!-- *** -->
+            <button id="ExtraMG"></button> <!-- *** -->
         </div>
     </div>
 
@@ -224,71 +227,78 @@
 
 
 <div id="changelogPopup">  <!-- Shows the changelog -->
-    <h1><b>Version - V12.2</b></h1>
+    <h1><b>Version - V12.3</b></h1>
 
     <h3><b>New Features</b></h3>
     <ul>
-        <li>Added the <b>third evo goal</b> to all currently available evolutions - <em>(V12.1 update, this was added before the new evolutions, so this only includes evo 0-24!)</em></li>
-        <li>Added a new <b>CoinShop item</b>: with this, you can increase your <b>max permapower</b> by 1, up to 5 times!</li>
-        <s><li>Added a new <b>sound</b> when entering the <b>Settings</b> and changing settings (excluding <em>Reset Game</em>)</s> - removed in V12.01</li>
-        <li><b><em>(V12.1)</em></b>: added evolutions 26 - 28, NOTE: optional evolution goals not included!</li> 
-        <li><b><em>(V12.2)</em></b>: added evolutions 29 - 35, NOTE: optional evolution goals not included!</li> 
+        <li>Added the <b>third evo goal</b> to all currently available evolutions 
+            <em>(V12.1/2 update, added before new evolutions, only includes evo 0-24!)</em>
+        </li>
+        <li>Added a new <b>CoinShop item</b>: increase your <b>max permapower</b> by 1, up to 5 times!</li>
+        <li><s>Added a new <b>sound</b> when entering <b>Settings</b> and changing settings (excluding <em>Reset Game</em>)</s> - removed in V12.01</li>
+        <li><b><em>(V12.1)</em></b>: added evolutions 26 - 28 (optional evolution goals not included)</li>
+        <li><b><em>(V12.2)</em></b>: added evolutions 29 - 35 (optional evolution goals not included)</li>
+        <li><b><em>(V12.3)</em></b>: added new RankShop upgrade at evo-13; gives rankpoints while offline (requires offline autoclicker; offliners and buyers can buy from evo-3)</li>
+        <li><b><em>(V12.3)</em></b>: added new RankShop upgrade like CoinShop upgrade; increases <b>mysterygifts per evolution by 3</b>; unlocks at evo-30 (or 3 if your specialty is buyer)</li>
+        <li><b><em>(V12.3)</em></b>: added new CoinShop upgrade at evo-15 (evo-3 for buyers); start new evolution with more clicking power</li>
+        <li><b><em>(V12.3)</em></b>: added new CoinShop upgrade at evo-15 (evo-3 for buyers); start new evolution with more auto power</li>
     </ul>
 
     <h3><b>Balance Changes</b></h3>
     <ul>
-        <li>Adjusted some of the <b>evolution requirements</b>; some are now harder, others easier</li>
-        <li>Added a small reward when <em>[REDACTED]</em> occurs!</li>
-        <li><b><em>(V12.2)</em></b>: points exchange now unlocks at <b>evo-13</b>, buyers can, of course, still get it after evo-3</li>
-        <li><b><em>(V12.2):</em></b>: exchange price now scales, every <b>500.000 points</b> you gain, the price increases by <b>10RP</b></li>
-        <li><b><em>(V12.2):</em></b>: changed the <b>5X</b> reward from mystery gifts to <b>3X</b></li>
-        <li><b><em>(V12.2):</em></b>: changed the chance of a <b>negative</b> outcome for the mystery gift to <b>50%</b> up from <b>45%</b>, the 5% is stolen from the <b>X3 reward</b></li>
-        <li><b><em>(V12.2):</em></b>: adjusted some of the <b>evolution requirements</b></li>
+        <li>Adjusted some <b>evolution requirements</b>; some harder, some easier</li>
+        <li>Added small reward when <em>[REDACTED]</em> occurs</li>
+        <li><b><em>(V12.2)</em></b>: points exchange now unlocks at <b>evo-13</b> (buyers still unlock after evo-3)</li>
+        <li><b><em>(V12.2)</em></b>: exchange price scales; every <b>500.000 points</b> increases price by <b>10RP</b></li>
+        <li><b><em>(V12.2)</em></b>: changed <b>5X</b> mystery gift reward to <b>3X</b></li>
+        <li><b><em>(V12.2)</em></b>: changed negative outcome chance for mystery gift to <b>50%</b> (up from 45%)</li>
+        <li><b><em>(V12.2)</em></b>: adjusted some <b>evolution requirements</b></li>
     </ul>
 
     <h3><b>UI/UX Improvements, Quality of Life Changes, and Small Tweaks</b></h3>
     <ul>
-        <li>The <b>rank progress bar</b> now shows progress to the <b>final rank</b> instead of the next rank. You'll still see when the next rank is reached!</li>
-        <li>Updated the <b>text display</b> when evolving while having the <em>optional evoGoal</em> completed</li>
-        <li>The <b>Achievement screen</b> and <b>Toggle Stats</b> are now side by side on mobile, like on desktop</li>
-        <li>The <b>Music toggle</b> now starts as <em>off</em></li>
-        <li>The <b>RankShop</b> now has a 2×3 layout to match the <b>CoinShop</b></li>
-        <li>The <b>Reset button</b> now shows a pop-up instead of an HTML alert; the same applies for <b>Load Game</b></li>
-        <li>The <b>Leave Settings</b> button on mobile is now correctly sized</li>
-        <li><b><em>(V12.1)<em></b>: pop-ups are a little <b>wider</b> now</li>
-        <li><b><em>(V12.1)</em></b>: small UI changes</li>
-        <li><b><em>(V12.2)</em></b>: changelog now always starts at the <b>top</b>, even if re-entering it</li>
-        <li><b><em>(V12.2)</em></b>: fixed the stats UI on mobile</li>
-        <li><b><em>(V12.2)</em></b>: clicking/auto power prices now round better depending on the price</li>
-        <li><b><em>(V12.2)</em></b>: changed some small UI things</li>
+        <li><b>Rank progress bar</b> now shows progress to <b>final rank</b> (next rank still visible)</li>
+        <li>Updated <b>text display</b> when evolving with <em>optional evoGoal</em> completed</li>
+        <li><b>Achievement screen</b> and <b>Toggle Stats</b> now side by side on mobile</li>
+        <li><b>Music toggle</b> now starts <em>off</em></li>
+        <li><b>RankShop</b> now has a 2×3 layout to match CoinShop</li>
+        <li><b>Reset button</b> now shows pop-up instead of HTML alert (same for Load Game)</li>
+        <li><b>Leave Settings</b> button on mobile now correctly sized</li>
+        <li><b><em>(V12.1)</em></b>: pop-ups are a little wider; small UI changes</li>
+        <li><b><em>(V12.2)</em></b>: changelog always starts at <b>top</b> when re-entered</li>
+        <li><b><em>(V12.2)</em></b>: fixed stats UI on mobile</li>
+        <li><b><em>(V12.2)</em></b>: clicking/auto power prices round better</li>
+        <li><b><em>(V12.2)</em></b>: other small UI tweaks</li>
+        <li><b><em>(V12.3)</em></b>: updated changelog text</li>
     </ul>
 
     <h3><b>Bug / Issue Fixes</b></h3>
     <ul>
         <li>Fixed minor <b>mobile UI issues</b></li>
-        <li>Clicks made by the <b>autoclicker</b> during offline time now count toward <b>all-time clicks</b>, not all-time points</li>
-        <li><b><em>(V12.01)</em></b>: reset <b>pop-up</b> now actually shows</li>
-        <li><b><em>(V12.01)</em></b>: load <b>pop-up</b> now shows the correct text</li>
-        <li><b><em>(V12.01)</em></b>: the reset <b>button</b> in the <b>changelogs</b> now work</li>
-        <li><b><em>(V12.1)</em></b>: the confirm evolution button is now <b>green</b> instead of <b>red</b></li>
-        <li><b><em>(V12.1)</em></b>: the optional evoGoal at evo-8 now shows <b>the correct text</b></li>
-        <li><b><em>(V12.1)</em></b>: the points exchange now shows <b>the correct text</b></li>
-        <li><b><em>(V12.2)</em></b>: fixed some of the <b>changelog text</b> to show the correct text</li>
-        <li><b><em>(V12.2)</em></b>: clicks done offline now properly <b>round</b> to prevent decimals</li>
-        <li><b><em>(V12.2)</em></b>: after resetting you'll automatically be send to the <b>base shop</b></li>
+        <li>Autoclicker clicks during offline time now count toward <b>all-time clicks</b></li>
+        <li><b><em>(V12.01)</em></b>: reset pop-up now displays</li>
+        <li><b><em>(V12.01)</em></b>: load pop-up shows correct text</li>
+        <li><b><em>(V12.01)</em></b>: reset button in changelogs now works</li>
+        <li><b><em>(V12.1)</em></b>: confirm evolution button now <b>green</b> instead of red</li>
+        <li><b><em>(V12.1)</em></b>: optional evoGoal at evo-8 shows correct text</li>
+        <li><b><em>(V12.1)</em></b>: points exchange shows correct text</li>
+        <li><b><em>(V12.2)</em></b>: fixed some changelog text</li>
+        <li><b><em>(V12.2)</em></b>: offline clicks properly round</li>
+        <li><b><em>(V12.2)</em></b>: after reset, automatically sent to <b>base shop</b></li>
+        <li><b><em>(V12.3)</em></b>: offline multiplier stat now mentions offline multiplier</li>
     </ul>
 
     <h3><b>Code Optimizations</b></h3>
     <ul>
-        <li>Cleaned up the <b>HTML code</b></li>
-        <li>Added clear <b>notes</b> in the HTML for future reference</li>
-        <li>The <b>Evolution requirements</b> are now checked from a separate JS file for easier future access</li>
-        <li>The <b>UpdateUI</b> function is now checked from a separate JS file for easier future access</li>
-        <li>All <b>const</b> and <b>let</b> declarations are now in separate files for easier future access</li>
-        <li><b><em>(V12.1)</em></b>: the <b>Save/Load/Reset</b> functions are now checked from a separate JS file for easier future access</li>
-        <li><b><em>(V12.1)</em></b>: the <b>Achievement</b> functions are now checked from a separate JS file for easier future access</li>
-        <li><b><em>(V12.1)</em></b>: the <b>[REDACTED]</b> functions are now checked from a separate JS file for easier future access</li>
-        <li><b><em>(V12.1)</em></b>: the <b>evolve logics</b> is now done by a separate JS file for easier future access</li>
+        <li>Cleaned up <b>HTML code</b></li>
+        <li>Added clear <b>notes</b> in HTML for future reference</li>
+        <li><b>Evolution requirements</b> now checked from a separate JS file</li>
+        <li><b>UpdateUI</b> function now checked from a separate JS file</li>
+        <li>All <b>const</b> and <b>let</b> declarations moved to separate files</li>
+        <li><b><em>(V12.1)</em></b>: Save/Load/Reset functions now separate JS file</li>
+        <li><b><em>(V12.1)</em></b>: Achievement functions now separate JS file</li>
+        <li><b><em>(V12.1)</em></b>: [REDACTED] functions now separate JS file</li>
+        <li><b><em>(V12.1)</em></b>: evolve logic now in separate JS file</li>
     </ul>
     <hr>
 
@@ -296,7 +306,7 @@
     <h3><b>Known Issues</b></h3>
     <p id="knownbugsmessage">These minor bugs are not urgent and may take some time to fix. Most are purely visual.</p>
     <ul>
-        <li>No known issues></li>
+        <li>No known issues</li>
     </ul>
 
     <div class="bug-report-container">
@@ -307,10 +317,15 @@
     </div>
 
     <h3><b>Coming Soon!</b></h3>
-    <ul>
-        <li><em>[REDACTED]</em></li>
-    </ul>
-
+    <div class="end-note">
+        <p>I'm <b>glad</b> to announce that this will be the last <em>legacy</em> version! After some bug fixes, if we find any bugs, a few balance changes, and some small tweaks, I will relaunch the game as <b>Version 1.0</b>. Except for the small changes mentioned above, there won't be much difference at the start.</p>
+        
+        <p>This note will be removed once the update hits, so <b>everybody reading this</b>, thank you for playing the <em>legacy edition</em>, and thank you for helping this game turn into something that I'm actually proud of.</p>
+        
+        <p>We've come a long way since <b>VLegacy 0.1</b>, as you can see in the hidden easter egg!</p>
+        
+        <p>Once again, <b>thank you!</b> I'll see you in <b>Version 1.0</b></p>
+    </div>
     <h4><em><b>Have fun</b> with this new and improved version!</em></h4>
 
     <hr>

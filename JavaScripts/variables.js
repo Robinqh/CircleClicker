@@ -16,7 +16,7 @@ let RPpS = 0;
 let upgradesBoughtThisEvo = 0; //only counts clicker/auto power
 
 // --- Evolution System ---
-let evolveLVL = 20;
+let evolveLVL = 0;
 let evopower = evolveLVL + 1;
 let specialty = null;
 let evoloss = 1;
@@ -31,6 +31,9 @@ let freeEvosAllowed = 0;
 let evogoal = null;
 let evogoalcompleted = false;
 let mainEvoGoalCompleted = false;
+
+let extraFreePower = 0
+let extraFreeAuto = 0
 
 // --- Click & Auto-Click Mechanics ---
 let power = 1 * evopower;
@@ -79,6 +82,10 @@ let totalExtraMGs = 0;
 let reduceMysterycost = 150;
 let coinBoughtMaxPermaPower = 0;
 
+
+let FreePowerPrice = 250
+let FreeAutoPrice = 500
+
 // --- Offline Progress ---
 let lastPlayedTime = null;
 let firstload = true;
@@ -102,13 +109,19 @@ let groupNumber = null; //coinshops
 let totalRankPoints = 0;
 let CoinACbought = false;
 let Offlinebought = false;
-let CNBought = 0;
+let offlineRPBought = false;
+let CNBought = false;
+let maxMGupgradesBoughtRP = 0;
 
+let OfflineRPCost = 5000;
 let CoinACcost = 3000;
 let Offlinecost = 750;
 let CNneededcost = 500;
 let ExchangeCost = 20;
 let ExtraMaxPermaPowerCost = 300;
+let ExtraMGCost = 2500;
+
+
 
 // --- Other Stuff ---
 let achievementsCompleted = 0;

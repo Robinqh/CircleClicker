@@ -91,6 +91,9 @@ function executeEvolutionLogic() {
         autopower = 0  
     }
    
+    power = power + (extraFreePower * evolveLVL * 5)
+    autopower = autopower + (extraFreeAuto * evolveLVL * 5)
+
 
     clicks -= Math.round(clicks * evoloss);
 

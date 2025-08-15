@@ -60,7 +60,7 @@ function UpdateUI() {
 
     // Update offline multiplier stat
     if (offlinemultiplierstat) {
-        offlinemultiplierstat.innerText = formatNumber(Number((multiplier2 * 100).toFixed(1))) + "%" + " - max time: " + (maxOffTime / 3600) + " hours";
+        offlinemultiplierstat.innerText = "Offline Multiplier: " + formatNumber(Number((multiplier2 * 100).toFixed(1))) + "%" + " - max time: " + (maxOffTime / 3600) + " hours";
     }
 
     // Update click power upgrade button
@@ -301,11 +301,49 @@ function UpdateUI() {
             ExtraMaxPermaPower.innerText = "Increase Max PermaPower: " + formatNumber(ExtraMaxPermaPowerCost) + " coins";
          }
     }
-    if (XX) {
-        XX.classList.add("not-unlocked");
+    if (FreePower) {
+        if (evolveLVL < 15 && specialty !== "buyer") {
+            FreePower.classList.add("not-unlocked");
+            FreePower.innerText = "Unlocked at evolution level 15!";
+        } else if (FreePowerPrice === null) {
+            FreePower.classList.remove("buyoff");
+            FreePower.classList.add("completed");
+            FreePower.classList.remove("not-unlocked");
+            FreePower.innerText = "Free Power Upgrades: MAX";
+        } else {
+            if (coins < FreePowerPrice) {
+                FreePower.classList.add("buyoff");
+                FreePower.classList.remove("not-unlocked");
+                FreePower.classList.remove("completed");
+            } else {
+                FreePower.classList.remove("buyoff");
+                FreePower.classList.remove("not-unlocked");
+                FreePower.classList.remove("completed");
+            }
+            FreePower.innerText = "Free Power Upgrades: " + formatNumber(FreePowerPrice) + " coins";
+        }
     }
-    if (XXX) {
-        XXX.classList.add("not-unlocked");
+    if (FreeAuto) {
+        if (evolveLVL < 15 && specialty !== "buyer") {
+            FreeAuto.classList.add("not-unlocked");
+            FreeAuto.innerText = "Unlocked at evolution level 15!";
+        } else if (FreeAutoPrice === null) {
+            FreeAuto.classList.remove("buyoff");
+            FreeAuto.classList.add("completed");
+            FreeAuto.classList.remove("not-unlocked");
+            FreeAuto.innerText = "Free AutoPower Upgrades: MAX";
+        } else {
+            if (coins < FreeAutoPrice) {
+                FreeAuto.classList.add("buyoff");
+                FreeAuto.classList.remove("not-unlocked");
+                FreeAuto.classList.remove("completed");
+            } else {
+                FreeAuto.classList.remove("buyoff");
+                FreeAuto.classList.remove("not-unlocked");
+                FreeAuto.classList.remove("completed");
+            }
+            FreeAuto.innerText = "Free AutoPower Upgrades: " + formatNumber(FreeAutoPrice) + " coins";
+        }
     }
 
 
@@ -337,7 +375,7 @@ function UpdateUI() {
         if (Offlinebought === true) {
             OffButton.classList.remove("buyoff");
             OffButton.classList.add("completed");
-            OffButton.innerText = "Offline autoclick; Activated";
+            OffButton.innerText = "Offline Autoclick; Activated";
         } else {
             if (rankPoints < Offlinecost) {
                 OffButton.classList.add("buyoff");
@@ -346,7 +384,7 @@ function UpdateUI() {
                 OffButton.classList.remove("buyoff");
                 OffButton.classList.remove("completed");
             }
-            OffButton.innerText = "Offline autoclick: " + formatNumber(Offlinecost) + "RP";
+            OffButton.innerText = "Offline Autoclick: " + formatNumber(Offlinecost) + "RP";
         }
     }
 
@@ -377,18 +415,54 @@ function UpdateUI() {
         }
     }
 
-        if (XXXX) {
-         XXXX.classList.add("not-unlocked");
+        if (OfflineRP) {
+            if (evolveLVL < 14 && specialty !== "buyer" && specialty !== "offliner") {
+            OfflineRP.classList.add("not-unlocked");
+            OfflineRP.innerText = "Unlock at evo level 14";
+        } else if (Offlinebought === false) {
+            OfflineRP.classList.add("not-unlocked");
+            OfflineRP.innerText = "Buy Offline Autoclick First";
         }
-        if (XXXXX) {
-            XXXXX.classList.add("not-unlocked");
+        else if (offlineRPBought === true) {
+            OfflineRP.classList.remove("buyoff");
+            OfflineRP.classList.add("completed");
+            OfflineRP.innerText = "Offline Rankpoints: Activated";
+        } else {
+            if (rankPoints < OfflineRPCost) {
+                OfflineRP.classList.add("buyoff");
+                OfflineRP.classList.remove("completed");
+                OfflineRP.classList.remove("not-unlocked");
+            } else {
+                OfflineRP.classList.remove("buyoff");
+                OfflineRP.classList.remove("completed");
+                OfflineRP.classList.remove("not-unlocked");
+            }
+            OfflineRP.innerText = "Offline RankPoints: " + formatNumber(OfflineRPCost) + "RP";
         }
-        if (XXXXXX) {
-            XXXXXX.classList.add("not-unlocked");
+    }
+
+        if (ExtraMG
+        ) {if (evolveLVL < 30 && specialty !== "buyer") {
+            ExtraMG.classList.add("not-unlocked");
+            ExtraMG.innerText = "Unlocked at evolution level 30!";
+        } else if (ExtraMGCost === null) {
+            ExtraMG.classList.remove("buyoff");
+            ExtraMG.classList.add("completed");
+            ExtraMG.classList.remove("not-unlocked");
+            ExtraMG.innerText = "Increase max mystergifts per evo: MAX";
+        } else {
+            if (rankPoints < ExtraMGCost) {
+                ExtraMG.classList.add("buyoff");
+                ExtraMG.classList.remove("not-unlocked");
+                ExtraMG.classList.remove("completed");
+            } else {
+                ExtraMG.classList.remove("buyoff");
+                ExtraMG.classList.remove("not-unlocked");
+                ExtraMG.classList.remove("completed");
+            }
+            ExtraMG.innerText = "Increase max mystergifts per evo: " + formatNumber(ExtraMGCost) + " RankPoints";
         }
-        if (XXXXXXX) {
-            XXXXXXX.classList.add("not-unlocked");
-        }
+    }
 
     // Set evolution titles and classes
     if (currentRankElement) {

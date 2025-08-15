@@ -24,7 +24,10 @@ function saveGame() {
         timesClicked,
         freeEvosAllowed,
         CNBought,
+        CNBought,
         rank,
+        FreeAutoPrice,
+        ExtraMGCost,
         autopower,
         autoupgrade,
         autoprice,
@@ -46,6 +49,7 @@ function saveGame() {
         totalcoins,
         evoloss,
         ogModeFound,
+        offlineRPBought,
         ELMcost,
         autoclick,
         autotimerCost,
@@ -57,10 +61,13 @@ function saveGame() {
         clicksMultiplier,
         autoMultiplier,
         rankPoints,
+        extraFreePower,
+        extraFreeAuto,
         totalRankPoints,
         RPpS,
         Offlinebought,
         Offlinecost,
+        FreePowerPrice,
         coinneeded,
         CoinACbought,
         allTimeClicks,
@@ -142,15 +149,22 @@ function loadgamePart2() {
         increaseEvolve = gameState.increaseEvolve;
         maxMGupgradesBought = gameState.maxMGupgradesBought;
         totalExtraMGs = gameState.totalExtraMGs
+        FreeAutoPrice = gameState.FreeAutoPrice
+        ExtraMGCost = gameState.ExtraMGCost
         coinBoughtMaxPermaPower = gameState.coinBoughtMaxPermaPower 
         increasePerma = gameState.increasePerma;
+        extraFreeAuto = gameState.extraFreeAuto
+        extraFreePower = gameState. extraFreePower
         evolveLVL = gameState.evolveLVL;
+        offlineRPBought = gameState.offlineRPBought;
         permapower = gameState.permapower;
         power = gameState.power;
         powerprice = gameState.powerprice;
         autoTimerBought = gameState.autoTimerBought;
         CNneededcost = gameState.CNneededcost;
+        FreePowerPrice = gameState.FreePowerPrice
         rank = gameState.rank;
+        CNBought = gameState.CNBought;
         upgradesBoughtThisEvo = gameState.upgradesBoughtThisEvo
         totalExtraEvoloss = gameState.totalExtraEvoloss
         evolossBought = gameState.evolossBought
@@ -295,12 +309,12 @@ resetAupdate.onclick = function() {
 
 function closeChangelog() {
     changelogPopup.style.display = 'none';   
-    localStorage.setItem('cc_changelog_V12.2', 'seen');  // Change on new updates
+    localStorage.setItem('cc_changelog_V12.3', 'seen');  // Change on new updates
 }
 
-const changelogVersion = "V12.2"; // Change on new updates
+const changelogVersion = "V12.3"; // Change on new updates
 window.addEventListener('load', () => {
-if (localStorage.getItem('cc_changelog_V12.2') === 'seen') { // Change on new updates
+if (localStorage.getItem('cc_changelog_V12.3') === 'seen') { // Change on new updates
     const popup = document.getElementById('changelogPopup');
     if (popup) popup.style.display = 'none';
     }
@@ -336,7 +350,11 @@ function resetGame() {
         evogoal = null;
         evogoalcompleted = false;
         upgradesBoughtThisEvo = 0;
+        CNBought = false;
         pricemultiplier2 = 1; 
+        extraFreeAuto = 0
+        extraFreePower = 0
+        offlineRPBought = false
         coinBoughtMaxPermaPower = 0;
         CNBought = 0;
         power = 1 ;
@@ -367,6 +385,9 @@ function resetGame() {
         autoclick = 750;
         totalPermaClicksBonus = 0
         extraClickMultiplier = 0
+        FreePowerPrice = 250;
+        FreeAutoPrice = 500;
+        ExtraMGCost = 2500
         autotimerCost = 45;
         newCoin = 150
         timesClicked = 0;
