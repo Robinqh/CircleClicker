@@ -1,4 +1,6 @@
-//this script contains the save/load/reset system as well as the changelog system (which should be placed somewhere else TBH)
+//this script contains the save/load/reset system as well as the changelog system 
+const resetAupdate = document.getElementById("resetAupdate")
+const changelogPopup = document.getElementById("changelogPopup")
 
 function saveGame() {
 
@@ -294,129 +296,130 @@ function loadgamePart2() {
 
 
 
+function doReset() {
+    resetPopUp.style.display = 'none';
+    resetPopUp.classList.add("hidden");
+
+    order66activated = false;
+    statusbarPercent = 0;
+    clicks = 0;
+    increasePower = 1;
+    increaseAuto = 50;
+    increaseEvolve = 500;
+    increasePerma = 2500;
+    evolveLVL = 0;
+    evopower = 1;
+    permapower = 0;
+    priceMultiplier = 1;
+    evogoal = null;
+    evogoalcompleted = false;
+    upgradesBoughtThisEvo = 0;
+    CNBought = false;
+    pricemultiplier2 = 1; 
+    maxMGupgradesBoughtRP = 0;
+    extraFreeAuto = 0;
+    extraFreePower = 0;
+    offlineRPBought = false;
+    coinBoughtMaxPermaPower = 0;
+    CNBought = 0;
+    power = 1;
+    powerprice = 1;
+    coinMultiplier = 1;
+    freeEvosAllowed = 0;
+    evoloss = 1;
+    screenToggle = 1;
+    toggle = 1;
+    groupNumber = null;
+    achievementsCompleted = 0;
+    evolossBought = 0;
+    totalExtraEvoloss = 0;
+    autopower = 0;
+    autoprice = 25;
+    upgradesSinceLastMEGA = 0;
+    mysteryprice = 1000;
+    gamesaved = false;
+    mystery = Math.random();
+    powerupgrades = 0;
+    CNneededcost = 500;
+    autoupgrades = 0;
+    coins = 0;
+    totalcoins = 0;
+    isSpecialShop = false;
+    ELMcost = 15;
+    ogModeFound = false;
+    autoclick = 750;
+    totalPermaClicksBonus = 0;
+    extraClickMultiplier = 0;
+    FreePowerPrice = 250;
+    FreeAutoPrice = 500;
+    ExtraMGCost = 2500;
+    autotimerCost = 45;
+    newCoin = 150;
+    timesClicked = 0;
+    reduceMysterycost = 150;
+    mgBought = 0;
+    maxMGperEvo = 1;
+    neededClicks = newCoin - timesClicked;
+    clicksMultiplier = 1;
+    autoMultiplier = 1;
+    RPpS = 0;
+    rankPoints = 0;
+    totalRankPoints = 0;
+    autoTimerBought = 0;
+    totalAutoclickTimeReductionBonus = 0;
+    Offlinecost = 750;
+    CoinACcost = 3000;
+    CoinACbought = false;
+    Offlinebought = false; 
+    lastPlayedTime = null;
+    coinneeded = 400;
+    specialty = null; 
+    stat = 1;
+    allTimeClicks = 0;
+    allTimePoints = 0;
+    multiplier2 = 0.1;
+    ExchangeCost = 20;
+    quartered = false;
+    maxMGupgradesBought = 0;
+    totalExtraMGs = 0;
+    mayEvolve = null;
+    mainEvoGoalCompleted = false;
+    maxPermaPower = 0;
+
+    unlockedAchievements.clear();
+    claimedAchievements.clear();
+
+    document.querySelectorAll('#Basic-Achievments button').forEach(btn => {
+        btn.classList.remove('achieved', 'received');
+    });
+
+    localStorage.clear();
+    localStorage.setItem('hasLoadedBefore', 'true');
+
+    upgtoggle();
+    priceChanges();
+    startautoclick();
+    startrankpoints();
+    updateRank();
+    UpdateUI();
+    UpdateShopUI();
+    checkAchievements();
+}
+
 function resetGame() {
-
-
     resetPopUp.style.display = 'block';
     resetPopUp.classList.remove("hidden");
 
     cancelreset.onclick = function() {
         resetPopUp.style.display = 'none';
         resetPopUp.classList.add("hidden");
-        return
     }
-    confirmreset.onclick = function() {
-        resetPopUp.style.display = 'none';
-        resetPopUp.classList.add("hidden");
-     
-        order66activated = false;
-        statusbarPercent = 0;
-        clicks = 0;
-        increasePower = 1;
-        increaseAuto = 50;
-        increaseEvolve = 500;
-        increasePerma = 2500;
-        evolveLVL = 0;
-        evopower = 1;
-        permapower = 0;
-        priceMultiplier = 1;
-        evogoal = null;
-        evogoalcompleted = false;
-        upgradesBoughtThisEvo = 0;
-        CNBought = false;
-        pricemultiplier2 = 1; 
-        maxMGupgradesBoughtRP = 0;
-        extraFreeAuto = 0
-        extraFreePower = 0
-        offlineRPBought = false
-        coinBoughtMaxPermaPower = 0;
-        CNBought = 0;
-        power = 1 ;
-        powerprice = 1;
-        coinMultiplier = 1;
-        freeEvosAllowed = 0
-        evoloss = 1
-        screenToggle = 1;
-        toggle = 1;
-        groupNumber = null;
-        achievementsCompleted = 0;
-        evolossBought = 0;
-        totalExtraEvoloss = 0;
-        autopower = 0 ;
-        autoprice = 25;
-        upgradesSinceLastMEGA = 0;
-        mysteryprice = 1000
-        gamesaved = false
-        mystery = Math.random();
-        powerupgrades = 0;
-        CNneededcost = 500;
-        autoupgrades = 0;
-        coins = 0;
-        totalcoins = 0;
-        isSpecialShop = false;
-        ELMcost = 15;
-        ogModeFound = false
-        autoclick = 750;
-        totalPermaClicksBonus = 0
-        extraClickMultiplier = 0
-        FreePowerPrice = 250;
-        FreeAutoPrice = 500;
-        ExtraMGCost = 2500
-        autotimerCost = 45;
-        newCoin = 150
-        timesClicked = 0;
-        reduceMysterycost = 150;
-        mgBought = 0;
-        maxMGperEvo = 1;
-        neededClicks = newCoin-timesClicked
-        clicksMultiplier = 1;
-        autoMultiplier = 1;
-        RPpS = 0;
-        rankPoints = 0;
-        totalRankPoints = 0;
-        autoTimerBought = 0
-        totalAutoclickTimeReductionBonus = 0;
-        Offlinecost = 750;
-        CoinACcost = 3000;
-        CoinACbought = false;
-        Offlinebought = false; 
-        lastPlayedTime = null
-        coinneeded = 400;
-        specialty = null; 
-        stat = 1;
-        allTimeClicks = 0;
-        allTimePoints = 0;
-        multiplier2 = 0.1;
-        ExchangeCost = 20;
-        quartered = false;
-        maxMGupgradesBought = 0;
-        totalExtraMGs = 0;
-        mayEvolve = null;
-        mainEvoGoalCompleted = false;
-        maxPermaPower = 0
-   
 
-            unlockedAchievements.clear();
-            claimedAchievements.clear();
+    confirmreset.onclick = doReset; 
+}
 
-
-            document.querySelectorAll('#Basic-Achievments button').forEach(btn => {
-            btn.classList.remove('achieved', 'received');
-            });
-
-
-        localStorage.clear();
-
-        
-        upgtoggle();
-        priceChanges();
-        startautoclick();
-        startrankpoints();
-        updateRank();
-        UpdateUI();
-        UpdateShopUI();
-        checkAchievements()
-    } 
+if (!localStorage.getItem('hasLoadedBefore')) {
+    doReset();
 }
 
 
@@ -465,9 +468,8 @@ resetGameButton.onclick = resetGame;
 
 
 
-const resetAupdate = document.getElementById("resetAupdate")
-const changelogPopup = document.getElementById("changelogPopup")
-const changelogVersion = "V12.33"; // Change on new updates
+
+const changelogVersion = "V1.0"; // Change on new updates
 
 if (showChangeLogsButton) {
     showChangeLogsButton.addEventListener("click", function () {
@@ -479,18 +481,18 @@ if (showChangeLogsButton) {
     });
 }
 
-resetAupdate.onclick = function() {
-        resetGame();
-        closeChangelog();
-    }
+// resetAupdate.onclick = function() {
+//        resetGame();
+//        closeChangelog();
+//    }
 
 function closeChangelog() {
     changelogPopup.style.display = 'none';   
-    localStorage.setItem('cc_changelog_V12.33', 'seen');  // Change on new updates
+    localStorage.setItem('cc_changelog_V1.0', 'seen');  // Change on new updates
 }
 
 window.addEventListener('load', () => {
-if (localStorage.getItem('cc_changelog_V12.33') === 'seen') { // Change on new updates
+if (localStorage.getItem('cc_changelog_V1.0') === 'seen') { // Change on new updates
     const popup = document.getElementById('changelogPopup');
     if (popup) popup.style.display = 'none';
     }
@@ -558,5 +560,7 @@ function OfflineProgress() {
         }   
     }
 }
+
+
 
 

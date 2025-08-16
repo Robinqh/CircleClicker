@@ -88,7 +88,7 @@ html, body {
     text-shadow: 0 0 8px #f5a623aa;
 }
 
-#changelogPopup a {
+#changelogPopup a, b {
     color: #f5a623;
     text-decoration: none;
     transition: color 0.2s ease;
@@ -111,15 +111,13 @@ html, body {
 .bug-report-container {
     display: flex;
     justify-content: row;
-    margin: 4vh 0;
-    gap: 1rem; /* ensure buttons are separate */
+    margin-bottom: 4vh;
 }
 
 .bug-report-btn {
     flex: 1 1 auto;
     max-width: 200px;
     height: 5vh;
-    padding: 8px 16px;
     background: #f5a623;
     color: #111;
     border: none;
@@ -167,7 +165,7 @@ html, body {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -2vh; 
+    bottom: -0vh; 
     width: 80%;
     max-width: 350px;
     height: 4.5vh;
@@ -184,29 +182,6 @@ html, body {
     background: #555;
     transform: translate(-50%, -2px);
 }
-
-.end-note {
-    background-color: #1a1a1a; 
-    border-left: 5px solid #f5a623; 
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #f0f0f0; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-.end-note p {
-    margin-bottom: 15px;
-}
-
-.end-note em {
-    font-style: italic;
-    color: #ffcf5c; 
-}
-
-
 
 
 
