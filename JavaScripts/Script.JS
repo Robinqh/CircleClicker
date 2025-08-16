@@ -216,7 +216,7 @@ function updateProgressBar() {
         document.getElementById("progress-text").innerHTML = "All Optional Evogoals Passed!";
     }
     else if (evoCompleted) {
-        document.getElementById("progress-text").innerHTML = "EvoGoal achieved";
+        document.getElementById("progress-text").innerHTML = "Optional EvoGoal achieved";
     } else {
         document.getElementById("progress-text").innerHTML = "Optional EvoGoal: " + evogoal;
     }

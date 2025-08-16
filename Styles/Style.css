@@ -443,7 +443,7 @@ button:hover {
     margin-left: -6.58vw;
 }
 
-#RPexchange, #ExtraMG {
+#OfflineRP, #ExtraMG {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -454,6 +454,7 @@ button:hover {
     border-radius: 1vh;
     margin-left: 6.58vw;
 }
+
 
 #permanentupgrade {
     width: 13.16vw;
@@ -481,7 +482,7 @@ button:hover {
 }
 
 
-#ELM, #ExtraMaxPermaPower {
+#ELM, #FreePower {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -492,7 +493,7 @@ button:hover {
     border-radius: 1vh;
 }
 
-#autotime, #FreePower {
+#autotime, #FreeAuto {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -503,7 +504,7 @@ button:hover {
     border-radius: 1vh;
 }
 
-#mysteryprice, #FreeAuto {
+#mysteryprice, #ExtraMaxPermaPower {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -516,7 +517,7 @@ button:hover {
 
 
 
-#Offline, #CoinAC {
+#Offline, #CN {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -528,7 +529,7 @@ button:hover {
 
 }
 
-#CN, #OfflineRP {
+#CoinAC, #RPexchange {
     width: 26.32vw;
     height: 5vh;
     position: absolute;
@@ -972,7 +973,6 @@ button:hover {
   max-width: 480px;
   pointer-events: none;
 
-  /* Optioneel: scroll als er te veel zijn */
   max-height: 80vh;
   overflow-y: auto;
 }
@@ -1522,6 +1522,12 @@ button:hover {
         transform: none; /* No transforms */
         left: auto;
     }
+
+    #ExtraMG {
+        margin-left: 0;
+    }
+
+
 
     .popup-button-container, #load button, #reset button{
     margin-top: 16px;

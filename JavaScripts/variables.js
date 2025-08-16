@@ -16,9 +16,9 @@ let RPpS = 0;
 let upgradesBoughtThisEvo = 0; //only counts clicker/auto power
 
 // --- Evolution System ---
-let evolveLVL = 3;
+let evolveLVL = 0;
 let evopower = evolveLVL + 1;
-let specialty = "offliner";
+let specialty = null;
 let evoloss = 1;
 let evolossBought = 0;
 let totalExtraEvoloss = 0;

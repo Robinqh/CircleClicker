@@ -131,6 +131,8 @@ function loadGame() {
     } else {
         if (saveExists) {
             loadgamePart2(savedGameState);
+        } else {
+            showPopup("otherPopUps", "No Save Found!", 2500);
         }
     }
 }
@@ -289,37 +291,6 @@ function loadgamePart2() {
 }
 
 
-const resetAupdate = document.getElementById("resetAupdate")
-const changelogPopup = document.getElementById("changelogPopup")
-
-if (showChangeLogsButton) {
-    showChangeLogsButton.addEventListener("click", function () {
-        const changelogPopup = document.getElementById("changelogPopup");
-        if (changelogPopup) {
-            changelogPopup.style.display = "block";
-            changelogPopup.scrollTo({ top: 0, behavior: "smooth" });
-        }
-    });
-}
-
-resetAupdate.onclick = function() {
-        resetGame();
-        closeChangelog();
-    }
-
-function closeChangelog() {
-    changelogPopup.style.display = 'none';   
-    localStorage.setItem('cc_changelog_V12.3', 'seen');  // Change on new updates
-}
-
-const changelogVersion = "V12.3"; // Change on new updates
-window.addEventListener('load', () => {
-if (localStorage.getItem('cc_changelog_V12.3') === 'seen') { // Change on new updates
-    const popup = document.getElementById('changelogPopup');
-    if (popup) popup.style.display = 'none';
-    }
-});
-
 
 function resetGame() {
 
@@ -425,13 +396,13 @@ function resetGame() {
             unlockedAchievements.clear();
             claimedAchievements.clear();
 
-            // Remove achievement classes from buttons
+
             document.querySelectorAll('#Basic-Achievments button').forEach(btn => {
             btn.classList.remove('achieved', 'received');
             });
 
-            // Remove saved game from localStorage
-            localStorage.removeItem("GameState");
+
+        localStorage.clear();
 
         
         upgtoggle();
@@ -489,3 +460,39 @@ saveGameButton.onclick = saveGame;
 loadGameButton.onclick = loadGame;
 resetGameButton.onclick = resetGame;
 
+
+
+const resetAupdate = document.getElementById("resetAupdate")
+const changelogPopup = document.getElementById("changelogPopup")
+
+if (showChangeLogsButton) {
+    showChangeLogsButton.addEventListener("click", function () {
+        const changelogPopup = document.getElementById("changelogPopup");
+        if (changelogPopup) {
+            changelogPopup.style.display = "block";
+            changelogPopup.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    });
+}
+
+resetAupdate.onclick = function() {
+        resetGame();
+        closeChangelog();
+    }
+
+function closeChangelog() {
+    changelogPopup.style.display = 'none';   
+    localStorage.setItem('cc_changelog_V12.31', 'seen');  // Change on new updates
+}
+
+const changelogVersion = "V12.31"; // Change on new updates
+window.addEventListener('load', () => {
+if (localStorage.getItem('cc_changelog_V12.31') === 'seen') { // Change on new updates
+    const popup = document.getElementById('changelogPopup');
+    if (popup) popup.style.display = 'none';
+    }
+});
+
+setTimeout(() => {
+    localStorage.setItem('cc_changelog_V12.31', 'seen');
+}, 10000);

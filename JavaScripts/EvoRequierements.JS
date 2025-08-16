@@ -26,11 +26,11 @@ function checkEvoRequirements() {
         }
     }
     else if (evolveLVL === 1) {
-        mainEvoGoalCompleted = allTimePoints >= 1250;
+        mainEvoGoalCompleted = allTimePoints >= 750;
 
         if (!mainEvoGoalCompleted) {
             mayEvolve = false;
-            noEVOallowedReason = "Get " + formatNumber(Math.round(1250 - allTimePoints)) + " more points!";
+            noEVOallowedReason = "Get " + formatNumber(Math.round(750 - allTimePoints)) + " more points!";
         } else if (upgradesBoughtThisEvo < 5 * evolveLVL) {
             const neededupgrades = 5 * evolveLVL - upgradesBoughtThisEvo;
             mayEvolve = false;
@@ -39,8 +39,8 @@ function checkEvoRequirements() {
             mayEvolve = true;
             noEVOallowedReason = "";
         }
-        evogoal = "Gain: " + formatNumber(Math.round(3000 - allTimePoints)) + " more points!";
-        evogoalcompleted = allTimePoints >= 3000;
+        evogoal = "Gain: " + formatNumber(Math.round(2500 - allTimePoints)) + " more points!";
+        evogoalcompleted = allTimePoints >= 2500;
     }
     else if (evolveLVL === 2) {
         const pointsNeeded = 5000 - allTimePoints;
@@ -66,8 +66,8 @@ function checkEvoRequirements() {
         evogoalcompleted = false;
     }
     else if (evolveLVL === 3 && specialty !== null) {
-        const powerNeeded = 75 - power;
-        mainEvoGoalCompleted = power >= 75;
+        const powerNeeded = 100 - power;
+        mainEvoGoalCompleted = power >= 100;
 
         if (!mainEvoGoalCompleted) {
             mayEvolve = false;
@@ -80,12 +80,12 @@ function checkEvoRequirements() {
             mayEvolve = true;
             noEVOallowedReason = "";
         }
-        evogoal = "Buy " + (25 - upgradesBoughtThisEvo) + " more upgrades!";
-        evogoalcompleted = upgradesBoughtThisEvo >= 25;
+        evogoal = "Buy " + (30 - upgradesBoughtThisEvo) + " more upgrades!";
+        evogoalcompleted = upgradesBoughtThisEvo >= 30;
     }
     else if (evolveLVL === 4) {
-        const pointsNeeded = 25000 - allTimePoints;
-        mainEvoGoalCompleted = allTimePoints >= 25000;
+        const pointsNeeded = 35000 - allTimePoints;
+        mainEvoGoalCompleted = allTimePoints >= 35000;
 
         if (!mainEvoGoalCompleted) {
             mayEvolve = false;
@@ -264,8 +264,8 @@ function checkEvoRequirements() {
         evogoalcompleted = mgBought === maxMGperEvo;
     }
     else if (evolveLVL === 14) {
-        const achievementsNeeded = 9 - achievementsCompleted;
-        mainEvoGoalCompleted = achievementsCompleted >= 9;
+        const achievementsNeeded = 10 - achievementsCompleted;
+        mainEvoGoalCompleted = achievementsCompleted >= 10;
 
         if (!mainEvoGoalCompleted) {
             mayEvolve = false;
@@ -300,8 +300,8 @@ function checkEvoRequirements() {
         evogoalcompleted = totalcoins >= 400;
     }
     else if (evolveLVL === 16) {
-        const clicksNeeded = 2000 - allTimeClicks;
-        mainEvoGoalCompleted = allTimeClicks >=2000;
+        const clicksNeeded = 2500 - allTimeClicks;
+        mainEvoGoalCompleted = allTimeClicks >=2500;
 
         if (!mainEvoGoalCompleted) {
             mayEvolve = false;
