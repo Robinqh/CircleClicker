@@ -600,3 +600,39 @@ function applyTieredRounding(rawCost) {
 
     return Math.round(rawCost / roundingFactor) * roundingFactor;
 }
+
+function updateProgressBar() {
+    let statusbarPercent = 0;
+    const neededUpgrades = evolveLVL * 5 - upgradesBoughtThisEvo;
+
+    const upgradesDone = neededUpgrades <= 0;
+    const evoCompleted = evogoalcompleted;
+    const readyToEvolve = mainEvoGoalCompleted; 
+
+    if (evogoal === "None") {
+        if ((evolveLVL > 0 && upgradesDone) || (evolveLVL === 0 && upgradesBoughtThisEvo >= 3)) {
+            statusbarPercent += 50;
+        }
+        if (readyToEvolve) {
+            statusbarPercent += 50;
+        }
+    } else {
+        if (upgradesDone && evolveLVL > 0) statusbarPercent += 33;
+        if (evolveLVL === 0 && upgradesBoughtThisEvo >= 3) statusbarPercent += 33;
+        if (evoCompleted) statusbarPercent += 33;
+        if (readyToEvolve) statusbarPercent += 34;
+    }
+
+    document.getElementById("progress-bar").style.width = statusbarPercent + "%";
+
+    if (evolveLVL < 25 && (evogoal === false || evogoal === "None")) {
+        document.getElementById("progress-text").innerHTML = "No Optional Evogoal Available";
+    } else if (evolveLVL > 24) {
+        document.getElementById("progress-text").innerHTML = "All Optional Evogoals Passed!";
+    }
+    else if (evoCompleted) {
+        document.getElementById("progress-text").innerHTML = "Optional EvoGoal achieved";
+    } else {
+        document.getElementById("progress-text").innerHTML = "Optional EvoGoal: " + evogoal;
+    }
+}

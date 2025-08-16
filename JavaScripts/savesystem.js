@@ -467,6 +467,7 @@ resetGameButton.onclick = resetGame;
 
 const resetAupdate = document.getElementById("resetAupdate")
 const changelogPopup = document.getElementById("changelogPopup")
+const changelogVersion = "V12.33"; // Change on new updates
 
 if (showChangeLogsButton) {
     showChangeLogsButton.addEventListener("click", function () {
@@ -485,17 +486,77 @@ resetAupdate.onclick = function() {
 
 function closeChangelog() {
     changelogPopup.style.display = 'none';   
-    localStorage.setItem('cc_changelog_V12.32', 'seen');  // Change on new updates
+    localStorage.setItem('cc_changelog_V12.33', 'seen');  // Change on new updates
 }
 
-const changelogVersion = "V12.32"; // Change on new updates
 window.addEventListener('load', () => {
-if (localStorage.getItem('cc_changelog_V12.32') === 'seen') { // Change on new updates
+if (localStorage.getItem('cc_changelog_V12.33') === 'seen') { // Change on new updates
     const popup = document.getElementById('changelogPopup');
     if (popup) popup.style.display = 'none';
     }
 });
 
-setTimeout(() => {
-    localStorage.setItem('cc_changelog_V12.31', 'seen');
-}, 10000);
+
+function OfflineProgress() { 
+    if (lastPlayedTime) {
+        if (Offlinebought === true) {
+            const currentTime = Date.now();
+            let timeElapsedMs = currentTime - lastPlayedTime;
+            let maxOffTimeOverlapped = false;
+
+            let timeElapsedS = timeElapsedMs / 1000;
+
+            if (timeElapsedS >= maxOffTime) {
+                timeElapsedS = maxOffTime;
+                maxOffTimeOverlapped = true;
+            }
+
+            const autoClicksPerSecondRate = autoclick > 0 ? (1000 / autoclick) : 0;
+            const clicksGainedOffline = autopower * autoClicksPerSecondRate * autoMultiplier * timeElapsedS * multiplier2;
+            let coinsGainedOffline = 0;
+
+            if (CoinACbought === true) {
+                coinsGainedOffline = autoClicksPerSecondRate / (coinneeded * 0.66) * timeElapsedS * multiplier2 * 15;
+            } else {
+                coinsGainedOffline = 0;
+            }
+
+            let RPGainedOffline = 0
+            
+            if (offlineRPBought === true) {
+                RPGainedOffline = Math.round(RPpS * timeElapsedS) 
+            } else {
+                RPGainedOffline = 0
+            }
+            
+            clicks += Math.round(clicksGainedOffline); 
+            allTimePoints += Math.round(clicksGainedOffline);
+            allTimeClicks += Math.round(autoClicksPerSecondRate * timeElapsedS)
+            rankPoints += Math.round(RPGainedOffline)
+
+            coins += Math.round(coinsGainedOffline);
+            totalcoins += Math.round(coinsGainedOffline);
+
+            const backmessagePopup = document.getElementById('backmessage');
+            if (backmessagePopup) {
+                if (!maxOffTimeOverlapped) {
+                    backmessagePopup.innerHTML = `Welcome back! You gained<br> ${formatNumber(Math.round(clicksGainedOffline))} clicks, ${Math.round(coinsGainedOffline)} coins and ${Math.round(RPGainedOffline)} RankPoints! (time away: ${(timeElapsedS / 60).toFixed(0)} minutes)`;
+                } else {
+                    backmessagePopup.innerHTML = `Welcome back! You gained<br> ${formatNumber(Math.round(clicksGainedOffline))} clicks, ${Math.round(coinsGainedOffline)} coins and ${Math.round(RPGainedOffline)} RankPoints! (time away: capped by max offline time!)`;
+                }
+                backmessagePopup.classList.remove('hidden');
+                backmessagePopup.classList.add('show');
+
+                setTimeout(() => {
+                    backmessagePopup.classList.remove('show');
+                    backmessagePopup.classList.add('hidden');
+                    backmessagePopup.innerHTML = "";
+                }, 5000);
+            }
+
+            UpdateUI();
+        }   
+    }
+}
+
+

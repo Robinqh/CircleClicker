@@ -26,43 +26,44 @@ html, body {
     font-style: italic;
 }
 
+
+
+
+/* ================= Changelog Popup ================= */
 #changelogPopup {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #121212;
-    color: #f0f0f0;
-    padding: 2vh 3vh;
-    border-radius: 1rem;
     width: 90%;
     max-width: 425px;
     max-height: 80%;
+    padding: 2.5vh 3.5vh;
+    background: rgba(30, 30, 30, 0.7); /* semi-transparent */
+    backdrop-filter: blur(10px); /* frosted glass effect */
+    color: #f0f0f0;
+    border-radius: 1rem;
     overflow-y: auto;
     overflow-x: hidden;
     box-shadow: 
-        0 8px 24px rgba(0, 0, 0, 0.75),
-        0 0 15px rgba(245, 166, 35, 0.5);
+        0 12px 30px rgba(0,0,0,0.6),
+        0 0 20px rgba(245,166,35,0.3);
     z-index: 9999;
+    font-family: 'Segoe UI', sans-serif;
     font-size: 1rem;
     text-align: left;
     pointer-events: all;
-    transition: opacity 0.3s ease;
+    opacity: 0;
+    transform: translate(-50%, -60%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.message {
-  text-align: left;
-  margin: 20px auto;
-  padding: 15px 25px;
-  width: fit-content;
-  border-radius: 8px;
-  font-size: 16px;
-  color: white;
-  box-shadow: none;
-  background-color: transparent;
+#changelogPopup.show {
+    opacity: 1;
+    transform: translate(-50%, -50%);
 }
 
-
+/* ================= Scrollbar ================= */
 #changelogPopup::-webkit-scrollbar {
     width: 8px;
 }
@@ -76,90 +77,152 @@ html, body {
     background: #222;
 }
 
-#changelogPopup h1, 
-#changelogPopup h2, 
+/* ================= Typography ================= */
+#changelogPopup h1,
+#changelogPopup h2,
 #changelogPopup h3 {
     color: #f5a623;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
+    margin: 1rem 0 0.5rem;
+    font-weight: 700;
     letter-spacing: 0.05em;
-    text-shadow: 0 0 5px #f5a623aa;
+    text-shadow: 0 0 8px #f5a623aa;
 }
 
 #changelogPopup a {
     color: #f5a623;
-    text-decoration: underline;
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 #changelogPopup a:hover {
     color: #ffcf5c;
+    text-decoration: underline;
 }
 
 #changelogPopup li {
-  margin-bottom: 6px; 
+    margin-bottom: 6px;
 }
 
-li:last-child {
-  margin-bottom: 0;
+#changelogPopup li:last-child {
+    margin-bottom: 0;
 }
 
-
-
+/* ================= Bug Report Button ================= */
 .bug-report-container {
-  display: flex;
-  margin: 4vh 0;
+    display: flex;
+    justify-content: row;
+    margin: 4vh 0;
+    gap: 1rem; /* ensure buttons are separate */
 }
 
 .bug-report-btn {
-  background: rgb(255, 255, 255);
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-weight: bold;
-  width: 50vw;
-  max-width: 200px;
-  height: 5vh;
-}
-
-
-.popup-button-container {
-    text-align: center; 
-    display: flex;
-    flex-direction: column;
-    gap: 4vh;
-}
-
-.reset-btn,
-.close-btn {
-    display: block; 
-    height: 4vh;
-    max-width: 400px;
-    width: 50vw;
+    flex: 1 1 auto;
+    max-width: 200px;
+    height: 5vh;
+    padding: 8px 16px;
+    background: #f5a623;
+    color: #111;
     border: none;
-    cursor: pointer;
+    border-radius: 10px;
     font-weight: bold;
-    box-sizing: border-box;
-    background-clip: padding-box;
-    transition: background-color 0.3s ease;
-    user-select: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.bug-report-btn:hover {
+    background: #ffcf5c;
+    transform: translateY(-2px);
+}
+
+/* ================= Popup Button Container ================= */
+.popup-button-container {
+    position: relative; /* make container the reference for absolute positioning */
+    height: 8vh; /* enough height to hold both buttons */
 }
 
 .reset-btn {
-  background: rgb(255, 255, 255);
-  color: #000;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0vh; /* place at the top of container */
+    width: 80%;
+    max-width: 350px;
+    height: 4.5vh;
+    background: #f5a623;
+    color: #111;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+    background: #ffcf5c;
+    transform: translate(-50%, -2px);
 }
 
 .close-btn {
-  background: #000000;
-  color: white;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -2vh; 
+    width: 80%;
+    max-width: 350px;
+    height: 4.5vh;
+    background: #222;
+    color: #fff;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
 }
 
-.reset-btn:hover,
 .close-btn:hover {
-  background-color: grey;
+    background: #555;
+    transform: translate(-50%, -2px);
+}
+
+.end-note {
+    background-color: #1a1a1a; 
+    border-left: 5px solid #f5a623; 
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #f0f0f0; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.end-note p {
+    margin-bottom: 15px;
+}
+
+.end-note em {
+    font-style: italic;
+    color: #ffcf5c; 
+}
+
+
+
+
+
+
+
+
+.message {
+  text-align: left;
+  margin: 20px auto;
+  padding: 15px 25px;
+  width: fit-content;
+  border-radius: 8px;
+  font-size: 16px;
+  color: white;
+  box-shadow: none;
+  background-color: transparent;
 }
 
 .side-box {
@@ -1295,7 +1358,7 @@ button:hover {
 
 
 /* Mobile styles start here */
-@media (max-width: 1400px) {
+@media (max-width: 1250px) {
     /* Hide the sidebars completely */
     .side-box {
         display: none !important;
@@ -1725,22 +1788,3 @@ button:hover {
 
 
 
-.end-note {
-    background-color: #f0f8ff; /* soft light blue */
-    border-left: 5px solid #007acc; /* accent color */
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 8px;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: black;
-}
-
-.end-note p {
-    margin-bottom: 15px;
-}
-
-.end-note em {
-    font-style: italic;
-    color: #d35400; /* subtle highlight for emphasis */
-}
