@@ -89,56 +89,64 @@ function priceChanges() {
 
 //price reductions for coin-/rankshop
 
-    if (CoinACcost != null) {
-        CoinACcost = 3000 
-        CoinACcost = Math.round(CoinACcost * pricemultiplier2);
+function smartRound(value) {
+    if (value > 250) {
+        return Math.round(value / 10) * 10; 
+    } else {
+        return Math.round(value / 5) * 5;   
     }
-    if (Offlinecost != null) {
-        Offlinecost = 750
-        Offlinecost = Math.round(Offlinecost * pricemultiplier2);
-    }
-    if (CNneededcost != null) {
-        CNneededcost = 500 + (CNBought * 250)
-        CNneededcost = Math.round(CNneededcost * pricemultiplier2);
-    }
-    if (ExchangeCost != null) {
-        let pointsGain = Math.floor(clicks * 0.01); 
-        let millions = Math.floor(pointsGain / 500000);
-        ExchangeCost = 20 + (10 * millions);
-        ExchangeCost = Math.round(ExchangeCost * pricemultiplier2);
-    }
-    if (ExtraMGCost != null) {
-        ExtraMGCost = 2500 + (2500 * maxMGupgradesBoughtRP)
-        ExtraMGCost = Math.round(ExtraMGCost * pricemultiplier2)
-    }
-    if (OfflineRPCost != null) {
-        OfflineRPCost = 5000
-        OfflineRPCost = Math.round(OfflineRPCost * pricemultiplier2)
-    }
-    if (ELMcost !== null) {
-        ELMcost = 15 + (15 * evolossBought)
-        ELMcost = Math.round(ELMcost *pricemultiplier2)
-    }
-    if (ExtraMaxPermaPowerCost !== null) {
-        ExtraMaxPermaPowerCost = 300 + (300 * coinBoughtMaxPermaPower)
-        ExtraMaxPermaPowerCost = Math.round(ExtraMaxPermaPowerCost * pricemultiplier2)
-    }
-    if (FreePowerPrice !== null) {
-        FreePowerPrice = 250 + (250 * extraFreePower)
-        FreePowerPrice = Math.round(FreePowerPrice * pricemultiplier2)
-    }
-    if (FreeAutoPrice !== null) {
-        FreeAutoPrice = 500 + (500 * extraFreeAuto)
-        FreeAutoPrice = Math.round(FreeAutoPrice * pricemultiplier2)
-    }
-    if (autotimerCost != null) {
-        autotimerCost = 45 + (autoTimerBought * 30)
-        autotimerCost = Math.round(autotimerCost * pricemultiplier2);
-    }
-    if (reduceMysterycost != null) {
-        reduceMysterycost = 150 + (75 * maxMGupgradesBought)
-        reduceMysterycost = Math.round(reduceMysterycost * pricemultiplier2);
-    }
+}
+
+if (CoinACcost != null) {
+    CoinACcost = 3000;
+    CoinACcost = smartRound(CoinACcost * pricemultiplier2);
+}
+if (Offlinecost != null) {
+    Offlinecost = 750;
+    Offlinecost = smartRound(Offlinecost * pricemultiplier2);
+}
+if (CNneededcost != null) {
+    CNneededcost = 500 + (CNBought * 250);
+    CNneededcost = smartRound(CNneededcost * pricemultiplier2);
+}
+if (ExchangeCost != null) {
+    let pointsGain = Math.floor(clicks * 0.01); 
+    let millions = Math.floor(pointsGain / 500000);
+    ExchangeCost = 20 + (10 * millions);
+    ExchangeCost = smartRound(ExchangeCost * pricemultiplier2);
+}
+if (ExtraMGCost != null) {
+    ExtraMGCost = 2500 + (2500 * maxMGupgradesBoughtRP);
+    ExtraMGCost = smartRound(ExtraMGCost * pricemultiplier2);
+}
+if (OfflineRPCost != null) {
+    OfflineRPCost = 5000;
+    OfflineRPCost = smartRound(OfflineRPCost * pricemultiplier2);
+}
+if (ELMcost !== null) {
+    ELMcost = 15 + (15 * evolossBought);
+    ELMcost = smartRound(ELMcost * pricemultiplier2);
+}
+if (ExtraMaxPermaPowerCost !== null) {
+    ExtraMaxPermaPowerCost = 300 + (300 * coinBoughtMaxPermaPower);
+    ExtraMaxPermaPowerCost = smartRound(ExtraMaxPermaPowerCost * pricemultiplier2);
+}
+if (FreePowerPrice !== null) {
+    FreePowerPrice = 250 + (250 * extraFreePower);
+    FreePowerPrice = smartRound(FreePowerPrice * pricemultiplier2);
+}
+if (FreeAutoPrice !== null) {
+    FreeAutoPrice = 500 + (500 * extraFreeAuto);
+    FreeAutoPrice = smartRound(FreeAutoPrice * pricemultiplier2);
+}
+if (autotimerCost != null) {
+    autotimerCost = 45 + (autoTimerBought * 30);
+    autotimerCost = smartRound(autotimerCost * pricemultiplier2);
+}
+if (reduceMysterycost != null) {
+    reduceMysterycost = 150 + (75 * maxMGupgradesBought);
+    reduceMysterycost = smartRound(reduceMysterycost * pricemultiplier2);
+}
 
 
     UpdateUI();
@@ -212,7 +220,7 @@ function updateProgressBar() {
 
     if (evolveLVL < 25 && (evogoal === false || evogoal === "None")) {
         document.getElementById("progress-text").innerHTML = "No Optional Evogoal Available";
-    } else if (evolveLVL > 25) {
+    } else if (evolveLVL > 24) {
         document.getElementById("progress-text").innerHTML = "All Optional Evogoals Passed!";
     }
     else if (evoCompleted) {
@@ -317,7 +325,7 @@ permanentupgrade.onclick = function() {
             permapower ++; 
             increasePerma *= 1.35;
 
-            totalPermaClicksBonus += 0.075;
+            totalPermaClicksBonus += 0.1;
 
             priceChanges();
             UpdateUI();

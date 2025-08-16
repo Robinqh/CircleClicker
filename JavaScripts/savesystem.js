@@ -75,6 +75,7 @@ function saveGame() {
         allTimePoints,
         multiplier2,
         totalAutoclickTimeReductionBonus,
+        maxMGupgradesBoughtRP,
         maxPermaPower,
         specialty,
         quartered,
@@ -164,7 +165,8 @@ function loadgamePart2() {
         powerprice = gameState.powerprice;
         autoTimerBought = gameState.autoTimerBought;
         CNneededcost = gameState.CNneededcost;
-        FreePowerPrice = gameState.FreePowerPrice
+        FreePowerPrice = gameState.FreePowerPrice;
+        maxMGupgradesBoughtRP = gameState.maxMGupgradesBoughtRP
         rank = gameState.rank;
         CNBought = gameState.CNBought;
         upgradesBoughtThisEvo = gameState.upgradesBoughtThisEvo
@@ -323,6 +325,7 @@ function resetGame() {
         upgradesBoughtThisEvo = 0;
         CNBought = false;
         pricemultiplier2 = 1; 
+        maxMGupgradesBoughtRP = 0;
         extraFreeAuto = 0
         extraFreePower = 0
         offlineRPBought = false
@@ -482,12 +485,12 @@ resetAupdate.onclick = function() {
 
 function closeChangelog() {
     changelogPopup.style.display = 'none';   
-    localStorage.setItem('cc_changelog_V12.31', 'seen');  // Change on new updates
+    localStorage.setItem('cc_changelog_V12.32', 'seen');  // Change on new updates
 }
 
-const changelogVersion = "V12.31"; // Change on new updates
+const changelogVersion = "V12.32"; // Change on new updates
 window.addEventListener('load', () => {
-if (localStorage.getItem('cc_changelog_V12.31') === 'seen') { // Change on new updates
+if (localStorage.getItem('cc_changelog_V12.32') === 'seen') { // Change on new updates
     const popup = document.getElementById('changelogPopup');
     if (popup) popup.style.display = 'none';
     }

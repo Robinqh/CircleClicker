@@ -3,9 +3,9 @@
 // Click achievements
 const click1000 = document.getElementById("click1000");
 const click2500 = document.getElementById("click2500");
-const click10000 = document.getElementById("click10000");
-const click25000 = document.getElementById("click25000");
-const click100000 = document.getElementById("click100000");
+const click5000 = document.getElementById("click5000");
+const click7500 = document.getElementById("click7500");
+const click15000 = document.getElementById("click15000");
 
 // Points achievements
 const points100000 = document.getElementById("points100000");
@@ -26,7 +26,7 @@ const rp500 = document.getElementById("rp500");
 const rp1250 = document.getElementById("rp1250");
 const rp5000 = document.getElementById("rp5000");
 const rp12500 = document.getElementById("rp12500");
-const rp50000 = document.getElementById("rp50000");
+const rp25000 = document.getElementById("rp25000");
 
 // Evolutions achievements
 const evolve3 = document.getElementById("evolve3");
@@ -38,9 +38,9 @@ const evolve25 = document.getElementById("evolve25");
 //
 const click_1000 = 1000;
 const click_2500 = 2500;
-const click_10000 = 10000;
-const click_25000 = 25000;
-const click_100000 = 100000;
+const click_5000 = 5000;
+const click_7500 = 7500;
+const click_15000 = 15000;
 
 const points_100000 = 100000;
 const points_250000 = 250000;
@@ -58,7 +58,7 @@ const rp_500 = 500;
 const rp_1250 = 1250;
 const rp_5000 = 5000;
 const rp_12500 = 12500;
-const rp_50000 = 50000;
+const rp_25000 = 25000;
 
 const evolve_3 = 3;
 const evolve_5 = 5;
@@ -72,9 +72,9 @@ function checkAchievements() {
   // Click achievements
   checkClickAchievement(click1000, allTimeClicks, click_1000);
   checkClickAchievement(click2500, allTimeClicks, click_2500);
-  checkClickAchievement(click10000, allTimeClicks, click_10000);
-  checkClickAchievement(click25000, allTimeClicks, click_25000);
-  checkClickAchievement(click100000, allTimeClicks, click_100000);
+  checkClickAchievement(click5000, allTimeClicks, click_5000);
+  checkClickAchievement(click7500, allTimeClicks, click_7500);
+  checkClickAchievement(click15000, allTimeClicks, click_15000);
 
   // Points achievements
   checkClickAchievement(points100000, allTimePoints, points_100000);
@@ -95,7 +95,7 @@ function checkAchievements() {
   checkClickAchievement(rp1250, totalRankPoints, rp_1250);
   checkClickAchievement(rp5000, totalRankPoints, rp_5000);
   checkClickAchievement(rp12500, totalRankPoints, rp_12500);
-  checkClickAchievement(rp50000, totalRankPoints, rp_50000);
+  checkClickAchievement(rp25000, totalRankPoints, rp_25000);
 
   // Evolutions achievements
   checkClickAchievement(evolve3, evolveLVL, evolve_3);
@@ -150,20 +150,20 @@ const achievementRewards = {
     totalcoins += reward;
     showPopup('otherPopUps', `+${formatNumber(reward)} coins`);
     },
-    click10000: () => {
-    const reward = 10000 / 50;
+    click5000: () => {
+    const reward = 5000 / 50;
     coins += reward;
     totalcoins += reward;
     showPopup('otherPopUps', `+${formatNumber(reward)} coins`);
     },
-    click25000: () => {
-    const reward = 25000 / 50;
+    click7500: () => {
+    const reward = 7500 / 50;
     coins += reward;
     totalcoins += reward;
     showPopup('otherPopUps', `+${formatNumber(reward)} coins`);
     },
-    click100000: () => {
-    const reward = 100000 / 50;
+    click15000: () => {
+    const reward = 15000 / 50;
     coins += reward;
     totalcoins += reward;
     showPopup('otherPopUps', `+${formatNumber(reward)} coins`);
@@ -255,8 +255,8 @@ const achievementRewards = {
     totalRankPoints += reward;
     showPopup('otherPopUps', `+${formatNumber(reward)} RankPoints`);
     },
-    rp50000: () => {
-    const reward = 50000 * 0.2;
+    rp25000: () => {
+    const reward = 25000 * 0.2;
     rankPoints += reward;
     totalRankPoints += reward;
     showPopup('otherPopUps', `+${formatNumber(reward)} RankPoints`);

@@ -460,7 +460,7 @@ function UpdateUI() {
                 ExtraMG.classList.remove("not-unlocked");
                 ExtraMG.classList.remove("completed");
             }
-            ExtraMG.innerText = "Increase max mystergifts per evo: " + formatNumber(ExtraMGCost) + " RankPoints";
+            ExtraMG.innerText = "Increase max mystergifts per evo: " + formatNumber(ExtraMGCost) + " RP";
         }
     }
 

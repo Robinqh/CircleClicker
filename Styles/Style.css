@@ -611,19 +611,20 @@ button:hover {
 .settings-container {
     position: relative;  
     width: 40vh;
-    height: 40vh;
+    height: 80vh;
     background: #333;
     border-radius: 12px;
     margin: 2vh auto 0 auto;
     padding: 1vh;
     box-sizing: border-box;
-    top: 25vh;
+    top: 5vh;
 }
 
 .settings-container button {
-    position: absolute;
-    width: 15vh;
-    height: 15vh;
+    position: relative;
+    width: 38vh;
+    height: 10vh;
+    margin-bottom: 0.5vh;
     border-radius: 1vh;
     color: white;
     font-size: 1rem;
@@ -636,26 +637,18 @@ button:hover {
 
 
 #toggleAutoSave {
-    top: 1vh;
-    left: 1vh;
     background-color: darkgreen;
 }
 
 #toggleSound {
-    top: 1vh;
-    right: 1vh;
     background-color: darkblue;
 }
 
 #resetGameButton {
-    bottom: 1vh;
-    left: 1vh;
     background-color: darkred;
 }
 
 #toggleMusic {
-    bottom: 1vh;
-    right: 1vh;
     background-color: darkorchid;
 }
 
